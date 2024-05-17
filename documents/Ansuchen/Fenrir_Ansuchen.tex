@@ -319,128 +319,134 @@ Als Busprotokoll wird voraussichtlich Modbus eingesetzt, außerdem wird dieses i
 \newpage
 \section{Projektziele}
 \subsection{Hauptziele}
-\begin{enumerate}[start=1,label={\bfseries Ziel-H \arabic*}]
-\item \bfseries{Ungesicherte Netzwerktopologie}\\
+\begin{enumerate}[start=1,label={\bfseries Ziel-H \arabic*},leftmargin=*]
+\item{\bfseries{Ungesicherte Netzwerktopologie}}\\
 Die gesamte Netzwerktopologie ist umgesetzt und funktioniert einwandfrei, jedoch mit fehlender Absicherung vor äußeren Angriffen.
 \begin{enumerate}[label=\alph*.]
-\item Planung der Topologie\\
+\item{\underline{Planung der Topologie}}\\
 Die gesamte Projekttopologie ist finalisiert und grafisch dargestellt.
 
-\item OT-Aufbau/Verkabelung\\
+\item{\underline{OT-Aufbau/Verkabelung}}\\
 Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt.
 
-\item IT-Aufbau/Verkabelung\\
+\item{\underline{IT-Aufbau/Verkabelung}}\\
 Der gesamte IT-Bereich ist fertig aufgebaut und verkabelt.
 
-\item Übergang \& DMZ IT/OT\\
+\item{\underline{Übergang \& DMZ IT/OT}}\\
 Der IT- und der OT-Bereich sind zusammengeschlossen mittels einer FortiGate-FW. Diese lässt jeglichen Traffic zwischen IT und OT durchfließen und die DMZ bleibt vorerst ungenutzt.
 
-\item PLC-Programmierung\\
+\item{\underline{PLC-Programmierung}}\\
 Alle SPSen im OT-Bereich sind je nach ihrem Zweck und der anzusteuernden Aktorik/Sensorik fertig programmiert.
 
 \begin{enumerate}[label=\roman*.]
-\item Simatic\\
+\item{\underline{Simatic}}\\
 Die Siemens Simatic SPS wurde je nach Zweck mittels Siemens STEP 7 programmiert.
 
-\item LOGO!\\
+\item{\underline{LOGO!}}\\
 Die Siemens LOGO! SPS wurde je nach Zweck mittels Siemens Comfort program-miert.
 
-\item OpenPLC\\
+\item{\underline{OpenPLC}}\\
 Die OpenPLC SPS, die auf einem Raspberry Pi 3b läuft, wurde je nach Zweck mittels des OpenPLC-Editors programmiert.
 \end{enumerate}
 
-\item SCADA Aufsetzung\\
+\item{\underline{SCADA Aufsetzung}}\\
 Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist fertigge-stellt.
 
 \begin{enumerate}[label=\roman*.]
-\item Konfiguration/Scripting\\
+\item{\underline{Konfiguration/Scripting}}\\
 Die Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA eingetragen und können erfolgreich ein- und ausgeschalten werden.
 
-\item Design\\
+\item{\underline{Design}}\\
 Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA grafisch realitätsnah abgebildet.
 \end{enumerate}
 
-\item HMI-Konfiguration\\
+\item{\underline{HMI-Konfiguration}}\\
 Alle HMI-Geräte sind ihrem Zweck nach konfiguriert worden, um den Betriebsprozess überwachen zu können.
 
-\item Engineer Workstation Aufsetzung\\
+\item{\underline{Engineer-Workstation}}\\
 Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert.
 
-\item AD-Umgebung erstellt\\
+\item{\underline{AD-Umgebung erstellt}}\\
 Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Diese soll realitätsnah die Realität widerspiegeln.
 
 \begin{enumerate}[label=\roman*.]
-\item DC-Aufsetzung\\
+\item{\underline{DC-Konfiguration}}\\
 \todo{DC-Aufsetzung}
-\item OU-Struktur\\
+\item{\underline{OU-Struktur}}\\
 \todo{OU-Struktur}
-\item Konten/Gruppen-Erstellung \& Konfiguration\\
+\item{\underline{Konten/Gruppen-Erstellung \& Konfiguration}}\\
 \todo{Konten/Gruppen-Erstellung \& Konfiguration}
-\item Prometheus Monitoring? \\
+\item{\underline{Prometheus Monitoring?}}\\
 \todo{Prometheus Monitoring}
 \end{enumerate}
 
 \end{enumerate}
-\item \bfseries{Gesicherte Netzwerktopologie}\\
+\item{\bfseries{Gesicherte Netzwerktopologie}}\\
 Alle Bereiche der Netzwerktopologie sind nach den unten angeführten Sicherheitskriterien gehärtet. Die Topologie gilt nun als industriegemäß/realitätsgetreu sicher vor äußeren Angriffen.
 
 \begin{enumerate}[label=\alph*.]
-\item Firewall Konfiguration\\
+\item{\underline{Firewall Konfiguration}}\\
 Alle Firewalls innerhalb der Topologie wurden nach den angegebene Sicherheitskriterien konfiguriert. 
 
 \begin{enumerate}[label=\roman*.]
-\item Uplink\\
+\item{\underline{Uplink}}\\
 \todo{asidjaisdj}
 
-\item Übergang IT/OT\\
+\item{\underline{Übergang IT/OT}}\\
 Der Übergang zwischen der OT-, und der IT-Welt ist so abgesichert, dass nur die be-rechtigte Workstation in das OT-Netzwerk eingreifen kann, und auch dort nur auf das SCADA-System bzw. die SPS-Workstation.
 
-\item ((OT ZELLEN???))\\
+\item{\underline{((OT ZELLEN???))}}\\
 \todo{ahsdjoahsd}
 \end{enumerate}
 
-\item Jump Server Aufsetzung\\
+\item{\underline{Jump Server Aufsetzung}}\\
 Der Jump Server für den VPN-Zugriff vom IT-Netzwerk in das OT-Netzwerk ist fertig aufgesetzt und liegt in der DMZ der Übergangs-Firewall.
 
-\item OT-Segmentierung\\
+\item{\underline{OT-Segmentierung}}\\
 Das OT-Netzwerk wurde in Zellen segmentiert (mit einer Firewall pro Zelle als Abgrenzung, siehe oben?), um die Betriebssicherheit zu erhöhen.
 
-\item Nozomi Guardian\\
+\item{\underline{Nozomi Guardian}}\\
 Eine Nozomi Guardian ist an der Übergangs-Firewall (sowie an der Uplink-FW?) angeschlossen und erhält über RSPAN-Mirroring Traffic vom OT- sowie dem IT-Netzwerk. Sie wertet diesen Traffic schließlich aus und stellt diesen für Netzwerkadministratoren leicht ersichtlich dar \todo{Nozomi}
 \begin{enumerate}[label=\roman*.]
-\item Aufsetzung\
+\item{\underline{Aufsetzung}}\
 \todo{Nozomi Aufsetzung}
 
-\item Einbindung\\
+\item{\underline{Einbindung}}\\
 \todo{Nozomi Einbindung}
 \end{enumerate}
 \end{enumerate}
 
-\item \bfseries{Absicherungshandbuch}\\
+\item{\bfseries{Absicherungshandbuch}}\\
 Der Prozess des Aufbaus sowie der Absicherung der Topologie sind in einem Handbuch aufgefasst. Dieses ist mittels LaTeX geschrieben und dient als Nachschlagewerk für angehende OT-Security-Spezialisten. Unter anderem werden im Handbuch folgende Punkte festgelegt:
 \begin{enumerate}[label=\alph*.]
-\item Wireshark Überwachung\\
+\item{\underline{Wireshark Überwachung}}\\
 Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Da-tenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
 
-\item Nozomi Guardian Überwachung\\
+\item{\underline{Nozomi Guardian Überwachung}}\\
 Es ist mittels der Nozomi Guardian der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
 
-\item Handbuch erstellt\\
+\item{\underline{Handbuch erstellt}}\\
 Die Ergebnisse/Erkenntnisse der Diplomarbeit sind in einem Absicherungshandbuch zusammengeschrieben. Dieses inkludiert unter anderem Abschnitte zum Aufbau der Topologie, zur Theorie hinter der OT-Absicherung, zur Absicherung der Topologie und zum aufgekommenen Datenverkehr innerhalb der Topologie.
 \end{enumerate}
-
-
 \end{enumerate}
+
 \subsection{Optionale Ziele}
-\begin{enumerate}[start=1,label={\bfseries Ziel-O \arabic*}]
-\item \bfseries{FCP Network Security Zertifizierung}\\
+\begin{enumerate}[start=1,label={\bfseries Ziel-O \arabic*},leftmargin=*]
+\item{\bfseries{FCP Network Security Zertifizierung}}\\
 Alle Projektteammitglieder haben zum Zeitpunkt der Abgabe der Diplomarbeit die von Fortinet bereitgestellte FCP Network Security Zertifizierung erfolgreich erworben.
+
+\item{\bfseries{Medienauftritt}}\\
+SOCIAL MEDIA UND SO
+
+\item{\bfseries{Sticker drucken}}\\
+du gehen printshop
 \end{enumerate}
+
 \subsection{NICHT Ziele}
-\begin{enumerate}[start=1,label={\bfseries Ziel-N \arabic*}]
-\item \bfseries{Topologie Aufbau}\\
+\begin{enumerate}[start=1,label={\bfseries Ziel-N \arabic*},leftmargin=*]
+\item{\bfseries{Topologie Aufbau}}\\
 Das Projektteam ist für den Abbau der gesamten Netzwerktopologie nach Abschluss der Diplomarbeit zuständig.
-\item \bfseries{Endpoint-Security}\\
+\item{\bfseries{Endpoint-Security}}\\
 Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Security installiert (SentinelOne z.B.)
 \end{enumerate}
 \newpage
@@ -463,7 +469,17 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 
 \newpage
 \section{Geplante externe Kooperationspartner}
+Folgende Firmen liegen als geplante externe Kooperationspartner vor:
+\begin{itemize}
+	\item{Fortinet}
+	\item{Ikarus Security Software GmbH}
+\end{itemize}
+Die Fortinet trägt zur Bereitstellung der Lizenzen für die in der Netzwerktopologie vorhandenen FortiGate-Firewalls sowie FortiSwitches bei.
+
+Von der Ikarus Security Software GmbH wird ein Docker-Container, der eine Nozomi Guardian als Software innehält, sowie die für die Nozomi Guardian zugehörigen Lizenzen bereitgestellt. Dazu dient Herbert Dirnberger mit seiner Position von Industrial Cyber Security Expert als Berater im Bereich Absicherung des OT-Netzwerks.
 
 \newpage
 \section{Geplante Verwertung der Ergebnisse}
+Nach Abschluss der Diplomarbeit bleibt nur das während der Arbeit erstellte Handbuch über, die gesamte Netzwerktopologie bleibt im Serverraum 078 bestehen und kann jederzeit abgebaut werden und die einzelnen Komponenten an den ursprünglichen Besitzer übergeben, das heißt, dass Herr Prof. Schöndorfer die von ihm geliehene Sensorik sowie Aktorik zurückbekommt, die von zuvorigen Diplomarbeiten wiederverwerteten Bauteile sowie mit schulischen Förderungsgeldern gekaufte Komponente werden an die HTL Rennweg übergeben und alle von den Projektmitglieder privat gekauften Bauteile gehen wieder in ihren Besitz über. 
+
 \end{document}
