@@ -80,6 +80,8 @@
 \usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
 \usepackage{todonotes} % Provides tooltip-like todo notes.
 
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
 \usepackage{color}
 \usepackage[binary-units]{siunitx}
 
@@ -148,6 +150,7 @@ Fachschule für Informationstechnik}}
 \renewcommand{\lstlistingname}{\inputencoding{utf8}Listing}
 
 \usepackage{tabularx}
+\usepackage{tabularray}
 \usepackage{scrhack}
 
 \usepackage{array}
@@ -178,10 +181,10 @@ Fachschule für Informationstechnik}}
 bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 {hyperref}
-\hypersetup{pdftitle={ITP-Vorlage},
-	pdfauthor={Wer auch immer},
-	pdfsubject={ITP},
-	pdfkeywords={4CN, ITP}}
+\hypersetup{pdftitle={Diplomarbeits-Ansuchen Fenrir},
+	pdfauthor={Julian Burger, Bastian Uhlig, Gabriel Vogler},
+	pdfsubject={DA},
+	pdfkeywords={4CN, DA}}
 \urlstyle{same} % don't use monospace font for urls
 
 % Auch Fußnoten bündig ausrichten
@@ -304,7 +307,7 @@ Die Diplomarbeit Fenrir zielt darauf ab, ein realitätsgetreues Netzwerk, inklus
 Es wird eine physische Topologie gebaut, welche ein realitätsgetreues Heimnetz, inklusive IT- (Ac-tive Directory Büro- bzw. Serverumgebung) sowie OT-Bereich (Bus-Steuerungstechnik, die anzusteuernden Aktoren/Sensoren, SCADA-System), repräsentieren soll.
 Der OT-Bereich besteht aus einem von Herr Prof. Schöndorfer bereitgestellten Bewässerungssystem. Dies setzt sich unter anderem aus Gartenbrunnen, Wassertanks und Pumpen zusammen, wo-bei diese Gegenstände mit verbauter Aktorik und/oder Sensorik als Ansteuerungsziel einer SPS gelten. Diese wird später auch als Angriffsziel verwendet, wobei ein Angreifer beispielsweise das Bewässerungssystem komplett lahmlegen, oder auch mit der Manipulation dessen einen Wasserschaden verursachen könnte.
 Als Ziel des Projektes gilt nicht nur ein vor äußeren sowie inneren Cyberangriffen abgesichertes Netzwerk aufzustellen, sondern auch eine für Interessenten (d.h. mögliche Firmenpartner) wiederverwertbare Dokumentation des Konfigurations- bzw. Absicherungsprozesses, etwa im Stil eines Handbuchs.
-Um diesen Absicherungsprozess dokumentieren zu können, braucht es zuerst ein ungesichertes Netz, auf welchem ohne weitere Beschränkungen Hackerangriffe stattfinden können. Dieses wird darauf mit SOTA\footnote{State of the Art}-Tools abgesichert, um äußere Angriffe zu verhindern. Das heißt, dass die Projektumsetzung in zwei Phasen stattfinden wird:
+Um diesen Absicherungsprozess dokumentieren zu können, braucht es zuerst ein ungesichertes Netz, auf welchem ohne weitere Beschränkungen Hackerangriffe stattfinden können. Dieses wird darauf mit SOTA\footnote{State of the Art}-Tools abgesichert, um äußere Angriffe zu verhindern. Das heißt, dass die Projektumsetzung in zwei Phasen stattfinden wird: \\
 
 \begin{enumerate}
 \item \underline{Umsetzung eines realitätsgetreuen, ungesicherten Netzwerks:}\\
@@ -318,7 +321,6 @@ Als Busprotokoll wird voraussichtlich Modbus eingesetzt, außerdem wird dieses i
 
 \newpage
 Die gesamte Netzwerktopologie der Diplomarbeit sieht vereinfacht im Purdue-Modell wie folgt aus:
-\todo{AAAAAAA}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{Purdue}
@@ -334,32 +336,32 @@ Die gesamte Netzwerktopologie der Diplomarbeit sieht vereinfacht im Purdue-Model
 Die gesamte Netzwerktopologie ist umgesetzt und funktioniert einwandfrei, jedoch mit fehlender Absicherung vor äußeren Angriffen.
 \begin{enumerate}[label=\alph*.]
 \item{\underline{Planung der Topologie}}\\
-Die gesamte Projekttopologie ist finalisiert und grafisch dargestellt.
+Die gesamte Projekttopologie ist finalisiert und grafisch dargestellt. Zu den grafischen Darstellungen gehört eine herkömmliche Netzwerktopologie mit allen Geräten und deren Verbindungen zueinander, aber auch eine vereinfachte Darstellung des Netzwerks nach dem Purdue-Modell.
 
 \item{\underline{OT-Aufbau/Verkabelung}}\\
-Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt.
+Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt. Das heißt, dass die gesamte Bewässerungsanlage fertig aufgebaut und beinahe betriebsbereit ist, nur dass die Programmierung der SPSen fehlt, um den Vorgang zu steuern. Geräte wie HMIs und restliche Überwachungssysteme wie das SCADA-System sind hardwaretechnisch vorhanden, jedoch fehlt die Konfiguration der jeweiligen Software.
 
-\item{\underline{IT-Aufbau/Verkabelung}}\\
-Der gesamte IT-Bereich läuft virtualisiert auf einer ESXi-Maschine und ist fertig verkabelt.
+\item{\underline{IT-Aufbau}}\\
+Der gesamte IT-Bereich läuft virtualisiert auf einer ESXi-Maschine, ist fertig aufgebaut/aufgesetzt und untereinander verbunden.
 
 \item{\underline{Übergang \& DMZ IT/OT}}\\
-Der IT- und der OT-Bereich sind zusammengeschlossen mittels einer FortiGate-FW. Diese lässt jeglichen Traffic zwischen IT und OT durchfließen und die DMZ bleibt vorerst ungenutzt.
+Der IT- und der OT-Bereich sind zusammengeschlossen mittels einer FortiGate-60F Firewall. Diese lässt jeglichen Traffic zwischen IT und OT durchfließen und die DMZ bleibt vorerst ungenutzt.
 
 \item{\underline{PLC-Programmierung}}\\
-Alle SPSen im OT-Bereich sind je nach ihrem Zweck und der anzusteuernden Aktorik/Sensorik fertig programmiert.
+Alle SPSen im OT-Bereich sind je nach ihrem Zweck und der anzusteuernden Aktorik/Sensorik fertig programmiert. Bis auf die Siemens LOGO! sind sie mittels ST-Programmierung (kurz für "'Structured Text"') programmiert. Die Siemens LOGO! selbst ist mittels Funktionsplan-Programmierung programmiert.
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{Simatic}}\\
-Die Siemens Simatic SPS wurde je nach Zweck mittels Siemens STEP 7 programmiert.
+Die Siemens Simatic SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens STEP 7 programmiert.
 
 \item{\underline{LOGO!}}\\
-Die Siemens LOGO! SPS wurde je nach Zweck mittels Siemens Comfort programmiert.
+Die Siemens LOGO! SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens Comfort programmiert.
 
 \item{\underline{OpenPLC}}\\
-Die OpenPLC SPS, die auf einem Raspberry Pi 3b läuft, wurde je nach Zweck mittels des OpenPLC-Editors programmiert.
+Die OpenPLC SPS, die auf einem Raspberry Pi 3b läuft, wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels des OpenPLC-Editors programmiert.
 \end{enumerate}
 
-\item{\underline{SCADA Aufsetzung}}\\
+\item{\underline{SCADA-System}}\\
 Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist fertiggestellt.
 
 \begin{enumerate}[label=\roman*.]
@@ -367,14 +369,14 @@ Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist f
 Die Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA eingetragen und können erfolgreich ein- und ausgeschalten werden.
 
 \item{\underline{Design}}\\
-Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA grafisch realitätsnah abgebildet.
+Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA grafisch realitätsnah und für Systemadministrator*innen leicht verständlich abgebildet.
 \end{enumerate}
 
 \item{\underline{HMI-Konfiguration}}\\
-Alle HMI-Geräte sind ihrem Zweck nach konfiguriert worden, um den Betriebsprozess überwachen zu können.
+Alle HMI-Geräte sind ihrem Zweck nach konfiguriert und in die jeweiligen Betriebszellen eingebunden worden, um es Systemadministrator*innen zu erlauben, vor Ort den Betriebsprozess leichter überwachen zu können.
 
 \item{\underline{Engineer-Workstation}}\\
-Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert.
+Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert. Sie ist mittels RDP erreichbar und lässt somit OT-Ingenieure gegebenfalls die SPSen umprogrammieren.
 
 \item{\underline{AD-Umgebung erstellt}}\\
 Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Domänennamen htl3r.fenrir.com.
@@ -385,8 +387,8 @@ In der Active Directory Umgebung existieren zwei Domain Controller, welche unter
 \item{\underline{OU-Struktur}}\\
 Die einzelnen Objekte wie Computer sowie User der Active Directory Umgebung sind nach dem Business-Unit-Modell hierarchisch in Organisational Units (kurz OUs) unterteilt und somit auch strukturiert.
 \item{\underline{Konten/Gruppen-Erstellung \& Konfiguration}}\\
-Die Benutzerkonten, Sicherheitsgruppen für Zugriffsrechte sowie Gruppenrichtlinien auf Assets innerhalb des Netzwerks sind erstellt.
-\item{\underline{Prometheus Monitoring?}}\\
+Die Benutzerkonten, Sicherheitsgruppen für Zugriffsrechte sowie Gruppenrichtlinien auf Assets innerhalb des Netzwerks sind erstellt. Diese sind vorest absichtlich sicherheitstechnisch "locker" gelassen, um Angriffe auf dieses Netzwerk einfacher zu gestalten.
+\item{\underline{Prometheus Monitoring}}\\
 Ein Ubuntu-Server mit einer Prometheus-Konfiguration steht im IT-Netzwerk und überwacht die AD-Domain-Controller. Unter anderem werden Systemressourcen, Datenverkehr sowie andere Teile der ADDS überwacht und auf einem Grafana Dashboard dargestellt.
 \end{enumerate}
 
@@ -425,12 +427,15 @@ Das OT-Netzwerk wurde in Zellen mit einer Firewall pro Zelle als Abgrenzung segm
 % sowie an der Uplink-FW ist maybe fuisch who knows
 Eine Nozomi Guardian ist in der Netzwerktopologie vertreten, um den Datenverkehr, der hauptsächlich im OT-Netzwerk stattfindet, zu überwachen.
 \begin{enumerate}[label=\roman*.]
-\item{\underline{Installation}}\
-Eine virtualisierte Ubuntu-Installation mit den von der Ikarus vorinstallierten 	Guardian Servers läuft auf einer ESXi-Maschine.
+\item{\underline{Installation}}\\
+Eine virtualisierte Ubuntu-Installation mit den von der Ikarus Security Software GmbH vorinstallierten Guardian Servers läuft auf einer ESXi-Maschine.
 
 \item{\underline{Einbindung}}\\
-Eine Nozomi Guardian ist an der Übergangs-Firewall (sowie an der Uplink-FW?) angeschlossen und erhält über RSPAN-Mirroring Traffic vom OT- sowie dem IT-Netzwerk. Sie wertet diesen Traffic schließlich aus und stellt diesen für Netzwerkadministrator*innen leicht ersichtlich dar.
+Eine Nozomi Guardian ist an der Übergangs- sowie an der Uplink-Firewall angebunden und erhält über RSPAN-Mirroring Traffic vom OT- sowie dem IT-Netzwerk. Sie wertet diesen Traffic schließlich aus und stellt diesen für Netzwerkadministrator*innen leicht ersichtlich dar.
 \end{enumerate}
+
+\item{\underline{AD-Härtung}}\\
+Alle Bestandteile des Active Directory, das heißt Endgeräte, Server, Domain Controller sowie die logischen Bestandteile wie Benutzerkonten und Gruppen sind gehärtet, und sind somit nicht mehr auf gängige AD-Angriffe wie Mimikatz und Kerberoasting anfällig.
 \end{enumerate}
 
 \item{\bfseries{Absicherungshandbuch}}\\
@@ -455,12 +460,12 @@ Alle Projektteammitglieder haben zum Zeitpunkt der Abgabe der Diplomarbeit die v
 \item{\bfseries{Medienauftritt}}\\
 Für die Repräsentation des Projektteams aber auch der während der Diplomarbeit erledigten Arbeit sind verschiedene Medienauftritte angelegt worden.
 
-\begin{enumerate}[label=\roman*.]
+\begin{enumerate}[label=\alph*.]
 \item{\underline{Social Media}}\\
-Es ist ein Social-Media-Konto auf Instagram namens fenrir.ot angelegt worden. Auf diesem Konto werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt. Dazu wird der Arbeitsablauf während des Diplomarbeitsverlaufs mittels Fotos dokumentiert und dort hochgeladen.
+Es ist ein Social-Media-Konto auf Instagram namens @fenrir.ot angelegt worden. Auf diesem Konto werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt. Dazu wird der Arbeitsablauf während des Diplomarbeitsverlaufs mittels Fotos dokumentiert und dort hochgeladen.
 
 \item{\underline{Website}}\\
-Unter der von easyname gehosteten URL fenrir-ot.at ist eine dem Projekt-Styleguide nach erstellten Website abrufbar. Auf dieser werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt.
+Unter der von easyname gehosteten URL www.fenrir-ot.at ist eine dem Projekt-Styleguide nach erstellten Website abrufbar. Auf dieser werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt.
 \end{enumerate}
 
 \item{\bfseries{Sticker drucken}}\\
@@ -469,7 +474,7 @@ Es sind Sticker mit dem Fenrir Logo gedruckt und an Interessierte vergeben.
 
 \subsection{NICHT Ziele}
 \begin{enumerate}[start=1,label={\bfseries Ziel-N \arabic*},leftmargin=*,wide]
-\item{\bfseries{Topologie Aufbau}}\\
+\item{\bfseries{Topologie Abbau}}\\
 Das Projektteam ist für den Abbau der gesamten Netzwerktopologie nach Abschluss der Diplomarbeit zuständig.
 \item{\bfseries{Endpoint-Security}}\\
 Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Security installiert (SentinelOne z.B.)
@@ -477,46 +482,115 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 \newpage
 
 \subsection{Individuelle Aufgabenstellungen der Teammitglieder im Projekt}
-\begin{table}[h]
+\begin{table}[H]
 	\begin{tabularx} {\textwidth} {
-			|>{\hsize=.75\hsize}X
-			|>{\hsize=.25\hsize}X
+			|>{\hsize=1\hsize}X|
 		}
 		
 		\hline
 		\rowcolor[HTML]{D9D9D9} 
 		\rule{0pt}{15pt}
-		\textbf{\normalsize{David Koch}} & \multicolumn{1}{c|}{\textbf{\normalsize{Projektleiter}}} \\ \hline
+		\textbf{\normalsize{David Koch - Projektleiter}} \\ \hline
 		
-		\rule{0pt}{20pt} LOREM IPSUM \\
+		\rule{0pt}{20pt} Controlling, AD \& Monitoring, OT-Aufbau, Übergangs-FW \\
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
 		
 		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
-			\item{Fortinet}
-			\item{Ikarus Security Software GmbH}
+			\item{ZIEL-H 1b OT-Aufbau/Verkabelung}
+			\item{ZIEL-H 1eI PLC-Programmierung - Simatic}
+			\item{ZIEL-H 1eIII PLC-Programmierung - OpenPLC}
+			\item{ZIEL-H 1iI AD-Umgebung erstellt - DC-Konfiguration}
+			\item{ZIEL-H 1j Endgeräte konfiguriert}
+			\item{ZIEL-H 2aIII Firewall Konfiguration - OT-Zellen}
+			\item{ZIEL-H 2c OT-Segmentierung}
+			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
+			\item{ZIEL-O 2a Social Media}
 		\end{itemize}
 		
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Aufgabenstellung}} \\ \hline
 	\end{tabularx}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[H]
 	\begin{tabularx} {\textwidth} {
-			|>{\hsize=.7\hsize}X
-			|>{\hsize=.3\hsize}X
+			|>{\hsize=1\hsize}X|
 		}
 		
 		\hline
 		\rowcolor[HTML]{D9D9D9} 
-		\rule{0pt}{17pt}
-		\textbf{\normalsize{David Koch}} & \multicolumn{1}{c|}{\textbf{\normalsize{Projektleiter}}} \\ \hline
+		\rule{0pt}{15pt}
+		\textbf{\normalsize{Bastian Uhlig - Rolle Mitarbeiter}} \\ \hline
 		
-		LOREM IPSUM \\
+		\rule{0pt}{20pt} Controlling, Nozomi Guardian, Uplink-FW, HMI-Config \\
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
 		
-		\begin{itemize}
-			\item{Fortinet}
-			\item{Ikarus Security Software GmbH}
+		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
+			\item{ZIEL-H 1fI SCADA-System - Konfiguration/Scripting}
+			\item{ZIEL-H 1g HMI-Konfiguration}
+			\item{ZIEL-H 2aI Firewall Konfiguration - Uplink}
+			\item{ZIEL-H 2dII Nozomi Guardian - Einbindung}
+			\item{ZIEL-H 3b Nozomi Guardian Überwachung}
+			\item{ZIEL-H 3c Handbuch erstellt}
+			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
+			\item{ZIEL-O 2b Website}
+		\end{itemize}
+		
+		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Aufgabenstellung}} \\ \hline
+	\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabularx} {\textwidth} {
+			|>{\hsize=1\hsize}X|
+		}
+		
+		\hline
+		\rowcolor[HTML]{D9D9D9} 
+		\rule{0pt}{15pt}
+		\textbf{\normalsize{Julian Burger - Rolle Mitarbeiter}} \\ \hline
+		
+		\rule{0pt}{20pt} Nozomi Guardian, Übergangs-FW, HMI-Config, SCADA \\
+		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
+		
+		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
+			\item{ZIEL-H 1a Planung der Topologie}
+			\item{ZIEL-H 1d Übergang \& DMZ IT/OT}
+			\item{ZIEL-H 1fII SCADA-System - Design}
+			\item{ZIEL-H 2aII Firewall Konfiguration - Übergang IT/OT}
+			\item{ZIEL-H 2b Jump Server}
+			\item{ZIEL-H 2dI Nozomi Guardian - Installation}
+			\item{ZIEL-H 3a Wireshark Überwachung}
+			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
+			\item{ZIEL-O 3 Sticker drucken}
+		\end{itemize}
+		
+		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Aufgabenstellung}} \\ \hline
+	\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabularx} {\textwidth} {
+			|>{\hsize=1\hsize}X|
+		}
+		
+		\hline
+		\rowcolor[HTML]{D9D9D9} 
+		\rule{0pt}{15pt}
+		\textbf{\normalsize{Gabriel Vogler - Rolle Mitarbeiter}} \\ \hline
+		
+		\rule{0pt}{20pt} AD \& Monitoring, Uplink-FW, SCADA, OT-Aufbau \\
+		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
+		
+		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
+			\item{ZIEL-H 1c IT-Aufbau}
+			\item{ZIEL-H 1eII PLC-Programmierung - LOGO!}
+			\item{ZIEL-H 1h Engineer-Workstation}
+			\item{ZIEL-H 1iII AD-Umgebung erstellt - OU-Struktur}
+			\item{ZIEL-H 1iIII AD-Umgebung erstellt - Konten/Gruppen-Erstellung \& Konfiguration}
+			\item{ZIEL-H 1iIV AD-Umgebung erstellt - Prometheus Monitoring}
+			\item{ZIEL-H 1k Server konfiguriert}
+			\item{ZIEL-H 2e AD-Härtung}
+			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
 		\end{itemize}
 		
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Aufgabenstellung}} \\ \hline
@@ -543,7 +617,26 @@ PMA = Projektmitarbeiter \\
 H-Betreuung = Hauptbetreuung \\
 Betreuung-Stv = Betreuung Stellvertretung \\
 \end{spacing}}
+
 \subsection{Projektteam}
+\begin{table}[h]
+	\begin{tabularx} {\textwidth} {
+			|>{\hsize=.12\hsize}c
+			|>{\hsize=.38\hsize}X
+			|>{\hsize=.09\hsize}c
+			|>{\hsize=.41\hsize}X|
+		}
+		
+		\hline
+		\rowcolor[HTML]{D9D9D9} 
+		\rule{0pt}{17pt}
+		\textbf{\normalsize{Funktion}} & {\textbf{\normalsize{Name}}} & {\textbf{\normalsize{Kürzel}}} & {\textbf{\normalsize{E-Mail}}} \\ \hline
+		\rule{0pt}{15pt}	PL & David Koch & KOC & david.koch@htl.rennweg.at \\ \hline
+		\rule{0pt}{15pt}	PL Stv. & Bastian Uhlig & UHL & bastian.uhlig@htl.rennweg.at \\ \hline
+		\rule{0pt}{15pt}	PMA & Julian Burger & BUR & burger.julian@htl.rennweg.at \\ \hline
+		\rule{0pt}{15pt}	PMA & Gabriel Vogler & VOG & gabriel.vogler@htl.rennweg.at \\ \hline
+	\end{tabularx}
+\end{table}
 
 \newpage
 \section{Betrachtungsplan}
@@ -558,7 +651,30 @@ Betreuung-Stv = Betreuung Stellvertretung \\
 \newpage
 \section{Budget}
 \subsection{Erwartete Kosten für die Durchführung des Projektes}
+\begin{table}[h]
+	\begin{tabularx} {\textwidth} {
+			|>{\hsize=.07\hsize}X
+			|>{\hsize=.8\hsize}X
+			|>{\hsize=.13\hsize}X|
+		}
+		
+		\hline
+		\rowcolor[HTML]{D9D9D9} 
+		\rule{0pt}{17pt}
+		\textbf{\normalsize{Pos}} & {\textbf{\normalsize{Bezeichnung des Aufwands}}} & \multicolumn{1}{r|}{\textbf{\normalsize{Kosten}}} \\ \hline
+		\rule{0pt}{15pt}	1 & Siemens LOGO! SPS (12/24V RCEo) & \multicolumn{1}{r|}{€ 117} \\ \hline
+		\rule{0pt}{15pt}	2 & Siemens LOGO! Erweiterungsmodul (4DE / 4DA) & \multicolumn{1}{r|}{€ 76} \\ \hline
+		\rule{0pt}{15pt}	3 & DRC DIN-Schienen-Netzteil (24V) & \multicolumn{1}{r|}{€ 37,96} \\ \hline
+		\rowcolor[HTML]{D9D9D9} 
+		\rule{0pt}{15pt}
+		 & {\normalsize{Gesamtkosten}} & \multicolumn{1}{r|}{\normalsize{€ 230,96}} \\ \hline
+	\end{tabularx}
+\end{table}
+
 \subsection{Kostendeckung}
+Die oben angeführten erwarteten Kosten sind alle vom schulinternen Förderungsverein INNKOO gedeckt.
+
+Die restlichen Bauteile, die für die Diplomarbeit gebraucht werden, jedoch nicht oben angeführt sind, werden entweder von früheren Diplomarbeiten wiederverwendet oder von Herr Prof. Schöndorfer bzw. den Projektmitarbeitern aus seinem/ihrem Privatbesitz gestiftet.
 
 \newpage
 \section{Geplante externe Kooperationspartner}
