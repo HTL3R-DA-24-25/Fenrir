@@ -304,14 +304,14 @@ Die Diplomarbeit Fenrir zielt darauf ab, ein realitätsgetreues Netzwerk, inklus
 
 \subsection{Beschreibung der Idee}
 „Wie sichert man den Übergang zwischen IT und OT ausreichend vor Angriffen ab?“
-Es wird eine physische Topologie gebaut, welche ein realitätsgetreues Heimnetz, inklusive IT- (Ac-tive Directory Büro- bzw. Serverumgebung) sowie OT-Bereich (Bus-Steuerungstechnik, die anzusteuernden Aktoren/Sensoren, SCADA-System), repräsentieren soll.
-Der OT-Bereich besteht aus einem von Herr Prof. Schöndorfer bereitgestellten Bewässerungssystem. Dies setzt sich unter anderem aus Gartenbrunnen, Wassertanks und Pumpen zusammen, wo-bei diese Gegenstände mit verbauter Aktorik und/oder Sensorik als Ansteuerungsziel einer SPS gelten. Diese wird später auch als Angriffsziel verwendet, wobei ein Angreifer beispielsweise das Bewässerungssystem komplett lahmlegen, oder auch mit der Manipulation dessen einen Wasserschaden verursachen könnte.
+Es wird eine physische Topologie gebaut, welche ein realitätsgetreues Heimnetz, inklusive IT- (Active Directory Büro- bzw. Serverumgebung) sowie OT-Bereich (Bus-Steuerungstechnik, die anzusteuernden Aktoren/Sensoren, SCADA-System), repräsentieren soll.
+Der OT-Bereich besteht aus einem von Herr Prof. Schöndorfer bereitgestellten Bewässerungssystem. Dies setzt sich unter anderem aus Gartenbrunnen, Wassertanks und Pumpen zusammen, wobei diese Gegenstände mit verbauter Aktorik und/oder Sensorik als Ansteuerungsziel einer SPS gelten. Diese wird später auch als Angriffsziel verwendet, wobei ein Angreifer beispielsweise das Bewässerungssystem komplett lahmlegen, oder auch mit der Manipulation dessen einen Wasserschaden verursachen könnte.
 Als Ziel des Projektes gilt nicht nur ein vor äußeren sowie inneren Cyberangriffen abgesichertes Netzwerk aufzustellen, sondern auch eine für Interessenten (d.h. mögliche Firmenpartner) wiederverwertbare Dokumentation des Konfigurations- bzw. Absicherungsprozesses, etwa im Stil eines Handbuchs.
 Um diesen Absicherungsprozess dokumentieren zu können, braucht es zuerst ein ungesichertes Netz, auf welchem ohne weitere Beschränkungen Hackerangriffe stattfinden können. Dieses wird darauf mit SOTA\footnote{State of the Art}-Tools abgesichert, um äußere Angriffe zu verhindern. Das heißt, dass die Projektumsetzung in zwei Phasen stattfinden wird: \\
 
 \begin{enumerate}
 \item \underline{Umsetzung eines realitätsgetreuen, ungesicherten Netzwerks:}\\
-Durch absichtliche Fehlkonfiguration der Firewalls sowie mangelnder Netzwerksegmentierung können IT-Hosts sehr einfach auf betriebskritische OT-Komponenten zugreifen bzw. diese lahmlegen. Es werden auf dieses ungesicherte Netzwerk vom Projektteam für den Zweck selbst programmierte Malware, aber auch aus echten Cyberangriffen gesammelte Netzwerkwürmer eingesetzt (Diese werden von der Ikarus Security Software GmbH bereit-gestellt). Mithilfe von Sniffing-Tools sowie der Nozomi Guardian wird der Angriffsverlauf überwacht sowie aufgezeichnet und anschließend werden die ausgenutzten Schwachstellen dokumentiert, um diese in der 2. Phase der Diplomarbeit gezielt beheben zu können.
+Durch absichtliche Fehlkonfiguration der Firewalls sowie mangelnder Netzwerksegmentierung können IT-Hosts sehr einfach auf betriebskritische OT-Komponenten zugreifen bzw. diese lahmlegen. Es werden auf dieses ungesicherte Netzwerk vom Projektteam für den Zweck selbst programmierte Malware, aber auch aus echten Cyberangriffen gesammelte Netzwerkwürmer eingesetzt (Diese werden von der Ikarus Security Software GmbH bereitgestellt). Mithilfe von Sniffing-Tools sowie der Nozomi Guardian wird der Angriffsverlauf überwacht sowie aufgezeichnet und anschließend werden die ausgenutzten Schwachstellen dokumentiert, um diese in der 2. Phase der Diplomarbeit gezielt beheben zu können.
 
 \item \underline{Umsetzung eines realitätsgetreuen, gesicherten Netzwerks:}\\
 Zur Abgrenzung zwischen IT und OT wird eine FortiGate-Firewall mit strikter Netzwerkzugangskontrollkonfiguration verwendet, um unter anderem eine Zugriffskontrolle auf das OT-Netz zu etablieren, aber auch die Integration einer Nozomi Guardian zur OT-Netzwerküberwachung zu ermöglichen. Diese Nozomi Guardian liest aktiv über ein SPAN-Mirroring jeglichen Traffic innerhalb des gesamten OT-Netzwerks mit, um Angriffe sowie Fehlkonfiguration für einen Netzwerkadministrator stets leicht ersichtlich zu machen.
@@ -414,7 +414,7 @@ An der Schnittstelle zwischen dem IT-Netzwerk dieser Diplomarbeit und der Anbind
 Der Übergang zwischen der OT- und der IT-Welt ist mittels einer FortiGate-60F Firewall so abgesichert, dass nur die berechtigte Workstation in das OT-Netzwerk eingreifen kann, und auch dort nur auf das SCADA-System bzw. die SPS-Workstation.
 
 \item{\underline{OT-Zellen}}\\
-Innerhalb des OT-Netzwerks unterteilen schienen-montierte FortiGateRugged-60F Firewalls manche Bereiche in sogenannte OT-Zellen.
+Innerhalb des OT-Netzwerks unterteilen schienenmontierte FortiGateRugged-60F Firewalls manche Bereiche in sogenannte OT-Zellen.
 \end{enumerate}
 
 \item{\underline{Jump Server}}\\
@@ -442,7 +442,7 @@ Alle Bestandteile des Active Directory, das heißt Endgeräte, Server, Domain Co
 Der Prozess des Aufbaus sowie der Absicherung der Topologie sind in einem Handbuch aufgefasst. Dieses ist mittels \LaTeX geschrieben und dient als Nachschlagewerk für angehende OT-Security-Spezialisten. Unter anderem werden im Handbuch folgende Punkte festgelegt:
 \begin{enumerate}[label=\alph*.]
 \item{\underline{Wireshark Überwachung}}\\
-Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Da-tenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
+Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
 
 \item{\underline{Nozomi Guardian Überwachung}}\\
 Es ist mittels der Nozomi Guardian der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
