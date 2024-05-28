@@ -1,6 +1,7 @@
 % Julian Burger
 % Bastian Uhlig
 % David Koch
+% Gabriel Vogler
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -28,6 +29,8 @@
 \onehalfspacing
 
 \setcounter{secnumdepth}{3}
+
+\usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -76,7 +79,6 @@
 \usepackage{booktabs}   % Improves the typesettings of tables.
 \usepackage{subcaption} % Allows the use of subfigures and enables their referencing.
 \usepackage[ruled,linesnumbered]{algorithm2e} % Enables the writing of pseudo code.
-\usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
 \usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
 \usepackage{todonotes} % Provides tooltip-like todo notes.
 
@@ -250,7 +252,7 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 
 \rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Projektmitarbeiter}}		&	&	& \textcolor[HTML]{808080}{\footnotesize{Unterschrift Projektmitarbeiter}}	\\ \hline
 
-\rule{0pt}{28pt}	\large{\textbf{Gabriel Vogler}}	&	\multicolumn{1}{c|}{\large{4CN}}	&	\multicolumn{1}{c|}{\large{SDO}}	&              \\
+\rule{0pt}{28pt}	\large{\textbf{Gabriel Vogler}}	&	\multicolumn{1}{c|}{\large{4CN}}	&	\multicolumn{1}{c|}{\large{KUS}}	&              \\
 
 \rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Projektmitarbeiter}}		&	&	& \textcolor[HTML]{808080}{\footnotesize{Unterschrift Projektmitarbeiter}}	\\ \hline
 \end{tabularx}
@@ -304,14 +306,14 @@ Die Diplomarbeit Fenrir zielt darauf ab, ein realitätsgetreues Netzwerk, inklus
 
 \subsection{Beschreibung der Idee}
 „Wie sichert man den Übergang zwischen IT und OT ausreichend vor Angriffen ab?“
-Es wird eine physische Topologie gebaut, welche ein realitätsgetreues Heimnetz, inklusive IT- (Ac-tive Directory Büro- bzw. Serverumgebung) sowie OT-Bereich (Bus-Steuerungstechnik, die anzusteuernden Aktoren/Sensoren, SCADA-System), repräsentieren soll.
-Der OT-Bereich besteht aus einem von Herr Prof. Schöndorfer bereitgestellten Bewässerungssystem. Dies setzt sich unter anderem aus Gartenbrunnen, Wassertanks und Pumpen zusammen, wo-bei diese Gegenstände mit verbauter Aktorik und/oder Sensorik als Ansteuerungsziel einer SPS gelten. Diese wird später auch als Angriffsziel verwendet, wobei ein Angreifer beispielsweise das Bewässerungssystem komplett lahmlegen, oder auch mit der Manipulation dessen einen Wasserschaden verursachen könnte.
+Es wird eine physische Topologie gebaut, welche ein realitätsgetreues Heimnetz, inklusive IT- (Active Directory Büro- bzw. Serverumgebung) sowie OT-Bereich (Bus-Steuerungstechnik, die anzusteuernden Aktoren/Sensoren, SCADA-System), repräsentieren soll.
+Der OT-Bereich besteht aus einem von Herr Prof. Schöndorfer bereitgestellten Bewässerungssystem. Dies setzt sich unter anderem aus Gartenbrunnen, Wassertanks und Pumpen zusammen, wobei diese Gegenstände mit verbauter Aktorik und/oder Sensorik als Ansteuerungsziel einer SPS gelten. Diese wird später auch als Angriffsziel verwendet, wobei ein Angreifer beispielsweise das Bewässerungssystem komplett lahmlegen, oder auch mit der Manipulation dessen einen Wasserschaden verursachen könnte.
 Als Ziel des Projektes gilt nicht nur ein vor äußeren sowie inneren Cyberangriffen abgesichertes Netzwerk aufzustellen, sondern auch eine für Interessenten (d.h. mögliche Firmenpartner) wiederverwertbare Dokumentation des Konfigurations- bzw. Absicherungsprozesses, etwa im Stil eines Handbuchs.
 Um diesen Absicherungsprozess dokumentieren zu können, braucht es zuerst ein ungesichertes Netz, auf welchem ohne weitere Beschränkungen Hackerangriffe stattfinden können. Dieses wird darauf mit SOTA\footnote{State of the Art}-Tools abgesichert, um äußere Angriffe zu verhindern. Das heißt, dass die Projektumsetzung in zwei Phasen stattfinden wird: \\
 
 \begin{enumerate}
 \item \underline{Umsetzung eines realitätsgetreuen, ungesicherten Netzwerks:}\\
-Durch absichtliche Fehlkonfiguration der Firewalls sowie mangelnder Netzwerksegmentierung können IT-Hosts sehr einfach auf betriebskritische OT-Komponenten zugreifen bzw. diese lahmlegen. Es werden auf dieses ungesicherte Netzwerk vom Projektteam für den Zweck selbst programmierte Malware, aber auch aus echten Cyberangriffen gesammelte Netzwerkwürmer eingesetzt (Diese werden von der Ikarus Security Software GmbH bereit-gestellt). Mithilfe von Sniffing-Tools sowie der Nozomi Guardian wird der Angriffsverlauf überwacht sowie aufgezeichnet und anschließend werden die ausgenutzten Schwachstellen dokumentiert, um diese in der 2. Phase der Diplomarbeit gezielt beheben zu können.
+Durch absichtliche Fehlkonfiguration der Firewalls sowie mangelnder Netzwerksegmentierung können IT-Hosts sehr einfach auf betriebskritische OT-Komponenten zugreifen bzw. diese lahmlegen. Es werden auf dieses ungesicherte Netzwerk vom Projektteam für den Zweck selbst programmierte Malware, aber auch aus echten Cyberangriffen gesammelte Netzwerkwürmer eingesetzt (Diese werden von der Ikarus Security Software GmbH bereitgestellt). Mithilfe von Sniffing-Tools sowie der Nozomi Guardian wird der Angriffsverlauf überwacht sowie aufgezeichnet und anschließend werden die ausgenutzten Schwachstellen dokumentiert, um diese in der 2. Phase der Diplomarbeit gezielt beheben zu können.
 
 \item \underline{Umsetzung eines realitätsgetreuen, gesicherten Netzwerks:}\\
 Zur Abgrenzung zwischen IT und OT wird eine FortiGate-Firewall mit strikter Netzwerkzugangskontrollkonfiguration verwendet, um unter anderem eine Zugriffskontrolle auf das OT-Netz zu etablieren, aber auch die Integration einer Nozomi Guardian zur OT-Netzwerküberwachung zu ermöglichen. Diese Nozomi Guardian liest aktiv über ein SPAN-Mirroring jeglichen Traffic innerhalb des gesamten OT-Netzwerks mit, um Angriffe sowie Fehlkonfiguration für einen Netzwerkadministrator stets leicht ersichtlich zu machen.
@@ -362,7 +364,7 @@ Die OpenPLC SPS, die auf einem Raspberry Pi 3b läuft, wurde je nach der in ihre
 \end{enumerate}
 
 \item{\underline{SCADA-System}}\\
-Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist fertiggestellt.
+Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist fertiggestellt. Es ist per HTTPS-Verbindung möglich, auf das Web-Dashboard des SCADA-Systems zuzugreifen und die jeweiligen Betriebszellen zu überwachen sowie ein- und ausschalten zu können. Der SCADA-Server ist im OT-AD integriert.
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{Konfiguration/Scripting}}\\
@@ -376,27 +378,30 @@ Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebsz
 Alle HMI-Geräte sind ihrem Zweck nach konfiguriert und in die jeweiligen Betriebszellen eingebunden worden, um es Systemadministrator*innen zu erlauben, vor Ort den Betriebsprozess leichter überwachen zu können.
 
 \item{\underline{Engineer-Workstation}}\\
-Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert. Sie ist mittels RDP erreichbar und lässt somit OT-Ingenieure gegebenfalls die SPSen umprogrammieren.
+Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert. Sie ist in das OT-AD (siehe "'AD-Umgebung erstellt"') integriert sowie mittels RDP erreichbar und lässt somit OT-Ingenieure gegebenfalls die SPSen umprogrammieren.
 
 \item{\underline{AD-Umgebung erstellt}}\\
-Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Domänennamen htl3r.fenrir.com.
+Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Root-Domänennamen fenrir.com und teilt sich insgesamt auf die drei Domänen ot.fenrir.com, it.fenrir.com sowie extern.it.fenrir.com auf, wobei alle Domänen Teil eines gemeinsamen Forests sind und extern.it.fenrir.com eine Subdomäne von it.fenrir.com ist.
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{DC-Konfiguration}}\\
-In der Active Directory Umgebung existieren zwei Domain Controller, welche untereinander redundant und somit ausfallsicher betrieben werden. Die FSMO-Rollen sind so gleichmäßig es geht auf diesen aufgeteilt, dazu sind beide für Optimierungszwecke ein Global Catalog-Server. Auch automatisierte tägliche Backups der AD-Datenbank und der Systemzustandsdateien beider Domain Controller finden statt und werden auf einem extra für Backups konzipierten File-Server (siehe "'Server konfiguriert"') gespeichert.
+In der Active Directory Umgebung existieren pro Domäne zwei Domain Controller (ausgenommen in extern.it.fenrir.com, diese Domäne hat lediglich einen DC), welche untereinander redundant und somit ausfallsicher betrieben werden. Die FSMO-Rollen sind so gleichmäßig es geht auf diesen aufgeteilt, dazu sind beide für Optimierungszwecke ein Global Catalog-Server. Auch automatisierte tägliche Backups der AD-Datenbank und der Systemzustandsdateien beider Domain Controller finden statt und werden auf einem extra für Backups konzipierten File-Server (siehe "'Server konfiguriert"') gespeichert.
 \item{\underline{OU-Struktur}}\\
 Die einzelnen Objekte wie Computer sowie User der Active Directory Umgebung sind nach dem Business-Unit-Modell hierarchisch in Organisational Units (kurz OUs) unterteilt und somit auch strukturiert.
 \item{\underline{Konten/Gruppen-Erstellung \& Konfiguration}}\\
 Die Benutzerkonten, Sicherheitsgruppen für Zugriffsrechte sowie Gruppenrichtlinien auf Assets innerhalb des Netzwerks sind erstellt. Diese sind vorest absichtlich sicherheitstechnisch "locker" gelassen, um Angriffe auf dieses Netzwerk einfacher zu gestalten.
 \item{\underline{Prometheus Monitoring}}\\
-Ein Ubuntu-Server mit einer Prometheus-Konfiguration steht im IT-Netzwerk und überwacht die AD-Domain-Controller. Unter anderem werden Systemressourcen, Datenverkehr sowie andere Teile der ADDS überwacht und auf einem Grafana Dashboard dargestellt.
+Ein Ubuntu-Server mit einer Prometheus-Konfiguration steht im IT-Netzwerk und überwacht die IT-AD-Domain-Controller. Unter anderem werden Systemressourcen, Datenverkehr sowie andere Teile der ADDS überwacht und auf einem Grafana Dashboard dargestellt.
 \end{enumerate}
 
-\item{\underline{Endgeräte konfiguriert}}\\
+\item{\underline{IT-Endgeräte konfiguriert}}\\
 Endgeräte, die oftmals in Büroumgebungen aufzufinden sind wie Office-PCs, Laptops, Drucker sind Teil des IT-Netzwerks und sind in der Active Directory Umgebung integriert.
 
-\item{\underline{Server konfiguriert}}\\
+\item{\underline{IT-Server konfiguriert}}\\
 Ein Mail-Server, auf welchem Microsoft Exchange läuft, und ein File-Server, welcher zur Speicherung von Backups sowie für das Hosting von Shares zuständig ist sind beide im IT-Netzwerk und somit auch in der Active Directory Umgebung integriert.
+
+\item{\underline{Automatisierte Client-Provisionierung}}\\
+Die Bereitstellung der Clients erfolgt als virtuelle Maschinen, basierend auf einem vordefinierten Template. Anschließend werden die Clients mittels SSH, zum Beispiel durch Red Hat Ansible, automatisiert eingerichtet.
 
 \end{enumerate}
 \item{\bfseries{Gesicherte Netzwerktopologie}}\\
@@ -414,7 +419,7 @@ An der Schnittstelle zwischen dem IT-Netzwerk dieser Diplomarbeit und der Anbind
 Der Übergang zwischen der OT- und der IT-Welt ist mittels einer FortiGate-60F Firewall so abgesichert, dass nur die berechtigte Workstation in das OT-Netzwerk eingreifen kann, und auch dort nur auf das SCADA-System bzw. die SPS-Workstation.
 
 \item{\underline{OT-Zellen}}\\
-Innerhalb des OT-Netzwerks unterteilen schienen-montierte FortiGateRugged-60F Firewalls manche Bereiche in sogenannte OT-Zellen.
+Innerhalb des OT-Netzwerks unterteilen schienenmontierte FortiGateRugged-60F Firewalls manche Bereiche in sogenannte OT-Zellen.
 \end{enumerate}
 
 \item{\underline{Jump Server}}\\
@@ -442,7 +447,7 @@ Alle Bestandteile des Active Directory, das heißt Endgeräte, Server, Domain Co
 Der Prozess des Aufbaus sowie der Absicherung der Topologie sind in einem Handbuch aufgefasst. Dieses ist mittels \LaTeX geschrieben und dient als Nachschlagewerk für angehende OT-Security-Spezialisten. Unter anderem werden im Handbuch folgende Punkte festgelegt:
 \begin{enumerate}[label=\alph*.]
 \item{\underline{Wireshark Überwachung}}\\
-Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Da-tenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
+Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
 
 \item{\underline{Nozomi Guardian Überwachung}}\\
 Es ist mittels der Nozomi Guardian der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
@@ -450,6 +455,9 @@ Es ist mittels der Nozomi Guardian der Datenverkehr zwischen den Geräten im IT-
 \item{\underline{Handbuch erstellt}}\\
 Die Ergebnisse/Erkenntnisse der Diplomarbeit sind in einem Absicherungshandbuch zusammengeschrieben. Dieses inkludiert unter anderem Abschnitte zum Aufbau der Topologie, zur Theorie hinter der OT-Absicherung, zur Absicherung der Topologie und zum aufgekommenen Datenverkehr innerhalb der Topologie.
 \end{enumerate}
+
+\item{\bfseries{Website}}\\
+Unter der von easyname gehosteten URL www.fenrir-ot.at ist eine dem Projekt-Styleguide nach erstellten Website abrufbar. Auf dieser werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt.
 \end{enumerate}
 
 \subsection{Optionale Ziele}
@@ -464,8 +472,6 @@ Für die Repräsentation des Projektteams aber auch der während der Diplomarbei
 \item{\underline{Social Media}}\\
 Es ist ein Social-Media-Konto auf Instagram namens @fenrir.ot angelegt worden. Auf diesem Konto werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt. Dazu wird der Arbeitsablauf während des Diplomarbeitsverlaufs mittels Fotos dokumentiert und dort hochgeladen.
 
-\item{\underline{Website}}\\
-Unter der von easyname gehosteten URL www.fenrir-ot.at ist eine dem Projekt-Styleguide nach erstellten Website abrufbar. Auf dieser werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt.
 \end{enumerate}
 
 \item{\bfseries{Sticker drucken}}\\
@@ -492,7 +498,7 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 		\rule{0pt}{15pt}
 		\textbf{\normalsize{David Koch - Projektleiter}} \\ \hline
 		
-		\rule{0pt}{20pt} Controlling, AD \& Monitoring, OT-Aufbau, Übergangs-FW \\
+		\rule{0pt}{20pt}Der Hauptschwerpunkt liegt auf dem Aufbau und der Umsetzung eines funktionalen OT-Netzwerks und dessen Absicherung. Dazu gehört die Beschaffung der für die Diplomarbeit benötigte Aktorik sowie Sensorik, aber auch der SPSen zur Steuerung und dessen Programmierung. Die Absicherung des OT-Bereichs wird hierbei durch, unter anderem, Netzwerksegmentierung, strenge Firewallkonfigurationen und stetigen Überwachungsmöglichkeiten durch Systemadministrator*innen verwirklicht. Als Projektleiter liegt natürlich auch ein Schwerpunkt auf dem Controlling bezüglich der Projektumsetzung sowohl als auch auf einer positiven Repräsentation des Projektteams und dessen Arbeit nach außen.  \\
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
 		
 		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
@@ -521,7 +527,7 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 		\rule{0pt}{15pt}
 		\textbf{\normalsize{Bastian Uhlig - Rolle Mitarbeiter}} \\ \hline
 		
-		\rule{0pt}{20pt} Controlling, Nozomi Guardian, Uplink-FW, HMI-Config \\
+		\rule{0pt}{20pt}Der Hauptschwerpunkt liegt in der Einbindung der Nozomi Guardian, sowie der Überwachung des Netzwerks mit dieser, wobei dies auch mit Wireshark verglichen wird. Außerdem wird das SCADA System konfiguriert. Zu all diesem gehört die entsprechende Dokumentation. Bei der Firewall wird der Schwerpunkt auf dem Uplink und der entsprechenden Konfiguration von diesem, um eventuell auf die FCP Network Security Zertifizierung auszuweiten. Als stellvertretender Projektleiter liegt auch ein Schwerpunkt beim Controlling sowie der Unterstützung des Projektleiters.\\
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
 		
 		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
@@ -531,35 +537,6 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 			\item{ZIEL-H 2dII Nozomi Guardian - Einbindung}
 			\item{ZIEL-H 3b Nozomi Guardian Überwachung}
 			\item{ZIEL-H 3c Handbuch erstellt}
-			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
-			\item{ZIEL-O 2b Website}
-		\end{itemize}
-		
-		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Aufgabenstellung}} \\ \hline
-	\end{tabularx}
-\end{table}
-
-\begin{table}[H]
-	\begin{tabularx} {\textwidth} {
-			|>{\hsize=1\hsize}X|
-		}
-		
-		\hline
-		\rowcolor[HTML]{D9D9D9} 
-		\rule{0pt}{15pt}
-		\textbf{\normalsize{Julian Burger - Rolle Mitarbeiter}} \\ \hline
-		
-		\rule{0pt}{20pt} Nozomi Guardian, Übergangs-FW, HMI-Config, SCADA \\
-		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
-		
-		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
-			\item{ZIEL-H 1a Planung der Topologie}
-			\item{ZIEL-H 1d Übergang \& DMZ IT/OT}
-			\item{ZIEL-H 1fII SCADA-System - Design}
-			\item{ZIEL-H 2aII Firewall Konfiguration - Übergang IT/OT}
-			\item{ZIEL-H 2b Jump Server}
-			\item{ZIEL-H 2dI Nozomi Guardian - Installation}
-			\item{ZIEL-H 3a Wireshark Überwachung}
 			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
 			\item{ZIEL-O 3 Sticker drucken}
 		\end{itemize}
@@ -576,9 +553,38 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 		\hline
 		\rowcolor[HTML]{D9D9D9} 
 		\rule{0pt}{15pt}
+		\textbf{\normalsize{Julian Burger - Rolle Mitarbeiter}} \\ \hline
+		
+		\rule{0pt}{20pt}Der Hauptschwerpunkt liegt auf dem Deployment des Nozomi Guardian Containers sowie der Konfiguration eines funktionstüchtigen SCADA-Systems. Hierbei ist es wichtig, dass der Nozomi Guardian Container die Aktoren und Sensoren korrekt erkennen und einstufen kann. Der Zugang zum SCADA-System muss abgesichert und eingeschränkt sein, dies wird durch Sicherung des Überganges zwischen IT und OT geregelt. Das SCADA-System muss ebenfalls leicht für eine Person bedienbar sein, somit spielt die Konfiguration von einem benutzerfreundlichen HMI eine bedeutende Rolle.  \\
+		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
+		
+		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
+			\item{ZIEL-H 1a Planung der Topologie}
+			\item{ZIEL-H 1d Übergang \& DMZ IT/OT}
+			\item{ZIEL-H 1fII SCADA-System - Design}
+			\item{ZIEL-H 2aII Firewall Konfiguration - Übergang IT/OT}
+			\item{ZIEL-H 2b Jump Server}
+			\item{ZIEL-H 2dI Nozomi Guardian - Installation}
+			\item{ZIEL-H 3a Wireshark Überwachung}
+			\item{ZIEL-H 4 Website}
+			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
+		\end{itemize}
+		
+		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Aufgabenstellung}} \\ \hline
+	\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabularx} {\textwidth} {
+			|>{\hsize=1\hsize}X|
+		}
+		
+		\hline
+		\rowcolor[HTML]{D9D9D9} 
+		\rule{0pt}{15pt}
 		\textbf{\normalsize{Gabriel Vogler - Rolle Mitarbeiter}} \\ \hline
 		
-		\rule{0pt}{20pt} AD \& Monitoring, Uplink-FW, SCADA, OT-Aufbau \\
+		\rule{0pt}{20pt}Der Hauptschwerpunkt liegt im Aufbau der IT-Infrastruktur in Form einer Active-Directory Umgebung mit Fokus auf der automatisierten Provisionierung der Client-Computer, sowie der OU-, Benutzer und Gruppen Erstellung bzw. Konfiguration. Außerdem wird das Active Directory noch gehärtet und ergänzt durch Server für, beispielsweise, Monitoring mittels Prometheus/Grafana. Es kommt auch noch die Engineer-Workstation dazu, mit der dann auch die LOGO! SPS programmiert wird. Möglicherweise wird auch noch die Zertifizierungsstufe des FCP Network Security erreicht.\\
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
 		
 		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
@@ -590,6 +596,7 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 			\item{ZIEL-H 1iIV AD-Umgebung erstellt - Prometheus Monitoring}
 			\item{ZIEL-H 1k Server konfiguriert}
 			\item{ZIEL-H 2e AD-Härtung}
+			\item{ZIEL-H l Automatisierte Client-Provisionierung}
 			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
 		\end{itemize}
 		
@@ -633,7 +640,7 @@ Betreuung-Stv = Betreuung Stellvertretung \\
 		\textbf{\normalsize{Funktion}} & {\textbf{\normalsize{Name}}} & {\textbf{\normalsize{Kürzel}}} & {\textbf{\normalsize{E-Mail}}} \\ \hline
 		\rule{0pt}{15pt}	PL & David Koch & KOC & david.koch@htl.rennweg.at \\ \hline
 		\rule{0pt}{15pt}	PL Stv. & Bastian Uhlig & UHL & bastian.uhlig@htl.rennweg.at \\ \hline
-		\rule{0pt}{15pt}	PMA & Julian Burger & BUR & burger.julian@htl.rennweg.at \\ \hline
+		\rule{0pt}{15pt}	PMA & Julian Burger & BUR & julian.burger@htl.rennweg.at \\ \hline
 		\rule{0pt}{15pt}	PMA & Gabriel Vogler & VOG & gabriel.vogler@htl.rennweg.at \\ \hline
 	\end{tabularx}
 \end{table}
@@ -680,15 +687,15 @@ Die restlichen Bauteile, die für die Diplomarbeit gebraucht werden, jedoch nich
 \section{Geplante externe Kooperationspartner}
 Folgende Firmen liegen als geplante externe Kooperationspartner vor:
 \begin{itemize}
-	\item{Fortinet}
+	\item{Fortinet Austria GmbH}
 	\item{Ikarus Security Software GmbH}
 \end{itemize}
-Die Fortinet trägt zur Bereitstellung der Lizenzen für die in der Netzwerktopologie vorhandenen FortiGate-Firewalls sowie FortiSwitches bei.
+Die Fortinet Austria GmbH trägt zur Bereitstellung der Lizenzen für die in der Netzwerktopologie vorhandenen FortiGate-Firewalls sowie FortiSwitches bei.
 
 Von der Ikarus Security Software GmbH wird ein Docker-Container, der eine Nozomi Guardian als Software innehält, sowie die für die Nozomi Guardian zugehörigen Lizenzen bereitgestellt. Dazu dient Herbert Dirnberger mit seiner Position von Industrial Cyber Security Expert als Berater im Bereich Absicherung des OT-Netzwerks.
 
 \newpage
 \section{Geplante Verwertung der Ergebnisse}
-Nach Abschluss der Diplomarbeit bleibt nur das während der Arbeit erstellte Handbuch über, die gesamte Netzwerktopologie bleibt im Serverraum 078 bestehen und kann jederzeit abgebaut werden und die einzelnen Komponenten an den ursprünglichen Besitzer übergeben, das heißt, dass Herr Prof. Schöndorfer die von ihm geliehene Sensorik sowie Aktorik zurückbekommt, die von zuvorigen Diplomarbeiten wiederverwerteten Bauteile sowie mit schulischen Förderungsgeldern gekaufte Komponente werden an die HTL Rennweg übergeben und alle von den Projektmitglieder privat gekauften Bauteile gehen wieder in ihren Besitz über. 
+Nach Abschluss der Diplomarbeit besteht das während der Arbeit erstellte Handbuch, die gesamte Netzwerktopologie bleibt im Serverraum 078 bestehen. Diese kann von zukünftigen Schülern der HTL Rennweg für ihre eigene Diplomarbeit weiterverwendet beziehungs wiederverwertet werden. Als Alternative können auch die einzelnen Komponenten an den ursprünglichen Besitzer übergeben werden, das heißt, dass Herr Prof. Schöndorfer die von ihm geliehene Sensorik sowie Aktorik zurückbekommt, die von zuvorigen Diplomarbeiten wiederverwerteten Bauteile sowie mit schulischen Förderungsgeldern gekaufte Komponente werden an die HTL Rennweg übergeben und alle von den Projektmitglieder privat gekauften Bauteile gehen wieder in ihren Besitz über.
 
 \end{document}
