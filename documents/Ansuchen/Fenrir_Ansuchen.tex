@@ -380,7 +380,7 @@ Alle HMI-Geräte sind ihrem Zweck nach konfiguriert und in die jeweiligen Betrie
 Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert. Sie ist in das OT-AD (siehe "'AD-Umgebung erstellt"') integriert sowie mittels RDP erreichbar und lässt somit OT-Ingenieure gegebenfalls die SPSen umprogrammieren.
 
 \item{\underline{AD-Umgebung erstellt}}\\
-Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Root-Domänennamen fenrir.com und teilt sich insgesamt auf die drei Domänen ot.fenrir.com, it.fenrir.com sowie extern.it.fenrir.com auf, wobei die IT-Domänen teil eines gemeinsamen Forests sind, die OT-Domäne existiert abgeschottet in einem eigenen Forest. Die Forests haben zueinander nur die für den normalen Betrieb absolut notwendigen Trusts.
+Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Root-Domänennamen fenrir.com und teilt sich insgesamt auf die drei Domänen ot.fenrir.com, it.fenrir.com sowie extern.it.fenrir.com auf, wobei alle Domänen Teil eines gemeinsamen Forests sind und extern.it.fenrir.com eine Subdomäne von it.fenrir.com ist.
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{DC-Konfiguration}}\\
@@ -522,7 +522,8 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 		\rule{0pt}{15pt}
 		\textbf{\normalsize{Bastian Uhlig - Rolle Mitarbeiter}} \\ \hline
 		
-		\rule{0pt}{20pt} Controlling, Nozomi Guardian, Uplink-FW, HMI-Config \\
+		\rule{0pt}{20pt} Der Hauptschwerpunkt liegt in der Einbindung der Nozomi Guardian, sowie deren Konfiguration
+		 Controlling, Nozomi Guardian, Uplink-FW, HMI-Config \\
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
 		
 		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
