@@ -1,6 +1,7 @@
 % Julian Burger
 % Bastian Uhlig
 % David Koch
+% Gabriel Vogler
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -399,6 +400,9 @@ Endgeräte, die oftmals in Büroumgebungen aufzufinden sind wie Office-PCs, Lapt
 \item{\underline{IT-Server konfiguriert}}\\
 Ein Mail-Server, auf welchem Microsoft Exchange läuft, und ein File-Server, welcher zur Speicherung von Backups sowie für das Hosting von Shares zuständig ist sind beide im IT-Netzwerk und somit auch in der Active Directory Umgebung integriert.
 
+\item{\underline{Automatisierte Client-Provisionierung}}\\
+Die Bereitstellung der Clients erfolgt als virtuelle Maschinen, basierend auf einem vordefinierten Template. Anschließend werden die Clients mittels SSH, zum Beispiel durch Red Hat Ansible, automatisiert eingerichtet.
+
 \end{enumerate}
 \item{\bfseries{Gesicherte Netzwerktopologie}}\\
 Alle Bereiche der Netzwerktopologie sind nach den unten angeführten Sicherheitskriterien gehärtet. Die Topologie gilt nun als industriegemäß/realitätsgetreu sicher vor äußeren Angriffen.
@@ -591,6 +595,7 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 			\item{ZIEL-H 1iIV AD-Umgebung erstellt - Prometheus Monitoring}
 			\item{ZIEL-H 1k Server konfiguriert}
 			\item{ZIEL-H 2e AD-Härtung}
+			\item{ZIEL-H l Automatisierte Client-Provisionierung}
 			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
 		\end{itemize}
 		
