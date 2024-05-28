@@ -1,6 +1,7 @@
 % Julian Burger
 % Bastian Uhlig
 % David Koch
+% Gabriel Vogler
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -399,6 +400,9 @@ Endgeräte, die oftmals in Büroumgebungen aufzufinden sind wie Office-PCs, Lapt
 \item{\underline{IT-Server konfiguriert}}\\
 Ein Mail-Server, auf welchem Microsoft Exchange läuft, und ein File-Server, welcher zur Speicherung von Backups sowie für das Hosting von Shares zuständig ist sind beide im IT-Netzwerk und somit auch in der Active Directory Umgebung integriert.
 
+\item{\underline{Automatisierte Client-Provisionierung}}\\
+Die Bereitstellung der Clients erfolgt als virtuelle Maschinen, basierend auf einem vordefinierten Template. Anschließend werden die Clients mittels SSH, zum Beispiel durch Red Hat Ansible, automatisiert eingerichtet.
+
 \end{enumerate}
 \item{\bfseries{Gesicherte Netzwerktopologie}}\\
 Alle Bereiche der Netzwerktopologie sind nach den unten angeführten Sicherheitskriterien gehärtet. Die Topologie gilt nun als industriegemäß/realitätsgetreu sicher vor äußeren Angriffen.
@@ -551,7 +555,7 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 		\rule{0pt}{15pt}
 		\textbf{\normalsize{Julian Burger - Rolle Mitarbeiter}} \\ \hline
 		
-		\rule{0pt}{20pt} Nozomi Guardian, Übergangs-FW, HMI-Config, SCADA \\
+		\rule{0pt}{20pt}Der Hauptschwerpunkt liegt auf dem Deployment des Nozomi Guardian Containers sowie der Konfiguration eines funktionstüchtigen SCADA-Systems. Hierbei ist es wichtig, dass der Nozomi Guardian Container die Aktoren und Sensoren korrekt erkennen und einstufen kann. Der Zugang zum SCADA-System muss abgesichert und eingeschränkt sein, dies wird durch Sicherung des Überganges zwischen IT und OT geregelt. Das SCADA-System muss ebenfalls leicht für eine Person bedienbar sein, somit spielt die Konfiguration von einem benutzerfreundlichen HMI eine bedeutende Rolle.  \\
 		\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Themenschwerpunkt}} \\ \hline
 		
 		\begin{itemize}[itemsep=0pt, parsep=0pt, topsep=0pt]
@@ -592,6 +596,7 @@ Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Sec
 			\item{ZIEL-H 1iIV AD-Umgebung erstellt - Prometheus Monitoring}
 			\item{ZIEL-H 1k Server konfiguriert}
 			\item{ZIEL-H 2e AD-Härtung}
+			\item{ZIEL-H l Automatisierte Client-Provisionierung}
 			\item{ZIEL-O 1 FCP Network Security Zertifizierung}
 		\end{itemize}
 		
@@ -691,6 +696,6 @@ Von der Ikarus Security Software GmbH wird ein Docker-Container, der eine Nozomi
 
 \newpage
 \section{Geplante Verwertung der Ergebnisse}
-Nach Abschluss der Diplomarbeit bleibt nur das während der Arbeit erstellte Handbuch über, die gesamte Netzwerktopologie bleibt im Serverraum 078 bestehen und kann jederzeit abgebaut werden und die einzelnen Komponenten an den ursprünglichen Besitzer übergeben, das heißt, dass Herr Prof. Schöndorfer die von ihm geliehene Sensorik sowie Aktorik zurückbekommt, die von zuvorigen Diplomarbeiten wiederverwerteten Bauteile sowie mit schulischen Förderungsgeldern gekaufte Komponente werden an die HTL Rennweg übergeben und alle von den Projektmitglieder privat gekauften Bauteile gehen wieder in ihren Besitz über. 
+Nach Abschluss der Diplomarbeit besteht das während der Arbeit erstellte Handbuch, die gesamte Netzwerktopologie bleibt im Serverraum 078 bestehen. Diese kann von zukünftigen Schülern der HTL Rennweg für ihre eigene Diplomarbeit weiterverwendet beziehungs wiederverwertet werden. Als Alternative können auch die einzelnen Komponenten an den ursprünglichen Besitzer übergeben werden, das heißt, dass Herr Prof. Schöndorfer die von ihm geliehene Sensorik sowie Aktorik zurückbekommt, die von zuvorigen Diplomarbeiten wiederverwerteten Bauteile sowie mit schulischen Förderungsgeldern gekaufte Komponente werden an die HTL Rennweg übergeben und alle von den Projektmitglieder privat gekauften Bauteile gehen wieder in ihren Besitz über.
 
 \end{document}
