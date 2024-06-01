@@ -1,0 +1,289 @@
+% David Koch
+
+\documentclass[
+	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
+	% Gliederungsbefehle aktiviert.
+	oneside,
+	numbers=noenddot,% Keine Punkte am Ende der Gliederungsnummern und davon
+	% abgeleiteten Nummern
+	toc=flat, %Flache TOC --- kann man anpassen (auskommentieren)
+	10pt, % Schriftgröße
+	parskip=full, % Abstand zwischen Absätzen (ganze Zeile)
+	listof=totoc, % Verzeichnisse im Inhaltsverzeichnis aufführen
+	listof=flat, % mehr Abstand für grosse Zahlen
+	numbers=noenddot, % kein Punkt am Ende bei Nummern
+	%%enlargefirstpage,% Gibt es bei scrartcl nicht!!!!
+	bibliography=totoc, % Literaturverzeichnis im Inhaltsverzeichnis aufführen
+	%index=totoc, % Index im Inhaltsverzeichnis aufführen
+	%captions=tableheading, % Beschriftung von Tabellen für Ausgabe oberhalb
+	% der Tabelle formatieren
+	%draft % Status des Dokuments (final/draft) draft hinzufügen zum anziegen
+	%%der zeilen ende
+	a4paper,DIV=14,
+	% captions=tablesignature,
+]{scrartcl}
+
+\setcounter{secnumdepth}{3}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[english, ngerman]{babel, varioref} % your native language must be the last one!!
+
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{blindtext}
+
+%% Aufzählungen nicht so weit einrücken
+\usepackage[inline]{enumitem}
+%\setitemize{leftmargin=*}
+% Listen etwas wenige einrücken, erfordert enumitem
+\setitemize{labelindent=2em,labelsep=0.5cm,leftmargin=12ex}
+
+\usepackage{lmodern}
+
+\usepackage{xspace}
+
+\usepackage{graphicx}
+\graphicspath{ {../../assets} }
+
+%%? \usepackage{textcomp}
+\usepackage[hyphens]{url}
+\usepackage{makeidx}
+\makeindex
+%%? \usepackage{graphicx}
+\usepackage[numbers]{natbib}
+\PassOptionsToPackage{normalem}{ulem}
+\usepackage{ulem}
+
+\usepackage{needspace}
+
+\setlength\partopsep{0.5ex}%schoenere Listen
+\usepackage[bottom]{footmisc}%fussnote ganz unten
+
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+
+\usepackage{multirow}   % Allows table elements to span several rows.
+\usepackage{booktabs}   % Improves the typesettings of tables.
+\usepackage{subcaption} % Allows the use of subfigures and enables their referencing.
+\usepackage[ruled,linesnumbered]{algorithm2e} % Enables the writing of pseudo code.
+\usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
+\usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
+\usepackage{todonotes} % Provides tooltip-like todo notes.
+
+\usepackage{color}
+\usepackage[binary-units]{siunitx}
+
+%% Override default figure placement To be within the flow of the text rather
+%% than on it's own page.
+% \usepackage{float}
+% \makeatletter
+% \def\fps@figure{H}
+% \makeatother
+
+%% bei vielen Bildern o.ä sinnvoll: Seite muss nicht bis ganz unten gefüllt werden
+% \raggedbottom
+
+%\usepackage{footbib} %  footcite, needs other tooling
+%% for pandoc2 images
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+%% bessere Suche im PDF
+\input{glyphtounicode}
+\pdfgentounicode=1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  Kopf und Fußzeilen -- links und rechts verschieden
+\newcommand{\kopfbild}{\voffset7mm\includegraphics[width=25mm]{HTL3RLogo}}
+\newcommand{\kopfHTL}{\sffamily{\textbf{\large{Projekthandbuch HTL3R}}}}
+
+\usepackage[automark,footsepline,plainfootsepline]{scrlayer-scrpage}
+\setkomafont{pageheadfoot}{\normalcolor\footnotesize\scshape}
+\setkomafont{pagenumber}{\normalfont\normalsize}
+\clearpairofpagestyles
+\ihead{\headmark}
+\ihead{\kopfbild}
+\ohead{\kopfHTL}
+\ifoot{\smaller{Höhere Technische Bundeslehranstalt Wien 3 | Rennweg 89b | 1030 Wien | \textcolor{orange}{www.htl.rennweg.at}}}
+\ofoot{Seite \pagemark/\pageref{LastPage}}
+\ModifyLayer[addvoffset=-.6ex]{scrheadings.foot.above.line}% Linie verschieben
+\ModifyLayer[addvoffset=-.6ex]{plain.scrheadings.foot.above.line}% Linie verschieben
+\setlength{\headheight}{32pt}
+
+% alle Seiten mit Kopfzeile
+%\renewcommand{\chapterpagestyle}{scrheadings}
+
+%% Code Beispiele
+%% eine Variante
+\usepackage{listings}
+\renewcommand{\lstlistingname}{\inputencoding{utf8}Listing}
+
+\usepackage{tabularx}
+\usepackage{scrhack}
+
+\usepackage{array}
+\newcommand\Tstrut{\rule{0pt}{3.2ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-1.5ex]{0pt}{0pt}}   % = `bottom' strut
+
+\newenvironment{nstabbing}
+	{\setlength{\topsep}{-\parskip}
+		\setlength{\partopsep}{-\parskip}
+		\tabbing}
+	{\endtabbing}
+
+\usepackage{titlesec}
+% \titleformat{?Überschriftenklasse?}[Absatzformatierung?]{?Textformatierung?} {?Nummerierung?}{?Abstand zwischen Nummerierung und Überschriftentext?}{?Code vor der Überschrift?}[?Code nach der Überschrift?]
+\titleformat{\section}[hang]{\Large\bfseries\sffamily}{\thesection\quad}{-1.2ex}{}
+\titleformat{\subsection}[hang]{\large\bfseries\sffamily}{\thesubsection\quad}{-1.2ex}{}
+\titleformat{\subsubsection}[hang]{\large\bfseries\sffamily}{\thesubsubsection\quad}{-1.2ex}{}
+\titleformat{\paragraph}[hang]{\large\bfseries\sffamily}{\theparagraph\quad}{-1.2ex}{}
+
+% \titlespacing{?Überschriftenklasse?}{?Linker Einzug?}{?Platz oberhalb?}{?Platz unterhalb?}[?rechter Einzug?]
+\titlespacing{\section}{0pt}{6pt}{6pt}
+\titlespacing{\subsection}{0pt}{6pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{6pt}{0pt}
+\titlespacing{\paragraph}{0pt}{6pt}{0pt}
+
+%% sollte das letzte Package sein
+\usepackage[unicode=true,
+bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
+{hyperref}
+\hypersetup{pdftitle={Fenrir Spielregeln},
+	pdfauthor={David Koch},
+	pdfsubject={DA},
+	pdfkeywords={5CN, Fenrir, DA}}
+\urlstyle{same} % don't use monospace font for urls
+
+% Auch Fußnoten bündig ausrichten
+\deffootnote[]{1em}{1em}{\textsuperscript{\thefootnotemark\ }}
+%% setup
+\sloppy % weniger Meldungen
+\voffset7mm % etwas nach unten
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%% schöner: 10000 -- gar keine, 1000 als Mittelweg
+\clubpenalty = 10000 % Schusterjungen verhindern
+\widowpenalty = 10000 % Hurenkinder verhindern
+\displaywidowpenalty = 10000
+
+{\sffamily{\textbf{\LARGE{\textcolor{orange}{Spielregeln}}}}}\\
+\noindent\rule{\textwidth}{0.1pt}
+\begin{nstabbing}
+	\hspace{4cm}\=\hspace{4cm}\=\hspace{4cm}\=\kill
+	Projekttitel: \> \textbf{Fenrir}\\
+	Auftraggeber: \> \textbf{Christian Schöndorfer}\\
+	Auftragnehmer: \> \textbf{David Koch}\\
+	Schuljahr: \> \textbf{2024/25}
+	\> Klasse: \> \textbf{5CN}\\
+\end{nstabbing}
+{\smaller
+	\begin{tabularx}{\textwidth}{l l l l}
+	\hline
+	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
+	v1.0 & xx.xx.2024 & David Koch & Erstellung des Dokuments (Draft)\Bstrut \\
+	\hline
+	\end{tabularx}
+}
+
+\section{Allgemeines}
+\subsection{Identifikation des Projekts}
+\blindtext
+\subsection{Leitgedanke}
+Kritische Infrastruktur gehört abgesichert!
+
+
+\section{Organisatorisches}
+\subsection{Fehlen von Teammitgliedern}
+Bei Abwesenheit ist eine E-Mail am ersten Tag der Abwesenheit vor Schulbeginn an den Projektleiter, sowie an den leitenden Betreuer zu verschicken. Wird der kritische Pfad durch Abwesenheit von Teammitgliedern beeinträchtigt, entscheidet der Projektleiter über etwaige Gegenmaßnahmen. Verspätete Abgabetermine sind in Ordnung, solange sich diese nicht häufen. Wenn diese passieren, werden striktere Termine vergeben, welche eingehalten werden müssen.
+
+\section{Informations- \& Kommunikationssystem}
+\subsection{Meetings}
+Meetings sind entweder lokal oder über Teams abzuhalten.\\
+Für jedes Meeting muss ein Meetingleiter sowie ein Protokollführender spätestens 24h im Vorhinein durch die Agenda festgelegt werden. Das Protokoll muss direkt nach Abschluss des Meetings an alle im Verteiler ausgeschickt werden.\\
+In der Agenda ist bereits der Kurzbericht der Tagesordnungspunkte enthalten. Es ist von allen Meetingteilnehmern erwartet, in jedem Falle das Meeting moderieren zu können.\\
+Während den Meetings ist eine entsprechende Professionalität zu halten und jede/r muss im Anschluss das Besprochene wiedergeben können.
+
+\subsection{Jour Fixe/Stand up-Meeting}
+Wöchentliche Stand-ups, jeder muss anwesend sein. Sie werden über Teams abgehalten, wöchentlich am ersten Arbeitstag der Woche. Wenn jemand an diesem Tag abwesend ist, muss sich amnächstmöglichen Arbeitstag die Information von einem Mitarbeiter eingeholt werden.
+
+\subsection{Berichtwesen}
+Bei den wöchentlichen Stand-up-Meetings wird jedes Mal ein Meilensteinbericht verfasst, um über die derzeitige Lage des Projektverlaufs informiert zu bleiben. Management Reviews können auf Wunsch von einem MA einberufen werden. \\
+Mit JIRA wird die Bearbeitung verschiedener Arbeitspakete verwaltet, um eine Übersicht des Projektes zu erlangen. Außerdem wird Clockify zur Zeiterfassung verwendet.
+
+\subsection{E-Mail-Verkehr}
+E-Mails, die das ganze Projektteam betreffen, sind an alle Teammitglieder und die Betreuer zu senden. 
+Der Betreff muss kurz und knapp formuliert werden.
+
+\subsection{Kommunikation via Telefon}
+Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu können.
+
+\subsection{Kommunikationsmatrix}
+\begin{table}[h]
+\begin{tabularx} {\textwidth} {
+	|>{\hsize=.364\hsize}X
+	|>{\hsize=.094\hsize}X
+	|>{\hsize=.173\hsize}X
+	|>{\hsize=.369\hsize}X|
+}
+
+\hline
+\rowcolor[HTML]{D9D9D9} 
+\rule{0pt}{17pt}
+\textbf{\normalsize{Schülerin/Schüler}} & \multicolumn{1}{c|}{\textbf{\normalsize{Klasse}}} & \multicolumn{1}{c|}{\textbf{\normalsize{\begin{tabular}[c]{@{}c@{}}Individuelle\\ Betreuung\end{tabular}}}} & \multicolumn{1}{c|}{\textbf{\normalsize{Unterschrift}}} \\ \hline
+\rule{0pt}{28pt}	\large{\textbf{David Koch}}	&	\multicolumn{1}{c|}{\large{4CN}}	&	\multicolumn{1}{c|}{\large{SDO}}	&              \\
+
+\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Projektleiter}}	&	&	& \textcolor[HTML]{808080}{\footnotesize{Unterschrift Projektleiter}}	\\ \hline
+
+\rule{0pt}{28pt}	\large{\textbf{Bastian Uhlig}}	&	\multicolumn{1}{c|}{\large{4CN}}	&	\multicolumn{1}{c|}{\large{KUS}}	&              \\
+
+\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Stellv. Projektleiter}}	&	&	& \textcolor[HTML]{808080}{\footnotesize{Unterschrift Stellv. Projektleiter}}	\\ \hline
+
+\rule{0pt}{28pt}	\large{\textbf{Julian Burger}}	&	\multicolumn{1}{c|}{\large{4CN}}	&	\multicolumn{1}{c|}{\large{SDO}}	&              \\
+
+\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Projektmitarbeiter}}		&	&	& \textcolor[HTML]{808080}{\footnotesize{Unterschrift Projektmitarbeiter}}	\\ \hline
+
+\rule{0pt}{28pt}	\large{\textbf{Gabriel Vogler}}	&	\multicolumn{1}{c|}{\large{4CN}}	&	\multicolumn{1}{c|}{\large{KUS}}	&              \\
+
+\rule{0pt}{11pt}\textcolor[HTML]{A6A6A6}{\footnotesize{Projektmitarbeiter}}		&	&	& \textcolor[HTML]{808080}{\footnotesize{Unterschrift Projektmitarbeiter}}	\\ \hline
+\end{tabularx}
+\end{table}
+
+\subsection{Dokumentenablage}
+
+
+\section{Nomenklatur}
+\subsection{Dokumentenerstellung}
+\blindtext
+\subsection{Dokumentenbenennung}
+Auf dem Fenrir-GitHub-Repository werden die Dokumente nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
+Fenrir\_DOKUMENTENNAME.tex \\
+Bsp.: Fenrir\_Spielregeln.tex
+
+Fertige Dokumente werden nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
+Fenrir\_DOKUMENTENNAME\_VERSIONSNUMMER\_JJJJMMTT.pdf \\
+Bsp.: Fenrir\_Spielregeln\_1.2\_20241003.pdf
+
+How-to Versionen:\\
+Neue Dokumente beginnen immer bei Version 1.0.0\\
+\begin{itemize}
+\item{Major (1. Nummer):}\\
+Bei Addition neuer Thematik
+
+\item{Minor (2.Nummer):}\\
+Bei Veränderung und/oder Ergänzung
+
+\item{Patch (3.Nummer) (kann weggelassen werden, wenn sie 0 ist):}\\
+z.B. Rechtschreibverbesserungen
+\end{itemize}
+
+\end{document}
