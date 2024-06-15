@@ -194,7 +194,8 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & 15.06.2024 & Julian Burger & Erstellung und Übernahme aus Ansuchen \Bstrut \\
+	v1.0 & 15.06.2024 & Julian Burger & Erstellung und Übernahme aus Ansuchen \\
+	v1.1 & 15.06.2024 & Julian Burger & Definierung der MES/ERP Ziele  \Bstrut \\
 	\hline
 	\end{tabularx}
 }
@@ -225,7 +226,8 @@ Die gesamte Netzwerktopologie ist umgesetzt und funktioniert einwandfrei, jedoch
 Die gesamte Projekttopologie ist finalisiert und grafisch dargestellt. Zu den grafischen Darstellungen gehört eine herkömmliche Netzwerktopologie mit allen Geräten und deren Verbindungen zueinander, aber auch eine vereinfachte Darstellung des Netzwerks nach dem Purdue-Modell.
 
 \item{\underline{OT-Aufbau/Verkabelung}}\\
-Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt. Das heißt, dass die gesamte Bewässerungsanlage fertig aufgebaut und beinahe betriebsbereit ist, nur dass die Programmierung der SPSen fehlt, um den Vorgang zu steuern. Geräte wie HMIs und restliche Überwachungssysteme wie das SCADA-System sind hardwaretechnisch vorhanden, jedoch fehlt die Konfiguration der jeweiligen Software.
+Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt. Das heißt, dass die gesamte Bewässerungsanlage fertig aufgebaut und beinahe betriebsbereit ist, nur dass die Programmierung der SPSen fehlt, um den Vorgang zu steuern. Geräte wie HMIs und restliche Überwachungssysteme wie das 
+ sind hardwaretechnisch vorhanden, jedoch fehlt die Konfiguration der jeweiligen Software.
 
 \item{\underline{IT-Aufbau}}\\
 Der gesamte IT-Bereich läuft virtualisiert auf einer ESXi-Maschine, ist fertig aufgebaut/aufgesetzt und untereinander verbunden.
@@ -256,6 +258,31 @@ Die Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA eingetragen
 
 \item{\underline{Design}}\\
 Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA grafisch realitätsnah und für Systemadministrator*innen leicht verständlich abgebildet.
+\end{enumerate}
+
+\item{\underline{MES-System}}\\
+Das MES-System kommuniziert direkt mit der PLC und kann vordefinierte Abläufe ausführen. Diese Abläufe sind dann von einem ERP-System planbar.
+
+\begin{enumerate}[label=\roman*.]
+\item{\underline{Aufsetzen}}\\
+Ein kompatibles MES-System wurde bis zum xx.xx.xxxx ausgewählt und aufgesetzt.
+
+\item{\underline{Abläufe}}\\
+Bis zum xx.xx.xxxx sind alle Abläufe die das MES tätigen kann definiert. Hierbei muss auf die OT-Hardware sowie die Fähigkeiten der PLC geachtet werden.
+
+\item{\underline{Konfigurieren}}\\
+Bis zum xx.xx.xxxx sind die definierten Abläufe im MES angelegt und konfiguriert, sowie zugänglich für das ERP gemacht.
+\end{enumerate}
+
+\item{\underline{ERP-System}}\\
+Das ERP-System ermöglicht es geplante vordefinierte Abläufe einzuleiten, diese Abläufe sind im MES definiert. Die Abläufe sind entweder für bestimmte Zeiten angesetzt oder auch direkt Ausführbar. Das ERP ist je nach Applikation über eine Webplattform oder einer Desktop-Applikation steuerbar.
+
+\begin{enumerate}[label=\roman*.]
+\item{\underline{Auswahl}}\\
+Es wurde sich bis zum xx.xx.xxxx auf ein ERP-System geeinigt, welches kompatibel mit dem zuvor definierten MES-System ist. Das ERP-System ist ebenfalls mit wenig Aufwand in das IT-System integrierbar.
+
+\item{\underline{Konfiguration}}\\
+Das ERP ist bis zum xx.xx.xxxx aufgesetzt und vollständig in das OT-System integriert. Die Abläufe vom MES sind eingebunden und können geplant werden.
 \end{enumerate}
 
 \item{\underline{HMI-Konfiguration}}\\
