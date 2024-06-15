@@ -1,4 +1,4 @@
-% David Koch
+% Bastian Uhlig
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -157,8 +157,8 @@
 bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 {hyperref}
-\hypersetup{pdftitle={Fenrir Spielregeln},
-	pdfauthor={David Koch},
+\hypersetup{pdftitle={Fenrir Risikoanalyse},
+	pdfauthor={Bastian Uhlig},
 	pdfsubject={DA},
 	pdfkeywords={5CN, Fenrir, DA}}
 \urlstyle{same} % don't use monospace font for urls
@@ -176,7 +176,7 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \widowpenalty = 10000 % Hurenkinder verhindern
 \displaywidowpenalty = 10000
 
-{\sffamily{\textbf{\LARGE{\textcolor{orange}{Spielregeln}}}}}\\
+{\sffamily{\textbf{\LARGE{\textcolor{orange}{Risikoanalyse}}}}}\\
 \noindent\rule{\textwidth}{0.1pt}
 \begin{nstabbing}
 	\hspace{4cm}\=\hspace{4cm}\=\hspace{4cm}\=\kill
@@ -190,98 +190,50 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & xx.xx.2024 & David Koch & Erstellung des Dokuments (Draft)\Tstrut  \\
-	v1.1 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Spielregeln \Bstrut \\
+	v1.0 & xx.xx.2024 & Bastian Uhlig & Erstellung des Dokuments (Draft) \Bstrut \\
 	\hline
 	\end{tabularx}
 }
 
-\section{Allgemeines}
-\subsection{Identifikation des Projekts}
-\blindtext
-\subsection{Leitgedanke}
-Kritische Infrastruktur gehört abgesichert!
-
-
-\section{Organisatorisches}
-\subsection{Fehlen von Teammitgliedern}
-Bei Abwesenheit ist eine E-Mail am ersten Tag der Abwesenheit vor Schulbeginn an den Projektleiter, sowie an den leitenden Betreuer zu verschicken. Wird der kritische Pfad durch Abwesenheit von Teammitgliedern beeinträchtigt, entscheidet der Projektleiter über etwaige Gegenmaßnahmen. Verspätete Abgabetermine sind in Ordnung, solange sich diese nicht häufen. Wenn dies passiert, werden striktere Termine vergeben, welche eingehalten werden müssen.
-
-\section{Informations- \& Kommunikationssystem}
-\subsection{Meetings}
-Meetings sind entweder lokal oder über Microsoft Teams abzuhalten.\\
-Für jedes Meeting muss ein Meetingleiter sowie ein Protokollführender spätestens 24h im Vorhinein durch die Agenda festgelegt werden. Das Protokoll muss direkt nach Abschluss des Meetings an alle im Verteiler eingetragenen Personen ausgeschickt werden.\\
-In der Agenda ist bereits der Kurzbericht der Tagesordnungspunkte enthalten. Es ist von allen Meetingteilnehmern erwartet, in jedem Falle das Meeting moderieren zu können.\\
-Während den Meetings ist eine entsprechende Professionalität zu halten und jeder muss im Anschluss das Besprochene wiedergeben können.
-
-\subsection{Jour Fixe/Stand up-Meeting}
-Zweiwöchentliche Stand-ups, bei welchen jeder muss anwesend sein. Sie werden über Teams oder in Person abgehalten, wobei der Termin innerhalb von einer Woche variieren darf. Wenn jemand an diesem Tag abwesend ist, muss sich amnächstmöglichen Arbeitstag die Information von einem Mitarbeiter eingeholt werden.
-
-\subsection{Berichtwesen}
-In jenen Wochen, in welchen kein Meeting stattfindet, wird ein Meileinsteinbericht verfasst, um eventuell kranke Mitarbeiter sowie Projektbetreuer auf dem Laufenden zu halten. Management Reviews können auf Wunsch von einem MA einberufen werden. \\
-Mit JIRA wird die Bearbeitung verschiedener Arbeitspakete verwaltet, um eine Übersicht des Projektes zu erlangen. Außerdem wird Clockify zur Zeiterfassung verwendet.
-
-\subsection{E-Mail-Verkehr}
-E-Mails, die das ganze Projektteam betreffen, sind an alle Teammitglieder und die Betreuer zu senden. 
-Der Betreff muss kurz und knapp formuliert werden.
-
-\subsection{Kommunikation via Telefon}
-Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu können, jedoch wird diese Art der Kommunikation nur in Notfällen verwendet.
-
-\subsection{Kommunikationsmatrix}
-\begin{table}[h]
-\begin{tabularx} {\textwidth} {
-	|>{\columncolor[HTML]{D9D9D9}\raggedleft\arraybackslash}X
-	|X
-	|X
-	|X
-	|X
-	|X
-	|X
-	|}
-
-\hline
-\rowcolor[HTML]{D9D9D9}
-\rule{0pt}{17pt}
-\textbf{\normalsize{Wann  Wer}} &
-\textbf{\normalsize{Zum Projektstart}} &
-\textbf{\normalsize{Zu Meilensteinen}} &
-\textbf{\normalsize{Bei Verzögerungen}} &
-\textbf{\normalsize{Bei Problemen}} & 
-\textbf{\normalsize{Zum Projektabschluss}} \\ \hline
-
-
-
-\end{tabularx}
-\end{table}
-
-\subsection{Dokumentenablage}
-Alle Dokumente des Projektes sind in \LaTeX\ zu verfassen, wobei die einzige Ausnahme nach Absprache Agendas sowie Meetingprotokolle sind. Alle WIP Dokumente sind auf Github abzulegen. Wenn sie kontrolliert werden sollen bzw. abgeschlossen sind, wird das \LaTeX-Dokument als PDF kompiliert und auf Microsoft Teams hochgeladen.
-
-\section{Nomenklatur}
-\subsection{Dokumentenerstellung}
-Projektrelevante Dokumente sind alle in einer einheitlichen Fassung zu erstellen, welche das Logo des Projektes sowie der HTL3R in der Kopfzeile beinhaltet.
-
-\subsection{Dokumentenbenennung}
-Auf dem Fenrir-GitHub-Repository werden die Dokumente nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
-Fenrir\_DOKUMENTENNAME.tex \\
-Bsp.: Fenrir\_Spielregeln.tex
-
-Fertige Dokumente werden nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
-Fenrir\_DOKUMENTENNAME\_VERSIONSNUMMER\_JJJJMMTT.pdf \\
-Bsp.: Fenrir\_Spielregeln\_1.2\_20241003.pdf
-
-How-to Versionen:\\
-Neue Dokumente beginnen immer bei Version 1.0
+\section{Projektrisikoanalyse}
+Risiken sind Ereignisse, die einen realen Schaden anrichten. Der Schaden kann sich im
+Projektmanagement auf einen oder mehrere der Faktoren Zeit, Kosten, Qualität und Nutzen des
+Produktes auswirken. Ziel ist es, bereits im Projektvorfeld Maßnahmen zur \textbf{Risikovermeidung} zu
+treffen oder für den Eintrittsfall einen \textbf{Plan B (Maßnahmen)} parat zu haben.
+\subsection{Identifikation der Risiken}
+Die Risiken sollen systematisch durch Betrachtung der untenstehenden Risikoquellen identifiziert und
+dokumentiert werden. (Für die Struktur siehe \nameref{sec:risikotabelle})
+\begin{enumerate}
+\item{Die Funktionalitäten/Anforderungen hinsichtlich Risiken analysieren, die Risiken identifizieren und zu der Liste hinzufügen.}
+\item{Welche Risiken können aus den angrenzenden Gebieten, wie z.B. Server und Infrastruktur
+eintreten?}
+\item{Brainstorming im Team mit Einbeziehung von Experten, um weitere Risiken zu identifizieren
+[Beispiele: Planungsfehler, Knowhow-Defizite des Teams, Umfeldveränderungen]. Diese
+können bereits bei der Stakeholderanalyse identifiziert worden sein.}
+\item{Checkliste mit den bekanntesten branchenüblichen Risiken kontrollieren und zutreffende
+Risiken in die Liste aufnehmen
 \begin{itemize}
-\item{Major (1. Nummer):}\\
-Bei Addition neuer Thematik
+\setlength\itemsep{-1em}
+\item{Definition der Aufgabenstellung (zu grob)}
+\item{Analyse der Machbarkeit}
+\item{verfügbare Erfahrung (neue Technologien, Tools, Methoden)}
+\item{keine Einbindung der End-User/weiterer Stakeholder}
+\item{„Vergoldung“ (Entwickler neigen dazu, mehr Leistungen zu planen als vereinbart sind)}
+\item{Unklare Verantwortlichkeiten}
+\item{Unzureichendes oder nicht kontinuierliches Risiko-Management}
+\end{itemize}}
+\end{enumerate}
+\subsection{Bewertung der Risiken}
+Die einzelnen Risiken sollen jeweils durch die \textbf{Eintrittswahrscheinlichkeit (P)} und das
+\textbf{Schadensausmaß bei Eintritt (A)} bewertet werden. Der \textbf{Risikofaktor (RF)} berechnet sich dann aus
+der Multiplikation dieser zwei Werte: RF = P x A\\
+Wichtig ist, dass nach der Bewertung die Risiken nach absteigendem Risikofaktor (RF) sortiert werden,
+so dass die Risiken mit höchster Wertigkeit ganz oben in der Liste stehen.
 
-\item{Minor (2.Nummer):}\\
-Bei Veränderung und/oder Ergänzung
 
-\item{Patch (3.Nummer) (kann weggelassen werden, wenn sie 0 ist):}\\
-z.B. Rechtschreibverbesserungen
-\end{itemize}
+\subsection{Risikotabelle}
+\label{sec:risikotabelle}
 
+\subsection{Risikoportfolio}
+\includegraphics[width=\textwidth]{example-image-a}
 \end{document}
