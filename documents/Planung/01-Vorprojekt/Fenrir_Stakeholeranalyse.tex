@@ -1,4 +1,4 @@
-% Bastian Uhlig
+% Gabriel Vogler
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -129,6 +129,13 @@
 \usepackage{tabularx}
 \usepackage{tabulary}
 \usepackage{scrhack}
+\usepackage{longtable}
+\usepackage{ragged2e}
+
+\newcommand{\positiv}{\textbf{\textcolor[HTML]{00B050}{positiv}}}
+\newcommand{\negativ}{\textbf{\textcolor[HTML]{FF0000}{negativ}}}
+\newcommand{\green}[1]{\textcolor[HTML]{00B050}{#1}}
+\newcommand{\red}[1]{\textcolor[HTML]{FF0000}{#1}}
 
 \usepackage{array}
 \newcommand\Tstrut{\rule{0pt}{3.2ex}}         % = `top' strut
@@ -139,6 +146,12 @@
 		\setlength{\partopsep}{-\parskip}
 		\tabbing}
 	{\endtabbing}
+	
+\newenvironment{myitemize}{
+    \begin{itemize}[leftmargin=1.7em]
+}{
+    \end{itemize}
+}
 
 \usepackage{titlesec}
 % \titleformat{?Überschriftenklasse?}[Absatzformatierung?]{?Textformatierung?} {?Nummerierung?}{?Abstand zwischen Nummerierung und Überschriftentext?}{?Code vor der Überschrift?}[?Code nach der Überschrift?]
@@ -170,6 +183,8 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \sloppy % weniger Meldungen
 \voffset7mm % etwas nach unten
 
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %% schöner: 10000 -- gar keine, 1000 als Mittelweg
@@ -191,23 +206,15 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & xx.xx.2024 & Bastian Uhlig & Erstellung des Dokuments (Draft)  \Bstrut \\
+	v1.0 & 13.05.2024 & Gabriel Vogler & Erstellung des Dokuments  \Bstrut \\
 	\hline
 	\end{tabularx}
 }
 
 
 \section{Projekt Stakeholder-Liste}
-\begin{table}[h]
-\begin{tabulary} {\textwidth} {
-	|C
-	|C
-	|C
-	|C
-	|C
-	|C
-	|C
-	|}
+\begin{longtable}{|M{1cm}|M{2.5cm}|M{3cm}|M{2cm}|M{2cm}|M{3.5cm}|}
+\hline
 
 \hline
 \textbf{\normalsize{Nr. (Ext/Int)}} &
@@ -216,30 +223,94 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \textbf{\normalsize{Einfluss auf Projekt/Macht
 (gering/hoch)}} &
 \textbf{\normalsize{Einstellung zum Projekt 
-(\textcolor[HTML]{00B050}{positiv}/\textcolor[HTML]{FF0000}{negativ})}} &
+(\positiv / \negativ)}} &
 \textbf{\normalsize{Maßnahmen}} \\ \hline
+E-01 & Christian Schöndorfer & Auftraggeber & hoch & \positiv &
+\RaggedRight{
+\begin{myitemize}
+	\item Termingerechte Fertigstellung
+	\item hohe Qualität der Ergebnisse
+	\item Alle 2 Wochen Meetings
+	\item jede andere 2.Woche einen Statusbericht
+\end{myitemize}} \\ \hline 
+E-02 & Clemens Kussbach & Auftraggeber Stv. & hoch & \positiv &
+	\begin{myitemize}
+	\item Termingerechte Fertigstellung
+	\item hohe Qualität der Ergebnisse
+	\item Alle 2 Wochen Meetings
+	\item jede andere 2.Woche einen Statusbericht
+	\end{myitemize} \\ \hline
+E-03 & Fortinet & Sponsor & gering & \positiv &
+	\begin{myitemize}
+	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
+	\end{myitemize} \\ \hline 
+E-04 & Ikarus & Sponsor & gering & \positiv &
+	\begin{myitemize}
+	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
+	\end{myitemize} \\ \hline 
+E-05 & Schöller Network Control & Sponsor & hoch & \positiv &
+	\begin{myitemize}
+	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
+	\end{myitemize} \\ \hline
+E-06 & HTL Rennweg INKO Verein & Sponsor & niedrig & \positiv &
+	\begin{myitemize}
+	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
+	\end{myitemize} \\ \hline
+E-07 & IT/OT-Security Unternehmen & Konkurrenz & niedrig & \negativ &
+	\begin{myitemize}
+    \item Marktbeobachtung und Analyse
+    \item Entwicklung von Alleinstellungsmerkmalen
+	\end{myitemize} \\ \hline
+I-01 & David Koch & Projektleiter & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
+I-02 & Bastian Uhlig & Projektleiter Stv. & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
+I-03 & Gabriel Vogler & Projektmitarbeiter & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
+I-04 & Julian Burger & Projektmitarbeiter & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
 
 
 
-\end{tabulary}
-\end{table}
+
+\end{longtable}
 
 \section{Stakeholder Portfolio}
 \begin{table}[h]
 \begin{tabularx} {\textwidth} {|X|X|}
-
 \hline
 
-\footnotesize{\textcolor[HTML]{A6A6A6}{Zufriedenstellen}} &
-\footnotesize{\textcolor[HTML]{A6A6A6}{Eng managen (hoher Aufwand)}}\\
- 
- &
+\footnotesize{\textcolor[HTML]{A6A6A6}{Zufriedenstellen}}
+& \footnotesize{\textcolor[HTML]{A6A6A6}{Eng managen (hoher Aufwand)}} \\ 
+& \green {E-01 Christian Schöndorfer} \\
+& \green {E-02 Clemens Kussbach} \\
+& \green {I-01 David Koch} \\
+& \green {I-02 Bastian Uhlig} \\
+& \green {I-03 Gabriel Vogler} \\
+& \green {I-04 Julian Burger}
  \\ \hline 
 
-\footnotesize{\textcolor[HTML]{A6A6A6}{Überwachen (wenig Aufwand betreiben)}} &
-\footnotesize{\textcolor[HTML]{A6A6A6}{Informieren/auf dem Laufenden halten}}\\
+\footnotesize{\textcolor[HTML]{A6A6A6}{Überwachen (wenig Aufwand betreiben)}}
+& \footnotesize{\textcolor[HTML]{A6A6A6}{Informieren/auf dem Laufenden halten}} \\
+\red {E-07 IT/OT-Security Unternehmen} 
+& \green {E-03 Fortinet} \\
+& \green {E-04 Ikarus} \\
+& \green {E-05 Schöller Network Control} \\
+& \green {E-06 HTL Rennweg INKO Verein}
+
  
- &
  \\ \hline 
 
 
