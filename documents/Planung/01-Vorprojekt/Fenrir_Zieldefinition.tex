@@ -1,0 +1,374 @@
+% Julian Burger
+
+\documentclass[
+	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
+	% Gliederungsbefehle aktiviert.
+	oneside,
+	numbers=noenddot,% Keine Punkte am Ende der Gliederungsnummern und davon
+	% abgeleiteten Nummern
+	toc=flat, %Flache TOC --- kann man anpassen (auskommentieren)
+	10pt, % Schriftgröße
+	parskip=full, % Abstand zwischen Absätzen (ganze Zeile)
+	listof=totoc, % Verzeichnisse im Inhaltsverzeichnis aufführen
+	listof=flat, % mehr Abstand für grosse Zahlen
+	numbers=noenddot, % kein Punkt am Ende bei Nummern
+	%%enlargefirstpage,% Gibt es bei scrartcl nicht!!!!
+	bibliography=totoc, % Literaturverzeichnis im Inhaltsverzeichnis aufführen
+	%index=totoc, % Index im Inhaltsverzeichnis aufführen
+	%captions=tableheading, % Beschriftung von Tabellen für Ausgabe oberhalb
+	% der Tabelle formatieren
+	%draft % Status des Dokuments (final/draft) draft hinzufügen zum anziegen
+	%%der zeilen ende
+	a4paper,DIV=14,
+	% captions=tablesignature,
+]{scrartcl}
+\usepackage{setspace}
+\onehalfspacing
+
+\setcounter{secnumdepth}{3}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[english, ngerman]{babel, varioref} % your native language must be the last one!!
+
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{blindtext}
+
+%% Aufzählungen nicht so weit einrücken
+\usepackage[inline]{enumitem}
+%\setitemize{leftmargin=*}
+% Listen etwas wenige einrücken, erfordert enumitem
+\setitemize{labelindent=2em,labelsep=0.5cm,leftmargin=12ex}
+
+\usepackage{lmodern}
+
+\usepackage{xspace}
+
+\usepackage{graphicx}
+\graphicspath{ {../../assets} }
+
+%%? \usepackage{textcomp}
+\usepackage[hyphens]{url}
+\usepackage{makeidx}
+\makeindex
+%%? \usepackage{graphicx}
+\usepackage[numbers]{natbib}
+\PassOptionsToPackage{normalem}{ulem}
+\usepackage{ulem}
+
+\usepackage{needspace}
+
+\setlength\partopsep{0.5ex}%schoenere Listen
+\usepackage[bottom]{footmisc}%fussnote ganz unten
+
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+
+\usepackage{multirow}   % Allows table elements to span several rows.
+\usepackage{booktabs}   % Improves the typesettings of tables.
+\usepackage{subcaption} % Allows the use of subfigures and enables their referencing.
+\usepackage[ruled,linesnumbered]{algorithm2e} % Enables the writing of pseudo code.
+\usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
+\usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
+\usepackage{todonotes} % Provides tooltip-like todo notes.
+
+\usepackage{color}
+\usepackage[binary-units]{siunitx}
+
+%% Override default figure placement To be within the flow of the text rather
+%% than on it's own page.
+% \usepackage{float}
+% \makeatletter
+% \def\fps@figure{H}
+% \makeatother
+
+%% bei vielen Bildern o.ä sinnvoll: Seite muss nicht bis ganz unten gefüllt werden
+% \raggedbottom
+
+%\usepackage{footbib} %  footcite, needs other tooling
+%% for pandoc2 images
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+%% bessere Suche im PDF
+\input{glyphtounicode}
+\pdfgentounicode=1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  Kopf und Fußzeilen -- links und rechts verschieden
+\newcommand{\kopfbild}{\voffset7mm\includegraphics[width=25mm]{HTL3RLogo}}
+\newcommand{\kopfHTL}{\sffamily{\textbf{\large{Projekthandbuch HTL3R}}}}
+
+\usepackage[automark,footsepline,plainfootsepline]{scrlayer-scrpage}
+\setkomafont{pageheadfoot}{\normalcolor\footnotesize\scshape}
+\setkomafont{pagenumber}{\normalfont\normalsize}
+\clearpairofpagestyles
+\ihead{\headmark}
+\ihead{\kopfbild}
+\ohead{\kopfHTL}
+\ifoot{\smaller{Höhere Technische Bundeslehranstalt Wien 3 | Rennweg 89b | 1030 Wien | \textcolor{orange}{www.htl.rennweg.at}}}
+\ofoot{Seite \pagemark/\pageref{LastPage}}
+\ModifyLayer[addvoffset=-.6ex]{scrheadings.foot.above.line}% Linie verschieben
+\ModifyLayer[addvoffset=-.6ex]{plain.scrheadings.foot.above.line}% Linie verschieben
+\setlength{\headheight}{32pt}
+
+% alle Seiten mit Kopfzeile
+%\renewcommand{\chapterpagestyle}{scrheadings}
+
+\renewcommand{\familydefault}{\sfdefault} % Dokument sans serif
+
+%% Code Beispiele
+%% eine Variante
+\usepackage{listings}
+\renewcommand{\lstlistingname}{\inputencoding{utf8}Listing}
+
+\usepackage{tabularx}
+\usepackage{scrhack}
+
+\usepackage{array}
+\newcommand\Tstrut{\rule{0pt}{3.2ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-1.5ex]{0pt}{0pt}}   % = `bottom' strut
+
+\newenvironment{nstabbing}
+	{\setlength{\topsep}{-\parskip}
+		\setlength{\partopsep}{-\parskip}
+		\tabbing}
+	{\endtabbing}
+
+\usepackage{titlesec}
+% \titleformat{?Überschriftenklasse?}[Absatzformatierung?]{?Textformatierung?} {?Nummerierung?}{?Abstand zwischen Nummerierung und Überschriftentext?}{?Code vor der Überschrift?}[?Code nach der Überschrift?]
+\titleformat{\section}[hang]{\Large\bfseries\sffamily}{\thesection\quad}{-1.2ex}{}
+\titleformat{\subsection}[hang]{\large\bfseries\sffamily}{\thesubsection\quad}{-1.2ex}{}
+\titleformat{\subsubsection}[hang]{\large\bfseries\sffamily}{\thesubsubsection\quad}{-1.2ex}{}
+\titleformat{\paragraph}[hang]{\large\bfseries\sffamily}{\theparagraph\quad}{-1.2ex}{}
+
+% \titlespacing{?Überschriftenklasse?}{?Linker Einzug?}{?Platz oberhalb?}{?Platz unterhalb?}[?rechter Einzug?]
+\titlespacing{\section}{0pt}{6pt}{6pt}
+\titlespacing{\subsection}{0pt}{6pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{6pt}{0pt}
+\titlespacing{\paragraph}{0pt}{6pt}{0pt}
+
+%% sollte das letzte Package sein
+\usepackage[unicode=true,
+bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
+{hyperref}
+\hypersetup{pdftitle={Fenrir Zieldefinition},
+	pdfauthor={Julian Burger},
+	pdfsubject={DA},
+	pdfkeywords={5CN, Fenrir, DA}}
+\urlstyle{same} % don't use monospace font for urls
+
+% Auch Fußnoten bündig ausrichten
+\deffootnote[]{1em}{1em}{\textsuperscript{\thefootnotemark\ }}
+%% setup
+\sloppy % weniger Meldungen
+\voffset7mm % etwas nach unten
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%% schöner: 10000 -- gar keine, 1000 als Mittelweg
+\clubpenalty = 10000 % Schusterjungen verhindern
+\widowpenalty = 10000 % Hurenkinder verhindern
+\displaywidowpenalty = 10000
+
+{\sffamily{\textbf{\LARGE{\textcolor{orange}{Zieldefinition}}}}}\\
+\noindent\rule{\textwidth}{0.1pt}
+\begin{nstabbing}
+	\hspace{4cm}\=\hspace{4cm}\=\hspace{4cm}\=\kill
+	Projekttitel: \> \textbf{Fenrir}\\
+	Auftraggeber: \> \textbf{Christian Schöndorfer}\\
+	Auftragnehmer: \> \textbf{David Koch}\\
+	Schuljahr: \> \textbf{2024/25}
+	\> Klasse: \> \textbf{5CN}\\
+\end{nstabbing}
+{\smaller
+	\begin{tabularx}{\textwidth}{l l l l}
+	\hline
+	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
+	v1.0 & 15.06.2024 & Julian Burger & Erstellung und Übernahme aus Ansuchen \Bstrut \\
+	\hline
+	\end{tabularx}
+}
+
+\section{Projektidee}
+
+\subsection{Ausgangssituation}
+Im Vergleich zur Cybersicherheit von IT-Systemen, die in letzten Jahrzehnten immense Fortschritte gemacht hat, ist die Absicherung von OT-Systemen bzw. sogenannten "'Industrial Control Systems"' (kurz ICS) vernachlässigt worden. Bis heute sind zahlreiche Betriebe weltweit vor äußeren Cyberangriffen auf ihre inneren Kontrollsysteme ungeschützt. \\
+Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu. Immer mehr staatliche Akteure versuchen die kritischen Industrie- sowie Infrastrukturdienste ihrer Gegner anzugreifen und sind zu oft dabei erfolgreich, da die Absicherung des Übergangs zwischen IT- und OT-Netzwerken im Betrieb oftmals suboptimal ist.
+
+Die Diplomarbeit Fenrir zielt darauf ab, ein realitätsgetreues Netzwerk, inklusive IT- sowie OT-Bereich, wie es in der Industrie üblich wäre, nachzubauen, anzugreifen und daraufhin gegen Angriffe zu härten. Dieser Prozess wird dokumentiert, um allen Projektmitarbeitern einen Einblick in den Berufsalltag von ICS-Security-Experten zu geben und somit auch für die derzeitige sowie zukünftige Arbeitswelt wertvolle Berufserfahrung zu sammeln.
+
+\subsection{Beschreibung der Idee}
+„Wie sichert man den Übergang zwischen IT und OT ausreichend vor Angriffen ab?“ \\
+Es wird eine physische Topologie gebaut, welche ein realitätsgetreues Heimnetz, inklusive IT- (Active Directory Büro- bzw. Serverumgebung) sowie OT-Bereich (Speicherprogrammierbare Steuerungen, die anzusteuernden Aktoren/Sensoren, SCADA\footnote{Supervisory Control And Data Acquisition}-System, HMI\footnote{Human Machine Interface}s), repräsentieren soll. \\
+Der OT-Bereich besteht aus einem von Herr Prof. Schöndorfer bereitgestellten Bewässerungssystem. Dies setzt sich unter anderem aus Gartenbrunnen, Wassertanks und Pumpen zusammen, wobei diese Gegenstände mit verbauter Aktorik und/oder Sensorik als Ansteuerungsziel einer SPS gelten. Diese wird später auch als Angriffsziel verwendet, wobei ein Angreifer beispielsweise das Bewässerungssystem komplett lahmlegen, oder auch mit der Manipulation dessen einen Wasserschaden verursachen könnte. \\
+Als Ziel des Projektes gilt nicht nur ein vor äußeren sowie inneren Cyberangriffen abgesichertes Netzwerk aufzustellen, sondern auch eine für Interessenten (d.h. mögliche Firmenpartner) wiederverwertbare Dokumentation des Konfigurations- bzw. Absicherungsprozesses, etwa im Stil eines Handbuchs.
+
+% ---- Ab hier beginnt der Spaß :)
+\newpage
+\section{Projektziele}
+\subsection{Hauptziele}
+\begin{enumerate}[start=1,label={\bfseries Ziel-H \arabic*},leftmargin=*,wide]
+\item{\bfseries{Ungesicherte Netzwerktopologie}}\\
+Die gesamte Netzwerktopologie ist umgesetzt und funktioniert einwandfrei, jedoch mit fehlender Absicherung vor äußeren Angriffen.
+\begin{enumerate}[label=\alph*.]
+\item{\underline{Planung der Topologie}}\\
+Die gesamte Projekttopologie ist finalisiert und grafisch dargestellt. Zu den grafischen Darstellungen gehört eine herkömmliche Netzwerktopologie mit allen Geräten und deren Verbindungen zueinander, aber auch eine vereinfachte Darstellung des Netzwerks nach dem Purdue-Modell.
+
+\item{\underline{OT-Aufbau/Verkabelung}}\\
+Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt. Das heißt, dass die gesamte Bewässerungsanlage fertig aufgebaut und beinahe betriebsbereit ist, nur dass die Programmierung der SPSen fehlt, um den Vorgang zu steuern. Geräte wie HMIs und restliche Überwachungssysteme wie das SCADA-System sind hardwaretechnisch vorhanden, jedoch fehlt die Konfiguration der jeweiligen Software.
+
+\item{\underline{IT-Aufbau}}\\
+Der gesamte IT-Bereich läuft virtualisiert auf einer ESXi-Maschine, ist fertig aufgebaut/aufgesetzt und untereinander verbunden.
+
+\item{\underline{Übergang \& DMZ IT/OT}}\\
+Der IT- und der OT-Bereich sind zusammengeschlossen mittels einer FortiGate-60F Firewall. Diese lässt jeglichen Traffic zwischen IT und OT durchfließen und die DMZ bleibt vorerst ungenutzt.
+
+\item{\underline{PLC-Programmierung}}\\
+Alle SPSen im OT-Bereich sind je nach ihrem Zweck und der anzusteuernden Aktorik/Sensorik fertig programmiert. Bis auf die Siemens LOGO! sind sie mittels ST-Programmierung (kurz für "'Structured Text"') programmiert. Die Siemens LOGO! selbst ist mittels Funktionsplan-Programmierung programmiert.
+
+\begin{enumerate}[label=\roman*.]
+\item{\underline{Simatic}}\\
+Die Siemens Simatic SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens STEP 7 programmiert.
+
+\item{\underline{LOGO!}}\\
+Die Siemens LOGO! SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens Comfort programmiert.
+
+\item{\underline{OpenPLC}}\\
+Die OpenPLC SPS, die auf einem Raspberry Pi 3b läuft, wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels des OpenPLC-Editors programmiert.
+\end{enumerate}
+
+\item{\underline{SCADA-System}}\\
+Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist fertiggestellt. Es ist per HTTPS-Verbindung möglich, auf das Web-Dashboard des SCADA-Systems zuzugreifen und die jeweiligen Betriebszellen zu überwachen sowie ein- und ausschalten zu können. Der SCADA-Server ist im OT-AD integriert.
+
+\begin{enumerate}[label=\roman*.]
+\item{\underline{Konfiguration/Scripting}}\\
+Die Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA eingetragen und können erfolgreich ein- und ausgeschalten werden.
+
+\item{\underline{Design}}\\
+Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA grafisch realitätsnah und für Systemadministrator*innen leicht verständlich abgebildet.
+\end{enumerate}
+
+\item{\underline{HMI-Konfiguration}}\\
+Alle HMI-Geräte sind ihrem Zweck nach konfiguriert und in die jeweiligen Betriebszellen eingebunden worden, um es Systemadministrator*innen zu erlauben, vor Ort den Betriebsprozess leichter überwachen zu können.
+
+\item{\underline{Engineer-Workstation}}\\
+Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert. Sie ist in das OT-AD (siehe "'AD-Umgebung erstellt"') integriert sowie mittels RDP erreichbar und lässt somit OT-Ingenieure gegebenfalls die SPSen umprogrammieren.
+
+\item{\underline{AD-Umgebung erstellt}}\\
+Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Root-Domänennamen fenrir.com und teilt sich insgesamt auf die drei Domänen ot.fenrir.com, it.fenrir.com sowie extern.it.fenrir.com auf, wobei alle Domänen Teil eines gemeinsamen Forests sind und extern.it.fenrir.com eine Subdomäne von it.fenrir.com ist.
+
+\begin{enumerate}[label=\roman*.]
+\item{\underline{DC-Konfiguration}}\\
+In der Active Directory Umgebung existieren pro Domäne zwei Domain Controller (ausgenommen in extern.it.fenrir.com, diese Domäne hat lediglich einen DC), welche untereinander redundant und somit ausfallsicher betrieben werden. Die FSMO-Rollen sind so gleichmäßig es geht auf diesen aufgeteilt, dazu sind beide für Optimierungszwecke ein Global Catalog-Server. Auch automatisierte tägliche Backups der AD-Datenbank und der Systemzustandsdateien beider Domain Controller finden statt und werden auf einem extra für Backups konzipierten File-Server (siehe "'Server konfiguriert"') gespeichert.
+\item{\underline{OU-Struktur}}\\
+Die einzelnen Objekte wie Computer sowie User der Active Directory Umgebung sind nach dem Business-Unit-Modell hierarchisch in Organisational Units (kurz OUs) unterteilt und somit auch strukturiert.
+\item{\underline{Konten/Gruppen-Erstellung \& Konfiguration}}\\
+Die Benutzerkonten, Sicherheitsgruppen für Zugriffsrechte sowie Gruppenrichtlinien auf Assets innerhalb des Netzwerks sind erstellt. Diese sind vorest absichtlich sicherheitstechnisch "locker" gelassen, um Angriffe auf dieses Netzwerk einfacher zu gestalten.
+\item{\underline{Prometheus Monitoring}}\\
+Ein Ubuntu-Server mit einer Prometheus-Konfiguration steht im IT-Netzwerk und überwacht die IT-AD-Domain-Controller. Unter anderem werden Systemressourcen, Datenverkehr sowie andere Teile der ADDS überwacht und auf einem Grafana Dashboard dargestellt.
+\end{enumerate}
+
+\item{\underline{IT-Endgeräte konfiguriert}}\\
+Endgeräte, die oftmals in Büroumgebungen aufzufinden sind wie Office-PCs, Laptops, Drucker sind Teil des IT-Netzwerks und sind in der Active Directory Umgebung integriert.
+
+\item{\underline{IT-Server konfiguriert}}\\
+Ein Mail-Server, auf welchem Microsoft Exchange läuft, und ein File-Server, welcher zur Speicherung von Backups sowie für das Hosting von Shares zuständig ist sind beide im IT-Netzwerk und somit auch in der Active Directory Umgebung integriert.
+
+\item{\underline{Automatisierte Client-Provisionierung}}\\
+Die Bereitstellung der Clients erfolgt als virtuelle Maschinen, basierend auf einem vordefinierten Template. Anschließend werden die Clients mittels SSH, zum Beispiel durch Red Hat Ansible, automatisiert eingerichtet.
+
+\end{enumerate}
+\item{\bfseries{Gesicherte Netzwerktopologie}}\\
+Alle Bereiche der Netzwerktopologie sind nach den unten angeführten Sicherheitskriterien gehärtet. Die Topologie gilt nun als industriegemäß/realitätsgetreu sicher vor äußeren Angriffen.
+
+\begin{enumerate}[label=\alph*.]
+\item{\underline{Firewall Konfiguration}}\\
+Alle Firewalls innerhalb der Topologie wurden nach den angegebene Sicherheitskriterien konfiguriert. 
+
+\begin{enumerate}[label=\roman*.]
+\item{\underline{Uplink}}\\
+An der Schnittstelle zwischen dem IT-Netzwerk dieser Diplomarbeit und der Anbindung an den ISP der HTL Rennweg steht eine FortiGate-60F Firewall. Diese schützt unter anderem vor äußeren Angriffen auf das Netzwerk und betreibt Traffic-Shaping sowie Data Loss Prevention (kurz DLP) der Datenpakete des IT-Netzwerks. Um dies zu ermöglichen wird mittels Deep Packet Inspection (kurz DPI) so gut wie jedes einzelne Datenpaket analysiert und auf Zweck sowie mögliche Schädlichkeit überprüft.
+
+\item{\underline{Übergang IT/OT}}\\
+Der Übergang zwischen der OT- und der IT-Welt ist mittels einer FortiGate-60F Firewall so abgesichert, dass nur die berechtigte Workstation in das OT-Netzwerk eingreifen kann, und auch dort nur auf das SCADA-System bzw. die SPS-Workstation.
+
+\item{\underline{OT-Zellen}}\\
+Innerhalb des OT-Netzwerks unterteilen schienenmontierte FortiGateRugged-60F Firewalls manche Bereiche in sogenannte OT-Zellen.
+\end{enumerate}
+
+\item{\underline{Jump Server}}\\
+Der Jump Server für den VPN-Zugriff vom IT-Netzwerk in das OT-Netzwerk ist fertig aufgesetzt und liegt in der DMZ der Übergangs-Firewall.
+
+\item{\underline{OT-Segmentierung}}\\
+Das OT-Netzwerk wurde in Zellen mit einer Firewall pro Zelle als Abgrenzung segmentiert, um die Betriebssicherheit zu erhöhen.
+
+\item{\underline{Nozomi Guardian}}\\
+% sowie an der Uplink-FW ist maybe fuisch who knows
+Eine Nozomi Guardian ist in der Netzwerktopologie vertreten, um den Datenverkehr, der hauptsächlich im OT-Netzwerk stattfindet, zu überwachen.
+\begin{enumerate}[label=\roman*.]
+\item{\underline{Installation}}\\
+Eine virtualisierte Ubuntu-Installation mit den von der Ikarus Security Software GmbH vorinstallierten Guardian Servers läuft auf einer ESXi-Maschine.
+
+\item{\underline{Einbindung}}\\
+Eine Nozomi Guardian ist an der Übergangs- sowie an der Uplink-Firewall angebunden und erhält über RSPAN-Mirroring Traffic vom OT- sowie dem IT-Netzwerk. Sie wertet diesen Traffic schließlich aus und stellt diesen für Netzwerkadministrator*innen leicht ersichtlich dar.
+\end{enumerate}
+
+\item{\underline{AD-Härtung}}\\
+Alle Bestandteile des Active Directory, das heißt Endgeräte, Server, Domain Controller sowie die logischen Bestandteile wie Benutzerkonten und Gruppen sind gehärtet, und sind somit nicht mehr auf gängige AD-Angriffe wie Mimikatz und Kerberoasting anfällig.
+\end{enumerate}
+
+\item{\bfseries{Absicherungshandbuch}}\\
+Der Prozess des Aufbaus sowie der Absicherung der Topologie sind in einem Handbuch aufgefasst. Dieses ist mittels \LaTeX geschrieben und dient als Nachschlagewerk für angehende OT-Security-Spezialisten. Unter anderem werden im Handbuch folgende Punkte festgelegt:
+\begin{enumerate}[label=\alph*.]
+\item{\underline{Wireshark Überwachung}}\\
+Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
+
+\item{\underline{Nozomi Guardian Überwachung}}\\
+Es ist mittels der Nozomi Guardian der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
+
+\item{\underline{Handbuch erstellt}}\\
+Die Ergebnisse/Erkenntnisse der Diplomarbeit sind in einem Absicherungshandbuch zusammengeschrieben. Dieses inkludiert unter anderem Abschnitte zum Aufbau der Topologie, zur Theorie hinter der OT-Absicherung, zur Absicherung der Topologie und zum aufgekommenen Datenverkehr innerhalb der Topologie.
+\end{enumerate}
+
+\item{\bfseries{Website}}\\
+Unter der von easyname gehosteten URL www.fenrir-ot.at ist eine dem Projekt-Styleguide nach erstellten Website abrufbar. Auf dieser werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt.
+\end{enumerate}
+
+\subsection{Optionale Ziele}
+\begin{enumerate}[start=1,label={\bfseries Ziel-O \arabic*},leftmargin=*,wide]
+\item{\bfseries{FCP Network Security Zertifizierung}}\\
+Alle Projektteammitglieder haben zum Zeitpunkt der Abgabe der Diplomarbeit die von Fortinet bereitgestellte FCP Network Security Zertifizierung erfolgreich erworben.
+
+\item{\bfseries{Medienauftritt}}\\
+Für die Repräsentation des Projektteams aber auch der während der Diplomarbeit erledigten Arbeit sind verschiedene Medienauftritte angelegt worden.
+
+\begin{enumerate}[label=\alph*.]
+\item{\underline{Social Media}}\\
+Es ist ein Social-Media-Konto auf Instagram namens @fenrir.ot angelegt worden. Auf diesem Konto werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt. Dazu wird der Arbeitsablauf während des Diplomarbeitsverlaufs mittels Fotos dokumentiert und dort hochgeladen.
+
+\end{enumerate}
+
+\item{\bfseries{Sticker drucken}}\\
+Es sind Sticker mit dem Fenrir Logo gedruckt und an Interessierte vergeben.
+\end{enumerate}
+
+\subsection{NICHT Ziele}
+\begin{enumerate}[start=1,label={\bfseries Ziel-N \arabic*},leftmargin=*,wide]
+\item{\bfseries{Topologie Abbau}}\\
+Das Projektteam ist für den Abbau der gesamten Netzwerktopologie nach Abschluss der Diplomarbeit zuständig.
+\item{\bfseries{Endpoint-Security}}\\
+Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Security installiert (SentinelOne z.B.)
+\end{enumerate}
+
+
+\end{document}
