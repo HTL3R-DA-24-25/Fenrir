@@ -1,4 +1,5 @@
 % David Koch
+% Bastian Uhlig
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -191,7 +192,8 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
 	v1.0 & xx.xx.2024 & David Koch & Erstellung des Dokuments (Draft)\Tstrut  \\
-	v1.1 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Spielregeln \Bstrut \\
+	v1.1 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Spielregeln)\Tstrut  \\
+	v1.2 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Kommunikationsmatrix \Bstrut \\
 	\hline
 	\end{tabularx}
 }
@@ -231,7 +233,7 @@ Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu kö
 \subsection{Kommunikationsmatrix}
 \begin{table}[h]
 \begin{tabularx} {\textwidth} {
-	|>{\columncolor[HTML]{D9D9D9}\raggedleft\arraybackslash}X
+	|>{\columncolor[HTML]{D9D9D9}\raggedright\arraybackslash}X
 	|X
 	|X
 	|X
@@ -242,13 +244,33 @@ Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu kö
 
 \hline
 \rowcolor[HTML]{D9D9D9}
-\rule{0pt}{17pt}
-\textbf{\normalsize{Wann  Wer}} &
-\textbf{\normalsize{Zum Projektstart}} &
-\textbf{\normalsize{Zu Meilensteinen}} &
-\textbf{\normalsize{Bei Verzögerungen}} &
-\textbf{\normalsize{Bei Problemen}} & 
-\textbf{\normalsize{Zum Projektabschluss}} \\ \hline
+\textbf{\normalsize{Wann Wer}} &
+\raggedright{\textbf{\normalsize{Zum Projektstart}}} &
+\raggedright{\textbf{\normalsize{Zu Meilensteinen}}} &
+\raggedright{\textbf{\normalsize{Bei Verzögerungen}}} &
+\raggedright{\textbf{\normalsize{Bei Problemen}}} & 
+\raggedright\arraybackslash{\textbf{\normalsize{Zum Projektabschluss}}} \\ \hline
+
+Auftraggeber (SDO + KUS) &
+Projektauftrag unterschrieben &
+Protokoll &
+E-Mail &
+Face-to-Face / Mail &
+Abnahme, Abschlussmeeting \\ \hline
+
+Projektleiter &
+Projektauftrag unterschreiben, Kick-Off &
+Meilenstein-Bericht &
+Face-to-Face &
+Face-to-Face &
+Abnahme, Abschlussmeeting \\ \hline
+
+Team &
+Kick-Off &
+Meilenstein-Bericht &
+Meeting über Umstände &
+Problemsolving Meeting &
+Projektpräsentation \\ \hline
 
 
 
