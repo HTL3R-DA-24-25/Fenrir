@@ -196,7 +196,8 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
 	v1.0 & 15.06.2024 & Julian Burger & Erstellung und Übernahme aus Ansuchen \\
 	v1.1 & 15.06.2024 & Julian Burger & Definierung der MES/ERP Ziele \\ 
-	v1.2 & 16.06.2024 & Julian Burger & Definierung der Website Ziele \Bstrut \\
+	v1.2 & 16.06.2024 & Julian Burger & Definierung der Website Ziele \\
+	v1.3 & 16.06.2024 & Julian Burger & Grobe Template-Struktur der Ziel-Ter­mi­ni­sie­rung \Bstrut \\
 	\hline
 	\end{tabularx}
 }
@@ -224,45 +225,44 @@ Als Ziel des Projektes gilt nicht nur ein vor äußeren sowie inneren Cyberangri
 Die gesamte Netzwerktopologie ist umgesetzt und funktioniert einwandfrei, jedoch mit fehlender Absicherung vor äußeren Angriffen.
 \begin{enumerate}[label=\alph*.]
 \item{\underline{Planung der Topologie}}\\
-Die gesamte Projekttopologie ist finalisiert und grafisch dargestellt. Zu den grafischen Darstellungen gehört eine herkömmliche Netzwerktopologie mit allen Geräten und deren Verbindungen zueinander, aber auch eine vereinfachte Darstellung des Netzwerks nach dem Purdue-Modell.
+Die gesamte Projekttopologie ist finalisiert und grafisch dargestellt. Zu den grafischen Darstellungen gehört eine herkömmliche Netzwerktopologie mit allen Geräten und deren Verbindungen zueinander, aber auch eine vereinfachte Darstellung des Netzwerks nach dem Purdue-Modell. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{OT-Aufbau/Verkabelung}}\\
-Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt. Das heißt, dass die gesamte Bewässerungsanlage fertig aufgebaut und beinahe betriebsbereit ist, nur dass die Programmierung der SPSen fehlt, um den Vorgang zu steuern. Geräte wie HMIs und restliche Überwachungssysteme wie das 
- sind hardwaretechnisch vorhanden, jedoch fehlt die Konfiguration der jeweiligen Software.
+Der gesamte OT-Bereich ist fertig aufgebaut und verkabelt. Das heißt, dass die gesamte Bewässerungsanlage fertig aufgebaut und beinahe betriebsbereit ist, nur dass die Programmierung der SPSen fehlt, um den Vorgang zu steuern. Geräte wie HMIs und restliche Überwachungssysteme wie das sind hardwaretechnisch vorhanden, jedoch fehlt die Konfiguration der jeweiligen Software. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{IT-Aufbau}}\\
-Der gesamte IT-Bereich läuft virtualisiert auf einer ESXi-Maschine, ist fertig aufgebaut/aufgesetzt und untereinander verbunden.
+Der gesamte IT-Bereich läuft virtualisiert auf einer ESXi-Maschine, ist fertig aufgebaut/aufgesetzt und untereinander verbunden. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Übergang \& DMZ IT/OT}}\\
-Der IT- und der OT-Bereich sind zusammengeschlossen mittels einer FortiGate-60F Firewall. Diese lässt jeglichen Traffic zwischen IT und OT durchfließen und die DMZ bleibt vorerst ungenutzt.
+Der IT- und der OT-Bereich sind zusammengeschlossen mittels einer FortiGate-60F Firewall. Diese lässt jeglichen Traffic zwischen IT und OT durchfließen und die DMZ bleibt vorerst ungenutzt. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{PLC-Programmierung}}\\
-Alle SPSen im OT-Bereich sind je nach ihrem Zweck und der anzusteuernden Aktorik/Sensorik fertig programmiert. Bis auf die Siemens LOGO! sind sie mittels ST-Programmierung (kurz für "'Structured Text"') programmiert. Die Siemens LOGO! selbst ist mittels Funktionsplan-Programmierung programmiert.
+Alle SPSen im OT-Bereich sind je nach ihrem Zweck und der anzusteuernden Aktorik/Sensorik fertig programmiert. Bis auf die Siemens LOGO! sind sie mittels ST-Programmierung (kurz für "'Structured Text"') programmiert. Die Siemens LOGO! selbst ist mittels Funktionsplan-Programmierung programmiert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{Simatic}}\\
-Die Siemens Simatic SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens STEP 7 programmiert.
+Die Siemens Simatic SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens STEP 7 programmiert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{LOGO!}}\\
-Die Siemens LOGO! SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens Comfort programmiert.
+Die Siemens LOGO! SPS wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels Siemens Comfort programmiert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{OpenPLC}}\\
-Die OpenPLC SPS, die auf einem Raspberry Pi 3b läuft, wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels des OpenPLC-Editors programmiert.
+Die OpenPLC SPS, die auf einem Raspberry Pi 3b läuft, wurde je nach der in ihrer Betriebszelle auftretenden Aktorik/Sensorik und deren Zweck mittels des OpenPLC-Editors programmiert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 \end{enumerate}
 
 \item{\underline{SCADA-System}}\\
-Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist fertiggestellt. Es ist per HTTPS-Verbindung möglich, auf das Web-Dashboard des SCADA-Systems zuzugreifen und die jeweiligen Betriebszellen zu überwachen sowie ein- und ausschalten zu können. Der SCADA-Server ist im OT-AD integriert.
+Das SCADA-System für die Überwachung des Betriebsprozesses im OT-Bereich ist fertiggestellt. Es ist per HTTPS-Verbindung möglich, auf das Web-Dashboard des SCADA-Systems zuzugreifen und die jeweiligen Betriebszellen zu überwachen sowie ein- und ausschalten zu können. Der SCADA-Server ist im OT-AD integriert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{Konfiguration/Scripting}}\\
-Die Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA eingetragen und können erfolgreich ein- und ausgeschalten werden.
+Die Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA eingetragen und können erfolgreich ein- und ausgeschalten werden. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Design}}\\
-Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA grafisch realitätsnah und für Systemadministrator*innen leicht verständlich abgebildet.
+Die miteinander zusammenhängenden Aktoren und Sensoren der jeweiligen Betriebszellen sind im SCADA grafisch realitätsnah und für Systemadministrator*innen leicht verständlich abgebildet. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 \end{enumerate}
 
 \item{\underline{MES-System}}\\
-Das MES-System kommuniziert direkt mit der PLC und kann vordefinierte Abläufe ausführen. Diese Abläufe sind dann von einem ERP-System planbar.
+Das MES-System kommuniziert direkt mit der PLC und kann vordefinierte Abläufe ausführen. Diese Abläufe sind dann von einem ERP-System planbar. 
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{Aufsetzen}}\\
@@ -287,33 +287,36 @@ Das ERP ist bis zum xx.xx.xxxx aufgesetzt und vollständig in das OT-System inte
 \end{enumerate}
 
 \item{\underline{HMI-Konfiguration}}\\
-Alle HMI-Geräte sind ihrem Zweck nach konfiguriert und in die jeweiligen Betriebszellen eingebunden worden, um es Systemadministrator*innen zu erlauben, vor Ort den Betriebsprozess leichter überwachen zu können.
+Alle HMI-Geräte sind ihrem Zweck nach konfiguriert und in die jeweiligen Betriebszellen eingebunden worden, um es Systemadministrator*innen zu erlauben, vor Ort den Betriebsprozess leichter überwachen zu können. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Engineer-Workstation}}\\
-Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert. Sie ist in das OT-AD (siehe "'AD-Umgebung erstellt"') integriert sowie mittels RDP erreichbar und lässt somit OT-Ingenieure gegebenfalls die SPSen umprogrammieren.
+Die Ubuntu-Workstation zum Programmieren von der SPSen ist fertig aufgesetzt und hat die Programme Siemens STEP 7, Siemens Comfort und OpenPLC-Editor installiert. Sie ist in das OT-AD (siehe "'AD-Umgebung erstellt"') integriert sowie mittels RDP erreichbar und lässt somit OT-Ingenieure gegebenfalls die SPSen umprogrammieren. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{AD-Umgebung erstellt}}\\
-Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Root-Domänennamen fenrir.com und teilt sich insgesamt auf die drei Domänen ot.fenrir.com, it.fenrir.com sowie extern.it.fenrir.com auf, wobei alle Domänen Teil eines gemeinsamen Forests sind und extern.it.fenrir.com eine Subdomäne von it.fenrir.com ist.
+Mithilfe von Active Directory ist ein Firmennetzwerk eines KMUs nachgebaut. Dieses trägt den Root-Domänennamen fenrir.com und teilt sich insgesamt auf die drei Domänen ot.fenrir.com, it.fenrir.com sowie extern.it.fenrir.com auf, wobei alle Domänen Teil eines gemeinsamen Forests sind und extern.it.fenrir-ot.at eine Subdomäne von it.fenrir-ot.at ist.
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{DC-Konfiguration}}\\
-In der Active Directory Umgebung existieren pro Domäne zwei Domain Controller (ausgenommen in extern.it.fenrir.com, diese Domäne hat lediglich einen DC), welche untereinander redundant und somit ausfallsicher betrieben werden. Die FSMO-Rollen sind so gleichmäßig es geht auf diesen aufgeteilt, dazu sind beide für Optimierungszwecke ein Global Catalog-Server. Auch automatisierte tägliche Backups der AD-Datenbank und der Systemzustandsdateien beider Domain Controller finden statt und werden auf einem extra für Backups konzipierten File-Server (siehe "'Server konfiguriert"') gespeichert.
+In der Active Directory Umgebung existieren pro Domäne zwei Domain Controller (ausgenommen in extern.it.fenrir-ot.at, diese Domäne hat lediglich einen DC), welche untereinander redundant und somit ausfallsicher betrieben werden. Die FSMO-Rollen sind so gleichmäßig es geht auf diesen aufgeteilt, dazu sind beide für Optimierungszwecke ein Global Catalog-Server. Auch automatisierte tägliche Backups der AD-Datenbank und der Systemzustandsdateien beider Domain Controller finden statt und werden auf einem extra für Backups konzipierten File-Server (siehe "'Server konfiguriert"') gespeichert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
+
 \item{\underline{OU-Struktur}}\\
-Die einzelnen Objekte wie Computer sowie User der Active Directory Umgebung sind nach dem Business-Unit-Modell hierarchisch in Organisational Units (kurz OUs) unterteilt und somit auch strukturiert.
+Die einzelnen Objekte wie Computer sowie User der Active Directory Umgebung sind nach dem Business-Unit-Modell hierarchisch in Organisational Units (kurz OUs) unterteilt und somit auch strukturiert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
+
 \item{\underline{Konten/Gruppen-Erstellung \& Konfiguration}}\\
-Die Benutzerkonten, Sicherheitsgruppen für Zugriffsrechte sowie Gruppenrichtlinien auf Assets innerhalb des Netzwerks sind erstellt. Diese sind vorest absichtlich sicherheitstechnisch "locker" gelassen, um Angriffe auf dieses Netzwerk einfacher zu gestalten.
+Die Benutzerkonten, Sicherheitsgruppen für Zugriffsrechte sowie Gruppenrichtlinien auf Assets innerhalb des Netzwerks sind erstellt. Diese sind vorest absichtlich sicherheitstechnisch "locker" gelassen, um Angriffe auf dieses Netzwerk einfacher zu gestalten. Dies ist bis zum xx.xx.xxxx fertiggestellt.
+
 \item{\underline{Prometheus Monitoring}}\\
-Ein Ubuntu-Server mit einer Prometheus-Konfiguration steht im IT-Netzwerk und überwacht die IT-AD-Domain-Controller. Unter anderem werden Systemressourcen, Datenverkehr sowie andere Teile der ADDS überwacht und auf einem Grafana Dashboard dargestellt.
+Ein Ubuntu-Server mit einer Prometheus-Konfiguration steht im IT-Netzwerk und überwacht die IT-AD-Domain-Controller. Unter anderem werden Systemressourcen, Datenverkehr sowie andere Teile der ADDS überwacht und auf einem Grafana Dashboard dargestellt. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 \end{enumerate}
 
 \item{\underline{IT-Endgeräte konfiguriert}}\\
-Endgeräte, die oftmals in Büroumgebungen aufzufinden sind wie Office-PCs, Laptops, Drucker sind Teil des IT-Netzwerks und sind in der Active Directory Umgebung integriert.
+Endgeräte, die oftmals in Büroumgebungen aufzufinden sind wie Office-PCs, Laptops, Drucker sind Teil des IT-Netzwerks und sind in der Active Directory Umgebung integriert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{IT-Server konfiguriert}}\\
-Ein Mail-Server, auf welchem Microsoft Exchange läuft, und ein File-Server, welcher zur Speicherung von Backups sowie für das Hosting von Shares zuständig ist sind beide im IT-Netzwerk und somit auch in der Active Directory Umgebung integriert.
+Ein Mail-Server, auf welchem Microsoft Exchange läuft, und ein File-Server, welcher zur Speicherung von Backups sowie für das Hosting von Shares zuständig ist sind beide im IT-Netzwerk und somit auch in der Active Directory Umgebung integriert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Automatisierte Client-Provisionierung}}\\
-Die Bereitstellung der Clients erfolgt als virtuelle Maschinen, basierend auf einem vordefinierten Template. Anschließend werden die Clients mittels SSH, zum Beispiel durch Red Hat Ansible, automatisiert eingerichtet.
+Die Bereitstellung der Clients erfolgt als virtuelle Maschinen, basierend auf einem vordefinierten Template. Anschließend werden die Clients mittels SSH, zum Beispiel durch Red Hat Ansible, automatisiert eingerichtet. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \end{enumerate}
 \item{\bfseries{Gesicherte Netzwerktopologie}}\\
@@ -325,47 +328,47 @@ Alle Firewalls innerhalb der Topologie wurden nach den angegebene Sicherheitskri
 
 \begin{enumerate}[label=\roman*.]
 \item{\underline{Uplink}}\\
-An der Schnittstelle zwischen dem IT-Netzwerk dieser Diplomarbeit und der Anbindung an den ISP der HTL Rennweg steht eine FortiGate-60F Firewall. Diese schützt unter anderem vor äußeren Angriffen auf das Netzwerk und betreibt Traffic-Shaping sowie Data Loss Prevention (kurz DLP) der Datenpakete des IT-Netzwerks. Um dies zu ermöglichen wird mittels Deep Packet Inspection (kurz DPI) so gut wie jedes einzelne Datenpaket analysiert und auf Zweck sowie mögliche Schädlichkeit überprüft.
+An der Schnittstelle zwischen dem IT-Netzwerk dieser Diplomarbeit und der Anbindung an den ISP der HTL Rennweg steht eine FortiGate-60F Firewall. Diese schützt unter anderem vor äußeren Angriffen auf das Netzwerk und betreibt Traffic-Shaping sowie Data Loss Prevention (kurz DLP) der Datenpakete des IT-Netzwerks. Um dies zu ermöglichen wird mittels Deep Packet Inspection (kurz DPI) so gut wie jedes einzelne Datenpaket analysiert und auf Zweck sowie mögliche Schädlichkeit überprüft. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Übergang IT/OT}}\\
-Der Übergang zwischen der OT- und der IT-Welt ist mittels einer FortiGate-60F Firewall so abgesichert, dass nur die berechtigte Workstation in das OT-Netzwerk eingreifen kann, und auch dort nur auf das SCADA-System bzw. die SPS-Workstation.
+Der Übergang zwischen der OT- und der IT-Welt ist mittels einer FortiGate-60F Firewall so abgesichert, dass nur die berechtigte Workstation in das OT-Netzwerk eingreifen kann, und auch dort nur auf das SCADA-System bzw. die SPS-Workstation. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{OT-Zellen}}\\
-Innerhalb des OT-Netzwerks unterteilen schienenmontierte FortiGateRugged-60F Firewalls manche Bereiche in sogenannte OT-Zellen.
+Innerhalb des OT-Netzwerks unterteilen schienenmontierte FortiGateRugged-60F Firewalls manche Bereiche in sogenannte OT-Zellen. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 \end{enumerate}
 
 \item{\underline{Jump Server}}\\
-Der Jump Server für den VPN-Zugriff vom IT-Netzwerk in das OT-Netzwerk ist fertig aufgesetzt und liegt in der DMZ der Übergangs-Firewall.
+Der Jump Server für den VPN-Zugriff vom IT-Netzwerk in das OT-Netzwerk ist fertig aufgesetzt und liegt in der DMZ der Übergangs-Firewall. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{OT-Segmentierung}}\\
-Das OT-Netzwerk wurde in Zellen mit einer Firewall pro Zelle als Abgrenzung segmentiert, um die Betriebssicherheit zu erhöhen.
+Das OT-Netzwerk wurde in Zellen mit einer Firewall pro Zelle als Abgrenzung segmentiert, um die Betriebssicherheit zu erhöhen. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Nozomi Guardian}}\\
 % sowie an der Uplink-FW ist maybe fuisch who knows
 Eine Nozomi Guardian ist in der Netzwerktopologie vertreten, um den Datenverkehr, der hauptsächlich im OT-Netzwerk stattfindet, zu überwachen.
 \begin{enumerate}[label=\roman*.]
 \item{\underline{Installation}}\\
-Eine virtualisierte Ubuntu-Installation mit den von der Ikarus Security Software GmbH vorinstallierten Guardian Servers läuft auf einer ESXi-Maschine.
+Eine virtualisierte Ubuntu-Installation mit den von der Ikarus Security Software GmbH vorinstallierten Guardian Servers läuft auf einer ESXi-Maschine. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Einbindung}}\\
-Eine Nozomi Guardian ist an der Übergangs- sowie an der Uplink-Firewall angebunden und erhält über RSPAN-Mirroring Traffic vom OT- sowie dem IT-Netzwerk. Sie wertet diesen Traffic schließlich aus und stellt diesen für Netzwerkadministrator*innen leicht ersichtlich dar.
+Eine Nozomi Guardian ist an der Übergangs- sowie an der Uplink-Firewall angebunden und erhält über RSPAN-Mirroring Traffic vom OT- sowie dem IT-Netzwerk. Sie wertet diesen Traffic schließlich aus und stellt diesen für Netzwerkadministrator*innen leicht ersichtlich dar. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 \end{enumerate}
 
 \item{\underline{AD-Härtung}}\\
-Alle Bestandteile des Active Directory, das heißt Endgeräte, Server, Domain Controller sowie die logischen Bestandteile wie Benutzerkonten und Gruppen sind gehärtet, und sind somit nicht mehr auf gängige AD-Angriffe wie Mimikatz und Kerberoasting anfällig.
+Alle Bestandteile des Active Directory, das heißt Endgeräte, Server, Domain Controller sowie die logischen Bestandteile wie Benutzerkonten und Gruppen sind gehärtet, und sind somit nicht mehr auf gängige AD-Angriffe wie Mimikatz und Kerberoasting anfällig. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 \end{enumerate}
 
 \item{\bfseries{Absicherungshandbuch}}\\
 Der Prozess des Aufbaus sowie der Absicherung der Topologie sind in einem Handbuch aufgefasst. Dieses ist mittels \LaTeX geschrieben und dient als Nachschlagewerk für angehende OT-Security-Spezialisten. Unter anderem werden im Handbuch folgende Punkte festgelegt:
 \begin{enumerate}[label=\alph*.]
 \item{\underline{Wireshark Überwachung}}\\
-Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
+Es ist über ein Throwing Star LAN Tap der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mittels Wireshark mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Nozomi Guardian Überwachung}}\\
-Es ist mittels der Nozomi Guardian der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert.
+Es ist mittels der Nozomi Guardian der Datenverkehr zwischen den Geräten im IT- sowie dem OT-Netzwerk stichprobenartig mitgelesen. Der aufgezeichnete Datenverkehr wurde darauf auf die laufenden Kommunikationsprozesse analysiert/dokumentiert. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 
 \item{\underline{Handbuch erstellt}}\\
-Die Ergebnisse/Erkenntnisse der Diplomarbeit sind in einem Absicherungshandbuch zusammengeschrieben. Dieses inkludiert unter anderem Abschnitte zum Aufbau der Topologie, zur Theorie hinter der OT-Absicherung, zur Absicherung der Topologie und zum aufgekommenen Datenverkehr innerhalb der Topologie.
+Die Ergebnisse/Erkenntnisse der Diplomarbeit sind in einem Absicherungshandbuch zusammengeschrieben. Dieses inkludiert unter anderem Abschnitte zum Aufbau der Topologie, zur Theorie hinter der OT-Absicherung, zur Absicherung der Topologie und zum aufgekommenen Datenverkehr innerhalb der Topologie. Dies ist bis zum xx.xx.xxxx fertiggestellt.
 \end{enumerate}
 
 \item{\bfseries{Website}}\\
@@ -385,25 +388,24 @@ Bis zum xx.xx.xxxx ist die Website über die von easyname bereitgestellte Domain
 \subsection{Optionale Ziele}
 \begin{enumerate}[start=1,label={\bfseries Ziel-O \arabic*},leftmargin=*,wide]
 \item{\bfseries{FCP Network Security Zertifizierung}}\\
-Alle Projektteammitglieder haben zum Zeitpunkt der Abgabe der Diplomarbeit die von Fortinet bereitgestellte FCP Network Security Zertifizierung erfolgreich erworben.
+Alle Projektteammitglieder haben zum Zeitpunkt der Abgabe der Diplomarbeit, am xx.xx.xxxx, die von Fortinet bereitgestellte FCP Network Security Zertifizierung erfolgreich erworben.
 
 \item{\bfseries{Medienauftritt}}\\
 Für die Repräsentation des Projektteams aber auch der während der Diplomarbeit erledigten Arbeit sind verschiedene Medienauftritte angelegt worden.
 
 \begin{enumerate}[label=\alph*.]
 \item{\underline{Social Media}}\\
-Es ist ein Social-Media-Konto auf Instagram namens @fenrir.ot angelegt worden. Auf diesem Konto werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt. Dazu wird der Arbeitsablauf während des Diplomarbeitsverlaufs mittels Fotos dokumentiert und dort hochgeladen.
-
+Es ist ein Social-Media-Konto auf Instagram namens @fenrir.ot angelegt worden. Auf diesem Konto werden die Projektteammitglieder und die Diplomarbeitsidee der Öffentlichkeit vorgestellt. Dazu wird der Arbeitsablauf während des Diplomarbeitsverlaufs mittels Fotos dokumentiert und dort hochgeladen. Dies passiert laufend bis zum Projektende am xx.xx.xxxx.
 \end{enumerate}
 
 \item{\bfseries{Sticker drucken}}\\
-Es sind Sticker mit dem Fenrir Logo gedruckt und an Interessierte vergeben.
+Es wurden bis zum xx.xx.xxxx Sticker designed und gedruckt, welche im Anschluss ausgehändigt werden können.
 \end{enumerate}
 
 \subsection{NICHT Ziele}
 \begin{enumerate}[start=1,label={\bfseries Ziel-N \arabic*},leftmargin=*,wide]
 \item{\bfseries{Topologie Abbau}}\\
-Das Projektteam ist für den Abbau der gesamten Netzwerktopologie nach Abschluss der Diplomarbeit zuständig.
+Das Projektteam ist für den Abbau der gesamten Netzwerktopologie nach Abschluss der Diplomarbeit, am xx.xx.xxxx, zuständig.
 \item{\bfseries{Endpoint-Security}}\\
 Auf den Endgeräten im IT-Netzwerk (PC-Hosts z.B.) ist eine Art von Endpoint-Security installiert (SentinelOne z.B.)
 \end{enumerate}
