@@ -30,7 +30,7 @@ python3 -m venv /home/openplc/venv
 /home/openplc/venv/pip install w1thermsensor smbus adafruit-blinka adafruit-extended-bus
 
 # temp workaround? bcuz fuck using venvs righttt
-pip3 install pymodbus==2.2.0 pyserial==3.4 w1thermsensor==2.3.0 smbus adafruit-blinka adafruit-extended-bus --break-system-packages
+pip3 install pymodbus==2.2.0 pyserial==3.4 w1thermsensor==2.3.0 smbus adafruit-blinka==8.46.0 adafruit-extended-bus==1.0.2 --break-system-packages
 
 # Enabling and configuring the i2c and onewire interfaces
 modprobe i2c-gpio
