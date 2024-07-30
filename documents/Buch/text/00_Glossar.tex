@@ -158,16 +158,10 @@
 
 %%%%%%%%%%%%%%%%
 
-%% in diplomarbeit.tex:
-%%\usepackage[acronym, toc]{glossaries}
-%%\makeglossaries
-%%\input{text/00_Glossar.tex}
-
-
-
-
+% diese Liste an Abkürzungen war bereits in der Vorlage, manches davon nützlich daher lass ich es hier mal liegen
+% ABER: in der Zukunft wenn das Buch basically fertig ist alle ungenutzten Abkürzungen rauslöschen!!
 \newacr{ACL}{ACL}{ACLs}{Access Control List}{Access Control Lists}
-\newacr{AD}{AD}{ADs}{Active Directory}{Active Directorys}
+\newacr{AD}{AD}{ADs}{Active Directory}{Active Directories}
 \newacr{API}{API}{APIs}{Application Programming Interface}{Application Programming Interfaces}
 \newacr{ATA}{ATA}{ATAs}{Advanced Threat Analytics}{Advanced Threat Analytics}
 \newacr{DoS}{DoS}{DoS'}{Denial of Service}{Denial of Services}
@@ -194,15 +188,12 @@
 \newacr{MAC}{MAC}{MACs}{Media Access Control}{Media Access Controls}
 \newacr{NAT}{NAT}{NATs}{Network Address Translation}{Network Address Translations}
 \newacr{NGFW}{NGFW}{NGFWs}{Next Generation Firewall}{Next Generation Firewalls}
-\newacr{NoSQL}{NoSQL}{NoSQLs}{Not only \acs{SQL}}{Not only \acsp{SQL}}
 \newacr{NPS}{NPS}{NPSs}{Network Policy Server}{Network Policy Server}
 \newacr{NTP}{NTP}{NTPs}{Network Time Protocol}{Network Time Protcols}
 \newacr{OID}{OID}{OIDs}{Object Identifier}{Object Identifier}
 \newacr{OSI}{OSI}{OSIs}{Open Systems Interconnection}{Open Systems Interconnections}
 \newacr{OUI}{OUI}{OUIs}{Organizationally Unique Identifier}{Organizationally Unique Identifier}
 \newacr{PDU}{PDU}{PDUs}{Protocol Data Unit}{Protocol Data Units}
-\newacr{AQL}{AQL}{AQLs}{\textit{Argos-Query-Language}}{\textit{Argos-Query-Languages}}
-\newacr{RFC}{RFC}{RFCs}{Request for Comments}{Request for Comments}
 \newacr{SaaS}{SaaS}{SaaSs}{Software as a Service}{Software as a Services}
 \newacr{SID}{SID}{SID}{Security Identifier}{Security Identifier}
 \newacr{SQL}{SQL}{SQLs}{Structured Query Language}{Structured Query Languages}
@@ -220,8 +211,6 @@
 \newacr{XML}{XML}{XMLs}{Extensible Markup Language}{Extensible Markup Languages}
 \newacr{IPFIX}{IPFIX}{IPFIXs}{\acs{IP} Flow Information Export}{\acs{IP} Flow Information Exports}
 \newacr{MIB}{MIB}{MIBs}{Management Information Base}{Management Information Bases}
-\newacr{MO}{MO}{MOs}{Managed Object}{Managed Objects}
-\newacr{ASN.1}{ASN.1}{ASN.1}{Abstract Syntax Notation One}{Abstract Syntax Notation One}
 \newacr{ASCII}{ASCII}{ASCII}{American Standard Code for Information Interchange}{American Standard Code for Information Interchange}
 \newacr{RAM}{RAM}{RAM}{Random Access Memory}{Random Access Memory}
 \newacr{CPU}{CPU}{CPUs}{Central Processing Unit}{Central Processing Units}
@@ -236,7 +225,6 @@
 \newacr{HTML}{HTML}{HTML}{Hypertext Markup Language}{Hypertext Markup Language}
 \newacr{MIT}{MIT}{MIT}{Massachusetts Institute of Technology}{Massachusetts Institute of Technology}
 \newacr{PHP}{PHP}{PHP}{PHP: Hypertext Preprocessor}{PHP: Hypertext Preprocessor}
-\newacr{LR}{LR}{LR}{Links nach rechts, rechtsreduzierender Parser}{Links nach rechts, rechtsreduzierender Parser}
 \newacr{CSV}{CSV}{CSV}{Comma-Separated Values}{Comma-Separated Values}
 \newacr{NT}{NT}{NTs}{New Technology}{New Technologies}
 \newacr{SIM}{SIM}{SIM}{Security Information Management}{Security Information Management}
@@ -248,18 +236,37 @@
 \newacr{ASA}{ASA}{ASAs}{Adaptive Security Appliance}{Adaptive Security Appliances}
 \newacr{ITIL}{ITIL}{ITILs}{\acs{IT} Infrastructure Library}{\acs{IT} Infrastructure Libraries}
 \newacr{COBIT}{COBIT}{COBIT}{Control Objectives for Information and Related Technologies}{Control Objectives for Information and Related Technologies}
-\newacr{SOX}{SOX}{SOX}{Sarbanes-Oxley Act}{Sarbanes-Oxley Act}
 \newacr{ISO}{ISO}{ISO}{Internationale Organisation für Normung}{Internationale Organisation für Normung}
 \newacr{IDS}{IDS}{IDSs}{Intrusion Detection System}{Intrusion Detection Systems}
 \newacr{AWS}{AWS}{AWS}{Amazon Web Services}{Amazon Web Services}
 \newacr{MacOS}{MacOS}{MacOS}{Macintosh Operating System}{Macintosh Operating System}
-\newacr{CIM}{CIM}{CIMs}{Common Information Model}{Common Information Models}
-\newacr{SPL}{SPL}{SPLs}{Search Processing Language}{Search Processing Languages}
 \newacr{VM}{VM}{VMs}{Virtual Machine}{Virtual Machines}
 \newacr{CMDB}{CMDB}{CMDBs}{ Configuration Management Database}{ Configuration Management Databases}
 \newacr{PC}{PC}{PCs}{Personal Computer}{Personal Computers}
 
+\newacr{SPS}{SPS}{SPS}{Speicherprogrammierbare Steuerung}{Speicherprogrammierbare Steurungen}
+\newacr{DMZ}{DMZ}{DMZs}{Demilitarisierte Zone}{Demilitarisierte Zonen}
+\newacr{CAN}{CAN}{CANs}{Controller Area Network}{Controller Area Networks}
+\newacr{I2C}{I$^{2}$C}{I$^{2}$C}{Inter-Integrated Circuit}{Inter-Integrated Circuits}
+\newacr{SPI}{SPI}{SPIs}{Serial Peripheral Interface}{Serial Peripheral Interfaces}
+\newacr{IT}{IT}{ITs}{Informational Technology}{Informational Technologies}
+\newacr{OT}{OT}{OTs}{Operational Technology}{Operational Technologies}
+\newacr{IO}{IO}{IOs}{Input/Output}{Inputs/Outputs}
+\newacr{HMI}{HMI}{HMIs}{Human Machine Interface}{Human Machine Interfaces}
+\newacr{AWL}{AWL}{Anweisungsliste}{Anweisungsliste}
+\newacr{ST}{ST}{Strukturierter Text}{Strukturierter Text}
+\newacr{KOP}{KOP}{Kontaktplan}{Kontaktplan}
+\newacr{FUP}{FUP}{Funktionsplan}{Funktionsplan}
+\newacr{AS}{AS}{Ablaufsprache}{Ablaufsprache}
+\newacr{SCADA}{SCADA}{SCADA}{Supervisory Control and Data Acquisition}{Supervisory Control and Data Acquisition} % NIX "SCADAs" --> "SCADA-Systeme" :)
+\newacr{DCS}{DCS}{DCSs}{Distributed Control System}{Distributed Control Systems}
+\newacr{Profibus}{Profibus}{Profibus}{Process Field Bus}{Process Field Bus}
+\newacr{GUI}{GUI}{GUIs}{Graphical User Interface}{Graphical User Interfaces}
+\newacr{VM}{VM}{VMs}{Virtuelle Maschine}{Virtuelle Maschinen}
+\newacr{ICS}{ICS}{ICSs}{Industrial Control System}{Industrial Control Systems}
+\newacr{NIS}{NIS}{NIS}{Netz- und Informationssystem­sicherheit}{Netz- und Informationssystem­sicherheit}
 
+% Beispiel(e) aus der Vorlage:
 % Als Beschreibung für den Glossareintrag ist der erste Satzt in Wikipedia immer ziemlich hilfreich - glac
 
 \newacrgls{SSID}{SSID}{SSIDs}{Service Set Identifier}{Service Set Identifiers}{ist ein frei wählbarer Name eines Service Sets, durch den es ansprechbar wird. Da diese Kennung oftmals manuell von einem Benutzer in Geräte eingegeben werden muss, ist sie oft eine Zeichenkette, die für Menschen leicht lesbar ist, und sie wird daher allgemein als (Funk-)Netzwerkname des \acsp{WLAN} bezeichnet.}
