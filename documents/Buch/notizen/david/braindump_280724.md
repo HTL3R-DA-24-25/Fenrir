@@ -74,8 +74,6 @@ again, svon dies das
 
 ## Ausführungen/Marken
 
-fdfdfdf
-
 ### Siemens SIMATIC
 
 Europaweit hat sich die Siemens SIMATIC als die gängiste \acrshort{sps}-Marke durchgesetzt. Bereits im Jahre 1958 wurde die erste SIMATIC, eine verbindungsprogrammierte Steuerung (kurz VPS), auf den Markt gebracht.
@@ -99,7 +97,7 @@ siehe openplc
 
 ## OpenPLC
 
-svon, lolol
+OpenPLC ist ein Open-Source-Projekt, welches eine virtuelle \acrshort{sps}, die OpenPLC-Runtime, sowie eine Programmierumgebung für diese, den OpenPLC-Editor (siehe \autoref{sec:editor}), kostenlos zur Verfügung stellt.
 
 ### Editor
 Die Bereits im \autoref{sec:sps_openplc} erwähnte Software-\acrshort{sps}-Runtime -- die "'OpenPLC-Runtime"' -- kann mithilfe des OpenPLC-Editors mittels grafischer Oberfläche mit Bausteinen oder auch mittels eingebautem Texteditor programmiert werden, je nach gewünschter \acrshort{sps}-Programmierart (siehe \autoref{sec:sps_programmierung}). 
@@ -107,6 +105,8 @@ Die Bereits im \autoref{sec:sps_openplc} erwähnte Software-\acrshort{sps}-Runti
 Im Rahmen dieser Diplomarbeit wurden alle OpenPLC-Programme in der 
 
 ### Runtime
+
+Die Runtime kann entweder auf einer virtuellen Maschine installiert werden, um in einer virtualisierten Produktionsanlagen-Topologie im Zusammenspiel mit anderen virtuellen Elementen zu arbeiten, oder auch auf einem physischen Stück Hardware ("'bare metal"'), beispielsweise wie zuvor erwähnt auf einem RaspberryPi, um in einer echten Produktionsumgebung verwendet zu werden.
 
 ### PSM
 
@@ -119,6 +119,22 @@ Da dieser "Stock"-Treiber zu einschränkend war, musste ein selbstgeschriebener 
 ### Limitation auf Modbus
 
 Im Vergleich zu anderen SPSen unterstützt OpenPLC lediglich nur ein Busprotokoll: Modbus. Zwar ist Modbus und dessen TCP/IP-enkapsulierte Variante Modbus TCP (siehe Abschnitt Modbus)
+
+### Installation
+
+Um die OpenPLC-Runtime auf einem RaspberryPi zu installieren um diesen als SPS nutzen zu können, muss zuerst das WiringPi-Package installiert werden, um OpenPLC Zugriff auf die GPIO-Pins zu gewähren.
+
+curl -OL https://github.com/WiringPi/WiringPi/releases/download/3.6/wiringpi_3.6_arm64.deb
+dpkg -i wiringpi_3.6_arm64.deb
+gpio -v
+
+Danach braucht es nichts weiteres als das OpenPLCv3-GitHub-Repository unter `https://github.com/thiagoralves/OpenPLC_v3` zu clonen und das mitgelieferte Installationsskript auszuführen.
+
+git clone https://github.com/thiagoralves/OpenPLC_v3.git
+cd OpenPLC_v3
+./install.sh rpi
+
+Als Argument wird dem Installationsskript "'rpi"' mitgegeben, da in diesem Fall die Runtime auf einem RaspberryPi installiert werden soll, und somit, zum Beispiel, die Treiber für die Ansteurung der GPIO-Pins gleich mitgeliefert werden.
 
 ### Webdashboard
 
