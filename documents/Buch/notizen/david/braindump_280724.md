@@ -2,11 +2,32 @@
 
 ## Überblick
 
-bla bla svon dies das
+Hier ist eine kurze Übersicht über ein paar der bekanntesten Bus-Systeme gegeben. ACHTUNG: Alle Einträge hier sind ihre eigenen Bus-Systeme mit unterschiedlichen Verkabelungsanforderungen, haben aber somit auch ihre eigenen Protokolle!
+
+\begin{itemize}
+	\item[\acrshort{can}] Kurz für "'\acrlong{can}"'. Der \acrshort{can}-Bus ist ein serielles Bussystem, arbeitet nach dem "'Multi-Master-Prinzip"', das heißt er verbindet mehrere gleichberechtigte Steuergeräte und gehört zu den Feldbussen. Er wurde 1983 von Bosch entwickelt und 1986 zusammen mit Intel vorgestellt. Der Hauptanwendungsbereich des \acrshort{can}-Bus ist in der Automobilindustrie und sein Zweck ist es, Kabelbäume zu reduzieren und hiermit Kosten und Gewicht bei der Herstellung eines Autos zu sparen.
+	^ https://de.wikipedia.org/wiki/Controller_Area_Network
+	\item[Modbus] Siehe \autoref{sec:modbus}
+	\item[\acrshort{i2c}] Kurz für "'\acrlong{i2c}"'. \acrshort{i2c} ist ein 1982 von Philips Semiconductors entwickelter serieller Datenbus, der als Master-Slave-Bus konzipiert ist, aber auch das Multi-Master-Prinzip unterstützt. Bei diesem Protokoll werden zwei Signalleitungen benötigt, eine Takt- (beziehungsweise Clock-) und eine Datenleitung. Eine Eigenschaft von \acrshort{i2c} ist die Tatsache, dass ein Mikrocontroller ein ganzes Netzwerk an integrierten Schaltungen mit nur zwei \acrshort{io}-Pins und einfacher Software kontrollieren kann. Daher wird \acrshort{i2c} hauptsächlich geräteintern für die Kommunikation zwischen verschiedenen Schaltungsteilen benutzt, kann aber auch geräteübergreifend verwendet werden.
+	^ https://www.mikrocontroller.net/attachment/372171/I2C_bus.pdf
+	^ https://de.wikipedia.org/wiki/I%C2%B2C
+	\item[\acrshort{spi}] Kurz für "'\acrlong{spi}"'. Dieses Bus-System besteht aus den drei Hauptleitungen SLK (engl. für "'Serial Clock"'), MISO (engl. für "'Master Input, Slave Output"') und MOSI (engl. für "'Master Output, Slave Input"') für eine eine serielle synchrone Datenübertragung zwischen integrierten Schaltungen. Durch die drei Hauptleitungen ist \acrshort{spi} vollduplexfähig. Die vierte Leitung SS (engl. für "'Slave Select"') dient zur Ansteuerung der einzelnen Slave-Chips. Diese kann entweder als eine einzelne Leitung, die zwischen allen Teilnehmer als Bus agiert, existieren, kann aber auch für jeden Slave einzeln sein. Das würde heißen, dass jeder Slave seinen eigenen Anschluss am Master-Chip hat. Dies führt oftmals zu sehr viel Verkabelungsarbeit, was \acrshort{spi} für die meisten Bus-Angelegenheiten eher unbeliebt macht. Der einzige Vorteil gegenüber einem anderen Bus-System wie \acrshort{i2c} wäre die Vollduplexfähigkeit und somit der höhere Datendurchsatz.
+	^ https://de.wikipedia.org/wiki/Serial_Peripheral_Interface
+	^^^ BILDER VON WIKIPEDIA SUPER TOLL (kaskadierung vs sternverbindung von slaves)
+	\item[\acrshort{profibus}] Kurz für "'\acrlong{profibus}"'. Als Standard für die Feldbus-Kommunikation in \acrshort{ics}-Systemen wurde \acrshort{profibus} unter anderem vom deutschen Bundesministerium für Bildung und Forschung gefördert, um dessen landesweite Umsetzung in, unter anderem, deutschen Industrieanlagen zu unterstützen.
+	^ https://de.wikipedia.org/wiki/Profibus
+	\item BLABLA 1-Wire bzw. One-Wire oder Eindraht-Bus beschreibt eine serielle Schnittstelle der Firma Dallas Semiconductor Corp. (Maxim Integrated, heute Analog Devices), die mit einer Datenader (DQ) auskommt, die sowohl als Stromversorgung als auch als Sende- und Empfangsleitung genutzt wird. Der Begriff 1-Wire ist irreführend, weil zudem noch eine Masse-Verbindung (GND) erforderlich ist. Die Verbindung arbeitet seriell und bidirektional, d. h. mit einer gemeinsamen Datenleitung für Senden und Empfangen. Die Datenübertragung erfolgt asynchron, d. h. es wird kein Taktsignal übertragen. Übertragen wird im Halbduplexverfahren, d. h. entweder wird ein Block gesendet, oder es wird ein Block empfangen, jedoch nicht beides zugleich. Die Übertragung erfolgt nach dem One-Master/Multi-Slave Prinzip.
+\end{itemize}
+
+Die für diese Diplomarbeit relevanten Busprotokolle sind Modbus (und dessen TCP/IP-enkapsulierte Variante), I²C und 1-Wire. 
 
 ## Enkapsulierung
 
-svon
+Manche seriellen Busprotokolle lassen sich in Netzwerkprotokolle der 4ten OSI-Schicht (meistens TCP/IP) enkapsulieren und bilden somit ein eigenes/neues -- Ethernet-fähiges -- Busprotokoll, beispielsweise Modbus TCP (siehe \autoref{sec:modbus_tcp}). Das Übertragungsmedium solcher TCP/IP-enkapsulierten Busprotokolle ist somit ein herkömmliches CATx-Ethernetkabel mit RJ45-Steckern.
+
+Zu den Vorteilen der Enkapsulierung von herkömmlichen Busprotokollen gehören die Vorteile, die das TCP/IP-Protokoll standardmäßig mit sich trägt. Dazu gehören beispielsweise die zuvor erwähnte Ethernet-Netzwerkfähigkeit sowie eine erhöhte Zuverlässigkeit und (automatische) Fehlerkorrektur, so wie sie bei TCP-Kommunikationen üblich ist. Diese Vorteile ermöglicht das TCP/IP-Protokoll mit seinen Retransmissions im Falle von Packet-Loss sowie von Prüfnummern und Sequenznummern innerhalb jedes Datenpakets.
+
+Die Netzwerkfähigkeit von enkapsulierten Busprotokollen kann auch als Nachteil gesehen werden, da somit der Busdatenverkehr aus einem OT-Netzwerk in beispielsweise eine AD-Umgebung eines IT-Netzwerks "'überschwappen"' kann. Bei fehlender Netzwerksegmentierung und/oder mangelhafter Firewall-Konfiguration könnten somit externen Hosts unbefugt die betriebskritische Kommunikation zwischen OT-Komponenten manipulieren. Für weitere Details siehe \autoref{sec:bus_security}.
 
 ## Sicherheitsmängel
 
@@ -47,7 +68,7 @@ Schneider Automation hat der Organisation IETF (Internet Engineering Task Force)
 	\item[Modbus-TCP] Ethernet bzw. TCP/IP basierte Client-Server Kommunikation
 	\item[Modbus-Plus] Wie bereits zuvor erwähnt hat Modbus ursprünglich eine Master/Slave-Architektur verwendet, dieses Konzept hat sich bei den Abstammungen von der Idee her nicht verändert, es heißt nur anders und wird anders gehandhabt, z.B.: Client/Server bei TCP/IP. Es ist hauptsächlich für Token-Passing Netzwerke gedacht.
 \end{itemize}
-% ^ diese Liste vllt in den tatsächlichen Modbus Abschnitt verschieben. Okay, würde beides Sinn machen :)
+% ^ diese Liste vllt in den tatsächlichen Modbus Abschnitt verschieben
 
 Als Unterschied zwischen Modbus-RTU und Modbus-TCP kennzeichnet sich am Meisten die Redundanz bzw. Fehlerüberprüfung der Datenübertragung und die Adressierung der Slaves.
 Modbus-RTU sendet zusätzlich zu Daten und einem Befehlscode eine CRC-Prüfsumme und die Slave-Adresse. Bei Modbus-TCP werden diese innerhalb des Payloads nicht mitgeschickt, da bei TCP die Adressierung bereits im TCP/IP-Wrapping vorhanden ist (Destination Address) und die Redundanzfunktionen durch die TCP/IP-Konzepte wie eigenen Prüfsummen, Acknowledgements und Retransmissions.
@@ -67,6 +88,27 @@ Die Einführung dieses offenen Protokolls bedeutete auch gleichzeitig den Einzug
 ## Umsetzung eines I²C-Buses
 
 Zwar wird -- wie zuvor erwähnt -- I²C hauptsächlich als geräteinternes Busprotokoll verwendet, jedoch bietet es sich auch sehr gut an, wenn über kurze Distanzen mit sehr einfachen Mitteln, in diesem Falle über Jumperkabel, zwischen einem "Master"- und einem oder mehreren "Slave"-Gerät(en) geordnet kommuniziert werden soll. Mit lediglich einer Datenleitung, einem Clock-Signal, einer Stromversorgung (da der I²C-Bus "Pull-Up" ist, d.h. es fließt bei keinen Daten konstant Strom, im Gegensatz zum herrkömmlichen "Pull-Down") und ein wenig Programmcode kann bereits eine völlig funktionsfähige I²C-Kommunikation erreicht werden.
+
+### Auf einem RaspberryPi
+
+Der RaspberryPi bietet von Haus aus zwei Pins, nämlich jeweils GPIO2 als Daten-Pin und GPIO3 als Clock-Pin, um an einen I²C-Bus angeschlossen zu werden und über diese Daten zu erhalten beziehungsweise zu verschicken. Zudem unterstützt das Betriebssystem Raspbian standardmäßig bereits die I²C-Kommunikation, jedoch muss der Treiber für diese nachträglich aktiviert werden. Dies geht über mehrere Möglichkeiten, die einfachste ist jedoch auf der Kommandozeile folgenden Befehl auszuführen:
+modprobe i2c-gpio
+% BEZÜGLICH modprobe BEACHTEN: # TODO: PERSISTENT ALTERNATIVE IN /boot/firmware/config.txt !!!
+
+Nach einer fertigen Verkabelung an einen I²C-Bus mit einem oder mehreren Slaves -- in diesem Fall mit nur einem Slave, dieser hat die Hex-Adresse 0x21 -- und einem Neustart nach dem aktivieren des I²C-Treibers kann eine erste Query an den Bus geschickt werden, um zu schauen, welche Slave-Adressen derzeit aktiv und antwortsfähig sind: 
+i2cdetect -y 1
+** SCREENSHOT VON SLAVE 21 HIER **
+
+bla bla simples python program
+
+### Integration mit OpenPLC
+
+Um die über einen I²C-Bus erhaltenen Daten in OpenPLC auf einem RaspberryPi einsetzen zu können, müssen diese über das PSM (siehe OpenPLC PSM) auf eine SPS-Hardwareadresse gemappt werden. Beispielsweise BLABLABAL IW2:
+data: list[int] = read_from_esp32(ESP_I2C_address, 32)
+psm.set_var("IW2", data[0])
+
+Nun kann die SPS-Hardwareadresse %IW2 in einem SPS-Programm mit einer Input-Variable verknüpft und somit verwendet werden:
+** SCREEEEEENSHOTS, EDITOR + MONITORING? **
 
 # Speicherprogrammierbare Steuerungen
 
@@ -91,9 +133,10 @@ https://wiki.hshl.de/wiki/index.php/Speicherprogrammierbare_Steuerungen_(SPS)
 
 svon
 
-### Software SPSen
+### Software SPS
 
 siehe openplc
+https://de.wikipedia.org/wiki/Soft-SPS
 
 ## OpenPLC
 
@@ -102,7 +145,7 @@ OpenPLC ist ein Open-Source-Projekt, welches eine virtuelle \acrshort{sps}, die 
 ### Editor
 Die Bereits im \autoref{sec:sps_openplc} erwähnte Software-\acrshort{sps}-Runtime -- die "'OpenPLC-Runtime"' -- kann mithilfe des OpenPLC-Editors mittels grafischer Oberfläche mit Bausteinen oder auch mittels eingebautem Texteditor programmiert werden, je nach gewünschter \acrshort{sps}-Programmierart (siehe \autoref{sec:sps_programmierung}). 
 
-Im Rahmen dieser Diplomarbeit wurden alle OpenPLC-Programme in der 
+Im Rahmen dieser Diplomarbeit wurden alle OpenPLC-Programme in der Kontaktplan-Sprache (siehe OBEN AAAAAAA) geschrieben.
 
 ### Runtime
 
@@ -114,7 +157,7 @@ Als "Treiberprogramm" zwischen den virtuellen Input- bzw. Output-Coils der SPS u
 
 Da dieser "Stock"-Treiber zu einschränkend war, musste ein selbstgeschriebener Treiber her. OpenPLC bietet auch schon von Haus aus genau das: nämlich das OpenPLC Python Submodule, kurz PSM. Mittels dem PSM kann ein eigener Treiber programmiert werden, welcher Direktzugriff auf alle gewünschten GPIO-Pins bietet.
 
-`blablabla
+blablabla
 
 ### Limitation auf Modbus
 
@@ -134,7 +177,7 @@ git clone https://github.com/thiagoralves/OpenPLC_v3.git
 cd OpenPLC_v3
 ./install.sh rpi
 
-Als Argument wird dem Installationsskript "'rpi"' mitgegeben, da in diesem Fall die Runtime auf einem RaspberryPi installiert werden soll, und somit, zum Beispiel, die Treiber für die Ansteurung der GPIO-Pins gleich mitgeliefert werden.
+Als Argument wird dem Installationsskript "'rpi"' mitgegeben, da im Rahmen dieser Diplomarbeit die Runtime auf einem RaspberryPi installiert werden soll, und somit, zum Beispiel, die Treiber für die Ansteurung der GPIO-Pins gleich mitgeliefert werden.
 
 ### Webdashboard
 
@@ -183,3 +226,29 @@ https://de.wikipedia.org/wiki/Strukturierter_Text
 für lustige statistik/grafik (NOCH NICHT VERWENDET):
 %cool stuff: https://wiki.hshl.de/wiki/index.php/Speicherprogrammierbare_Steuerungen_%28SPS%29
 
+
+# Aufbau der Modell-Kläranlage
+
+Wieso Kläranlage?
+https://www.nozominetworks.com/blog/cisa-warns-of-pro-russia-hacktivist-ot-attacks-on-water-wastewater-sector?utm_source=linkedin&utm_medium=social&utm_term=nozomi+networks&utm_content=281b8432-049c-435e-805a-ea5872a057eb
+
+## Betriebszellen
+
+Wieso unterteilen in Betriebszellen?
+tipp: security lol
+
+### Zelle 1 (Vorbearbeitung)
+
+Besteht aus Schraube und Rechen und so
+** BILD **
+
+### Zelle 2 (Filtration)
+
+Besteht aus zwei durchsichtigen Acryl-Wassertanks welche jeweils ca. 3L an Volumen aufweisen. Diese sind oben offen, werden jedoch von Deckeln abgedeckt. In diesen Deckeln ist die für den Wassertank jeweils notwendige Sensorik verbaut.
+Zwischen den Tanks befindet sich ein Aktivkohlewasserfilter als auch eine Pumpe, die die Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transporiert.
+** BILD **
+
+### Zelle 3 (Staudamm)
+
+Besteht aus Damm???
+** BILD **
