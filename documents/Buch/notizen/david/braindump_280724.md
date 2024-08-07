@@ -1,5 +1,7 @@
 # Busprotokolle
 
+blabla kabel und protokolle für bus (einführung)
+
 ## Überblick
 
 Hier ist eine kurze Übersicht über ein paar der bekanntesten Bus-Systeme gegeben. ACHTUNG: Alle Einträge hier sind ihre eigenen Bus-Systeme mit unterschiedlichen Verkabelungsanforderungen, haben aber somit auch ihre eigenen Protokolle!
@@ -44,7 +46,7 @@ Da bis Ende September 2010 der Iran den größten Anteil der infizierten Compute
 
 Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von Industrieanlagen zu sabotieren, als bisher einzigartig. Das heißt aber nicht, dass in der Zukunft nicht noch weitere Netzwerkwürmer auf das Internet losgelassen werden, dessen Hauptziel es seien wird, OT-Netzwerke lahmzulegen.
 
-HIER OBEN QUELLEN FINDEN JAJA
+^ https://de.wikipedia.org/wiki/Stuxnet BZW https://docs.broadcom.com/doc/security-response-w32-stuxnet-dossier-11-en
 
 ## Modbus
 
@@ -68,7 +70,6 @@ Schneider Automation hat der Organisation IETF (Internet Engineering Task Force)
 	\item[Modbus-TCP] Ethernet bzw. TCP/IP basierte Client-Server Kommunikation
 	\item[Modbus-Plus] Wie bereits zuvor erwähnt hat Modbus ursprünglich eine Master/Slave-Architektur verwendet, dieses Konzept hat sich bei den Abstammungen von der Idee her nicht verändert, es heißt nur anders und wird anders gehandhabt, z.B.: Client/Server bei TCP/IP. Es ist hauptsächlich für Token-Passing Netzwerke gedacht.
 \end{itemize}
-% ^ diese Liste vllt in den tatsächlichen Modbus Abschnitt verschieben
 
 Als Unterschied zwischen Modbus-RTU und Modbus-TCP kennzeichnet sich am Meisten die Redundanz bzw. Fehlerüberprüfung der Datenübertragung und die Adressierung der Slaves.
 Modbus-RTU sendet zusätzlich zu Daten und einem Befehlscode eine CRC-Prüfsumme und die Slave-Adresse. Bei Modbus-TCP werden diese innerhalb des Payloads nicht mitgeschickt, da bei TCP die Adressierung bereits im TCP/IP-Wrapping vorhanden ist (Destination Address) und die Redundanzfunktionen durch die TCP/IP-Konzepte wie eigenen Prüfsummen, Acknowledgements und Retransmissions.
@@ -80,10 +81,11 @@ Bei der Enkapsulierung von Modbus in TCP werden nicht nur der Befehlscode und di
     \caption[]{Visualisierung des Modbus TCP Headers\footnotemark}
 \end{figure}
 
-Durch die Enkapsulierung in TCP verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40\% seiner ursprünglichen Daten-Durchsatzes. Jedoch ist dieser Verlust es im Vergleich zu den bereits zuvor erwähnten, von TCP mitgebrachten Vorteilen, definitiv Wert. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
+Durch die Enkapsulierung in TCP verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40% seines ursprünglichen Daten-Durchsatzes. Jedoch ist dieser Verlust es im Vergleich zu den bereits zuvor erwähnten -- von der TCP/IP-Enkapsulierung mitgebrachten -- Vorteilen definitiv wert. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
 
 Die Einführung dieses offenen Protokolls bedeutete auch gleichzeitig den Einzug der auf Ethernet gestützten Kommunikation in der Automationstechnik, da hierdurch zahlreiche Vorteile für die Entwickler und Anwender erschlossen wurden. So wird durch den Zusammenschluss von Ethernet mit dem allgegenwärtigen Netzwerkstandard von Modbus TCP und einer auf Modbus basierenden Datendarstellung ein offenes System geschaffen, das dies Dank der Möglichkeit des Austausches von Prozessdaten auch wirklich frei zugänglich macht. Zudem wird die Vormachtstellung dieses Protokolls auch durch die Möglichkeit gefördert, dass sich Geräte, die fähig sind den TCP/IP-Standard zu unterstützen, implementieren lassen. Modbus TCP definiert die am weitesten entwickelte Ausführung des offenen, herstellerneutralen Protokolls und sorgt somit für eine schnelle und effektive Kommunikation innerhalb der Teilnehmer einer Netzwerktopologie, die flexibel ablaufen kann. Zudem ist dieses Protokoll auch das einzige der industriellen Kommunikation, welches einen „Well known port“, den Port 502, besitzt und somit auch im Internet routingfähig ist. Somit können die Geräte eines Systems auch über das Internet per Fernzugriff gesteuert werden.
 % obiger Absatz pure Kopiererei, OBACHT bei DA
+^^^ stand 07.08.2024: ok wtf wieso habe ich hier diese info hingeschrieben, dass das pure kopiererei sein soll, ich finde jetzt keine quellen mehr diese texte sind im internet nicht so aufzufinden, ich hab das nicht mit chatgpt gemacht, hilfe hilfe hilfe quellen brauchen ich dfsfafawrda
 
 ## Umsetzung eines I²C-Buses
 
@@ -232,10 +234,15 @@ für lustige statistik/grafik (NOCH NICHT VERWENDET):
 Wieso Kläranlage?
 https://www.nozominetworks.com/blog/cisa-warns-of-pro-russia-hacktivist-ot-attacks-on-water-wastewater-sector?utm_source=linkedin&utm_medium=social&utm_term=nozomi+networks&utm_content=281b8432-049c-435e-805a-ea5872a057eb
 
-## Betriebszellen
+Um die Absicherung eines Produktionsbetriebes oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, kann sich nicht auf ausschließlich virtualisierte Lösungen des OT-Netzwerks verlassen werden. Dazu ist das Ausmaß eines Super-GAUs innerhalb eines virtualisierten OT-Netzwerks nicht begreifbar/realistisch für die meisten aussenstehenden Personen. Es braucht eine angreifbare und physisch vorhandene Lösung: eine selbstgemachte Modell-Kläranlage.
+
+## Planung der Betriebszellen
 
 Wieso unterteilen in Betriebszellen?
 tipp: security lol
+
+Um die Sicherheit der OT-Komponenten so weit es geht zu gewährleisten, muss bereits bei der Planung der Anlage die Segmentierung in Betriebszellen in Betracht gezogen werden. 
+Der Inhalt einer Betriebszelle soll nur untereinander kommunizieren können, die einzige Ausnahme wäre beispielsweise die Kommunikation mit einem SCADA-System auf der nächst-höheren Purdue-Ebene. Eine solche Segmentierung lässt sich somit quasi mit einer VLAN-Segmentierung in einem IT-Netzwerk vergleichen.
 
 ### Zelle 1 (Vorbearbeitung)
 
