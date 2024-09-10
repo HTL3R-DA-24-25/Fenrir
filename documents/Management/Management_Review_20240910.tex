@@ -190,7 +190,10 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & 09.09.2024 & David Koch & Erstellung des Management Reviews (+ Vorlage)\Bstrut \\
+	v1.0 & 09.09.2024 & David Koch & Erstellung des Management Reviews (+ Vorlage)\Bstrut  \\
+	v1.1 & 09.09.2024 & Julian Burger & Ergänzung von Problematiken von terraform/packer sowie Umsetzung der Website\Bstrut  \\
+	v1.2 & 09.09.2024 & Gabriel Vogler & Probleme mit 3d-Drucker ergänzt und OT-Prototyp genauer definiert\Bstrut  \\
+	v1.3 & 10.09.2024 & Bastian Uhlig & Rechtschreibkorretur and Ausdefinierung der Projektmanagement Weiterführung \Bstrut \\
 	\hline
 	\end{tabularx}
 }
@@ -251,19 +254,18 @@ Die Motivation ist im gesamte Team hoch, es bestehen jedoch Sorgen, dass durch z
 \section{Probleme im Projekt}
 Beim Aufbau der Prototyp-Betriebszelle sind der Wasserfüllstandssensor sowie der Raspberry Pi beschädigt worden (Totalschaden). Die Ersatzbauteile wurden bereits bestellt und verbaut, somit besteht keine Beeinträchtigung des Projektablaufs, es bleiben mit diesen Schäden jedoch mehr Kosten offen.
 
-Ebenfalls gab es einige Startschwierigkeiten mit vSphere und terraform/packer. Es wurde sich mit Viktor Kreuzer und Bernd Reither in verbindung gesetzt um noch fehlende Berechtigungen, solche wie die Provisionierung von Distributed-Switches, zu verteilen. Die Provisionierung von Ubuntu-Server VMs lief ebenfalls anfangs nicht glatt, aufgrund des fehlenden Verständnisses von Cloud-Init und co., jedoch wurde mittlerweile eine angemessene Lösung gefunden. Windows-Server Provisionierung bleibt jedoch noch ein Knackpunkt.
+Ebenfalls gab es einige Startschwierigkeiten mit vSphere und terraform/packer. Es wurde sich mit Viktor Kreuzer und Bernd Reither in Verbindung gesetz um noch fehlende Berechtigungen, solche wie die Provisionierung von Distributed-Switches, zu verteilen. Die Provisionierung von Ubuntu-Server VMs lief anfangs aufgrund des fehlenden Verständnisses von Cloud-Init und co. ebenfalls nicht glatt, jedoch wurde mittlerweile eine angemessene Lösung gefunden. Windows-Server Provisionierung bleibt jedoch noch ein Knackpunkt.
 
-Einige Bestandteile die eingeplant waren für die OT gibt es in einer Ausführung wie von uns gewünscht nicht zu kaufen. Weshalb sich Gabriel Vogler einen 3D-Drucker zugelegt hat. Der Drucker kam jedoch mit einem Softwarefehler, weshalb er sich nicht gescheit einstellen hat lassen von der Höhe und sich im Anschluss auch leicht selbst beschädigt hat. Zahlreiche Versuche den Drucker zum Laufen zu bringen kostete viel Zeit was insgesamt um die 8 Stunden waren. Er musste anschließend eingeschickt werden und es wurde bereits ein zuverlässigeres moderneres Modell bestellt was die nächsten Tage eintreffen sollte.
+Einige Bestandteile die für die OT eingeplant waren, gibt es in einer Ausführung, wie von uns gewünscht, nicht zu kaufen. Deshalb hat sich  Gabriel Vogler einen 3D-Drucker zugelegt. Der Drucker kam jedoch mit einem Softwarefehler, weshalb er sich höhenmäßig nicht korrekt einstellen einstellen ließ und sich im Anschluss auch selbst beschädigt hat. Zahlreiche Versuche, den Drucker zum Laufen zu bringen, kosteten insgesamt um die 8 Stunden. Er musste anschließend eingeschickt werden und es wurde bereits ein zuverlässigeres, moderneres Modell bestellt, was die nächsten Tage eintreffen sollte.
 
 \subsection{Problemlösungsstrategie}
-Fast alle im Projekt bisher aufgetretenen Probleme wurden bereits gelöst, somit ist keine allgemeine Problemlösung notwendig. Für noch ungelöste Probleme bezüglich der Windows-Server Provisionierung wird der in diesem Feld tätige Markus Burger, verwandter von Julian Burger, befragt. Dieser hat ebenfalls auch schon in der Vergangenheit auf Fragen bezüglich terraform/packer geantwortet.
+Fast alle im Projekt bisher aufgetretenen Probleme wurden bereits gelöst, somit ist keine allgemeine Problemlösung notwendig. Für noch ungelöste Probleme bezüglich der Windows-Server Provisionierung wird der in diesem Feld tätige Markus Burger, Verwandter von Julian Burger, befragt. Dieser hat ebenfalls auch schon in der Vergangenheit auf Fragen bezüglich terraform/packer geantwortet.
 
 \subsection{Handlungsbedarf seitens des Managements}
-Sind Aktivitäten seitens des Managements (Projektauftraggeber, Projektbetreuung, Geschäftsleitung, Management) notwendig? Wenn ja, welche?
+Notwendiger Handlungsbedarf seitens des Managements liegt in folgendem Punkt:
 
 \begin{enumerate}
-	\item Abnahme des Pflichtenhefts bis .......
-	\item Entscheidung über Auswahl des Screendesigns bis .......
+	\item Ausdefinierung des Projektantrags bis 13.09.2024
 \end{enumerate}
 
 \section{Erledigte Arbeiten (vollständig)}
@@ -285,8 +287,8 @@ Sind Aktivitäten seitens des Managements (Projektauftraggeber, Projektbetreuung
 	\end{tabularx}
 \end{table}
 
-Die während den Sommerferien erledigten Arbeiten bestehen hauptsächlich aus dem Aufbau der Prototyp-Betriebszelle (inklusive dem Anlernen der Grundlagen bezüglich der Programmierung und Steuerung von Bussystemen wie OneWire, I2C und Modbus), der Einrichtung von vSphere-Provisionierung mittels Terraform auf der UCS (in Kooperation mit dem Diplomarbeitsteam Atropos) und die Erstellung einer Golde-Image-Pipeline mittels HCL-Packer (Bastion-Host, Security-Model), sowie der Erstellung der Diplomarbeits-Website. Diese ist bereits unter der URL \url{https://www.fenrir-ot.at/} erreichbar. Die Website wurde mit dem Svelte-Framework und der Tailwind-CSS library erstellt und mithilfe von Vite zu eine Static-Site generiert. Das Design wurde in Figma erstellt.
-Der Prototyp hat zurzeit zwei Wassertanks, wobei einer befüllt wird und der andere nicht. Im ersten befindet sich ein Füllstandssensor und sobald der Tank voll ist schaltet die SPS die Pumpe ein, so lange bis der erste Tank leer ist und der andere voll. Außerdem haben beide Wassertanks einen Temparatursensor der auch mittels der SPS ausgelesen werden kann.
+Die während den Sommerferien erledigten Arbeiten bestehen hauptsächlich aus dem Aufbau der Prototyp-Betriebszelle (inklusive dem Anlernen der Grundlagen bezüglich der Programmierung und Steuerung von Bussystemen wie OneWire, I2C und Modbus), der Einrichtung von vSphere-Provisionierung mittels Terraform auf der UCS (in Kooperation mit dem Diplomarbeitsteam Atropos) und die Erstellung einer Golden-Image-Pipeline mittels HCL-Packer (Bastion-Host, Security-Model), sowie der Erstellung der Diplomarbeits-Website. Diese ist bereits unter der URL \url{https://www.fenrir-ot.at/} erreichbar. Die Website wurde mit dem Svelte-Framework und der Tailwind-CSS library erstellt und mithilfe von Vite zu eine Static-Site generiert. Das Design wurde in Figma erstellt.\\
+Der Prototyp hat zurzeit zwei Wassertanks, wobei einer befüllt wird und der andere nicht. Im Ersten befindet sich ein Füllstandssensor und sobald der Tank voll ist, schaltet die SPS die Pumpe ein. Diese bleibt eingeschaltet bis der erste Tank leer ist. Außerdem haben beide Wassertanks einen Temparatursensor, der auch mittels der SPS ausgelesen werden kann.
 
 
 
@@ -307,10 +309,10 @@ Der Prototyp hat zurzeit zwei Wassertanks, wobei einer befüllt wird und der and
 	\end{tabularx}
 \end{table}
 
-Die zuvor erstellten Planungsdokumente müssen mit den über die Sommerferien erhaltenen Informationen bezüglich des Projektumfangs überarbeitet werden. Wie zuvor erwähnt muss bis zum 20.09.2024 der Diplomarbeitsantrag offiziell abgeschickt werden, somit sollten spätestens eine Woche zuvor (am 13.09.2024) beide Diplomarbeitsbetreuer eine beinahe fertige Kopie erhalten, um diese auf Fehler zu überprüfen. Da im Antrag die Zieldefinition im Ganzen enthalten ist, hat die Fertigstellung/Überarbeitung -- im Vergleich zu den restlichen Planungsdokumenten -- dieser die höchste Priorität.
+Die zuvor erstellten Planungsdokumente müssen mit den über die Sommerferien erhaltenen Informationen bezüglich des Projektumfangs überarbeitet werden. Wie zuvor erwähnt muss bis zum 20.09.2024 der Diplomarbeitsantrag offiziell abgeschickt werden, somit sollten spätestens eine Woche zuvor (am 13.09.2024) beide Diplomarbeitsbetreuer eine beinahe fertige Kopie erhalten, um diese auf Fehler zu überprüfen. Da im Antrag die Zieldefinition und im weiteren des PSP und OSP im Ganzen enthalten sind hat die Fertigstellung/Überarbeitung dieser -- im Vergleich zu den restlichen Planungsdokumenten -- die höchste Priorität.
 
 Der Aufbau der nächsten OT-Betriebszelle beginnt, sobald der vom Kollegen Vogler bestellte 3D-Drucker ankommt und eine maßgeschneiderte Förderschnecke drucken kann.
 
-Es muss auch eine dedizierte VPN-Verbindung zum Kollegen Vogler nach Hause erstellt werden, um jederzeit auf die bestehende OT-Gerätschaft zugreifen zu können, als auch diese später mit virtuellen Maschinen auf der UCS verbinden zu können.
+Es muss auch eine dedizierte VPN-Verbindung zum Kollegen Vogler nach Hause erstellt werden, um jederzeit auf die bestehende OT-Gerätschaft zugreifen zu können, als auch um diese später mit virtuellen Maschinen auf der UCS verbinden zu können.
 
 \end{document}
