@@ -45,7 +45,7 @@
 \usepackage{xspace}
 
 \usepackage{graphicx}
-\graphicspath{ {../assets} }
+\graphicspath{ {../assets} {../assets/Management} }
 
 %%? \usepackage{textcomp}
 \usepackage[hyphens]{url}
@@ -71,6 +71,7 @@
 \usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
 \usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
 \usepackage{todonotes} % Provides tooltip-like todo notes.
+\usepackage{placeins}
 
 \usepackage{color}
 \usepackage[binary-units]{siunitx}
@@ -190,10 +191,11 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & 09.09.2024 & David Koch & Erstellung des Management Reviews (+ Vorlage)\Bstrut  \\
-	v1.1 & 09.09.2024 & Julian Burger & Ergänzung von Problematiken von terraform/packer sowie Umsetzung der Website\Bstrut  \\
-	v1.2 & 09.09.2024 & Gabriel Vogler & Probleme mit 3d-Drucker ergänzt und OT-Prototyp genauer definiert\Bstrut  \\
-	v1.3 & 10.09.2024 & Bastian Uhlig & Rechtschreibkorretur and Ausdefinierung der Projektmanagement Weiterführung \Bstrut \\
+	v1.0 & 09.09.2024 & David Koch & Erstellung des Management Reviews (+ Vorlage)  \\
+	v1.1 & 09.09.2024 & Julian Burger & Ergänzung von Problematiken von Terraform/Packer sowie Umsetzung der Website  \\
+	v1.2 & 09.09.2024 & Gabriel Vogler & Probleme mit 3d-Drucker ergänzt und OT-Prototyp genauer definiert  \\
+	v1.3 & 10.09.2024 & Bastian Uhlig & Rechtschreibkorrektur and Ausdefinierung der Projektmanagement Weiterführung  \\
+	v1.4 & 10.09.2024 & David Koch & Ergänzung von Informationen zum OT-Prototyp\Bstrut  \\
 	\hline
 	\end{tabularx}
 }
@@ -201,7 +203,9 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \section{Projektstatus}
 \textbf{Berichtszeitraum: 29.06.2024 bis 10.09.2024}
 
-Kurze verbale Beschreibung, was wurde erreicht, welche Meilensteine, was nicht, welche Probleme. Wo steht das Projekt; 
+Über die Sommerferien wurde bereits ein großes Stück Gesamtarbeit der Diplomarbeit verrichtet. Die Website wurde von Grund auf von uns designed, anschließend umgesetzt und läuft nun bereits unter der von easyname gesponsorten Domain \url{fenrir-ot.at}. Die Provisionierung der virtualisierten IT-Geräte der Topologie auf der UCS wurde mittels Terraform und Packer in vSphere ermöglicht. Der OT-Prototyp steht, funktioniert einwandfrei und repräsentiert eine vereinfachte Version der zweiten Betriebszelle. Mehr Informationen zu der bereits erledigten Arbeit sowie der aufgetretenen Probleme finden Sie weiter unten.
+
+Da derzeit noch kein fertiger PSP sowie keine fertige Definition aller Arbeitspakete mit deren geschätztem Zeitaufwand vorhanden ist, bleiben die Tabellen in diesem ersten Management-Review alle leer. Sobald die erledigte Arbeit Arbeitspaketen zuordenbar ist, werden die zukünftigen Management-Reviews Gebrauch von den Tabellen machen.
 
 Derzeitiger Ampelstatus: Grün
 
@@ -249,23 +253,25 @@ Derzeitiger Ampelstatus: Grün
 % Analog zu den Kosten (siehe oben)
 
 \subsection{Teammotivation \colorbox{green!30}{:)}} 
-Die Motivation ist im gesamte Team hoch, es bestehen jedoch Sorgen, dass durch zunehmenden Stress im Schuljahr die Arbeitszeit für die Diplomarbeit zu sehr beeinträchtigt werden kann.
+Die Motivation ist im gesamte Team hoch, es bestehen jedoch Sorgen, dass durch zunehmenden Stress im Schuljahr die Arbeitszeit für die Diplomarbeit beeinträchtigt werden kann.
 
 \section{Probleme im Projekt}
-Beim Aufbau der Prototyp-Betriebszelle sind der Wasserfüllstandssensor sowie der Raspberry Pi beschädigt worden (Totalschaden). Die Ersatzbauteile wurden bereits bestellt und verbaut, somit besteht keine Beeinträchtigung des Projektablaufs, es bleiben mit diesen Schäden jedoch mehr Kosten offen.
+Beim Aufbau der Prototyp-Betriebszelle sind der Wasserfüllstandsensor sowie der RaspberryPi beschädigt worden (bei beiden ein Totalschaden). Die Ersatzbauteile wurden bereits bestellt und verbaut, somit besteht keine Beeinträchtigung des Projektablaufs, es bleiben mit diesen Schäden jedoch mehr Kosten offen.
 
-Ebenfalls gab es einige Startschwierigkeiten mit vSphere und terraform/packer. Es wurde sich mit Viktor Kreuzer und Bernd Reither in Verbindung gesetz um noch fehlende Berechtigungen, solche wie die Provisionierung von Distributed-Switches, zu verteilen. Die Provisionierung von Ubuntu-Server VMs lief anfangs aufgrund des fehlenden Verständnisses von Cloud-Init und co. ebenfalls nicht glatt, jedoch wurde mittlerweile eine angemessene Lösung gefunden. Windows-Server Provisionierung bleibt jedoch noch ein Knackpunkt.
+Ebenfalls gab es einige Startschwierigkeiten mit vSphere und Terraform/Packer. Es wurde sich mit Viktor Kreuzer und Bernd Reither in Verbindung gesetzt um noch fehlende Berechtigungen, solche wie die Provisionierung von Distributed-Switches, zu verteilen. Die Provisionierung von Ubuntu-Server VMs lief anfangs aufgrund des fehlenden Verständnisses von Cloud-Init und co. ebenfalls nicht glatt, jedoch wurde mittlerweile eine angemessene Lösung gefunden. Windows-Server Provisionierung bleibt jedoch noch ein Knackpunkt.
 
-Einige Bestandteile die für die OT eingeplant waren, gibt es in einer Ausführung, wie von uns gewünscht, nicht zu kaufen. Deshalb hat sich  Gabriel Vogler einen 3D-Drucker zugelegt. Der Drucker kam jedoch mit einem Softwarefehler, weshalb er sich höhenmäßig nicht korrekt einstellen einstellen ließ und sich im Anschluss auch selbst beschädigt hat. Zahlreiche Versuche, den Drucker zum Laufen zu bringen, kosteten insgesamt um die 8 Stunden. Er musste anschließend eingeschickt werden und es wurde bereits ein zuverlässigeres, moderneres Modell bestellt, was die nächsten Tage eintreffen sollte.
+Einige Bestandteile die für die OT eingeplant waren, gibt es in einer Ausführung, wie von uns gewünscht, nicht zu kaufen. Deshalb hat sich Gabriel Vogler einen 3D-Drucker zugelegt. Der Drucker kam jedoch mit einem Softwarefehler, weshalb er sich höhenmäßig nicht korrekt einstellen ließ und sich im Anschluss auch selbst beschädigt hat. Zahlreiche Versuche, den Drucker zum Laufen zu bringen, kosteten insgesamt ca. 8 Stunden. Er musste anschließend eingeschickt werden und es wurde bereits ein zuverlässigeres, moderneres Modell bestellt, was die nächsten Tage eintreffen sollte.
 
 \subsection{Problemlösungsstrategie}
-Fast alle im Projekt bisher aufgetretenen Probleme wurden bereits gelöst, somit ist keine allgemeine Problemlösung notwendig. Für noch ungelöste Probleme bezüglich der Windows-Server Provisionierung wird der in diesem Feld tätige Markus Burger, Verwandter von Julian Burger, befragt. Dieser hat ebenfalls auch schon in der Vergangenheit auf Fragen bezüglich terraform/packer geantwortet.
+Fast alle im Projekt bisher aufgetretenen Probleme wurden bereits gelöst, somit ist keine allgemeine Problemlösung notwendig. Für noch ungelöste Probleme bezüglich der Windows-Server Provisionierung wird der in diesem Feld tätige Markus Burger, Verwandter von Julian Burger, befragt. Dieser hat ebenfalls auch schon in der Vergangenheit auf Fragen bezüglich Terraform/Packer geantwortet.
 
 \subsection{Handlungsbedarf seitens des Managements}
 Notwendiger Handlungsbedarf seitens des Managements liegt in folgendem Punkt:
 
 \begin{enumerate}
-	\item Ausdefinierung des Projektantrags bis 13.09.2024
+	\item Ausdefinierung des Diplomarbeitsantrags bis zum 13.09.2024
+	\item Vorlegen (per E-Mail) des Diplomarbeitsantrags den Betreuern am 13.09.2024
+	\item Abschicken des fertigen und signierten Diplomarbeitsantrags an die Schulleitung bis zum 20.09.2024 um 12 Uhr
 \end{enumerate}
 
 \section{Erledigte Arbeiten (vollständig)}
@@ -287,10 +293,32 @@ Notwendiger Handlungsbedarf seitens des Managements liegt in folgendem Punkt:
 	\end{tabularx}
 \end{table}
 
-Die während den Sommerferien erledigten Arbeiten bestehen hauptsächlich aus dem Aufbau der Prototyp-Betriebszelle (inklusive dem Anlernen der Grundlagen bezüglich der Programmierung und Steuerung von Bussystemen wie OneWire, I2C und Modbus), der Einrichtung von vSphere-Provisionierung mittels Terraform auf der UCS (in Kooperation mit dem Diplomarbeitsteam Atropos) und die Erstellung einer Golden-Image-Pipeline mittels HCL-Packer (Bastion-Host, Security-Model), sowie der Erstellung der Diplomarbeits-Website. Diese ist bereits unter der URL \url{https://www.fenrir-ot.at/} erreichbar. Die Website wurde mit dem Svelte-Framework und der Tailwind-CSS library erstellt und mithilfe von Vite zu eine Static-Site generiert. Das Design wurde in Figma erstellt.\\
-Der Prototyp hat zurzeit zwei Wassertanks, wobei einer befüllt wird und der andere nicht. Im Ersten befindet sich ein Füllstandssensor und sobald der Tank voll ist, schaltet die SPS die Pumpe ein. Diese bleibt eingeschaltet bis der erste Tank leer ist. Außerdem haben beide Wassertanks einen Temparatursensor, der auch mittels der SPS ausgelesen werden kann.
+Die während den Sommerferien erledigten Arbeiten bestehen hauptsächlich aus dem Aufbau der Prototyp-Betriebszelle (inklusive dem Anlernen der Grundlagen bezüglich der Programmierung und Steuerung von Bussystemen wie OneWire, I2C und Modbus), der Einrichtung von vSphere-Provisionierung mittels Terraform auf der UCS (in Kooperation mit dem Diplomarbeitsteam Atropos) und die Erstellung einer Golden-Image-Pipeline mittels HCL-Packer (Bastion-Host, Security-Modell), sowie der Erstellung der Diplomarbeits-Website. Diese ist bereits unter der URL \url{https://www.fenrir-ot.at/} erreichbar. Die Website wurde mit dem Svelte-Framework und der Tailwind-CSS Bibliothek erstellt und mithilfe von Vite zu eine "'Static-Site"' generiert. Das Design wurde in Figma erstellt.
 
+Der Prototyp hat zurzeit zwei Wassertanks, wobei einer befüllt wird und der andere nicht. Beide haben unten eine abgedichtete Öffnung, die in ein durchsichtigen Schlauch führt, welcher die zwei Tanks anschließend mit einer 12V Wasserpumpe dazwischen verbindet. Im ersten Tank befindet sich ein Füllstandsensor und sobald der Tank voll ist, schaltet die SPS die Pumpe ein. Diese bleibt eingeschaltet bis der erste Tank leer ist. Außerdem haben beide Wassertanks einen Temperatursensor, der auch mittels der SPS ausgelesen werden kann. Der gesamte Prototyp steht auf einem selbst gebautem Holzgerüst. Als SPS dieser Betriebszelle wird ein RaspberryPi mit der OpenPLC Runtime verwendet, welche wiederum mittels Leiterdiagramm-Programmierung programmiert worden ist.
 
+Es wurden ebenfalls bereits 300 Stück an runden Stickern (7cm Durchmesser) des Fenrir-Logos bestellt, diese sollten in den nächsten Tagen abholbereit sein.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{20240910_1}
+	\caption[]{Der elektronische Teil des OT-Prototypen}
+\end{figure}
+\FloatBarrier 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{20240910_2}
+	\caption[]{OT-Prototyp während der Befüllung des ersten Tanks}
+\end{figure}
+\FloatBarrier 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{20240910_3}
+	\caption[]{OT-Prototyp während des Pumpens}
+\end{figure}
+\FloatBarrier 
 
 \section{Anstehende Arbeiten}
 \begin{table}[h]
