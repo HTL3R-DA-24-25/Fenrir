@@ -1,9 +1,11 @@
+__author__ = "David Koch"
+
 import configparser
 from jira import JIRA
 import pandas as pd
 import csv
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("secret.ini")
 
@@ -19,19 +21,22 @@ if __name__ == '__main__':
     tasks = []
 
     for issue in issues:
-        clockify_time = getattr(issue.fields, "timetracking", "No time recorded")
-        if clockify_time is not "No time recorded":
-            clockify_time = clockify_time["timeSpentSeconds"]
+        clockify_time = getattr(issue.fields.timetracking, "remainingEstimate")
+        if clockify_time:
+            clockify_time = issue.fields.timetracking.raw["timeSpentSeconds"]
+        else:
+            clockify_time = 0
 
         tasks.append({
             "Key": issue.key,
             "Summary": issue.fields.summary,
+            "Description": issue.fields.description,
             "Status": issue.fields.status.name,
             "Assignee": issue.fields.assignee.displayName if issue.fields.assignee else "Unassigned",
-            "Reporter": issue.fields.reporter.displayName,
             "Created": issue.fields.created,
             "Updated": issue.fields.updated,
             "Timetracking": clockify_time,
+            "DueDate": issue.fields.duedate,
         })
 
     df = pd.DataFrame(tasks)
