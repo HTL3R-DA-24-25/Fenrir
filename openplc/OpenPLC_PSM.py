@@ -1,46 +1,56 @@
-#!/usr/bin/env python
-
 #                  - OpenPLC Python SubModule (PSM) -
 # 
 # PSM is the bridge connecting OpenPLC core to Python programs. PSM allows
 # you to directly interface OpenPLC IO using Python and even write drivers 
 # for expansion boards using just regular Python.
+#
+# PSM API is quite simple and just has a few functions. When writing your
+# own programs, avoid touching on the "__main__" function as this regulates
+# how PSM works on the PLC cycle. You can write your own hardware initialization
+# code on hardware_init(), and your IO handling code on update_inputs() and
+# update_outputs()
+#
+# To manipulate IOs, just use PSM calls psm.get_var([location name]) to read
+# an OpenPLC location and psm.set_var([location name], [value]) to write to
+# an OpenPLC location. For example:
+#     psm.get_var("QX0.0")
+# will read the value of %QX0.0. Also:
+#     psm.set_var("IX0.0", True)
+# will set %IX0.0 to true.
+#
+# Below you will find a simple example that uses PSM to switch OpenPLC's
+# first digital input (%IX0.0) every second. Also, if the first digital
+# output (%QX0.0) is true, PSM will display "QX0.0 is true" on OpenPLC's
+# dashboard. Feel free to reuse this skeleton to write whatever you want.
 
-__author__ = "David Koch"
-__version__ = "0.2.1"
-
-import time
-
+#import all your libraries here
 import psm
+import time
 from w1thermsensor import W1ThermSensor, Sensor
 from Adafruit_PureIO.smbus import SMBus
+import RPi.GPIO as GPIO
 
+#global variables
+ESP_I2C_address = 0x21
+bus = SMBus(1)
 
-PSM_CYCLE_TIME: float = 0.1  # in secs
-ESP_I2C_address: int = 0x21
-bus: SMBus = SMBus(1)
-
-
+# 2 classes to easy the use of I2C data streams
+# encode data to be sent
 class I2C_Encoder:
-    """
-    Encodes data to be sent through the I2C data stream
-    """
-
-    PACKER_BUFFER_LENGTH: int = 128
+    # because ESP Slave I2C library wait for buffer[128] size
+    PACKER_BUFFER_LENGTH = 128
 
     def __init__(self):
-        self._total_length: int | None = None
-        self._is_written: bool | None = None
-        self._index: int | None = None
-        self._buffer: list[int] = [0] * self.PACKER_BUFFER_LENGTH
-        self._frame_start: int = 0x02
-        self._frame_end: int = 0x04
+        self._total_length = None
+        self._is_written = None
+        self._index = None
+        self._buffer = [0] * self.PACKER_BUFFER_LENGTH
+        self._frame_start = 0x02
+        self._frame_end = 0x04
         self.reset()
 
     def reset(self):
-        """
-        Resets the packing process
-        """
+        # Reset the packing process.
         self._buffer[0] = self._frame_start
         # field for total length on index 1. data starts on field 2
         self._index = 2
@@ -56,20 +66,22 @@ class I2C_Encoder:
         self._index += 1
 
     def end(self):
-        """
-        Closes the frame by adding crc8 and length and returns the full frame buffer
-        :return: The finished frame buffer
-        """
+        # Closes the packet by adding crc8 and length
+        # After that, use read()
+        # skip field for CRC byte
         self._index += 1
+        # add frame end
         self._buffer[self._index] = self._frame_end
+        # calc and write total length
         self._index += 1
         self._total_length = self._index
         self._buffer[1] = self._total_length
 
-        # ignore start, length, crc and end byte [2:total-2]
-        self._buffer[self._index - 2] = crc8(self._buffer[2:self._total_length - 2])
+        # ignore crc and end byte
+        payload_range = self._total_length - 2
+        # ignore start and length byte [2:payload_range]
+        self._buffer[self._index - 2] = crc8(self._buffer[2:payload_range])
         self._is_written = True
-
         return self._buffer
 
     def read(self):
@@ -80,11 +92,8 @@ class I2C_Encoder:
         return self._buffer
 
 
+# decodes data received from I2C data stream
 class I2C_Decoder:
-    """
-    Decodes data received from the I2C data stream
-    """
-
     error_codes = {
         "INVALID_CRC": 1,
         "INVALID_LENGTH": 2,
@@ -100,21 +109,17 @@ class I2C_Decoder:
     }
 
     def __init__(self):
-        self._data: list[int] | None = None
-        self._length: int | None = None
-        self._buffer: list[int] | None = None
-        self._last_error: int | None = None
-        self._debug: bool = False
-        self._frame_start: int = 0x02
-        self._frame_end: int = 0x04
+        self._data = None
+        self._length = None
+        self._buffer = None
+        self._last_error = None
+        self._debug = False
+        self._frame_start = 0x02
+        self._frame_end = 0x04
 
-    def write(self, stream) -> list[int]:
-        """
-        get the i2c data from slave
-        :param stream:
-        :return:
-        """
-        # clear any previous data in the buffer
+    def write(self, stream):
+        # get the i2c data from slave
+        # clear any previous
         self._buffer = []
         self._last_error = None
         data = list(stream)
@@ -128,9 +133,9 @@ class I2C_Decoder:
             self._last_error = self.error_codes["INVALID_END"]
             raise Exception("ERROR: invalid end byte")
 
-        # check if the provided crc8 is good
+        # check if provided crc8 is good
         # ignore start, length, crc and end byte
-        crc: int = crc8(data[2:self._length - 2])
+        crc = crc8(data[2:self._length - 2])
         if crc != data[self._length - 2]:
             self._last_error = self.error_codes["INVALID_CRC"]
             raise Exception("ERROR: Unpacker invalid crc8")
@@ -138,45 +143,38 @@ class I2C_Decoder:
         
         return self._data
 
-    def get_last_error(self) -> (int, str):
+    def get_last_error(self):
         """
-        Get the last error code and message
-        :return: list [error_code, error_text]
+        @brief get the last error code and message
+        @return list [error_code, error_text]
         """
         return self._last_error, self.error_decodes[self._last_error]
 
 
-def crc8(data: list[int]) -> int:
-    """
-    Calculates the CRC8 value of a list of bytes
-    :param data: List of bytes
-    :return: CRC8 value of the list of bytes
-    """
-    crc: int = 0
+# routine to calculate CRC8
+def crc8(data: list):
+    crc = 0
 
-    for byte in data:
+    for _byte in data:
+        extract = _byte
         for j in range(8, 0, -1):
-            sum = (crc ^ byte) & 0x01
+            _sum = (crc ^ extract) & 0x01
             crc >>= 1
-            if sum:
+            if _sum:
                 crc ^= 0x8C
-            byte >>= 1
+            extract >>= 1
 
     return crc
 
 
-def read_from_esp32(i2caddress: int, size: int) -> list[int]:
-    """
-    Reads data from the ESP32 slave
-    :param i2caddress: The I2C slave address to be read from
-    :param size: The size of the slave frame in bytes
-    :return: List of received data bytes
-    """
-    decoder: I2C_Decoder = I2C_Decoder()
+# read data from EPS32
+def read_from_esp32(i2caddress: hex, size: int):
+    decoder = I2C_Decoder()
     try:
-        # get data sent by the ESP32 in raw format
+        # get data sent by ESP32, in raw format.
         stream = bus.read_bytes(i2caddress, size)
-        data: list[int] = decoder.write(stream)
+        # convert to a list to ease handling
+        data = decoder.write(stream)
         return data
 
     except Exception as e:
@@ -184,13 +182,8 @@ def read_from_esp32(i2caddress: int, size: int) -> list[int]:
 
 
 # write data to ESP32
-def write_to_esp32(i2caddress: int, data: str):
-    """
-    Writes data to the ESP32 slave
-    :param i2caddress: The I2C slave address to be written to
-    :param data: The data to be sent
-    """
-    encoder: I2C_Encoder = I2C_Encoder()
+def write_to_esp32(i2caddress: hex, data: str):
+    encoder = I2C_Encoder()
     try:
         # only if there is data
         if len(data) > 0:
@@ -208,33 +201,36 @@ def write_to_esp32(i2caddress: int, data: str):
 def hardware_init():
     global sensors
     psm.start()
-    sensors: list[W1ThermSensor] = W1ThermSensor.get_available_sensors([Sensor.DS18B20])
+    sensors = W1ThermSensor.get_available_sensors([Sensor.DS18B20])
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
 
 
 def update_inputs():
     global sensors
-
-    temperature1: int = int(sensors[0].get_temperature())
+    temperature1 = int(sensors[0].get_temperature())
     psm.set_var("IW0", temperature1)
-
-    temperature2: int = int(sensors[1].get_temperature())
+    temperature2 = int(sensors[1].get_temperature())
     psm.set_var("IW1", temperature2)
-
     write_to_esp32(ESP_I2C_address, "haiii")
-    time.sleep(0.05)  # dunno if this is the best place to put it
-    data: list[int] = read_from_esp32(ESP_I2C_address, 32)
+    time.sleep(0.05) # dunno if this is the best place to put it
+    data = read_from_esp32(ESP_I2C_address, 32)
     psm.set_var("IW2", data[0])
 
 
 def update_outputs():
-    # code for outputs goes here
-    pass
+    pump_active = psm.get_var("QX0")
+    if pump_active == 1:
+        GPIO.output(13, GPIO.HIGH)
+    else:
+        GPIO.output(13, GPIO.LOW)
     
 
 if __name__ == "__main__":
     hardware_init()
-    while not psm.should_quit():
+    while (not psm.should_quit()):
         update_inputs()
         update_outputs()
-        time.sleep(PSM_CYCLE_TIME)
+        time.sleep(0.1) #You can adjust the psm cycle time here
     psm.stop()
+
