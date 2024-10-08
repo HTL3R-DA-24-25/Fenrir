@@ -199,8 +199,9 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \section{Projektstatus}
 \textbf{Berichtszeitraum: 11.09.2024 bis 24.09.2024}
 
-AAAAAAAA
-Über die Sommerferien wurde bereits ein großes Stück Gesamtarbeit der Diplomarbeit verrichtet. Die Website wurde von Grund auf von uns designed, anschließend umgesetzt und läuft nun bereits unter der von easyname gesponsorten Domain \url{fenrir-ot.at}. Die Provisionierung der virtualisierten IT-Geräte der Topologie auf der UCS wurde mittels Terraform und Packer in vSphere ermöglicht. Der OT-Prototyp steht, funktioniert einwandfrei und repräsentiert eine vereinfachte Version der zweiten Betriebszelle. Mehr Informationen zu der bereits erledigten Arbeit sowie der aufgetretenen Probleme finden Sie weiter unten.
+Direkt nach dem Schulbeginn und den ersten Hürden des Schulalltags läuft die Arbeit and der Diplomarbeit Fenrir auf Hochtouren. Trotz den ersten Herausforderungen des schulischen Alltags machen wir in der Provisionierung des IT-Netzwerks große Fortschritte, als auch kleinere Fortschritte im Aufbau der ersten Betriebszelle.
+
+Die bevorstehenden Meilensteine werden voraussichtlich alle überpünktlich abgeschlossen, der Arbeitsfortschritt ist somit den geplanten Deadlines weit voraus.
 
 Derzeitiger Ampelstatus: Grün
 
@@ -211,7 +212,7 @@ Derzeitiger Ampelstatus: Grün
 		\hline
 		\textbf{\% abgeschlossen} & \textbf{Projektstatus} & \textbf{Erwartetes\newline Projektende} & \textbf{Geplantes Projektende} & \textbf{Abweichung} \\
 		\hline
-		- & - & - & - & - \\
+		23 & Grün & 14.03.2025 & 14.03.2025 & 0 \\
 		\hline
 	\end{tabularx}
 }
@@ -241,7 +242,7 @@ Derzeitiger Ampelstatus: Grün
 		\hline
 		\textbf{Ist-Aufwand} & \textbf{Restaufwand} & \textbf{Erwarteter\newline Gesamtaufwand} & \textbf{Planaufwand} & \textbf{Abweichung} \\
 		\hline
-		- & - & - & - & - \\
+		266,45 & 925,25 & 1191,7 & 1183 & +8,7 \\ % 176,45 an erledigter Arbeit + 90 in progress (zellen usw.) for good measure :)
 		\hline
 	\end{tabularx}
 }
@@ -251,14 +252,12 @@ Derzeitiger Ampelstatus: Grün
 Die Motivation ist im gesamte Team hoch, es bestehen jedoch Sorgen, dass durch zunehmenden Stress im Schuljahr die Arbeitszeit für die Diplomarbeit beeinträchtigt werden kann.
 
 \section{Probleme im Projekt}
-Beim Aufbau der Prototyp-Betriebszelle sind der Wasserfüllstandsensor sowie der RaspberryPi beschädigt worden (bei beiden ein Totalschaden). Die Ersatzbauteile wurden bereits bestellt und verbaut, somit besteht keine Beeinträchtigung des Projektablaufs, es bleiben mit diesen Schäden jedoch mehr Kosten offen.
+Das 3D-Modell zum Druck der Förderschnecke in Betriebszelle 1 ist nicht gut genug, denn ohne Stützen oder einer halbwegs stabilen Auflagefläche wird diese immer wieder während des Druckvorgangs umfallen/kaputt gehen.
 
-Ebenfalls gab es einige Startschwierigkeiten mit vSphere und Terraform/Packer. Es wurde sich mit Viktor Kreuzer und Bernd Reither in Verbindung gesetzt um noch fehlende Berechtigungen, solche wie die Provisionierung von Distributed-Switches, zu verteilen. Die Provisionierung von Ubuntu-Server VMs lief anfangs aufgrund des fehlenden Verständnisses von Cloud-Init und co. ebenfalls nicht glatt, jedoch wurde mittlerweile eine angemessene Lösung gefunden. Windows-Server Provisionierung bleibt jedoch noch ein Knackpunkt.
-
-Einige Bestandteile die für die OT eingeplant waren, gibt es in einer Ausführung, wie von uns gewünscht, nicht zu kaufen. Deshalb hat sich Gabriel Vogler einen 3D-Drucker zugelegt. Der Drucker kam jedoch mit einem Softwarefehler, weshalb er sich höhenmäßig nicht korrekt einstellen ließ und sich im Anschluss auch selbst beschädigt hat. Zahlreiche Versuche, den Drucker zum Laufen zu bringen, kosteten insgesamt ca. 8 Stunden. Er musste anschließend eingeschickt werden und es wurde bereits ein zuverlässigeres, moderneres Modell bestellt, was die nächsten Tage eintreffen sollte.
+Die vorgezogene GGP-Matura steht kurz bevor, somit sind Koch und Uhlig nicht in der Lage viel Zeit für die Diplomarbeit aufzuwenden. 
 
 \subsection{Problemlösungsstrategie}
-Fast alle im Projekt bisher aufgetretenen Probleme wurden bereits gelöst, somit ist keine allgemeine Problemlösung notwendig. Für noch ungelöste Probleme bezüglich der Windows-Server Provisionierung wird der in diesem Feld tätige Markus Burger, Verwandter von Julian Burger, befragt. Dieser hat ebenfalls auch schon in der Vergangenheit auf Fragen bezüglich Terraform/Packer geantwortet.
+Mit einem erfahrenen 3D-Modelleur sprechen, um eine Lösung für den instabilen Druck der Förderschnecke zu finden.
 
 \subsection{Handlungsbedarf seitens des Managements}
 Notwendiger Handlungsbedarf seitens des Managements liegt in folgenden Punkten:
@@ -283,47 +282,64 @@ Notwendiger Handlungsbedarf seitens des Managements liegt in folgenden Punkten:
 		\hline
 		\rowcolor[HTML]{D9D9D9} 
 		\textbf{\normalsize{Bearbeiter}} & \textbf{\normalsize{PSP-Code}} & {\textbf{\normalsize{Tätigkeit}}} & \textbf{\normalsize{Ort}} & \textbf{\normalsize{Dauer geplant (h)}} & \textbf{\normalsize{Dauer benötigt (h)}} & \textbf{\normalsize{Status}} \\ \hline
-		Alle & 1.1.1.1 & Umfang erfassen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Alle & 1.1.1.2 & Betreuer onboarden & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Alle & 1.1.1.3 & Mögliche Sponsoren/Partner erfassen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Bastian Uhlig & 1.1.2.1 & Projektidee definieren & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.1.2.2 & Provisorische Projektziele definieren & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Gabriel Vogler & 1.1.2.3 & Stakeholder analysieren & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.1.2.4 & Risikos analysieren & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Bastian Uhlig & 1.1.2.5 & Spielregeln definieren & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Alle & 1.1.2.6 & Ansuchen schreiben & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Alle & 1.1.2.7 & Antrag schreiben & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.2.1.1 & OSP erstellen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.2.1.2 & PSP erstellen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.3.2.3 & Provisionierung planen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.4.2.1 & Terraform und Packer können sich zum vSphere-Client verbinden & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.4.2.2 & Packer kann eine Ubuntu-Server-VM als Template provisionieren & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.4.2.3 & Terraform kann aus der Template von Packer eine VM aufsetzen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.4.2.4 & Es kann eine Bastion VM provisioniert werden & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.4.2.5 & Über die Bastion können andere VMs leichter provisioniert werden & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.5.1.1 & Webdesign festlegen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.5.1.2 & Randinformationen der technischen Umsetzung festlegen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.5.1.3 & easyname kontaktieren & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.5.1.4 & Webinhalte schreiben & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Julian Burger & 1.5.1.5 & Website zusammenfügen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.5.2.1 & Instagram-Konto erstellen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.5.2.2 & Inhalte für Instagram desginen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		David Koch & 1.5.2.3 & Für das Instagram-Konto werben & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Bastian Uhlig & 1.5.3.1 & Fenrir-Sticker designen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Bastian Uhlig & 1.5.3.2 & Sticker bestellen & - & ? & ? & \cellcolor{green!30} \\ \hline
-		Bastian Uhlig & 1.5.3.3 & Sticker an Interessierte ausgeben & - & ? & ? & \cellcolor{green!30} \\ \hline
+		Alle & 1.1.1.1 & Umfang erfassen & - & 8 & ? & \cellcolor{green!30} \\ \hline
+		Alle & 1.1.1.2 & Betreuer onboarden & - & 2 & ? & \cellcolor{green!30} \\ \hline
+		Alle & 1.1.1.3 & Mögliche Sponsoren/Partner erfassen & - & 4 & ? & \cellcolor{green!30} \\ \hline
+		Bastian Uhlig & 1.1.2.1 & Projektidee definieren & - & 3 & 2 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.1.2.2 & Provisorische Projektziele definieren & - & 5 & 4,8 & \cellcolor{green!30} \\ \hline
+		Gabriel Vogler & 1.1.2.3 & Stakeholder analysieren & - & 4 & 3 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.1.2.4 & Risikos analysieren & - & 4 & 4,5 & \cellcolor{green!30} \\ \hline
+		Bastian Uhlig & 1.1.2.5 & Spielregeln definieren & - & 5 & ? & \cellcolor{green!30} \\ \hline
+		Alle & 1.1.2.6 & Ansuchen schreiben & - & 10 & ? & \cellcolor{green!30} \\ \hline
+		Alle & 1.1.2.7 & Antrag schreiben & - & 10 & ? & \cellcolor{green!30} \\ \hline
+		David Koch & 1.2.1.1 & OSP erstellen & - & 2 & 1,8 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.2.1.2 & PSP erstellen & - & 3 & 3,2 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.3.2.3 & Provisionierung planen & - & 4 & 11 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.4.2.1 & Terraform und Packer können sich zum vSphere-Client verbinden & - & 2 & 6,5 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.4.2.2 & Packer kann eine Ubuntu-Server-VM als Template provisionieren & - & 5 & 6 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.4.2.3 & Terraform kann aus der Template von Packer eine VM aufsetzen & - & 5 & 5 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.4.2.4 & Es kann eine Bastion VM provisioniert werden & - & 15 & 15 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.4.2.5 & Über die Bastion können andere VMs leichter provisioniert werden & - & 50 & 51,5 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.5.1.1 & Webdesign festlegen & - & 5 & 5,5 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.5.1.2 & Randinformationen der technischen Umsetzung festlegen & - & 1 & 1,1 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.5.1.3 & easyname kontaktieren & - & 1,5 & 1,25 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.5.1.4 & Webinhalte schreiben & - & 3 & 1,4 & \cellcolor{green!30} \\ \hline
+		Julian Burger & 1.5.1.5 & Website zusammenfügen & - & 8 & 6 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.5.2.1 & Instagram-Konto erstellen & - & 0,5 & 0,4 & \cellcolor{green!30} \\ \hline
+		David Koch & 1.5.2.2 & Inhalte für Instagram desginen & - & 3 & 2,75 & \cellcolor{green!30} \\ \hline
 	\end{tabularx}
 \end{table}
 
-Die während den Sommerferien erledigten Arbeiten bestehen hauptsächlich aus dem Aufbau der Prototyp-Betriebszelle (inklusive dem Anlernen der Grundlagen bezüglich der Programmierung und Steuerung von Bussystemen wie OneWire, I2C und Modbus), der Einrichtung von vSphere-Provisionierung mittels Terraform auf der UCS (in Kooperation mit dem Diplomarbeitsteam Atropos) und die Erstellung einer Golden-Image-Pipeline mittels HCL-Packer (Bastion-Host, Security-Modell), sowie der Erstellung der Diplomarbeits-Website. Diese ist bereits unter der URL \url{https://www.fenrir-ot.at/} erreichbar. Die Website wurde mit dem Svelte-Framework und der Tailwind-CSS Bibliothek erstellt und mithilfe von Vite zu eine "'Static-Site"' generiert. Das Design wurde in Figma erstellt.
+\begin{table}[h]
+	\begin{tabularx} {\textwidth} {
+			|>{\hsize=.12\hsize}X
+			|>{\hsize=.08\hsize}X
+			|>{\hsize=.34\hsize}X
+			|>{\hsize=.10\hsize}X
+			|>{\hsize=.12\hsize}X
+			|>{\hsize=.12\hsize}X
+			|>{\hsize=.09\hsize}X|
+		}
+		
+		\hline
+		\rowcolor[HTML]{D9D9D9} 
+		\textbf{\normalsize{Bearbeiter}} & \textbf{\normalsize{PSP-Code}} & {\textbf{\normalsize{Tätigkeit}}} & \textbf{\normalsize{Ort}} & \textbf{\normalsize{Dauer geplant (h)}} & \textbf{\normalsize{Dauer benötigt (h)}} & \textbf{\normalsize{Status}} \\ \hline
+		David Koch & 1.5.2.3 & Für das Instagram-Konto werben & - & 5 & 0,75 & \cellcolor{green!30} \\ \hline
+		Bastian Uhlig & 1.5.3.1 & Fenrir-Sticker designen & - & 2 & ? & \cellcolor{green!30} \\ \hline
+		Bastian Uhlig & 1.5.3.2 & Sticker bestellen & - & 1 & ? & \cellcolor{green!30} \\ \hline
+		Bastian Uhlig & 1.5.3.3 & Sticker an Interessierte ausgeben & - & 1 & ? & \cellcolor{green!30} \\ \hline
+	\end{tabularx}
+\end{table}
 
-Der Prototyp hat zurzeit zwei Wassertanks, wobei einer befüllt wird und der andere nicht. Beide haben unten eine abgedichtete Öffnung, die in ein durchsichtigen Schlauch führt, welcher die zwei Tanks anschließend mit einer 12V Wasserpumpe dazwischen verbindet. Im ersten Tank befindet sich ein Füllstandsensor und sobald der Tank voll ist, schaltet die SPS die Pumpe ein. Diese bleibt eingeschaltet bis der erste Tank leer ist. Außerdem haben beide Wassertanks einen Temperatursensor, der auch mittels der SPS ausgelesen werden kann. Der gesamte Prototyp steht auf einem selbst gebautem Holzgerüst. Als SPS dieser Betriebszelle wird ein RaspberryPi mit der OpenPLC Runtime verwendet, welche wiederum mittels Leiterdiagramm-Programmierung programmiert worden ist.
+Die unten angeschriebenen Arbeitspakete repräsentieren die Arbeit, die während den Sommerferien und noch dazu in den ersten Schulwochen (bis zum 24.09.2024) erledigt worden ist. Die meiste davon wurde bereits im letzten Management-Review angesprochen, diesmal ist jedoch ein fertiger PSP vorhanden, somit kann die Tabelle befüllt werden (inklusive geplanter/tatsächlicher Dauer, usw.).
 
-Die zuvor bestellten 300 Stück an Fenrir-Sticker sind vom Printshop fertiggestellt und vom Projektteam bereits abgeholt worden. Die Austeilung der Sticker an Interessierte findet derzeit (und vorraussichtlich bis zum Projektende) statt.
+Alle 300 bestellten Fenrir-Logo-Sticker sind fertig und werden bereits vom Projektteam verbreitet.
+
+Ebenfalls sehen Sie ein Bild der Förderschnecke gemeinsam mit ihrer Hülle aus der Betriebszelle 1, welche zwar bereits mehrmals 3D-gedruckt worden ist, aber leider immer noch nicht unseren Erwartungen entspricht.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\linewidth]{20240910_1}
+	\includegraphics[width=0.6\linewidth]{20240924_1}
 	\caption[]{3D-gedruckte Förderschnecke mit ihrer Hülle}
 \end{figure}
 \FloatBarrier 
@@ -341,14 +357,22 @@ Die zuvor bestellten 300 Stück an Fenrir-Sticker sind vom Printshop fertiggeste
 		\hline
 		\rowcolor[HTML]{D9D9D9} 
 		\textbf{\normalsize{Bearbeiter}} & \textbf{\normalsize{PSP-Code}} & {\textbf{\normalsize{Tätigkeit}}} & \textbf{\normalsize{Dauer geplant (h)}} & \textbf{\smaller{Fertigstellung geplant}} \\ \hline
-		- & - & - & - & - \\ \hline
+		David Koch & 1.3.1.2 & Aufbau \& Funktion der zweiten Betriebszelle planen & 2 & 01.10.2024 \\ \hline
+		Gabriel Vogler & 1.3.2.1 & AD-Struktur planen & 6 & ? \\ \hline
+		Gabriel Vogler & 1.3.2.2 & IT-Server planen & 4 & 08.10.2024 \\ \hline
+		David Koch & 1.4.1.1 & Erste Betriebszelle aufbauen & 15 & ? \\ \hline
+		David Koch & 1.4.1.2 & Zweite Betriebszelle aufbauen & 15 & 01.11.2024 \\ \hline
+		David Koch & 1.4.1.5 & OpenPLC SPS programmieren & 5 & 05.10.2024 \\ \hline
+		Julian Burger & 1.4.2.6 & Windows-Server Provisionierung & 30 & 08.10.2024 \\ \hline
+		Julian Burger & 1.4.2.7 & Windows-Client Provisionierung & 10 & 08.10.2024 \\ \hline
+		Julian Burger & 1.4.2.9 & Provisionierung nach gegebenem Netzplan & 15 & 08.10.2024 \\ \hline
 	\end{tabularx}
 \end{table}
 
-Die zuvor erstellten Planungsdokumente müssen mit den über die Sommerferien erhaltenen Informationen bezüglich des Projektumfangs überarbeitet werden. Wie zuvor erwähnt muss bis zum 20.09.2024 der Diplomarbeitsantrag offiziell abgeschickt werden, somit sollten spätestens eine Woche zuvor (am 13.09.2024) beide Diplomarbeitsbetreuer eine beinahe fertige Kopie erhalten, um diese auf Fehler zu überprüfen. Da im Antrag die Zieldefinition und im weiteren des PSP und OSP im Ganzen enthalten sind hat die Fertigstellung/Überarbeitung dieser -- im Vergleich zu den restlichen Planungsdokumenten -- die höchste Priorität.
+Die VPN-Verbindung in das OOB-UCS-Netzwerk muss auf mehrere gleichzeitig mögliche Sessions erweitert werden, denn das derzeitige Limit von 10 wird sehr schnell erreicht und führt zu einer Aussperrung aus dem vCenter Server, welcher für die Provisionierung des IT-Teils der Diplomarbeit gebraucht wird.
 
-Der Aufbau der nächsten OT-Betriebszelle beginnt, sobald der vom Kollegen Vogler bestellte 3D-Drucker ankommt und eine maßgeschneiderte Förderschnecke drucken kann.
+Wie zuvor erwähnt muss die Arbeit an der ersten Betriebszelle fortschreiten, jedoch nicht nur im Bereich der Förderschnecke, sondern auch dem generellen Aufbau der Plattform, Behälter, Rechen, etc.
 
-Es muss auch eine dedizierte VPN-Verbindung zum Kollegen Vogler nach Hause erstellt werden, um jederzeit auf die bestehende OT-Gerätschaft zugreifen zu können, als auch um diese später mit virtuellen Maschinen auf der UCS verbinden zu können.
+Ein konkreter Plan der gesamten Diplomarbeitstopologie ist derzeit noch in Arbeit und wird demnächst nach seiner Fertigstellung damit helfen, die ersten Testläufe einer fertigen Erstprovisionierung des IT-Netzwerks zu erfüllen.
 
 \end{document}
