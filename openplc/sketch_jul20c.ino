@@ -3,30 +3,35 @@
 #define SDA_PIN 21 // (I2C DATA)
 #define SCL_PIN 22 // (I2C CLOCK)
 #define TANK_PIN_1 35 // (ADC1-5)
+#define TANK_PIN_2 34
 
 #define I2C_SLAVE_ADDR 0x21
-#define TOTAL_DATA_SIZE 1 // change when more data
+#define TOTAL_DATA_SIZE 2 // change when more data
 
 struct Data {
   uint8_t tank1;
+  uint8_t tank2;
 };
 
 void onRequest() {
   // reads the input on analog pin (value between 0 and 4095)
   int tank1Value = analogRead(TANK_PIN_1);
+  int tank2Value = analogRead(TANK_PIN_2);
 
   struct Data data;
   data.tank1 = 3400 - tank1Value;
+  data.tank2 = 3400 - tank2Value;
 
   Wire.write(0x02);
   Wire.write(TOTAL_DATA_SIZE + 4);
 
-  char* c_arr = packData(data); 
+  char* c_arr = packData(data);
   for (int i = 0; i < TOTAL_DATA_SIZE; ++i) {
     Wire.write(c_arr[i]);
   }
 
   Serial.println(data.tank1);
+  Serial.println(data.tank2);
   Wire.write(crc8((uint8_t*)c_arr, TOTAL_DATA_SIZE));
   Wire.write(0x04);
 }
@@ -68,6 +73,7 @@ char* packData(Data data) {
   char* c_arr = new char[TOTAL_DATA_SIZE];
 
   c_arr[0] = (char)data.tank1;
+  c_arr[1] = (char)data.tank2;
 
   return c_arr;
 }
