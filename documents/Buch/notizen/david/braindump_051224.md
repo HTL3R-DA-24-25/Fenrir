@@ -78,9 +78,10 @@ Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten rote
 
 Aktorik:
 - Magnetventil
+- Alarmleuchte (+ Ton)
 
 Sensorik:
-- sdfdsgsdg
+- 2x Überschwemmungssensor
 
 
 
