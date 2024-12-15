@@ -71,3 +71,14 @@
 #include "text/aufbau_klaeranlage.typ"
 
 #include "text/provisionierung_und_iac.typ"
+
+#include "text/angriffe.typ"
+
+#include "text/netzwerkanalyse.typ"
+
+#include "text/nozomi_guardian.typ"
+
+#include "text/firewall_config.typ"
+
+#include "text/angriffe_gesichert.typ"
+

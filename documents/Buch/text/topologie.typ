@@ -32,7 +32,7 @@ Der OT-Bereich besteht aus einem von uns selbst gebauten Modell einer Kläranlag
 
 Die Details bezüglich dem Aufbau der Modell-Kläranlage und der dazugehörigen #htl3r.abbr[OT]-Gerätschaft siehe >Aufbau der Modell-Kläranlage<
 
-== Purdue-Modell
+== Purdue-Modell <purdue>
 
 Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum OSI-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.abbr[ICS]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert.
 
