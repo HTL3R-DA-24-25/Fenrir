@@ -11,7 +11,7 @@
 
 #htl3r.fspace(
   figure(
-    image("assets/topology_logical.svg"),
+    image("../assets/topology_logical.svg"),
     caption: [Die Projekttopologie in logischer Darstellung]
   )
 )
@@ -43,7 +43,7 @@ FENRIR PURDUE SUPER TOLL:
 
 #htl3r.fspace(
   figure(
-    image("assets/fenrir_purdue.svg"),
+    image("../assets/fenrir_purdue.svg"),
     caption: [Die Projekttopologie im Purdue-Modell]
   )
 )

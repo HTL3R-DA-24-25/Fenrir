@@ -53,7 +53,7 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
 
 #htl3r.fspace(
   figure(
-    image("assets/Zelle_2_Schaltplan.png"),
+    image("../assets/Zelle_2_Schaltplan.png"),
     caption: [Schaltplan der 2. Betriebszelle]
   )
 )
@@ -107,7 +107,7 @@ Im PC wird ein dem #htl3r.abbr[I2C]-Bus sehr ähnliches System benutzt, um z.B. 
 
 #htl3r.fspace(
   figure(
-    image("assets/rpi_esp32_i2c_fenrir.svg"),
+    image("../assets/rpi_esp32_i2c_fenrir.svg"),
     caption: [Der Kommunikationsaufbau zwischen RPI, ESP32 und Sensorik]
   )
 )
@@ -118,7 +118,7 @@ Bei der Datenübertragungen über einen #htl3r.abbr[I2C]-Bus wird folgendes Fram
 
 #htl3r.fspace(
   figure(
-    image("assets/i2c_standard_frame.png"),
+    image("../assets/i2c_standard_frame.png"),
     caption: [Das #htl3r.abbr[I2C]-Frame-Format]
   )
 )
@@ -129,7 +129,7 @@ Um dieses Problem zu lösen wird über die #htl3r.abbr[I2C]-Kommunikation zwisch
 
 #htl3r.fspace(
   figure(
-    image("assets/custom_i2c_frame_fenrir.svg"),
+    image("../assets/custom_i2c_frame_fenrir.svg"),
     caption: [Das Fenrir-Frame-Format]
   )
 )
