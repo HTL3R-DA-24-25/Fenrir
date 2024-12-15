@@ -42,7 +42,7 @@
       Netzwerk zu verteilen.]),
     (abbr: "UUID", langform: [Universally Unique Identifier], bedeutung: [Eine Identifikationsnummer, welche Global nur ein einziges mal existiert.]),
     (abbr: "API", langform: [Application Programing Interface], bedeutung: [Eine Schnittstelle die eine Kommunikation zwischen Software ermöglicht.]),
-    (abbr: "VM", langform: [Virtual Machine], bedeutung: none),
+    (abbr: "VM", langform: [Virtuelle Maschine], bedeutung: none),
     (abbr: "IT", langform: [Informational Technology], bedeutung: none),
     (abbr: "OT", langform: [Operational Technology], bedeutung: none),
     (abbr: "LAN", langform: [Local Area Network], bedeutung: none),
@@ -59,6 +59,7 @@
     (abbr: "SCADA", langform: [Supervisory Control and Data Acquisition], bedeutung: none),
     (abbr: "UART", langform: [Universal Asynchronous Receiver Transmitter], bedeutung: none),
     (abbr: "ICS", langform: [Industrial Control System], bedeutung: none),
+    (abbr: "GUI", langform: [Graphical User Interface], bedeutung: none),
   ),
   literatur: bibliography("refs.yml", full: true, title: [Literaturverzeichnis], style: "harvard-cite-them-right"),
 )

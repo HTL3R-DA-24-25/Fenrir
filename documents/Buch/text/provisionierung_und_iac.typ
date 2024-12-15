@@ -3,34 +3,26 @@
 = Provisionierung und IaC
 #htl3r.author("Julian Burger")
 
-In der Industrie gibt es einen stetigen Trend, alles zu automatisieren. Eine Automatisierung der IT-Infrastruktur bringt ebenfalls Zeit- und Ressourcenersparnisse.
-Diese Ersparnisse gilt es nicht zu vernachlässigen, demnach ist es das Ziel der Diplomarbeit, das gesamte IT-Netzwerk automatisch zu provisionieren und somit
-zukunftssicher zu gestalten.
+In der Industrie gibt es einen stetigen Trend, alles zu automatisieren. Eine Automatisierung der #htl3r.abbr[IT]-Infrastruktur bringt Zeit- und Ressourcenersparnisse. Diese Ersparnisse gilt es nicht zu vernachlässigen, demnach ist es das Ziel der Diplomarbeit, das gesamte #htl3r.abbr[IT]-Netzwerk automatisch zu provisionieren und somit zukunftssicher zu gestalten.
 
-Automatische Provisionierung bedeutet, die gesamte oder auch nur Teile einer Firmen/Organisations-IT-Infrastruktur, sei es in physischer oder virtueller Form, ohne Eingriff von Personal
-aufzusetzen. Um solch einen Prozess zu realisieren, wird meist eine Form von #htl3r.abbr[IaC] (= Infrastructure as Code) verwendet. Somit kann das Firmen/Organisations-Netzwerk und
-dessen IT-Infrastruktur als strukturierte Datei oder auch als Code dargestellt werden.
+Automatische Provisionierung bedeutet, die gesamte oder auch nur Teile einer Firmen/Organisations-#htl3r.abbr[IT]-Infrastruktur, sei es in physischer oder virtueller Form, ohne Eingriff von Personal aufzusetzen. Um solch einen Prozess zu realisieren, wird meist eine Form von #htl3r.abbr[IaC] (= Infrastructure as Code) verwendet. Somit kann das Firmen/Organisations-Netzwerk und dessen #htl3r.abbr[IT]-Infrastruktur als strukturierte Datei oder auch als Code dargestellt werden.
 
-Sollten somit Änderungen der bestehenden IT-Infrastruktur notwendig sein, so wird der #htl3r.abbr[IaC] Quelltext abgeändert und so angepasst, dass er den neuen
-Anforderungen gerecht wird. Nun kann das verwendete Tool die Änderungen einlesen und ausrechnen, welche Änderungen bzw. welche Schritte eingeleitet werden müssen
-um den Anforderungen, die definiert worden sind, gerecht zu werden. Diese Arbeitsschritte können jetzt ausgeführt werden, um den Änderungen gerecht zu werden.
+Sollten somit Änderungen der bestehenden #htl3r.abbr[IT]-Infrastruktur notwendig sein, so wird der #htl3r.abbr[IaC] Quelltext abgeändert und so angepasst, dass er den neuen Anforderungen gerecht wird. Nun kann das verwendete Tool die Änderungen einlesen und ausrechnen, welche Änderungen bzw. welche Schritte eingeleitet werden müssen um den Anforderungen, die definiert worden sind, gerecht zu werden. Diese Arbeitsschritte können jetzt ausgeführt werden, um den Änderungen gerecht zu werden.
 
 == Verwendete Tools
 Um den Anforderungen der Topologie gerecht zu werden, kommen mehrere Provisionierungs-Tools zum Einsatz:
 #[
 #set par(hanging-indent: 12pt)
-- #strong[Packer:] Um mehrere Template-VMs, oder auch Golden-Images genannt, zu provisionieren.
-- #strong[Terraform:] Um diese Template-VMs zu klonen und ihren Netzen so zuzuweisen, dass dies der Topologie entspricht.
-- #strong[Ansible:] Um die mit Terraform provisionierten VMs zu konfigurieren oder auch benötigte Dateien bereitzustellen.
+- #strong[Packer:] Um mehrere Template-#htl3r.abbr[VM]s, oder auch Golden-Images genannt, zu provisionieren.
+- #strong[Terraform:] Um diese Template-#htl3r.abbr[VM]s zu klonen und ihren Netzen so zuzuweisen, dass dies der Topologie entspricht.
+- #strong[Ansible:] Um die mit Terraform provisionierten #htl3r.abbr[VM]s zu konfigurieren oder auch benötigte Dateien bereitzustellen.
 - #strong[pyVmomi:] Um besondere Änderungen in der vSphere-Umgebung zu tätigen, welche nicht von den anderen Tools unterstützt werden.
 ]
-Um den gesamten Ablauf zu automatisieren, werden Bash-Skripts eingesetzt, welche das leichte Zusammenspiel der Software ermöglichen. So kann
-Terraform Packer aufrufen, um die Template-VMs zu erzeugen, oder auch Ansible, um die VMs zu konfigurieren.
+Um den gesamten Ablauf zu automatisieren, werden Bash-Skripts eingesetzt, welche das leichte Zusammenspiel der Software ermöglichen. So kann Terraform Packer aufrufen, um die Template-#htl3r.abbr[VM]s zu erzeugen, oder auch Ansible, um die #htl3r.abbr[VM]s zu konfigurieren.
 
 === Packer
-Packer, ein Produkt von HashiCorp, ermöglicht es, System-Images oder auch Container aus Code zu erzeugen. Dies ist nützlich, um Template-VMs in einer vSphere-Umgebung zu erstellen.
-Damit dies jedoch möglich ist, braucht es das passende Packer-Plugin, dies ist in diesem Fall ```hcl "github.com/hashicorp/vsphere"```. Dieses Plugin kann wie folgt eingebunden werden:
-#htl3r.code(caption: "Packer vSphere-Plugin einbindung", description: none)[
+Packer, ein Produkt von HashiCorp, ermöglicht es, System-Images oder auch Container aus Code zu erzeugen. Dies ist nützlich, um Template-#htl3r.abbr[VM]s in einer vSphere-Umgebung zu erstellen. Damit dies jedoch möglich ist, braucht es das passende Packer-Plugin, dies ist in diesem Fall ```hcl "github.com/hashicorp/vsphere"```. Dieses Plugin kann wie folgt eingebunden werden:
+#htl3r.code(caption: "Packer vSphere-Plugin Einbindung", description: none)[
 ```hcl
 packer {
   required_plugins {
@@ -43,7 +35,7 @@ packer {
 ```
 ]
 
-Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Dies ermöglicht es nun, eine VM in der vSphere-Umgebung zu provisionieren:
+Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Dies ermöglicht es nun, eine #htl3r.abbr[VM] in der vSphere-Umgebung zu provisionieren:
 #htl3r.code_file(
   caption: "Packer vSphere-VM Beispiel",
   filename: [golden_linux_server/main.pkr.hcl],
@@ -53,26 +45,19 @@ Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Die
   text: read("../assets/scripts/golden_linux_server.pkr.hcl")
 )
 
-Durch das ```hcl convert_to_template = true``` im vorherigen Beispiel wird die VM automatisch nach Abschluss des Provisioniervorganges zu einer Template-VM umgewandelt
-und kann dadurch direkt geklont werden.
+Durch das ```hcl convert_to_template = true``` im vorherigen Beispiel wird die #htl3r.abbr[VM] automatisch nach Abschluss des Provisioniervorganges zu einer Template-#htl3r.abbr[VM] umgewandelt und kann dadurch direkt geklont werden.
 #pagebreak()
-Insgesamt werden 4 Template-VMs provisioniert, allerdings werden nur 3 davon in der Topologie, wie sie im physischen Netzplan sind, verwendet. Das extra Template ist eine
-Bastion. Die Verwendung dieser wird im @prov-mit-bastion beschrieben. Die 3 restlichen Templates sind folgende:
+Insgesamt werden 4 Template-#htl3r.abbr[VM]s provisioniert, allerdings werden nur 3 davon in der Topologie, wie sie im physischen Netzplan sind, verwendet. Das extra Template ist eine Bastion. Die Verwendung dieser wird im @prov-mit-bastion beschrieben. Die restlichen drei Templates sind folgende:
 #[
 #set par(hanging-indent: 12pt)
 - #strong[Linux Golden Image:] Template für alle Linux-Server in der Topologie. Hierbei wird Ubuntu-Server 24.04 verwendet.
 - #strong[Windows Server Golden Image:] Template für alle Windows-Server in der Topologie. Hierbei wird Windows-Server 2022 verwendet.
 - #strong[Windows Desktop Golden Image:] Template für alle Windows-Clients in der Topologie. Hierbei wird Windows 11 23H2 verwendet.
 ]
-Das Linux-Server-Image wird mittels Cloud-Init, eine #emph["industry standard multi-distribution method for cross-platform cloud instance initialisation."] @ci-docs,
-aufgesetzt. Cloud-Init liest eine gegebene #htl3r.abbr[YAML] Datei, im passenden Format, aus und konfiguriert aufgrund dessen den Server. Die Windows-Images werden ähnlich
-aufgesetzt, jedoch wird eine ``` autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
+Das Linux-Server-Image wird mittels Cloud-Init, einer #emph["industry standard multi-distribution method for cross-platform cloud instance initialisation."] @ci-docs, aufgesetzt. Cloud-Init liest eine gegebene #htl3r.abbr[YAML] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
 
 === Terraform
-Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet VMs, #htl3r.abbrp[DVSs], #htl3r.abbrp[DPGs], etc. Allerdings existieren
-gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten
-Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren.
-Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
+Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.abbr[VM]s, #htl3r.abbrp[DVSs], #htl3r.abbrp[DPGs], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
 #htl3r.code_file(
   caption: "Terraform Bastion Provisionierung",
   filename: [stage_00/main.tf],
@@ -82,15 +67,9 @@ Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Tem
   text: read("../assets/scripts/stage_00.tf")
 )
 
-Dieser erzwungene konvergente Zustand hat jedoch, vor allem während der Entwicklung, Nachteile. Tritt ein Fehler während der Durchführung eines Erstellungsprozesses auf, so stoppt dies den Prozess und
-Terraform zerstört alle bereits angelegten Ressourcen. Dies führt vor allem dann zu Frustration, wenn so ein Provisionierungsvorgang mehr als 30 Minuten andauert. Um dies zu umgehen, wird in sogenannten
-"Stages" Provisioniert. Jede Stage ist abhängig von der Vorherigen, somit muss beispielsweise Stage 0 korrekt ausgeführt werden, damit Stage 1, in weiterer Folge, ausgeführt werden kann. Jede Stage ist
-dafür verantwortlich zu beginnen einen Snapshot von allen Ressourcen zu machen, die für die Durchführung der Stage benötigt werden. So kann, falls die Stage fehlerhaft ausführt, zu dem vorherigen Stand
-zurückgesprungen werden.
+Dieser erzwungene konvergente Zustand hat jedoch, vor allem während der Entwicklung, Nachteile. Tritt ein Fehler während der Durchführung eines Erstellungsprozesses auf, so stoppt dies den Prozess und Terraform zerstört alle bereits angelegten Ressourcen. Dies führt vor allem dann zu Frustration, wenn so ein Provisionierungsvorgang mehr als 30 Minuten andauert. Um dies zu umgehen, wird in sogenannten "Stages" Provisioniert. Jede Stage ist abhängig von der Vorherigen, somit muss beispielsweise Stage 0 korrekt ausgeführt werden, damit Stage 1, in weiterer Folge, ausgeführt werden kann. Jede Stage ist dafür verantwortlich zu beginnen einen Snapshot von allen Ressourcen zu machen, die für die Durchführung der Stage benötigt werden. So kann, falls die Stage fehlerhaft ausführt, zu dem vorherigen Stand zurückgesprungen werden.
 
-Solch ein Verfahren ist jedoch nicht allein mit Terraform möglich, da Terraform, falls ein Fehler auftritt, den erstellten Snapshot nur löscht und nicht auf diesen zurücksetzt. Somit werden alle
-fehlerhafte Änderungen, welche von Skript-Provisionieren durchgeführt wurden, auf den vorherigen Stand übertragen. Damit solch eine Situation nicht auftritt, werden Destroy-Provisioner auf den Snapshots
-konfiguriert:
+Solch ein Verfahren ist jedoch nicht allein mit Terraform möglich, da Terraform, falls ein Fehler auftritt, den erstellten Snapshot nur löscht und nicht auf diesen zurücksetzt. Somit werden alle fehlerhafte Änderungen, welche von Skript-Provisionieren durchgeführt wurden, auf den vorherigen Stand übertragen. Damit solch eine Situation nicht auftritt, werden Destroy-Provisioner auf den Snapshots konfiguriert:
 #htl3r.code_file(
   caption: "Terraform Snapshot Destroy-Provisioner",
   filename: [stage_03/main.tf],
@@ -109,8 +88,7 @@ Die von der Ressource gebrauchte ``` vm_uuids``` Variable ist in einer anderen D
 )
 Terraform fragt mithilfe des Skriptes die #htl3r.abbrp[UUIDs] der ADDCs ab und befüllt mit ihnen die lokale Variable ``` vm_uuids```.
 
-Um all dies zu ermöglichen, braucht Terraform den passenden Provider. Ein Terraform-Provider gibt an, wie mit einem gegebenen System zu interagieren ist. Durch einen Provider werden Ressourcen definiert
-welche angelegt werden können und ebenso welche Daten abgefragt werden können. Um den Provider einzubinden, ist dieser zuerst zu definieren:
+Um all dies zu ermöglichen, braucht Terraform den passenden Provider. Ein Terraform-Provider gibt an, wie mit einem gegebenen System zu interagieren ist. Durch einen Provider werden Ressourcen definiert welche angelegt werden können und ebenso welche Daten abgefragt werden können. Um den Provider einzubinden, ist dieser zuerst zu definieren:
 #htl3r.code(caption: "Terraform vSphere-Provider einbindung", description: none)[
 ```hcl
 terraform {
@@ -123,8 +101,7 @@ terraform {
 }
 ```
 ]
-Nachdem der Provider in einer Datei definiert ist, wird er automatisch, mit dem Befehl ```bash terraform init```, aus dem Terraform-Repository heruntergeladen. Nun müssen die Zugangsdaten von der
-vSphere-Instanz an Terraform übermittelt werden:
+Nachdem der Provider in einer Datei definiert ist, wird er automatisch, mit dem Befehl ```bash terraform init```, aus dem Terraform-Repository heruntergeladen. Nun müssen die Zugangsdaten von der vSphere-Instanz an Terraform übermittelt werden:
 #htl3r.code(caption: "Terraform vSphere-Provider definieren", description: none)[
 ```hcl
 provider "vsphere" {
@@ -139,13 +116,9 @@ provider "vsphere" {
 Die realen Zugangsdaten stehen in einer externen Datei, welche nicht Teil des Git-Repositorys ist.
 
 === Ansible
-Ansible ist das dritte verwendete #htl3r.abbr[IaC] Tool, welches verwendet wird. Es ermöglicht es, Maschinen mittels Ansible-Playbooks zu konfigurieren. Diese Playbooks beinhalten mehrere Tasks, welche
-ausgeführt werden. Diese Tasks können sehr komplex, jedoch auch sehr simpel sein. Ansible wird in der Topologie hauptsächlich für das Ausführen von Bash- und PowerShell-Skripten verwendet. Da oftmals
-ein Neustart nach der Ausführung eines Befehls notwendig ist. Dies ist vor allem auf Windows-Servern ein bekanntes Problem. Terraform kann mit solchen Neustarts nicht umgehen, Ansible jedoch schon.
+Ansible ist das dritte verwendete #htl3r.abbr[IaC] Tool, welches verwendet wird. Es ermöglicht es, Maschinen mittels Ansible-Playbooks zu konfigurieren. Diese Playbooks beinhalten mehrere Tasks, welche ausgeführt werden. Diese Tasks können sehr komplex, jedoch auch sehr simpel sein. Ansible wird in der Topologie hauptsächlich für das Ausführen von Bash- und PowerShell-Skripten verwendet. Da oftmals ein Neustart nach der Ausführung eines Befehls notwendig ist. Dies ist vor allem auf Windows-Servern ein bekanntes Problem. Terraform kann mit solchen Neustarts nicht umgehen, Ansible jedoch schon.
 
-Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.abbr[DHCP] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript
-weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem
-Ansible aufruf sieht wie folgt aus:
+Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.abbr[DHCP] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem Ansible-Aufruf sieht wie folgt aus:
 #htl3r.code_file(
   caption: "Terraform Ansible Provisioning",
   filename: [stage_03/main.tf],
@@ -172,11 +145,7 @@ Ansible aufruf sieht wie folgt aus:
 Der Grund, warum die ``` ansible_ssh_common_args``` Variable solch einen komplexen Inhalt hat, wird in @prov-mit-bastion beschrieben.
 
 === pyVmomi
-Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.abbr[API] zurückgegriffen. Hierzu wird
-pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im
-Web-GUI von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.abbrp[DPGs]. Dies ist in keinem der vorher genannten Tools
-direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Traffic zwischen Managed-VMs möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu
-kommunizieren und DHCP-Requests zu verschicken. Hierzu nutzen wir folgende Traffic-Filter-Regeln:
+Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.abbr[API] zurückgegriffen. Hierzu wird pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im Web-#htl3r.abbrp[GUI] von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.abbrp[DPGs]. Dies ist in keinem der vorher genannten Tools direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Traffic zwischen Managed-VMs möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu kommunizieren und #htl3r.abbrp[DHCP]-Requests zu verschicken. Hierzu werden folgende Traffic-Filter-Regeln verwendet:
 #htl3r.fspace(
   figure(
     image("../assets/filtering_rules.jpg"),
@@ -191,7 +160,7 @@ Um nun diese Regeln zu definieren, muss sich zunächst bei vSphere authentifizie
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-In weitere Folge wird das Datacenter sowie die #htl3r.abbr[DPG] abgefragt:
+In weiterer Folge wird das Datacenter sowie die #htl3r.abbr[DPG] abgefragt:
 #htl3r.code_file(
   caption: "pyVmomi Ressourcen Abfrage",
   filename: [ansible/custom/create_filtering_rules.py],
@@ -201,7 +170,7 @@ In weitere Folge wird das Datacenter sowie die #htl3r.abbr[DPG] abgefragt:
   text: read("../assets/scripts/create_filtering_rules.py")
 )
 #pagebreak()
-Um nun die #htl3r.abbr[DPG] zu bearbeiten, wird ein ``` ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in 2 Gruppen zu unterteilen:
+Um nun die #htl3r.abbr[DPG] zu bearbeiten, wird ein ```ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in 2 Gruppen zu unterteilen:
 + Alle eingetragenen Traffic-Filter Regeln löschen.
 + Die gebrauchten Traffic-Filter Regeln hinzufügen.
 Der erste Schritt ist notwendig, damit das Skript bei mehreren Aufrufen dasselbe Resultat erzielt.
@@ -224,7 +193,7 @@ Solch eine Regel sieht folgendermaßen aus:
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-Die gezeigte Regel erlaubt DHCP-Requests von den Managed VMs auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
+Die gezeigte Regel erlaubt #htl3r.abbr[DHCP]-Requests von den Managed #htl3r.abbr[VM]s auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
 
 == Provisionierung mittels Bastion <prov-mit-bastion>
 #lorem(90)
