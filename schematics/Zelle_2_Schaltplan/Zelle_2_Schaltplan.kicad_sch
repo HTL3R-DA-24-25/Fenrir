@@ -3,7 +3,7 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "c54abc80-108a-4187-8440-3873a97af90c")
-	(paper "A4")
+	(paper "User" 279.4 190.5)
 	(lib_symbols
 		(symbol "Connector:Raspberry_Pi_4"
 			(exclude_from_sim no)
@@ -3134,7 +3134,7 @@
 		(uuid "159a15be-a4d0-4ce5-b35e-d069167abda4")
 	)
 	(junction
-		(at 52.07 123.19)
+		(at 52.07 124.46)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "19e48393-632b-48d8-ba64-301a823945b6")
@@ -3164,6 +3164,12 @@
 		(uuid "3b16fc2b-6351-41cf-8028-5b1ba87a559a")
 	)
 	(junction
+		(at 21.59 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "660208cd-cf5a-4bc0-913a-726eccab8851")
+	)
+	(junction
 		(at 99.06 35.56)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3180,12 +3186,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bf7f7196-acc0-4fce-8a97-c9068933bfd0")
-	)
-	(junction
-		(at 21.59 97.79)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d841d651-2d03-42d9-93b4-8edc2a135ff9")
 	)
 	(junction
 		(at 125.73 38.1)
@@ -3206,7 +3206,7 @@
 		(uuid "ef137dbe-df81-4907-bb3c-a989ace5bf61")
 	)
 	(junction
-		(at 63.5 104.14)
+		(at 63.5 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fb08a778-ad51-4325-b7cd-3cd9cf4382f3")
@@ -3243,7 +3243,7 @@
 	)
 	(wire
 		(pts
-			(xy 214.63 116.84) (xy 214.63 93.98)
+			(xy 214.63 118.11) (xy 214.63 93.98)
 		)
 		(stroke
 			(width 0)
@@ -3263,7 +3263,7 @@
 	)
 	(wire
 		(pts
-			(xy 21.59 97.79) (xy 21.59 128.27)
+			(xy 21.59 99.06) (xy 21.59 128.27)
 		)
 		(stroke
 			(width 0)
@@ -3293,7 +3293,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 116.84) (xy 214.63 116.84)
+			(xy 87.63 118.11) (xy 214.63 118.11)
 		)
 		(stroke
 			(width 0)
@@ -3303,7 +3303,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 97.79) (xy 21.59 97.79)
+			(xy 43.18 99.06) (xy 21.59 99.06)
 		)
 		(stroke
 			(width 0)
@@ -3313,7 +3313,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 166.37) (xy 133.35 166.37)
+			(xy 73.66 165.1) (xy 133.35 165.1)
 		)
 		(stroke
 			(width 0)
@@ -3323,7 +3323,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 104.14) (xy 63.5 104.14)
+			(xy 52.07 105.41) (xy 63.5 105.41)
 		)
 		(stroke
 			(width 0)
@@ -3333,7 +3333,7 @@
 	)
 	(wire
 		(pts
-			(xy 21.59 22.86) (xy 21.59 97.79)
+			(xy 21.59 22.86) (xy 21.59 99.06)
 		)
 		(stroke
 			(width 0)
@@ -3393,7 +3393,7 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 151.13) (xy 76.2 149.86)
+			(xy 76.2 149.86) (xy 76.2 148.59)
 		)
 		(stroke
 			(width 0)
@@ -3413,7 +3413,7 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 104.14) (xy 63.5 104.14)
+			(xy 191.77 105.41) (xy 63.5 105.41)
 		)
 		(stroke
 			(width 0)
@@ -3440,6 +3440,16 @@
 			(type default)
 		)
 		(uuid "4ddb754d-233c-478e-ac2f-795e123d562d")
+	)
+	(wire
+		(pts
+			(xy 191.77 105.41) (xy 191.77 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "519f0512-c6dc-487e-819f-0cae84725ba7")
 	)
 	(wire
 		(pts
@@ -3473,7 +3483,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 123.19) (xy 52.07 123.19)
+			(xy 43.18 124.46) (xy 52.07 124.46)
 		)
 		(stroke
 			(width 0)
@@ -3483,7 +3493,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 123.19) (xy 52.07 140.97)
+			(xy 52.07 124.46) (xy 52.07 140.97)
 		)
 		(stroke
 			(width 0)
@@ -3573,7 +3583,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 110.49) (xy 43.18 97.79)
+			(xy 43.18 111.76) (xy 43.18 99.06)
 		)
 		(stroke
 			(width 0)
@@ -3583,7 +3593,7 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 149.86) (xy 138.43 154.94)
+			(xy 138.43 148.59) (xy 138.43 153.67)
 		)
 		(stroke
 			(width 0)
@@ -3620,6 +3630,16 @@
 			(type default)
 		)
 		(uuid "9045f7b7-f41a-4358-8de0-1bad6121f716")
+	)
+	(wire
+		(pts
+			(xy 63.5 105.41) (xy 63.5 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90c984fd-06d3-466f-b7a5-be5dca7c0f5f")
 	)
 	(wire
 		(pts
@@ -3683,7 +3703,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 149.86) (xy 138.43 149.86)
+			(xy 120.65 148.59) (xy 138.43 148.59)
 		)
 		(stroke
 			(width 0)
@@ -3693,17 +3713,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 104.14) (xy 63.5 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b251b023-48ae-4c6a-99aa-817dd387b329")
-	)
-	(wire
-		(pts
-			(xy 63.5 166.37) (xy 19.05 166.37)
+			(xy 63.5 165.1) (xy 19.05 165.1)
 		)
 		(stroke
 			(width 0)
@@ -3743,7 +3753,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 166.37) (xy 133.35 157.48)
+			(xy 133.35 165.1) (xy 133.35 156.21)
 		)
 		(stroke
 			(width 0)
@@ -3763,7 +3773,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 104.14) (xy 52.07 123.19)
+			(xy 52.07 105.41) (xy 52.07 124.46)
 		)
 		(stroke
 			(width 0)
@@ -3883,7 +3893,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 104.14) (xy 63.5 151.13)
+			(xy 63.5 92.71) (xy 63.5 105.41)
 		)
 		(stroke
 			(width 0)
@@ -3933,7 +3943,7 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 149.86) (xy 105.41 149.86)
+			(xy 76.2 148.59) (xy 105.41 148.59)
 		)
 		(stroke
 			(width 0)
@@ -3953,7 +3963,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 166.37) (xy 19.05 26.67)
+			(xy 19.05 165.1) (xy 19.05 26.67)
 		)
 		(stroke
 			(width 0)
@@ -3993,7 +4003,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 116.84) (xy 80.01 116.84)
+			(xy 46.99 118.11) (xy 80.01 118.11)
 		)
 		(stroke
 			(width 0)
@@ -4002,8 +4012,8 @@
 		(uuid "fca98558-57d9-41c5-8430-5845045780e1")
 	)
 	(rectangle
-		(start 129.54 147.32)
-		(end 142.24 168.91)
+		(start 129.54 146.05)
+		(end 142.24 167.64)
 		(stroke
 			(width 0)
 			(type default)
@@ -4015,7 +4025,7 @@
 	)
 	(text "12V/2A DC Netzteil\n"
 		(exclude_from_sim no)
-		(at 136.144 144.526 0)
+		(at 136.144 143.256 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4025,7 +4035,7 @@
 	)
 	(symbol
 		(lib_id "Device:VoltageDivider")
-		(at 43.18 116.84 0)
+		(at 43.18 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4034,7 +4044,7 @@
 		(fields_autoplaced yes)
 		(uuid "02c6f730-0aa1-45d0-8acd-ba28ee883b92")
 		(property "Reference" "RN2"
-			(at 40.64 115.5699 0)
+			(at 40.64 116.8399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4043,7 +4053,7 @@
 			)
 		)
 		(property "Value" "VoltageDivider"
-			(at 40.64 118.1099 0)
+			(at 40.64 119.3799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4052,7 +4062,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 55.245 116.84 90)
+			(at 55.245 118.11 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4061,7 +4071,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 48.26 116.84 0)
+			(at 48.26 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4070,7 +4080,7 @@
 			)
 		)
 		(property "Description" "Voltage divider"
-			(at 43.18 116.84 0)
+			(at 43.18 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4565,7 +4575,7 @@
 	)
 	(symbol
 		(lib_id "Motor:Fan_ALT")
-		(at 113.03 149.86 90)
+		(at 113.03 148.59 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4574,7 +4584,7 @@
 		(fields_autoplaced yes)
 		(uuid "6467be7e-4edf-406c-af4f-6a4de752c489")
 		(property "Reference" "M1"
-			(at 113.03 139.7 90)
+			(at 113.03 138.43 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4582,7 +4592,7 @@
 			)
 		)
 		(property "Value" "Pumpe"
-			(at 113.03 142.24 90)
+			(at 113.03 140.97 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4590,7 +4600,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 114.3 149.86 0)
+			(at 114.3 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4599,7 +4609,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 114.3 149.86 0)
+			(at 114.3 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4608,7 +4618,7 @@
 			)
 		)
 		(property "Description" "Fan without PWM or tach, alternative symbol"
-			(at 113.03 149.86 0)
+			(at 113.03 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4703,7 +4713,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 138.43 154.94 0)
+		(at 138.43 153.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4712,7 +4722,7 @@
 		(fields_autoplaced yes)
 		(uuid "6de93ea0-5ff6-4793-a2af-963e2568b391")
 		(property "Reference" "#PWR02"
-			(at 138.43 161.29 0)
+			(at 138.43 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4721,7 +4731,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 138.43 160.02 0)
+			(at 138.43 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4729,7 +4739,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 138.43 154.94 0)
+			(at 138.43 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4738,7 +4748,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 138.43 154.94 0)
+			(at 138.43 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4747,7 +4757,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 138.43 154.94 0)
+			(at 138.43 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4769,7 +4779,7 @@
 	)
 	(symbol
 		(lib_id "Relay:Fujitsu_FTR-LYCA005x")
-		(at 68.58 158.75 0)
+		(at 68.58 157.48 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4778,7 +4788,7 @@
 		(fields_autoplaced yes)
 		(uuid "ab200f8b-5715-43a2-8011-8d4c7cc10e7c")
 		(property "Reference" "K1"
-			(at 80.01 157.4799 0)
+			(at 80.01 156.2099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4787,7 +4797,7 @@
 			)
 		)
 		(property "Value" "12V Relais"
-			(at 80.01 160.0199 0)
+			(at 80.01 158.7499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4796,7 +4806,7 @@
 			)
 		)
 		(property "Footprint" "Relay_THT:Relay_SPDT_Fujitsu_FTR-LYCA005x_FormC_Vertical"
-			(at 80.01 160.02 0)
+			(at 80.01 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4806,7 +4816,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.fujitsu.com/sg/imagesgig5/ftr-ly.pdf"
-			(at 85.09 162.56 0)
+			(at 85.09 161.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4816,7 +4826,7 @@
 			)
 		)
 		(property "Description" "Relay, SPDT Form C, vertical mount, 5-60V coil, 6A, 250VAC, 28 x 5 x 15mm"
-			(at 68.58 158.75 0)
+			(at 68.58 157.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4850,7 +4860,7 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 133.35 157.48 0)
+		(at 133.35 156.21 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4859,7 +4869,7 @@
 		(fields_autoplaced yes)
 		(uuid "ab8c7388-10e3-47e0-843a-f546c84a15c5")
 		(property "Reference" "#PWR01"
-			(at 133.35 161.29 0)
+			(at 133.35 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4868,7 +4878,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 133.35 152.4 0)
+			(at 133.35 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4876,7 +4886,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 133.35 157.48 0)
+			(at 133.35 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4885,7 +4895,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 133.35 157.48 0)
+			(at 133.35 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4894,7 +4904,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+12V\""
-			(at 133.35 157.48 0)
+			(at 133.35 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5130,7 +5140,7 @@
 	(symbol
 		(lib_name "R_Variable_1")
 		(lib_id "Device:R_Variable")
-		(at 83.82 116.84 90)
+		(at 83.82 118.11 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5138,7 +5148,7 @@
 		(dnp no)
 		(uuid "f3a28bf5-a12d-49a1-b8b5-806685dbd2ea")
 		(property "Reference" "R5"
-			(at 82.5499 113.03 0)
+			(at 82.5499 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5147,7 +5157,7 @@
 			)
 		)
 		(property "Value" "0-190"
-			(at 85.0899 113.03 0)
+			(at 85.0899 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5156,7 +5166,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 118.618 90)
+			(at 83.82 119.888 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5165,7 +5175,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 83.82 116.84 0)
+			(at 83.82 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5174,7 +5184,7 @@
 			)
 		)
 		(property "Description" "Variable resistor"
-			(at 83.82 116.84 0)
+			(at 83.82 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
