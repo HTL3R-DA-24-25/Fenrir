@@ -183,7 +183,7 @@ kommunizieren und DHCP-Requests zu verschicken. Hierzu nutzen wir folgende Traff
     caption: [Management Traffic-Filtering Regeln]
   )
 )
-Um nun diese Regeln zu definieren muss sich zunächst bei vSphere Authentifiziert werden:
+Um nun diese Regeln zu definieren, muss sich zunächst bei vSphere authentifiziert werden:
 #htl3r.code_file(
   caption: "pyVmomi Authentifizierung",
   filename: [ansible/custom/create_filtering_rules.py],
@@ -201,10 +201,10 @@ In weitere Folge wird das Datacenter sowie die #htl3r.abbr[DPG] abgefragt:
   text: read("../assets/scripts/create_filtering_rules.py")
 )
 #pagebreak()
-Um nun die #htl3r.abbr[DPG] zu bearbeiten wird ein ``` ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen die Vorgenommen werden sollen. In diesem Fall sind diese Änderungen in 2 Gruppen zu unterteilen:
+Um nun die #htl3r.abbr[DPG] zu bearbeiten, wird ein ``` ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in 2 Gruppen zu unterteilen:
 + Alle eingetragenen Traffic-Filter Regeln löschen.
 + Die gebrauchten Traffic-Filter Regeln hinzufügen.
-Der erste Schritt ist notwendig, damit das Skript bei mehreren Aufrufen dasselbe Resultat erziehlt.
+Der erste Schritt ist notwendig, damit das Skript bei mehreren Aufrufen dasselbe Resultat erzielt.
 
 Dies sieht in der Umsetzung wie folgt aus:
 #htl3r.code_file(
@@ -215,7 +215,7 @@ Dies sieht in der Umsetzung wie folgt aus:
   text: read("../assets/scripts/create_filtering_rules.py")
 )
 Man beachte, dass die ``` filterConfig``` Liste anfangs auf das Resultat der ```py create_filter_config()``` Funktion gesetzt wird. In dieser Funktion sind die gewollten Regeln definiert.
-Solch eine Regel sieht folgender maßen aus:
+Solch eine Regel sieht folgendermaßen aus:
 #htl3r.code_file(
   caption: "pyVmomi Traffic-Filter Regel Erstellung",
   filename: [ansible/custom/create_filtering_rules.py],
@@ -224,7 +224,7 @@ Solch eine Regel sieht folgender maßen aus:
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-Die gezeigt Regel erlaubt DHCP-Requests von den Managed VMs auf die Bastion. Die restlichen Regeln werden verwendet um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
+Die gezeigte Regel erlaubt DHCP-Requests von den Managed VMs auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
 
 == Provisionierung mittels Bastion <prov-mit-bastion>
 #lorem(90)
