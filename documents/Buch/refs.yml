@@ -1,0 +1,19 @@
+hc-auto-prov:
+  type: Article
+  author:
+    given-name: Ruddy
+    name: Kyle
+  title: How Automated Provisioning Tools Pave the Way to Multi-Cloud Adoption
+  url:
+    value: "https://www.hashicorp.com/blog/how-automated-provisioning-tools-pave-the-way-to-multi-cloud-adoption"
+    date: 2024-12-14
+  date: 2021-09-23
+
+ci-docs:
+  type: misc
+  title: Cloud-init documentation
+  author: Canonical Group Ltd.
+  url:
+    value: https://cloudinit.readthedocs.io/en/latest/index.html
+    date: 2024-12-14
+  date: 2024
