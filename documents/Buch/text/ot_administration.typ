@@ -1,8 +1,11 @@
 #import "@local/htl3r-da:0.1.0" as htl3r
+
 = OT-Adminsitratoion
 #htl3r.author("Bastian Uhlig")
-== Scada
-=== Was ist ein SCADA?
+
+== SCADA
+
+=== Was ist ein SCADA-System?
 In einer Betriebszelle existieren üblicherweise einige unterschiedliche #htl3r.abbr[SPS]en, auf welche Mitarbeiter keinen Zugriff haben. Selbst wenn dieser Zugriff möglich wäre, so wäre es sehr anstrengend aus den verscheidenen Registern die Werte auszulesen um die Anlage zu überwachen. Ein #htl3r.abbr[SCADA] System hilft dabei als Abhilfe, indem es als grafische Oberfläche zur Überwachung und Steuerung von verschiedenen #htl3r.abbr[SPS]en agiert.
 
 Hierbei ist zu beachten, dass ein #htl3r.abbr[SCADA] System keine Signale automatsich sendet, sondern nur auf User-Input reagiert. Alle selbstgesteuerten Aktionen werden immer von #htl3r.abbr[SPS]en durchgeführt. 

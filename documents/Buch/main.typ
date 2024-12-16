@@ -62,6 +62,7 @@
     (abbr: "GUI", langform: [Graphical User Interface], bedeutung: none),
     (abbr: "IDS", langform: [Intrusion Detection System], bedeutung: [Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses erkennt.]),
     (abbr: "MES", langform: [Manufacturing Execution System], bedeutung: none),
+    (abbr: "VDOM", langform: [Virtual Domain], bedeutung: none),
   ),
   literatur: bibliography("refs.yml", full: true, title: [Literaturverzeichnis], style: "harvard-cite-them-right"),
 )
