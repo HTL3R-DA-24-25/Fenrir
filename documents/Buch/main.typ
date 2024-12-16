@@ -60,6 +60,8 @@
     (abbr: "UART", langform: [Universal Asynchronous Receiver Transmitter], bedeutung: none),
     (abbr: "ICS", langform: [Industrial Control System], bedeutung: none),
     (abbr: "GUI", langform: [Graphical User Interface], bedeutung: none),
+    (abbr: "IDS", langform: [Intrusion Detection System], bedeutung: [Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses erkennt.]),
+    (abbr: "MES", langform: [Manufacturing Execution System], bedeutung: none),
   ),
   literatur: bibliography("refs.yml", full: true, title: [Literaturverzeichnis], style: "harvard-cite-them-right"),
 )
@@ -68,13 +70,17 @@
 
 #include "text/topologie.typ"
 
+#include "text/active_directory.typ"
+
 #include "text/aufbau_klaeranlage.typ"
+
+#include "text/ot_administration.typ"
 
 #include "text/provisionierung_und_iac.typ"
 
 #include "text/angriffe.typ"
 
-#include "text/netzwerkanalyse.typ"
+#include "text/netzwerkueberwachung.typ"
 
 #include "text/nozomi_guardian.typ"
 
