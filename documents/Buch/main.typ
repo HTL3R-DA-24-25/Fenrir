@@ -1,21 +1,21 @@
 #import "@local/htl3r-da:0.1.0" as htl3r
 
 #show: htl3r.diplomarbeit.with(
-  titel: "Fenrir",
-  titel_zusatz: "Zum Schutz von OT-Netzwerken",
-  abteilung: "ITN",
-  schuljahr: "2024/2025",
-  autoren: (
-    (name: "Julian Burger", betreuung: "Christian Schöndorfer", rolle: "Mitarbeiter"),
-    (name: "David Koch", betreuung: "Christian Schöndorfer", rolle: "Projektleiter"),
-    (name: "Bastian Uhlig", betreuung: "Clemens Kussbach", rolle: "Stv. Projektleiter"),
-    (name: "Gabriel Vogler", betreuung: "Clemens Kussbach", rolle: "Mitarbeiter"),
+  title: "Fenrir",
+  subtitle: "Zum Schutz von OT-Netzwerken",
+  department: "ITN",
+  school_year: "2024/2025",
+  authors: (
+    (name: "Julian Burger", supervisor: "Christian Schöndorfer", role: "Mitarbeiter"),
+    (name: "David Koch", supervisor: "Christian Schöndorfer", role: "Projektleiter"),
+    (name: "Bastian Uhlig", supervisor: "Clemens Kussbach", role: "Stv. Projektleiter"),
+    (name: "Gabriel Vogler", supervisor: "Clemens Kussbach", role: "Mitarbeiter"),
   ),
-  betreuer_inkl_titel: (
+  supervisor_incl_ac_degree: (
     "Prof, Dipl.-Ing. Christian Schöndorfer",
     "Prof, Dipl.-Ing. Clemens Kussbach",
   ),
-  sponsoren: (
+  sponsors: (
     "easyname GmbH",
     "Fortinet Austria GmbH",
     "IKARUS Security Software GmbH",
@@ -23,13 +23,13 @@
     "Cyber Security Austria – Verein zur Förderung der Sicherheit Österreichs strategischer Infrastruktur",
     "NTS Netzwerk Telekom Service AG",
   ),
-  kurzfassung_text: [#include "text/kurzfassung.typ"],
-  abstract_text: [#include "text/abstract.typ"],
-  datum: datetime.today(),
-  druck_referenz: true,
-  generative_ki_tools_klausel: none,
-  abkuerzungen: yaml("abbr.yml"),
-  literatur: bibliography("refs.yml", full: true, title: [Literaturverzeichnis], style: "harvard-cite-them-right"),
+  abstract_german: [#include "text/kurzfassung.typ"],
+  abstract_english: [#include "text/abstract.typ"],
+  date: datetime.today(),
+  print_ref: true,
+  generative_ai_clause: none,
+  abbreviation: yaml("abbr.yml"),
+  bibliography: bibliography("refs.yml", full: true, title: [Literaturverzeichnis], style: "harvard-cite-them-right"),
 )
 
 #include "text/vorwort.typ"
