@@ -1,0 +1,201 @@
+yaml:
+  short:
+    singular: YAML
+  long:
+    singular: YAML Ain't Markup Language
+  description: >
+    Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet.
+    Wird oft zur konfiguration eingesetzt.
+
+iac:
+  short:
+    singular: IaC
+  long:
+    singular: Infrastructure as Code
+  description: >
+    Die Abbildung der Physischen und Virtuellen Infrastruktur als Datenstruktur
+    oder auch Code.
+
+dvs:
+  short:
+    singular: DVS
+    plural: DVSs
+  long:
+    singular: Distributed Virtual Switch
+  description: >
+    Ein virtueller Switch welcher in einer vSphere-Umgebung mehreren Hosts
+    zugewiesen sein kann. Dies ermöglicht es VMs auf mehrere Hosts zu verteilen und sie dennoch in dasselbe Netzwerk zu hängen, dieser virtuelle
+    Switch dient zur verwaltung der Uplinks auf den jeweiligen Hosts.
+
+dpg:
+  short:
+    singular: DPG
+    plural: DPGs
+  long:
+    singular: Distributed Port Group
+  description: >
+    Ein virtuelles Netzwerksegment welches einem DVS zugewiesen werden kann.
+    Dieses Netzwerksegment wird den VMs, welche über mehrere Hosts verteilt sein können, zugewiesen um somit ein LAN über mehrere Hosts zu schaffen.
+
+dhcp:
+  short:
+    singular: DHCP
+  long:
+    singular: Dynamic Host Configuration Protocol
+  description: >
+    Ein Protokoll welches oft benutzt wird um dynamisch IP-Adressen über das
+    Netzwerk zu verteilen.
+
+uuid:
+  short:
+    singular: UUID
+    plural: UUIDs
+  long:
+    singular: Universally Unique Identifier
+    plural: Universally Unique Identifiers
+  description: Eine Identifikationsnummer, welche Global nur ein einziges mal existiert.
+
+api:
+  short:
+    singular: API
+  long:
+    singular: Application Programing Interface
+  description: Eine Schnittstelle die eine Kommunikation zwischen Software ermöglicht.
+
+vm:
+  short:
+    singular: VM
+    plural: VMs
+  long:
+    singular: Virtuelle Maschine
+    plural: Virtuelle Maschines
+
+it:
+  short:
+    singular: IT
+  long:
+    singular: Informational Technology
+
+ot:
+  short:
+    singular: OT
+  long:
+    singular: Operational Technology
+
+lan:
+  short:
+    singular: LAN
+    plural: LANs
+  long:
+    singular: Local Area Network
+
+vlan:
+  short:
+    singular: VLAN
+    plural: VLANs
+  long:
+    singular: Virtual Local Area Network
+
+ad:
+  short:
+    singular: AD
+  long:
+    singular: Active Directory
+
+addc:
+  short:
+    singular: ADDC
+    plural: ADDCs
+  long:
+    singular: Active Directory Domain Controller
+
+i2c:
+  short:
+    singular: I²C
+  long:
+    singular: Inter-Integrated Circuit
+  description: Ein Zweidraht-Datenbus mit Master-Slave-Konzept.
+
+io:
+  short:
+    singular: IO
+  long:
+    singular: Input/Output
+
+gau:
+  short:
+    singular: GAU
+  long:
+    singular: Größter Anzunehmender Unfall
+
+sps:
+  short:
+    singular: SPS
+    plural: SPSen
+  long:
+    singular: Speicherprogrammierbare Steuerung
+    plural: Speicherprogrammierbare Steuerungen
+
+crc:
+  short:
+    singular: CRC
+  long:
+    singular: Cyclic Redundancy Check
+
+psm:
+  short:
+    singular: PSM
+  long:
+    singular: Python Submodule (for OpenPLC)
+
+dmz:
+  short:
+    singular: DMZ
+  long:
+    singular: Demilitarisierte Zone
+  description: >
+    Ein eigenes Netzwerk für Dienste, die aus dem Internet zugänglich sind und vom internen Netz abgetrennt sind, um die Sicherheit zu erhöhen. Die Trennung der Netze erfolgt durch zwei Firewalls.
+
+scada:
+  short:
+    singular: SCADA
+  long:
+    singular: Supervisory Control and Data Acquisition
+
+uart:
+  short:
+    singular: UART
+  long:
+    singular: Universal Asynchronous Receiver Transmitter
+
+ics:
+  short:
+    singular: ICS
+  long:
+    singular: Industrial Control System
+
+gui:
+  short:
+    singular: GUI
+  long:
+    singular: Graphical User Interface
+
+ids:
+  short:
+    singular: IDS
+  long:
+    singular: Intrusion Detection System
+  description: Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses erkennt.
+
+mes:
+  short:
+    singular: MES
+  long:
+    singular: Manufacturing Execution System
+
+vdom:
+  short:
+    singular: VDOM
+    plural: VDOMs
+  long:
+    singular: Virtual Domain

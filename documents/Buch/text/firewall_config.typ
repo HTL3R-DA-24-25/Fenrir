@@ -24,9 +24,9 @@ Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindli
 
 === Multi-VDOM-Mode
 
-Eine #htl3r.abbr[VDOM] (kurz für "Virtual Domain") ist eine von anderen #htl3r.abbr[VDOM]s unabhängige administrative Einheit innerhalb einer FortiGate-Firewall. TODOOOO. Wenn kein Multi-#htl3r.abbr[VDOM]-Mode verwendet wird, läuft alles auf der Firewall über die Root-#htl3r.abbr[VDOM].
+Eine #htl3r.shorts[vdom] (kurz für "Virtual Domain") ist eine von anderen #htl3r.shortpl[vdom] unabhängige administrative Einheit innerhalb einer FortiGate-Firewall. TODOOOO. Wenn kein Multi-#htl3r.shorts[vdom]-Mode verwendet wird, läuft alles auf der Firewall über die Root-#htl3r.shorts[vdom].
 
-Fortinet gibt einige Verwendungsarten für #htl3r.abbr[VDOM]s vor, wobei bei der Zellen-Firewall zwei dieser Arten gemeinsam eingesetzt werden:
+Fortinet gibt einige Verwendungsarten für #htl3r.shorts[vdom]s vor, wobei bei der Zellen-Firewall zwei dieser Arten gemeinsam eingesetzt werden:
 + *Internet access VDOM*
 
 fdfdf
