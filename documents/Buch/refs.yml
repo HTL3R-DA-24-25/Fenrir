@@ -82,3 +82,32 @@ esp32-meets-rpi:
     value: https://data.engrie.be/ESP32/ESP32_-_Part_12_-_ESP32_meets_Raspberry_Pi.pdf
     date: 2024-12-13
   date: 2021-01-14
+
+# Wird derzeit nur verwendet um das Bauen einer Modell-Kläranlage zu rechtfertigen, enthält aber auch einige Vorgaben bzgl Absicherung also könnte man das da auch vllt verwenden als Quelle
+cisa-wastewater:
+  type: report
+  title: Defending OT Operations Against Ongoing Pro-Russia Hacktivist Activity
+  author: Cybersecurity & Infrastructure Security Agency (USA)
+  url:
+    value: https://www.cisa.gov/sites/default/files/2024-05/defending-ot-operations-against-ongoing-pro-russia-hacktivist-activity-508c.pdf
+    date: 2024-12-19
+  date: 2024-05-01
+
+cyberattacks-crit-infra:
+  type: article
+  title: Cyber attacks on critical infrastructure
+  author: Allianz SE
+  url:
+    value: https://commercial.allianz.com/news-and-insights/expert-risk-articles/cyber-attacks-on-critical-infrastructure.html
+    date: 2024-12-19
+  date: 2024-06-01
+
+# Sowas sollte eig nicht als Quelle zitiert werden aber naja
+fw-rugged-feats:
+  type: misc
+  title: Sichere Betriebstechnologie
+  author: Fortinet Inc.
+  url:
+    value: https://www.fortinet.com/de/solutions/enterprise-midsize-business/ot-security
+    date: 2024-12-19
+  date: 2024

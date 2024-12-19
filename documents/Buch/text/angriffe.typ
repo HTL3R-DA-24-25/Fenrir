@@ -46,13 +46,23 @@ Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk ...
 
 Zur Verhinderung solcher Angriffe können ...
 
-== Angriffe auf das Active Diretory
+== Angriffe auf das IT-Netzwerk
 
 === Exchange
 
 === ...
 
-== Angriffe 
+== Angriffe auf das OT-Netzwerk
+
+=== Physische Manipulation
+
+=== DoS einer SPS
+
+=== Manipulation einer SPS
+
+=== SCADA
+
+=== ...
 
 == Konkretes Angriffsszenario
 

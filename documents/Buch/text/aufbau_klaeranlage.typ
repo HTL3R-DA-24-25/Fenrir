@@ -3,15 +3,11 @@
 = Aufbau der Modell-Kläranlage
 #htl3r.author("David Koch")
 
-Wieso Kläranlage?
-https://www.nozominetworks.com/blog/cisa-warns-of-pro-russia-hacktivist-ot-attacks-on-water-wastewater-sector?utm_source=linkedin&utm_medium=social&utm_term=nozomi+networks&utm_content=281b8432-049c-435e-805a-ea5872a057eb
-
 Um die Absicherung eines Produktionsbetriebes oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, kann sich nicht auf ausschließlich virtualisierte Lösungen des #htl3r.shorts[ot]-Netzwerks verlassen werden. Dazu ist das Ausmaß eines Super-#htl3r.shorts[gau]s innerhalb eines virtualisierten #htl3r.shorts[ot]-Netzwerks nicht begreifbar/realistisch für die meisten aussenstehenden Personen. Es braucht eine angreifbare und physisch vorhandene Lösung: eine selbstgemachte Modell-Kläranlage.
 
-== Planung der Betriebszellen
+Zwar sind Kläranlagen nicht die beliebtesten OT-Angriffsziele, Kraftwerke sind , jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch welche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater
 
-Wieso unterteilen in Betriebszellen?
-tipp: security lol
+== Planung der Betriebszellen
 
 Um die Sicherheit der #htl3r.shorts[ot]-Komponenten so weit es geht zu gewährleisten, muss bereits bei der Planung der Anlage die Segmentierung in Betriebszellen in Betracht gezogen werden.
 Der Inhalt einer Betriebszelle soll nur untereinander kommunizieren können, die einzige Ausnahme wäre beispielsweise die Kommunikation mit einem SCADA-System auf der nächst-höheren Purdue-Ebene. Eine solche Segmentierung lässt sich somit quasi mit einer #htl3r.shorts[vlan]-Segmentierung in einem #htl3r.shorts[it]-Netzwerk vergleichen.
@@ -31,6 +27,8 @@ Um das Abwasser zu rechen, wird es zuerst mit einer archimedischen Schraube in e
 * BILD *
 
 === Steuerungstechnik
+
+Siemens SIMATIC S7-1200
 
 Aktorik:
 - Schneckenmotor mit 50 RPM
@@ -84,6 +82,8 @@ Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten rote
 
 === Steuerungstechnik
 
+Siemens LOGO!
+
 Aktorik:
 - Magnetventil
 - Alarmleuchte (+ Ton)
@@ -93,7 +93,7 @@ Sensorik:
 
 == Programmierung eines I2C-Kommunikationsbusses
 
-Um einen Kommunikationskanal zwischen der Software-#htl3r.shorts[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren herzustellen, wird der ein Zweidrahtbussystem mit dem Protokoll #htl3r.shorts[i2c] verwendet.
+Um einen Kommunikationskanal zwischen der Software-#htl3r.shorts[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle 2 herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.shorts[i2c] verwendet.
 
 === I2C Überblick
 
@@ -134,10 +134,9 @@ Um dieses Problem zu lösen wird über die #htl3r.shorts[i2c]-Kommunikation zwis
 )
 
 Die Länge des Fenrir-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi
+// ggf auch folgendes zitieren: https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus
 
-https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus.read_bytes
-
-frame start, length, data + buffer, fsdfgswgr
+Wie zu erkennen ist besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von ```0x02```, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.shorts[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von ```0x04```.
 
 Die #htl3r.shorts[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem RaspberryPi mittels Python folgend berechnet:
 
@@ -208,14 +207,31 @@ Beide Funktionen nehmen als ersten Parameter die #htl3r.shorts[i2c]-Adresse des 
 
 Einen Zweidrahtbus aufbauen und mit dem #htl3r.shorts[i2c]-Protokoll verwenden ist für eine simple peer-to-peer Kommunikation tatsächlich eine unnötig überkomplizierte Umsetzung. Es sprechen jedoch trotzdem mehrere Gründe für diese Umsetzungsart im Vergleich zu einer Kommunikation über #htl3r.shorts[uart] z.B.:
 - #htl3r.shorts[i2c] ist ein weitverbreitetes Busprotokoll und dient als guter Kontrast zum komplizierteren Modbus-Protokoll
-- Bei Bedarf kann ein weiterer ESP32 oder ein anderes #htl3r.shorts[i2c]
-- Slave-Gerät angeschlossen werden und es müssen nur die bereits programmierten Funktion erneut aufgerufen werden
-- noch ein grund :^)
+- Bei Bedarf kann ein weiterer ESP32 oder ein anderes #htl3r.shorts[i2c]-Slave-Gerät angeschlossen werden und es müssen nur die bereits programmierten Funktion erneut aufgerufen werden
 
 // TODO UMSCHREIBEN (alt und hässlich):
 Um die über einen #htl3r.shorts[i2c]-Bus erhaltenen Daten in OpenPLC auf einem RaspberryPi einsetzen zu können, müssen diese über das #htl3r.shorts[psm] (siehe OpenPLC PSM) auf eine #htl3r.shorts[sps]-Hardwareadresse gemappt werden. Beispielsweise BLABLABAL IW2:
+#htl3r.code(caption: "PSM-Mapping einer SPS-Hardwareadresse", description: none)[
+```Python
 data: list[int] = read_from_esp32(ESP_I2C_address, 32)
 psm.set_var("IW2", data[0])
+```
+]
 
 Nun kann die #htl3r.shorts[sps]-Hardwareadresse ```%IW2``` in einem #htl3r.shorts[sps]-Programm mit einer Input-Variable verknüpft und somit verwendet werden:
-* SCREEEEEENSHOTS, EDITOR + MONITORING? *
+
+#htl3r.fspace(
+  figure(
+    image("../assets/openplc_vars.png", width: 115%),
+    caption: [Alle Variablen der OpenPLC-SPS]
+  )
+)
+
+Im obigen Screenshot sind alle Variablen der OpenPLC-#htl3r.shorts[sps] in Zelle 2 zu sehen, darunter auch die Variable ``` TANK_1_LEVEL```, welche zuvor per #htl3r.shorts[psm] aus Python in eine Hardwareadresse geladen worden ist.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/openplc_tank_comp.png", width: 50%),
+    caption: [Einsatz der PSM-gemappten Hardwareadresse ```%IW2``` als ``` TANK_1_LEVEL``` in der SPS-Logik]
+  )
+)

@@ -22,4 +22,4 @@ In großen System wird eine Überwachung mittels Wireshark schnell unübersichtl
 In live-Systemen ist die Verwendung von Wireshark als Überwachungssystem nur sinnvoll, um stichprobenartig Pakete zu untersuchen, und diese zu überprüfen.
 
 === Nozomi Guardian
-Die Nozomi Guardian ist ein #htl3r.shorts[ids]. Wie auch Wireshark ließt sie allen Traffic auf einem Interface aus und verwendet diesen, jedoch kann die Guardian diesem Traffic automatisch verwerten. Sie erstellt automatisch eine Baseline und kann dann Aufgrund dieser erkennen, ob unerwünschter Traffic in dem Netzwerk unterwegs ist.
+Siehe @nozomi-guardian.

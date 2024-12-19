@@ -1,6 +1,6 @@
 #import "@local/htl3r-da:0.1.0" as htl3r
 
-= OT-Adminsitratoion
+= OT-Administration
 #htl3r.author("Bastian Uhlig")
 
 == SCADA
