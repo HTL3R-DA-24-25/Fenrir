@@ -3,7 +3,7 @@
 = Vorwort
 #htl3r.author("David Koch")
 
-Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste ihrer Feinde anzugreifen, und sind zu oft dabei erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.shorts[it]- und #htl3r.shorts[ot]-Netzwerken im Betrieb häufig suboptimal ist.
+Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste ihrer Feinde anzugreifen, und sind dabei zu oft erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.shorts[it]- und #htl3r.shorts[ot]-Netzwerken im Betrieb häufig suboptimal ist.
 
 blablabal
 

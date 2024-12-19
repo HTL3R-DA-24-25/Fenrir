@@ -1,6 +1,6 @@
 The diploma thesis "Fenrir -- Zum Schutz von OT-Netzwerken" is all about securing OT networks. To achieve (MAYBE: pursue?) this, a network topology is built, which is a realistic depiction of an enterprise network. This network is made up of a virtual IT (Active Directory Office/Server environment) and a physical OT (programmable logic controllers, the respective actors/sensors, SCADA-System, HMIs) area respectively.
 
-IT TODO
+The IT area is made up of an Active Direcotry Domain, consiting of two redundant Domain Controllers as well as several clients for end-users. Additionally, it includes an exchange server and linux servers (used for VPNs as well as monitoring). 
 
 The OT area is represented by a model of a waste water treatment plant and its associated devices for surveillance/administration purposes. This plant consists of, among other things, an Archimedean screw, a rake, water tanks, filters, a dam, pumps and much more. These parts are the sensor/actuation targets of multiple PLCs. These are then also used as attack targets, whereas an attack might bring the pumps to a halt or manipulate them to cause water damage.
 
