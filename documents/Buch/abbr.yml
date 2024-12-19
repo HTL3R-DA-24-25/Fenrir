@@ -199,3 +199,17 @@ vdom:
     plural: VDOMs
   long:
     singular: Virtual Domain
+
+lmp:
+  short:
+    singular: LMP
+    plural: LMPs
+  long:
+    singular: Lateral Movement Path
+    plural: Lateral Movement Paths
+
+lotl:
+  short:
+    singular: LotL
+  long:
+    singular: Living off the Land

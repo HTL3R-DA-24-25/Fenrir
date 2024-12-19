@@ -98,10 +98,9 @@ Um einen Kommunikationskanal zwischen der Software-#htl3r.shorts[sps] (OpenPLC) 
 === I2C Überblick
 
 Kurz für "Inter-Integrated Circuit". #htl3r.shorts[i2c] ist ein 1982 von Philips Semiconductors entwickelter serieller Datenbus, der als Master-Slave-Bus konzipiert ist, aber auch das Multi-Master-Prinzip unterstützt. Bei diesem Protokoll werden zwei Signalleitungen benötigt, eine Takt- und eine Datenleitung. Eine Eigenschaft von #htl3r.shorts[i2c] ist die Tatsache, dass ein Mikrocontroller ein ganzes Netzwerk an integrierten Schaltungen mit nur zwei #htl3r.shorts[io]-Pins und einfacher Software kontrollieren kann. Daher wird #htl3r.shorts[i2c] hauptsächlich geräteintern für die Kommunikation zwischen verschiedenen Schaltungsteilen benutzt, zum Beispiel innerhalb eines Fernsehers.
+@i2c-manual
 
 Im PC wird ein dem #htl3r.shorts[i2c]-Bus sehr ähnliches System benutzt, um z.B. die Daten eines SDRAM-Modules auszulesen. Dieser nennt sich SMBus (System Management Bus).
-
---> https://www.mikrocontroller.net/articles/I%C2%B2C
 
 === Aufbau
 
@@ -123,7 +122,7 @@ Bei der Datenübertragungen über einen #htl3r.shorts[i2c]-Bus wird folgendes Fr
   )
 )
 
-Das Protokoll des #htl3r.shorts[i2c]-Bus ist von der Definition her recht einfach, aber auch recht störanfällig[(https://repo.uni-hannover.de/items/3e39f8b0-b3a8-47b9-bc70-af4c513f37c9)]. Wie man erkennen kann, werden pro Frame insgesamt 16 Bits an Nutzdaten übertragen. Dazu gibt es keinen Mechanismus zur Erkennenung von Übertragungsfehlern, nur ACK/NACK Bits, ob Bits überhaupt angekommen sind.
+Das Protokoll des #htl3r.shorts[i2c]-Bus ist von der Definition her recht einfach, aber auch recht störanfällig @i2c-disturbance. Wie man erkennen kann, werden pro Frame insgesamt 16 Bits an Nutzdaten übertragen. Dazu gibt es keinen Mechanismus zur Erkennenung von Übertragungsfehlern, nur ACK/NACK Bits, ob Bits überhaupt angekommen sind.
 
 Um dieses Problem zu lösen wird über die #htl3r.shorts[i2c]-Kommunikation zwischen RaspberryPi und ESP32 eine weitere Kommunikationsschicht erstellt. Beispiel aus der Netzwerktechnik: Frames der OSI-Schicht 2 übertragen in ihren Nutzdaten alle Bits der Packets auf OSI-Schicht 3, somit bildet #htl3r.shorts[i2c] die quasi Unterschicht und das Custom-Fenrir-Protokoll die Oberschicht.
 
@@ -134,7 +133,9 @@ Um dieses Problem zu lösen wird über die #htl3r.shorts[i2c]-Kommunikation zwis
   )
 )
 
-Die Länge des Fenrir-Frames wurde trotz lediglich 2 Bits an benötigten Nutzdaten bewusst auf 128 Bits gesetzt (somit max. 124 Bits an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits wartet, bevor sie diese weiterverarbeitet. FACT CHECK PLS
+Die Länge des Fenrir-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi
+
+https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus.read_bytes
 
 frame start, length, data + buffer, fsdfgswgr
 
