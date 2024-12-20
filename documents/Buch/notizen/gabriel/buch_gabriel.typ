@@ -99,13 +99,13 @@ Die Domain Controller teilen sich die Aufgaben:
 
 == AD Härtung
 
-= IT-Server
-== Exchange Server
+=== Exchange Server
 Der Exchange Server ist ein E-Mail Server der Firma Micosoft.
 Dieser Server wird welweit in einigen Firmen eingesetzt und bietet die Grundlage für jegliche Inter- und Intraunternehmen Kommunikation.
 
 Damit der Exchange Server funktioniert, wird eine besthenende AD Struktur benötigt.
-== File Server
+
+=== File Server
 
 
 Begriffe:

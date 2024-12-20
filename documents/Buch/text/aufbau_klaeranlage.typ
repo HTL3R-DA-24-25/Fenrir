@@ -1,13 +1,13 @@
 #import "@local/htl3r-da:0.1.0" as htl3r
 
 = Aufbau der Modell-Kläranlage
-#htl3r.author("David Koch")
 
 Um die Absicherung eines Produktionsbetriebes oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, kann sich nicht auf ausschließlich virtualisierte Lösungen des #htl3r.shorts[ot]-Netzwerks verlassen werden. Dazu ist das Ausmaß eines Super-#htl3r.shorts[gau]s innerhalb eines virtualisierten #htl3r.shorts[ot]-Netzwerks nicht begreifbar/realistisch für die meisten aussenstehenden Personen. Es braucht eine angreifbare und physisch vorhandene Lösung: eine selbstgemachte Modell-Kläranlage.
 
 Zwar sind Kläranlagen nicht die beliebtesten OT-Angriffsziele, Kraftwerke sind , jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch welche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater
 
 == Planung der Betriebszellen
+#htl3r.author("David Koch")
 
 Um die Sicherheit der #htl3r.shorts[ot]-Komponenten so weit es geht zu gewährleisten, muss bereits bei der Planung der Anlage die Segmentierung in Betriebszellen in Betracht gezogen werden.
 Der Inhalt einer Betriebszelle soll nur untereinander kommunizieren können, die einzige Ausnahme wäre beispielsweise die Kommunikation mit einem SCADA-System auf der nächst-höheren Purdue-Ebene. Eine solche Segmentierung lässt sich somit quasi mit einer #htl3r.shorts[vlan]-Segmentierung in einem #htl3r.shorts[it]-Netzwerk vergleichen.
@@ -15,12 +15,15 @@ Der Inhalt einer Betriebszelle soll nur untereinander kommunizieren können, die
 Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage diese leicht ab- und wieder aufbauen. Wären alle Betriebszellen auf einer einzelnen Platte untergebracht, wäre diese ca 160x45cm groß und somit sehr unhandlich zu transportieren.
 
 == Zelle 1 (Grobfiltration)
+#htl3r.author("David Koch")
 
 === Aufbau
 
 Als erster Schritt zur erfolgreichen Abwasserfiltration braucht es einen Weg, grobe Schmutzpartikel wie zum Beispiel Kieselsteine filtrieren zu können. Einen feinen Wasserfilter würden solche großen Partikel verstopfen oder sogar zerstören, noch dazu erlaubt der Aufbau mit herkömmlichen AAAA. Somit erfolgt die erste Filtration mit einem gröberen Metallgitter als Rechen.
 
 Um das Abwasser zu rechen, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter geschraubt, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochgeschraubte Wasser durch das Rechengitter fallen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitte durch und landet in einem Auffangbehälter, welcher der Anfang der Leitung in die zweite Zelle ist.
+
+* BILD *
 
 === Schaltplan
 
@@ -37,6 +40,7 @@ Sensorik:
 - keine?
 
 == Zelle 2 (Feinfiltration)
+#htl3r.author("David Koch")
 
 === Aufbau
 
@@ -45,6 +49,7 @@ Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Ab
 Besteht aus zwei durchsichtigen Acryl-Wassertanks welche jeweils ca. 3L an Volumen aufweisen. Diese sind oben offen, werden jedoch von Deckeln abgedeckt. Diese Deckel wurden speziell angefertigt mittels 3D-Modellierung und darauf zweimal gedruckt. In diesen Deckeln ist die für den Wassertank jeweils notwendige Sensorik verbaut, diese besteht aus einem kapazitiven Füllstandssensor als auch einem Temperatursensor.
 
 Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filterball als auch eine Pumpe, die die Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transporiert.
+
 * BILD *
 
 === Schaltplan
@@ -68,12 +73,14 @@ Sensorik:
 - 2x Füllstandssensor (Widerstand mit 0-190 Ohm)
 
 == Zelle 3 (Staudamm)
+#htl3r.author("Gabriel Vogler")
 
 === Aufbau
 
-Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in einen Staudamm-Behälter umgepumpt. Dieser hält das Wasser durch ein geschlossenes Magnetventil zurück, um ein aus Pappmaschee, Lackfarbe und Epoxidharz modelliertes vor Überschwemmung zu schützen.
+Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil hängt. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für diese Steuerung ist eine Siemens LOGO! #htl3r.shorts[sps] zuständig. Diese steuert das Magnetventil und somit den Wasserfluss. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
 
-Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten roten Häusern unterschiedlicher Größe bestückt. Unter anderem sind mehrere Wasserstandsensoren an der Seite des Behälters befestigt, um im Falle eines Hochwasser bzw. einer Überschwemmung einen Alarm auszulösen (Leuchte mit Alarmton neben dem Behälter).
+Für das Wassereinlaufbecken bzw. das Überschwemmungebiet wurde als Basis eine weitere 30cm x 20cm x 7cm Eurobox verwendet. Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten roten Häusern unterschiedlicher Größe bestückt. Unter anderem sind mehrere Wasserstandsensoren an der Seite des Behälters befestigt, um im Falle eines Hochwasser bzw. einer Überschwemmung einen Alarm auszulösen (Leuchte mit Alarmton neben dem Behälter).
+
 * BILD *
 
 === Schaltplan
@@ -91,7 +98,36 @@ Aktorik:
 Sensorik:
 - 2x Überschwemmungssensor
 
+== 3D-Druck
+#htl3r.author("Gabriel Vogler")
+
+Für einige Komponenten gab es keine passenden Teile, oder übermäßige Kosten für die Anschaffung dieser.
+Deshalb wurde die Entscheidung getroffen diese Teile oder Abwandlungen, die für die Anlage sogar noch besser passen, selbst zu designen und zu drucken.
+Die Anschaffung des 3D-Druckers wurde privat getätigt und die Filamentkosten wurden von unserem Sponsor der Ikarus übernommen.
+
+== Modellieren
+#htl3r.author("Gabriel Vogler")
+
+Die Modelle wurden mittels Autodesk Fusion 360 erstellt.
+Die Lizenz für die Software ist für SchülerInnen mit einem Nachweiß des aktiven Schulbesuchs kostenlos.
+Die Modelle sind stark in ihrer komplexität variierend. Einige sind sehr einfach zu modellieren, wie zum Beispiel das Wasserspeicherbecken, andere sind sehr komplex und benötigen viel Zeit und Erfahrung, wie zum Beispiel die Tankdeckel der Zelle 2. Andere sind etwas aufwändiger, wie zum Beispiel die Archimedische Förderschnecke in der Zelle 1.
+
+== Drucken
+#htl3r.author("Gabriel Vogler")
+
+Als Drucker wurde ein BambuLab A1 3D-Drucker verwendet.
+Es wurde auf #htl3r.shorts[pla] und #htl3r.shorts[petg] Filament zurückgegriffen, da diese Materialien für den Einstieg in den 3D-Druck sehr gut geeignet sind und auf diesem Gebiet noch nicht sehr viele Erfahrungen vorhanden waren.
+Außerdem sind diese Materialien in der Anschaffung günstiger als andere und bieten eine mehr als ausreichende Qualität, im Sinne von Stabilät und Strapazierfähigkeit, sowohl als auch in der Druckqualität.
+Die Wahl des Filamentherstellers fiel auf das Filament von BambuLab, da diese das Filament und der Drucker aus dem selben Hause stammen und so perfekt aufeinander abgestimmt sind.
+Außerdem ist das #htl3r.shorts[pla] Filament von BambuLab biologisch abbaubar und ist somit umweltfreundlicher und nachhaltiger als andere Filamente.
+Für den Druck wurden die Standard Druckprofile von BambuLab verwendet, mit kleinen Anpassungen an die Druckgeschwindigkeit und die Temperatur, damit das für uns gewünschte Ergebnis erzielt werden konnte.
+Diese Profile werden automatisch erfasst sobald eine originale BambuLab Spule Filament in das #htl3r.shorts[ams] eingelegt wird.
+Das Ganze funktioniert mithilfe eines #htl3r.shorts[rfid]-Chips, der auf der Spule angebracht ist und mit einem #htl3r.shorts[rfid]-Lesegerät im #htl3r.shorts[ams] kommuniziert.
+Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
+Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
+
 == Programmierung eines I2C-Kommunikationsbusses
+#htl3r.author("David Koch")
 
 Um einen Kommunikationskanal zwischen der Software-#htl3r.shorts[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle 2 herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.shorts[i2c] verwendet.
 

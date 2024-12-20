@@ -213,3 +213,35 @@ lotl:
     singular: LotL
   long:
     singular: Living off the Land
+
+ou:
+  short:
+    singular: OU
+    plural: OUs
+  long:
+    singular: Organizational Unit
+    plural: Organizational Units
+
+ams:
+  short:
+    singular: AMS
+  long:
+    singular: Automatic Material System
+
+rfid:
+  short:
+    singular: RFID
+  long:
+    singular: Radio-Frequency Identification
+
+pla:
+  short:
+    singular: PLA
+  long:
+    singular: Polyactid
+
+petg:
+  short:
+    singular: PETG
+  long:
+    singular: Polyethylenterephthalat + Glykol
