@@ -23,17 +23,23 @@ Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern eines Netz
 
 Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, sogenannte Lateral Movement Techniques bzw. #htl3r.longpl[lmp] (#htl3r.shortpl[lmp]):
 
-#table(
-  columns: (11em, auto, 6em, 6em),
-  inset: 10pt,
-  align: horizon,
-  table.header(
-    [*Bezeichnung*], [*Beschreibung*], [*Wahrscheinlichkeit*], [*Erkennbarkeit*],
-  ),
-  "Internal Spear Phishing", "Angreifer nutzt das kompromitierte E-Mail-Konto eines Mitarbeiters aus, um mit deren Identität andere Mitarbeiter zu phishen", "Hoch", "Mittel",
-  [#htl3r.longs[lotl] (#htl3r.shorts[lotl])], "Angreifer nutzt die ihm bereits verfügbaren Admin-Tools um unaufällig in den Betriebsprozess einzugreifen und weitere Informationen zu erhalten", "Hoch", "Mittel/Schwer",
-  "Default/Hardcoded Credentials", "Angreifer kann durch die öffentlich bekannten Standard-Zugangsdaten von im Netzwerk eingesetzer Software/Hardware diese übernehmen", "Niedrig", "Mittel",
-  "Remote Services", "...", "...", "..."
+#htl3r.fspace(
+  total_width: 100%,
+  figure(
+    table(
+      columns: (11em, auto, 6em, 6em),
+      inset: 10pt,
+      align: (horizon + left, horizon + left, horizon + center, horizon + center),
+      table.header(
+        [*Bezeichnung*], [*Beschreibung*], [*Wahrscheinlichkeit*], [*Erkennbarkeit*],
+      ),
+      "Internal Spear Phishing", "Angreifer nutzt das kompromitierte E-Mail-Konto eines Mitarbeiters aus, um mit deren Identität andere Mitarbeiter zu phishen", "Hoch", "Mittel",
+      [#htl3r.longs[lotl] (#htl3r.shorts[lotl])], "Angreifer nutzt die ihm bereits verfügbaren Admin-Tools um unaufällig in den Betriebsprozess einzugreifen und weitere Informationen zu erhalten", "Hoch", "Mittel/Schwer",
+      "Default/Hardcoded Credentials", "Angreifer kann durch die öffentlich bekannten Standard-Zugangsdaten von im Netzwerk eingesetzer Software/Hardware diese übernehmen", "Niedrig", "Mittel",
+      "Remote Services", "...", "...", "..."
+    ),
+    caption: [Bekannte #htl3r.longpl[lmp]],
+  )
 )
 @lmp-list-1
 @lmp-list-2

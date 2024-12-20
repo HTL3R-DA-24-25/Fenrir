@@ -31,20 +31,26 @@ Im Szenario des Firmennetzwerkes der Firma Fenrir, wird im #htl3r.longs[ad] auf 
 #let N = table.cell(
   fill: red.lighten(60%),
 )[]
-#table(
-  columns: (1fr, auto, auto, auto, auto, auto),
-  align: (left, center, center, center, center, center, center),
-  table.header[Name][G_Infrastructure][G_Operations][G_Sales][G_Management][G_Marketing], 
-  [DL_Infrastructure_R],  J, J, N, J, N,
-  [DL_Infrastructure_M],  J, N, N, N, N,
-  [DL_Operations_R],      J, J, N, N, N,
-  [DL_Operations_M],      N, J, N, N, N,
-  [DL_Sales_R],           N, N, J, J, J,
-  [DL_Sales_M],           N, N, J, N, N,
-  [DL_Management_R],      N, N, N, J, N,
-  [DL_Management_M],      N, N, N, J, N,
-  [DL_Marketing_R],       N, N, J, J, J,
-  [DL_Marketing_M],       N, N, N, N, J
+#htl3r.fspace(
+  total_width: 100%,
+  figure(
+    table(
+      columns: (8em, auto, auto, auto, auto, auto),
+      align: (left, center, center, center, center, center, center),
+      table.header[Name][G_Infrastructure][G_Operations][G_Sales][G_Management][G_Marketing], 
+      [DL_Infrastructure_R],  J, J, N, J, N,
+      [DL_Infrastructure_M],  J, N, N, N, N,
+      [DL_Operations_R],      J, J, N, N, N,
+      [DL_Operations_M],      N, J, N, N, N,
+      [DL_Sales_R],           N, N, J, J, J,
+      [DL_Sales_M],           N, N, J, N, N,
+      [DL_Management_R],      N, N, N, J, N,
+      [DL_Management_M],      N, N, N, J, N,
+      [DL_Marketing_R],       N, N, J, J, J,
+      [DL_Marketing_M],       N, N, N, N, J
+    ),
+    caption: [Visualisierung der Mitgliedschaft von Global Groups in Domain Local Groups],
+  )
 )
 
 == Domain Controller
@@ -55,15 +61,21 @@ Die Domain Controller teilen sich die Aufgaben:
 
 #show table.cell.where(y: 0): strong
 #show table.cell.where(x: 0): strong
-#table(
-  columns: (auto, 1fr, 1fr),
-  align: (left, center, center),
-  table.header[][DC1][DC2],
-  [Rollen], align(left, llist("Domain Naming Master", "Primary Domain Controller")), llist("Infrastructure Master", "RID Pool Manager", "Schema Master"),
-  [DHCP], "Ja", "Failover",
-  [DNS], "Ja", "Ja",
-  [Remoting], table.cell(colspan: 2, llist("PowerShell Remoting", "SSH Server", "RDP", "Remote Management"))
-  
+
+#htl3r.fspace(
+  total_width: 100%,
+  figure(
+    table(
+      columns: (5em, auto, auto),
+      align: (left, center, center),
+      table.header[][DC1][DC2],
+      [Rollen], align(left, llist("Domain Naming Master", "Primary Domain Controller")), llist("Infrastructure Master", "RID Pool Manager", "Schema Master"),
+      [DHCP], "Ja", "Failover",
+      [DNS], "Ja", "Ja",
+      [Remoting], table.cell(colspan: 2, llist("PowerShell Remoting", "SSH Server", "RDP", "Remote Management"))
+    ),
+    caption: [Aufteilung der Features zwischen den Domain Controllern],
+  )
 )
 
 == Exchange Server
