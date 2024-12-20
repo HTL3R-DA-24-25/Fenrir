@@ -1,7 +1,7 @@
 #                  - OpenPLC Python SubModule (PSM) -
-# 
+#
 # PSM is the bridge connecting OpenPLC core to Python programs. PSM allows
-# you to directly interface OpenPLC IO using Python and even write drivers 
+# you to directly interface OpenPLC IO using Python and even write drivers
 # for expansion boards using just regular Python.
 #
 # PSM API is quite simple and just has a few functions. When writing your
@@ -140,7 +140,7 @@ class I2C_Decoder:
             self._last_error = self.error_codes["INVALID_CRC"]
             raise Exception("ERROR: Unpacker invalid crc8")
         self._data = data[2:self._length - 2]
-        
+
         return self._data
 
     def get_last_error(self):
@@ -167,7 +167,7 @@ def crc8(data: list):
     return crc
 
 
-# read data from EPS32
+# read data from ESP32
 def read_from_esp32(i2caddress: hex, size: int):
     decoder = I2C_Decoder()
     try:
@@ -216,6 +216,7 @@ def update_inputs():
     time.sleep(0.05) # dunno if this is the best place to put it
     data = read_from_esp32(ESP_I2C_address, 32)
     psm.set_var("IW2", data[0])
+    psm.set_var("IW3", data[1])
 
 
 def update_outputs():
@@ -224,7 +225,7 @@ def update_outputs():
         GPIO.output(13, GPIO.HIGH)
     else:
         GPIO.output(13, GPIO.LOW)
-    
+
 
 if __name__ == "__main__":
     hardware_init()
