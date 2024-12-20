@@ -3,11 +3,11 @@
 = Provisionierung und IaC
 #htl3r.author("Julian Burger")
 
-In der Industrie gibt es einen stetigen Trend, alles zu automatisieren. Eine Automatisierung der #htl3r.shorts[it]-Infrastruktur bringt Zeit- und Ressourcenersparnisse. Diese Ersparnisse gilt es nicht zu vernachlässigen, demnach ist es das Ziel der Diplomarbeit, das gesamte #htl3r.shorts[it]-Netzwerk automatisch zu provisionieren und somit zukunftssicher zu gestalten.
+In der Industrie gibt es einen stetigen Trend, alles zu automatisieren. Eine Automatisierung der #htl3r.short[it]-Infrastruktur bringt Zeit- und Ressourcenersparnisse. Diese Ersparnisse gilt es nicht zu vernachlässigen, demnach ist es das Ziel der Diplomarbeit, das gesamte #htl3r.short[it]-Netzwerk automatisch zu provisionieren und somit zukunftssicher zu gestalten.
 
-Automatische Provisionierung bedeutet, die gesamte oder auch nur Teile einer Firmen/Organisations-#htl3r.shorts[it]-Infrastruktur, sei es in physischer oder virtueller Form, ohne Eingriff von Personal aufzusetzen. Um solch einen Prozess zu realisieren, wird meist eine Form von #htl3r.shorts[iac] (= Infrastructure as Code) verwendet. Somit kann das Firmen/Organisations-Netzwerk und dessen #htl3r.shorts[it]-Infrastruktur als strukturierte Datei oder auch als Code dargestellt werden.
+Automatische Provisionierung bedeutet, die gesamte oder auch nur Teile einer Firmen/Organisations-#htl3r.short[it]-Infrastruktur, sei es in physischer oder virtueller Form, ohne Eingriff von Personal aufzusetzen. Um solch einen Prozess zu realisieren, wird meist eine Form von #htl3r.short[iac] (= Infrastructure as Code) verwendet. Somit kann das Firmen/Organisations-Netzwerk und dessen #htl3r.short[it]-Infrastruktur als strukturierte Datei oder auch als Code dargestellt werden.
 
-Sollten somit Änderungen der bestehenden #htl3r.shorts[it]-Infrastruktur notwendig sein, so wird der #htl3r.shorts[iac] Quelltext abgeändert und so angepasst, dass er den neuen Anforderungen gerecht wird. Nun kann das verwendete Tool die Änderungen einlesen und ausrechnen, welche Änderungen bzw. welche Schritte eingeleitet werden müssen um den Anforderungen, die definiert worden sind, gerecht zu werden. Diese Arbeitsschritte können jetzt ausgeführt werden, um den Änderungen gerecht zu werden.
+Sollten somit Änderungen der bestehenden #htl3r.short[it]-Infrastruktur notwendig sein, so wird der #htl3r.short[iac] Quelltext abgeändert und so angepasst, dass er den neuen Anforderungen gerecht wird. Nun kann das verwendete Tool die Änderungen einlesen und ausrechnen, welche Änderungen bzw. welche Schritte eingeleitet werden müssen um den Anforderungen, die definiert worden sind, gerecht zu werden. Diese Arbeitsschritte können jetzt ausgeführt werden, um den Änderungen gerecht zu werden.
 
 == Verwendete Tools
 Um den Anforderungen der Topologie gerecht zu werden, kommen mehrere Provisionierungs-Tools zum Einsatz:
@@ -35,7 +35,7 @@ packer {
 ```
 ]
 
-Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Dies ermöglicht es nun, eine #htl3r.shorts[vm] in der vSphere-Umgebung zu provisionieren:
+Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Dies ermöglicht es nun, eine #htl3r.short[vm] in der vSphere-Umgebung zu provisionieren:
 #htl3r.code_file(
   caption: "Packer vSphere-VM Beispiel",
   filename: [golden_linux_server/main.pkr.hcl],
@@ -45,7 +45,7 @@ Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Die
   text: read("../assets/scripts/golden_linux_server.pkr.hcl")
 )
 
-Durch das ```hcl convert_to_template = true``` im vorherigen Beispiel wird die #htl3r.shorts[vm] automatisch nach Abschluss des Provisioniervorganges zu einer Template-#htl3r.shorts[vm] umgewandelt und kann dadurch direkt geklont werden.
+Durch das ```hcl convert_to_template = true``` im vorherigen Beispiel wird die #htl3r.short[vm] automatisch nach Abschluss des Provisioniervorganges zu einer Template-#htl3r.short[vm] umgewandelt und kann dadurch direkt geklont werden.
 #pagebreak()
 Insgesamt werden 4 Template-#htl3r.shortpl[vm] provisioniert, allerdings werden nur 3 davon in der Topologie, wie sie im physischen Netzplan sind, verwendet. Das extra Template ist eine Bastion. Die Verwendung dieser wird im @prov-mit-bastion beschrieben. Die restlichen drei Templates sind folgende:
 #[
@@ -54,7 +54,7 @@ Insgesamt werden 4 Template-#htl3r.shortpl[vm] provisioniert, allerdings werden 
 - #strong[Windows Server Golden Image:] Template für alle Windows-Server in der Topologie. Hierbei wird Windows-Server 2022 verwendet.
 - #strong[Windows Desktop Golden Image:] Template für alle Windows-Clients in der Topologie. Hierbei wird Windows 11 23H2 verwendet.
 ]
-Das Linux-Server-Image wird mittels Cloud-Init, einer #emph["industry standard multi-distribution method for cross-platform cloud instance initialisation."] @ci-docs, aufgesetzt. Cloud-Init liest eine gegebene #htl3r.shorts[yaml] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
+Das Linux-Server-Image wird mittels Cloud-Init, einer #emph["industry standard multi-distribution method for cross-platform cloud instance initialisation."] @ci-docs, aufgesetzt. Cloud-Init liest eine gegebene #htl3r.short[yaml] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
 
 === Terraform
 Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.shortpl[vm], #htl3r.shortpl[dvs], #htl3r.shortpl[dpg], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
@@ -116,9 +116,9 @@ provider "vsphere" {
 Die realen Zugangsdaten stehen in einer externen Datei, welche nicht Teil des Git-Repositorys ist.
 
 === Ansible
-Ansible ist das dritte verwendete #htl3r.shorts[iac] Tool, welches verwendet wird. Es ermöglicht es, Maschinen mittels Ansible-Playbooks zu konfigurieren. Diese Playbooks beinhalten mehrere Tasks, welche ausgeführt werden. Diese Tasks können sehr komplex, jedoch auch sehr simpel sein. Ansible wird in der Topologie hauptsächlich für das Ausführen von Bash- und PowerShell-Skripten verwendet. Da oftmals ein Neustart nach der Ausführung eines Befehls notwendig ist. Dies ist vor allem auf Windows-Servern ein bekanntes Problem. Terraform kann mit solchen Neustarts nicht umgehen, Ansible jedoch schon.
+Ansible ist das dritte verwendete #htl3r.short[iac] Tool, welches verwendet wird. Es ermöglicht es, Maschinen mittels Ansible-Playbooks zu konfigurieren. Diese Playbooks beinhalten mehrere Tasks, welche ausgeführt werden. Diese Tasks können sehr komplex, jedoch auch sehr simpel sein. Ansible wird in der Topologie hauptsächlich für das Ausführen von Bash- und PowerShell-Skripten verwendet. Da oftmals ein Neustart nach der Ausführung eines Befehls notwendig ist. Dies ist vor allem auf Windows-Servern ein bekanntes Problem. Terraform kann mit solchen Neustarts nicht umgehen, Ansible jedoch schon.
 
-Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.shorts[dhcp] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem Ansible-Aufruf sieht wie folgt aus:
+Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.short[dhcp] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem Ansible-Aufruf sieht wie folgt aus:
 #htl3r.code_file(
   caption: "Terraform Ansible Provisioning",
   filename: [stage_03/main.tf],
@@ -145,7 +145,7 @@ Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden
 Der Grund, warum die ``` ansible_ssh_common_args``` Variable solch einen komplexen Inhalt hat, wird in @prov-mit-bastion beschrieben.
 
 === pyVmomi
-Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.shorts[api] zurückgegriffen. Hierzu wird pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im Web-#htl3r.shorts[gui] von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.shortpl[dpg]. Dies ist in keinem der vorher genannten Tools direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Traffic zwischen Managed-VMs möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu kommunizieren und #htl3r.shorts[dhcp]-Requests zu verschicken. Hierzu werden folgende Traffic-Filter-Regeln verwendet:
+Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.short[api] zurückgegriffen. Hierzu wird pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im Web-#htl3r.short[gui] von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.shortpl[dpg]. Dies ist in keinem der vorher genannten Tools direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Traffic zwischen Managed-VMs möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu kommunizieren und #htl3r.short[dhcp]-Requests zu verschicken. Hierzu werden folgende Traffic-Filter-Regeln verwendet:
 #htl3r.fspace(
   figure(
     image("../assets/filtering_rules.jpg"),
@@ -160,7 +160,7 @@ Um nun diese Regeln zu definieren, muss sich zunächst bei vSphere authentifizie
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-In weiterer Folge wird das Datacenter sowie die #htl3r.shorts[dpg] abgefragt:
+In weiterer Folge wird das Datacenter sowie die #htl3r.short[dpg] abgefragt:
 #htl3r.code_file(
   caption: "pyVmomi Ressourcen Abfrage",
   filename: [ansible/custom/create_filtering_rules.py],
@@ -170,7 +170,7 @@ In weiterer Folge wird das Datacenter sowie die #htl3r.shorts[dpg] abgefragt:
   text: read("../assets/scripts/create_filtering_rules.py")
 )
 #pagebreak()
-Um nun die #htl3r.shorts[dpg] zu bearbeiten, wird ein ```ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in 2 Gruppen zu unterteilen:
+Um nun die #htl3r.short[dpg] zu bearbeiten, wird ein ```ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in 2 Gruppen zu unterteilen:
 + Alle eingetragenen Traffic-Filter Regeln löschen.
 + Die gebrauchten Traffic-Filter Regeln hinzufügen.
 Der erste Schritt ist notwendig, damit das Skript bei mehreren Aufrufen dasselbe Resultat erzielt.
@@ -193,7 +193,7 @@ Solch eine Regel sieht folgendermaßen aus:
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-Die gezeigte Regel erlaubt #htl3r.shorts[dhcp]-Requests von den Managed #htl3r.shortpl[vm] auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
+Die gezeigte Regel erlaubt #htl3r.short[dhcp]-Requests von den Managed #htl3r.shortpl[vm] auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
 
 == Provisionierung mittels Bastion <prov-mit-bastion>
 #lorem(90)

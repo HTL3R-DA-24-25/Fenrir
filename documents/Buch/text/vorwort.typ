@@ -3,11 +3,11 @@
 = Vorwort
 #htl3r.author("David Koch")
 
-Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste ihrer Feinde anzugreifen, und sind dabei zu oft erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.shorts[it]- und #htl3r.shorts[ot]-Netzwerken im Betrieb häufig suboptimal ist.
+Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste ihrer Feinde anzugreifen, und sind dabei zu oft erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken im Betrieb häufig suboptimal ist.
 
 blablabal
 
-Das Bewusstsein und der Wunsch nach einer gegen Cyberangriffe sicheren physischen Infrastruktur sollte auch in der allgemeinen Bevölkerung gestärkt werden. Mit unserer Modell-Kläranlage und den eigenen Angriffen darauf möchten wir zeigen, dass mangelnde #htl3r.shorts[ot]-Security zu "echten" Schäden führen kann -- sei es ein überschaubarer Wasserschaden bei unserer Kläranlage oder Millionenschäden durch kaputte Hochöfen oder überhitzte Kühlsysteme von Kraftwerken. Zusätzlich soll unsere Dokumentation des Absicherungsprozesses als Literaturverzeichnis von "Dos" und "Don'ts" für angehende #htl3r.shorts[ot]-Security-Expert*innen oder für interessierte Personen, die sich mit dem Thema auseinandersetzen möchten, dienen.
+Das Bewusstsein und der Wunsch nach einer gegen Cyberangriffe sicheren physischen Infrastruktur sollte auch in der allgemeinen Bevölkerung gestärkt werden. Mit unserer Modell-Kläranlage und den eigenen Angriffen darauf möchten wir zeigen, dass mangelnde #htl3r.short[ot]-Security zu "echten" Schäden führen kann -- sei es ein überschaubarer Wasserschaden bei unserer Kläranlage oder Millionenschäden durch kaputte Hochöfen oder überhitzte Kühlsysteme von Kraftwerken. Zusätzlich soll unsere Dokumentation des Absicherungsprozesses als Literaturverzeichnis von "Dos" und "Don'ts" für angehende #htl3r.short[ot]-Security-Expert*innen oder für interessierte Personen, die sich mit dem Thema auseinandersetzen möchten, dienen.
 
 blablabla
 
@@ -15,7 +15,7 @@ blablabla
 
 Die Planung, Umsetzung und Präsentation der Diplomarbeit Fenrir wäre ohne weitere Unterstützung in dieser Form nicht möglich gewesen. Das Diplomarbeitsteam bedankt sich herzlich bei allen natürlichen als auch juristischen Personen, die das Projekt durch ihre fachliche und/oder finanzielle Unterstützung gefördert haben und es zu der Diplomarbeit gemacht haben, die sie letztendlich geworden ist.
 
-Innerhalb der HTL Rennweg gibt es einige Unterstützer denen besonderer Dank ausgesprochen werden muss. Ohne den ursprünglichen Vorschlag von den Betreuern Christian Schöndorfer und Clemens Kussbach hätte das Diplomarbeitsteam sich nie mit der #htl3r.shorts[ot]-Security befasst und der Ablauf dieser Diplomarbeit wäre ohne sie ein ganz anderer gewesen. Durch ihre andauernde Unterstützung bei der Suche nach externen Firmenpartnern und ihren Rat bezüglich der Umsetzung wurde die Diplomarbeit Fenrir um einiges bereichert.
+Innerhalb der HTL Rennweg gibt es einige Unterstützer denen besonderer Dank ausgesprochen werden muss. Ohne den ursprünglichen Vorschlag von den Betreuern Christian Schöndorfer und Clemens Kussbach hätte das Diplomarbeitsteam sich nie mit der #htl3r.short[ot]-Security befasst und der Ablauf dieser Diplomarbeit wäre ohne sie ein ganz anderer gewesen. Durch ihre andauernde Unterstützung bei der Suche nach externen Firmenpartnern und ihren Rat bezüglich der Umsetzung wurde die Diplomarbeit Fenrir um einiges bereichert.
 
 Auch dem schulinternen Förderungsverein INNKOO ist zu danken, denn dieser hat uns ein Finanzierungspolster im Falle von fehlender Finanzierung durch externe Partner geboten, welches zum Glück nicht verwendet werden musste, trotzdem aber eine Sorge weniger garantiert hat.
 

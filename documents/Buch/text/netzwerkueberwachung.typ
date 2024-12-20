@@ -11,7 +11,7 @@ Hierbei ist der Begriff einer Baseline wichtig. Eine Baseline beschreibt einen S
 Falls in dem Netzwerk nun Besonderheiten aufkommen, sei dies ein neuer Kommunikationsteilnehmer oder ein bereits existierendes Gerät, so wird dies unter besondere Beobachtung gesetzt oder sogar sofort Alarm geschlagen.
 
 === Tools
-Tools zur Überwachung von Netzwerken gibt es tausende. Von dem selbstentwickeltem Packet Sniffer bis zu einem #htl3r.shorts[ids] auf Enterprise Level. Dabei gibt es kein Tool, welches "das Richtige" ist.
+Tools zur Überwachung von Netzwerken gibt es tausende. Von dem selbstentwickeltem Packet Sniffer bis zu einem #htl3r.short[ids] auf Enterprise Level. Dabei gibt es kein Tool, welches "das Richtige" ist.
 
 ==== Wireshark
 Wireshark ist ein Packet Sniffer. Das heißt, es liest einfach allen Traffic der auf einem gewissen Interface eines Computers läuft und gibt diesen aus. Es gibt auch einer Version von Wireshark für die Kommandozeile, diese heißt dann tshark.

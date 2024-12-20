@@ -2,15 +2,15 @@
 
 = Aufbau der Modell-Kläranlage
 
-Um die Absicherung eines Produktionsbetriebes oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, kann sich nicht auf ausschließlich virtualisierte Lösungen des #htl3r.shorts[ot]-Netzwerks verlassen werden. Dazu ist das Ausmaß eines Super-#htl3r.shorts[gau]s innerhalb eines virtualisierten #htl3r.shorts[ot]-Netzwerks nicht begreifbar/realistisch für die meisten aussenstehenden Personen. Es braucht eine angreifbare und physisch vorhandene Lösung: eine selbstgemachte Modell-Kläranlage.
+Um die Absicherung eines Produktionsbetriebes oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, kann sich nicht auf ausschließlich virtualisierte Lösungen des #htl3r.short[ot]-Netzwerks verlassen werden. Dazu ist das Ausmaß eines Super-#htl3r.short[gau]s innerhalb eines virtualisierten #htl3r.short[ot]-Netzwerks nicht begreifbar/realistisch für die meisten aussenstehenden Personen. Es braucht eine angreifbare und physisch vorhandene Lösung: eine selbstgemachte Modell-Kläranlage.
 
 Zwar sind Kläranlagen nicht die beliebtesten OT-Angriffsziele, Kraftwerke sind , jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch welche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater
 
 == Planung der Betriebszellen
 #htl3r.author("David Koch")
 
-Um die Sicherheit der #htl3r.shorts[ot]-Komponenten so weit es geht zu gewährleisten, muss bereits bei der Planung der Anlage die Segmentierung in Betriebszellen in Betracht gezogen werden.
-Der Inhalt einer Betriebszelle soll nur untereinander kommunizieren können, die einzige Ausnahme wäre beispielsweise die Kommunikation mit einem SCADA-System auf der nächst-höheren Purdue-Ebene. Eine solche Segmentierung lässt sich somit quasi mit einer #htl3r.shorts[vlan]-Segmentierung in einem #htl3r.shorts[it]-Netzwerk vergleichen.
+Um die Sicherheit der #htl3r.short[ot]-Komponenten so weit es geht zu gewährleisten, muss bereits bei der Planung der Anlage die Segmentierung in Betriebszellen in Betracht gezogen werden.
+Der Inhalt einer Betriebszelle soll nur untereinander kommunizieren können, die einzige Ausnahme wäre beispielsweise die Kommunikation mit einem SCADA-System auf der nächst-höheren Purdue-Ebene. Eine solche Segmentierung lässt sich somit quasi mit einer #htl3r.short[vlan]-Segmentierung in einem #htl3r.short[it]-Netzwerk vergleichen.
 
 Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage diese leicht ab- und wieder aufbauen. Wären alle Betriebszellen auf einer einzelnen Platte untergebracht, wäre diese ca 160x45cm groß und somit sehr unhandlich zu transportieren.
 
@@ -63,7 +63,7 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
 
 === Steuerungstechnik
 
-Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.shorts[sps] eingesetzt: Die OpenPLC v3. Diese läuft auf einem Raspberry Pi 4 Mikrocomputer.
+Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.short[sps] eingesetzt: Die OpenPLC v3. Diese läuft auf einem Raspberry Pi 4 Mikrocomputer.
 
 Aktorik:
 - Gartenpumpe mit 800L/h Durchsatz (mit eigenem 12V Relais)
@@ -77,7 +77,7 @@ Sensorik:
 
 === Aufbau
 
-Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil hängt. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für diese Steuerung ist eine Siemens LOGO! #htl3r.shorts[sps] zuständig. Diese steuert das Magnetventil und somit den Wasserfluss. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
+Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil hängt. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für diese Steuerung ist eine Siemens LOGO! #htl3r.short[sps] zuständig. Diese steuert das Magnetventil und somit den Wasserfluss. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
 
 Für das Wassereinlaufbecken bzw. das Überschwemmungebiet wurde als Basis eine weitere 30cm x 20cm x 7cm Eurobox verwendet. Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten roten Häusern unterschiedlicher Größe bestückt. Unter anderem sind mehrere Wasserstandsensoren an der Seite des Behälters befestigt, um im Falle eines Hochwasser bzw. einer Überschwemmung einen Alarm auszulösen (Leuchte mit Alarmton neben dem Behälter).
 
@@ -116,27 +116,27 @@ Die Modelle sind stark in ihrer komplexität variierend. Einige sind sehr einfac
 #htl3r.author("Gabriel Vogler")
 
 Als Drucker wurde ein BambuLab A1 3D-Drucker verwendet.
-Es wurde auf #htl3r.shorts[pla] und #htl3r.shorts[petg] Filament zurückgegriffen, da diese Materialien für den Einstieg in den 3D-Druck sehr gut geeignet sind und auf diesem Gebiet noch nicht sehr viele Erfahrungen vorhanden waren.
+Es wurde auf #htl3r.short[pla] und #htl3r.short[petg] Filament zurückgegriffen, da diese Materialien für den Einstieg in den 3D-Druck sehr gut geeignet sind und auf diesem Gebiet noch nicht sehr viele Erfahrungen vorhanden waren.
 Außerdem sind diese Materialien in der Anschaffung günstiger als andere und bieten eine mehr als ausreichende Qualität, im Sinne von Stabilät und Strapazierfähigkeit, sowohl als auch in der Druckqualität.
 Die Wahl des Filamentherstellers fiel auf das Filament von BambuLab, da diese das Filament und der Drucker aus dem selben Hause stammen und so perfekt aufeinander abgestimmt sind.
-Außerdem ist das #htl3r.shorts[pla] Filament von BambuLab biologisch abbaubar und ist somit umweltfreundlicher und nachhaltiger als andere Filamente.
+Außerdem ist das #htl3r.short[pla] Filament von BambuLab biologisch abbaubar und ist somit umweltfreundlicher und nachhaltiger als andere Filamente.
 Für den Druck wurden die Standard Druckprofile von BambuLab verwendet, mit kleinen Anpassungen an die Druckgeschwindigkeit und die Temperatur, damit das für uns gewünschte Ergebnis erzielt werden konnte.
-Diese Profile werden automatisch erfasst sobald eine originale BambuLab Spule Filament in das #htl3r.shorts[ams] eingelegt wird.
-Das Ganze funktioniert mithilfe eines #htl3r.shorts[rfid]-Chips, der auf der Spule angebracht ist und mit einem #htl3r.shorts[rfid]-Lesegerät im #htl3r.shorts[ams] kommuniziert.
+Diese Profile werden automatisch erfasst sobald eine originale BambuLab Spule Filament in das #htl3r.short[ams] eingelegt wird.
+Das Ganze funktioniert mithilfe eines #htl3r.short[rfid]-Chips, der auf der Spule angebracht ist und mit einem #htl3r.short[rfid]-Lesegerät im #htl3r.short[ams] kommuniziert.
 Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
 Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
 
 == Programmierung eines I2C-Kommunikationsbusses
 #htl3r.author("David Koch")
 
-Um einen Kommunikationskanal zwischen der Software-#htl3r.shorts[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle 2 herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.shorts[i2c] verwendet.
+Um einen Kommunikationskanal zwischen der Software-#htl3r.short[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle 2 herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.short[i2c] verwendet.
 
 === I2C Überblick
 
-Kurz für "Inter-Integrated Circuit". #htl3r.shorts[i2c] ist ein 1982 von Philips Semiconductors entwickelter serieller Datenbus, der als Master-Slave-Bus konzipiert ist, aber auch das Multi-Master-Prinzip unterstützt. Bei diesem Protokoll werden zwei Signalleitungen benötigt, eine Takt- und eine Datenleitung. Eine Eigenschaft von #htl3r.shorts[i2c] ist die Tatsache, dass ein Mikrocontroller ein ganzes Netzwerk an integrierten Schaltungen mit nur zwei #htl3r.shorts[io]-Pins und einfacher Software kontrollieren kann. Daher wird #htl3r.shorts[i2c] hauptsächlich geräteintern für die Kommunikation zwischen verschiedenen Schaltungsteilen benutzt, zum Beispiel innerhalb eines Fernsehers.
+Kurz für "Inter-Integrated Circuit". #htl3r.short[i2c] ist ein 1982 von Philips Semiconductors entwickelter serieller Datenbus, der als Master-Slave-Bus konzipiert ist, aber auch das Multi-Master-Prinzip unterstützt. Bei diesem Protokoll werden zwei Signalleitungen benötigt, eine Takt- und eine Datenleitung. Eine Eigenschaft von #htl3r.short[i2c] ist die Tatsache, dass ein Mikrocontroller ein ganzes Netzwerk an integrierten Schaltungen mit nur zwei #htl3r.short[io]-Pins und einfacher Software kontrollieren kann. Daher wird #htl3r.short[i2c] hauptsächlich geräteintern für die Kommunikation zwischen verschiedenen Schaltungsteilen benutzt, zum Beispiel innerhalb eines Fernsehers.
 @i2c-manual
 
-Im PC wird ein dem #htl3r.shorts[i2c]-Bus sehr ähnliches System benutzt, um z.B. die Daten eines SDRAM-Modules auszulesen. Dieser nennt sich SMBus (System Management Bus).
+Im PC wird ein dem #htl3r.short[i2c]-Bus sehr ähnliches System benutzt, um z.B. die Daten eines SDRAM-Modules auszulesen. Dieser nennt sich SMBus (System Management Bus).
 
 === Aufbau
 
@@ -149,18 +149,18 @@ Im PC wird ein dem #htl3r.shorts[i2c]-Bus sehr ähnliches System benutzt, um z.B
 
 === Kodierung
 
-Bei der Datenübertragungen über einen #htl3r.shorts[i2c]-Bus wird folgendes Frame-Format verwendet:
+Bei der Datenübertragungen über einen #htl3r.short[i2c]-Bus wird folgendes Frame-Format verwendet:
 
 #htl3r.fspace(
   figure(
     image("../assets/i2c_standard_frame.png"),
-    caption: [Das #htl3r.shorts[i2c]-Frame-Format]
+    caption: [Das #htl3r.short[i2c]-Frame-Format]
   )
 )
 
-Das Protokoll des #htl3r.shorts[i2c]-Bus ist von der Definition her recht einfach, aber auch recht störanfällig @i2c-disturbance. Wie man erkennen kann, werden pro Frame insgesamt 16 Bits an Nutzdaten übertragen. Dazu gibt es keinen Mechanismus zur Erkennenung von Übertragungsfehlern, nur ACK/NACK Bits, ob Bits überhaupt angekommen sind.
+Das Protokoll des #htl3r.short[i2c]-Bus ist von der Definition her recht einfach, aber auch recht störanfällig @i2c-disturbance. Wie man erkennen kann, werden pro Frame insgesamt 16 Bits an Nutzdaten übertragen. Dazu gibt es keinen Mechanismus zur Erkennenung von Übertragungsfehlern, nur ACK/NACK Bits, ob Bits überhaupt angekommen sind.
 
-Um dieses Problem zu lösen wird über die #htl3r.shorts[i2c]-Kommunikation zwischen RaspberryPi und ESP32 eine weitere Kommunikationsschicht erstellt. Beispiel aus der Netzwerktechnik: Frames der OSI-Schicht 2 übertragen in ihren Nutzdaten alle Bits der Packets auf OSI-Schicht 3, somit bildet #htl3r.shorts[i2c] die quasi Unterschicht und das Custom-Fenrir-Protokoll die Oberschicht.
+Um dieses Problem zu lösen wird über die #htl3r.short[i2c]-Kommunikation zwischen RaspberryPi und ESP32 eine weitere Kommunikationsschicht erstellt. Beispiel aus der Netzwerktechnik: Frames der OSI-Schicht 2 übertragen in ihren Nutzdaten alle Bits der Packets auf OSI-Schicht 3, somit bildet #htl3r.short[i2c] die quasi Unterschicht und das Custom-Fenrir-Protokoll die Oberschicht.
 
 #htl3r.fspace(
   figure(
@@ -172,9 +172,9 @@ Um dieses Problem zu lösen wird über die #htl3r.shorts[i2c]-Kommunikation zwis
 Die Länge des Fenrir-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi
 // ggf auch folgendes zitieren: https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus
 
-Wie zu erkennen ist besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von ```0x02```, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.shorts[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von ```0x04```.
+Wie zu erkennen ist besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von ```0x02```, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von ```0x04```.
 
-Die #htl3r.shorts[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem RaspberryPi mittels Python folgend berechnet:
+Die #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem RaspberryPi mittels Python folgend berechnet:
 
 ```Python
 def crc8(data: list):
@@ -192,13 +192,13 @@ def crc8(data: list):
     return crc
 ```
 
-Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r.shorts[crc]8-Code jedoch in C implementiert worden.
+Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r.short[crc]8-Code jedoch in C implementiert worden.
 
 === Integration in OpenPLC
 
-OpenPLC Version 3 basiert auf dem Busprotokoll Modbus bzw. Modbus-TCP. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.shorts[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.shorts[psm] von OpenPLC (siehe OpenPLC -> PSM Kapitel TODO) lassen sich software-defined Modbus-Register schnitzen, welchen die über den #htl3r.shorts[i2c]-Bus erhaltenen Daten des ESP32 enthalten.
+OpenPLC Version 3 basiert auf dem Busprotokoll Modbus bzw. Modbus-TCP. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC (siehe OpenPLC -> PSM Kapitel TODO) lassen sich software-defined Modbus-Register schnitzen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten.
 
-Bevor die Daten per #htl3r.shorts[psm] gemappt werden können, müssen sie zuerst empfangen und dekodiert werden. Dazu wird folgende Python-Funktion verwendet:
+Bevor die Daten per #htl3r.short[psm] gemappt werden können, müssen sie zuerst empfangen und dekodiert werden. Dazu wird folgende Python-Funktion verwendet:
 
 ```Python
 # read data from ESP32
@@ -215,9 +215,9 @@ def read_from_esp32(i2caddress: hex, size: int):
         print("ERROR: {}".format(e))
 ```
 
-Die Adafruit-SMBus-Library bietet die Methode ```.read_bytes()``` an, um von einer zuvor mit ```bus = SMBus(1)``` deklarierten #htl3r.shorts[i2c]/SMBus-Leitung die Nutzdaten der #htl3r.shorts[i2c]-Frames zu lesen. Diese werden dem selbstgeschriebenen #htl3r.shorts[i2c]-Decoder übergeben, damit dieser aus den #htl3r.shorts[i2c]-Rohnutzdaten den Fenrir-Frame rekonstruieren und somit die gewünschten Nutzdaten (Füllstandsmesswerte) inklusive Prüfsumme gewinnen kann.
+Die Adafruit-SMBus-Library bietet die Methode ```.read_bytes()``` an, um von einer zuvor mit ```bus = SMBus(1)``` deklarierten #htl3r.short[i2c]/SMBus-Leitung die Nutzdaten der #htl3r.short[i2c]-Frames zu lesen. Diese werden dem selbstgeschriebenen #htl3r.short[i2c]-Decoder übergeben, damit dieser aus den #htl3r.short[i2c]-Rohnutzdaten den Fenrir-Frame rekonstruieren und somit die gewünschten Nutzdaten (Füllstandsmesswerte) inklusive Prüfsumme gewinnen kann.
 
-Um die Werte vom ESP32 zu erhalten, welcher ein #htl3r.shorts[i2c]-Slave-Gerät ist, muss der RaspberryPi als #htl3r.shorts[i2c]-Master-Gerät zuerst eine Nachricht an den Slave schicken, dass dieser überhaupt mit dem Füllstandsdaten antwortet. Dies wird mit folgender Python-Funktion gemacht:
+Um die Werte vom ESP32 zu erhalten, welcher ein #htl3r.short[i2c]-Slave-Gerät ist, muss der RaspberryPi als #htl3r.short[i2c]-Master-Gerät zuerst eine Nachricht an den Slave schicken, dass dieser überhaupt mit dem Füllstandsdaten antwortet. Dies wird mit folgender Python-Funktion gemacht:
 
 #htl3r.code(caption: "I2C-Kommunikation von OpenPLC zu ESP32", description: none)[
 ```Python
@@ -239,14 +239,14 @@ def write_to_esp32(i2caddress: hex, data: str):
 ```
 ]
 
-Beide Funktionen nehmen als ersten Parameter die #htl3r.shorts[i2c]-Adresse des gewünschten ESP32 bzw. #htl3r.shorts[i2c]-Slave-Gerätes. In diesem Fall wird nur ein einzelner ESP32 (Slave-Adresse: ```0x21```) verwendet, falls jedoch mehrere Geräte auf dem #htl3r.shorts[i2c]-Bus angeschlossen wären könnten unterschiedliche Adressen mitgegeben werden, um jeweils nur die gewünschten Geräte anzusteuern.
+Beide Funktionen nehmen als ersten Parameter die #htl3r.short[i2c]-Adresse des gewünschten ESP32 bzw. #htl3r.short[i2c]-Slave-Gerätes. In diesem Fall wird nur ein einzelner ESP32 (Slave-Adresse: ```0x21```) verwendet, falls jedoch mehrere Geräte auf dem #htl3r.short[i2c]-Bus angeschlossen wären könnten unterschiedliche Adressen mitgegeben werden, um jeweils nur die gewünschten Geräte anzusteuern.
 
-Einen Zweidrahtbus aufbauen und mit dem #htl3r.shorts[i2c]-Protokoll verwenden ist für eine simple peer-to-peer Kommunikation tatsächlich eine unnötig überkomplizierte Umsetzung. Es sprechen jedoch trotzdem mehrere Gründe für diese Umsetzungsart im Vergleich zu einer Kommunikation über #htl3r.shorts[uart] z.B.:
-- #htl3r.shorts[i2c] ist ein weitverbreitetes Busprotokoll und dient als guter Kontrast zum komplizierteren Modbus-Protokoll
-- Bei Bedarf kann ein weiterer ESP32 oder ein anderes #htl3r.shorts[i2c]-Slave-Gerät angeschlossen werden und es müssen nur die bereits programmierten Funktion erneut aufgerufen werden
+Einen Zweidrahtbus aufbauen und mit dem #htl3r.short[i2c]-Protokoll verwenden ist für eine simple peer-to-peer Kommunikation tatsächlich eine unnötig überkomplizierte Umsetzung. Es sprechen jedoch trotzdem mehrere Gründe für diese Umsetzungsart im Vergleich zu einer Kommunikation über #htl3r.short[uart] z.B.:
+- #htl3r.short[i2c] ist ein weitverbreitetes Busprotokoll und dient als guter Kontrast zum komplizierteren Modbus-Protokoll
+- Bei Bedarf kann ein weiterer ESP32 oder ein anderes #htl3r.short[i2c]-Slave-Gerät angeschlossen werden und es müssen nur die bereits programmierten Funktion erneut aufgerufen werden
 
 // TODO UMSCHREIBEN (alt und hässlich):
-Um die über einen #htl3r.shorts[i2c]-Bus erhaltenen Daten in OpenPLC auf einem RaspberryPi einsetzen zu können, müssen diese über das #htl3r.shorts[psm] (siehe OpenPLC PSM) auf eine #htl3r.shorts[sps]-Hardwareadresse gemappt werden. Beispielsweise BLABLABAL IW2:
+Um die über einen #htl3r.short[i2c]-Bus erhaltenen Daten in OpenPLC auf einem RaspberryPi einsetzen zu können, müssen diese über das #htl3r.short[psm] (siehe OpenPLC PSM) auf eine #htl3r.short[sps]-Hardwareadresse gemappt werden. Beispielsweise BLABLABAL IW2:
 #htl3r.code(caption: "PSM-Mapping einer SPS-Hardwareadresse", description: none)[
 ```Python
 data: list[int] = read_from_esp32(ESP_I2C_address, 32)
@@ -254,7 +254,7 @@ psm.set_var("IW2", data[0])
 ```
 ]
 
-Nun kann die #htl3r.shorts[sps]-Hardwareadresse ```%IW2``` in einem #htl3r.shorts[sps]-Programm mit einer Input-Variable verknüpft und somit verwendet werden:
+Nun kann die #htl3r.short[sps]-Hardwareadresse ```%IW2``` in einem #htl3r.short[sps]-Programm mit einer Input-Variable verknüpft und somit verwendet werden:
 
 #htl3r.fspace(
   figure(
@@ -263,7 +263,7 @@ Nun kann die #htl3r.shorts[sps]-Hardwareadresse ```%IW2``` in einem #htl3r.short
   )
 )
 
-Im obigen Screenshot sind alle Variablen der OpenPLC-#htl3r.shorts[sps] in Zelle 2 zu sehen, darunter auch die Variable ``` TANK_1_LEVEL```, welche zuvor per #htl3r.shorts[psm] aus Python in eine Hardwareadresse geladen worden ist.
+Im obigen Screenshot sind alle Variablen der OpenPLC-#htl3r.short[sps] in Zelle 2 zu sehen, darunter auch die Variable ``` TANK_1_LEVEL```, welche zuvor per #htl3r.short[psm] aus Python in eine Hardwareadresse geladen worden ist.
 
 #htl3r.fspace(
   figure(
