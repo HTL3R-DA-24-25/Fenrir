@@ -8,6 +8,10 @@
 #define I2C_SLAVE_ADDR 0x21
 #define TOTAL_DATA_SIZE 2 // change when more data
 
+int lastValues1[3];
+int lastValues2[3];
+int counter = 0;
+
 struct Data {
   uint8_t tank1;
   uint8_t tank2;
@@ -18,10 +22,33 @@ void onRequest() {
   int tank1Value = analogRead(TANK_PIN_1);
   int tank2Value = analogRead(TANK_PIN_2);
 
-  struct Data data;
-  data.tank1 = 3400 - tank1Value;
-  data.tank2 = 3400 - tank2Value;
+  counter++;
+  if (counter >= 3) {
+    counter = 0;
+  }
 
+  lastValues1[counter] = tank1Value;
+  lastValues2[counter] = tank2Value; 
+
+  struct Data data;
+  if (lastValues1[2] == 0) {
+    data.tank1 = 3400 - tank1Value;
+  } else {
+    int collector = 0;
+    for (int i = 0; i < 3; i++) {
+      collector += lastValues1[i];
+    }
+    data.tank1 = 3400 - collector/3;
+  }
+  if (lastValues2[2] == 0) {
+    data.tank2 = 3400 - tank1Value;
+  } else {
+    int collector = 0;
+    for (int i = 0; i < 3; i++) {
+      collector += lastValues2[i];
+    }
+    data.tank2 = 3400 - collector/3;
+  }
   Wire.write(0x02);
   Wire.write(TOTAL_DATA_SIZE + 4);
 
