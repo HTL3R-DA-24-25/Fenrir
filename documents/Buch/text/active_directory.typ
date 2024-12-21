@@ -1,15 +1,11 @@
 #import "@local/htl3r-da:0.1.0" as htl3r
+#import "@preview/treet:0.1.1": *
+
 
 #let llist(..items) = box(align(left, list(..items.pos().map(item => list.item([#item])))))
 
 = Active Directory
 #htl3r.author("Gabriel Vogler")
-
-== Logischer Aufbau
-=== Gruppenstruktur
-=== OU Struktur
-== Exchange Server
-== File Server
 
 Active Directory Domain Services ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern und einem Unternehmensnetzwerk. Es wird in der Regel auf eineem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
 
@@ -17,10 +13,45 @@ Active Directory Domain Services ist ein Verzeichnisdienst von Microsoft und die
 Im Szenario des Firmennetzwerkes der Firma Fenrir, wird im #htl3r.long[ad] auf eine Domain und einen Forest gesetzt, da es sich um ein kleines Unternehmen handelt und nur ein Standort vorhanden ist. Dadurch sind die Konfiguration und die Verwaltung des #htl3r.short[ids]s einfacher und übersichtlicher. Dennoch bietet die #htl3r.short[ad] Struktur genug Flexibilität und Erweiterungsmöglichkeiten, wie es in der realen Welt auch der Fall sein sollte, falls das Unternehmen wachsen sollte.
 
 == Logischer Aufbau
+Der logische Aufbau des #htl3r.short[ad]s der Firma Fenrir wird mit Hilfe von #htl3r.short[ou], Benutzerkonten und Benutzergruppen strukturiert. Die Benutzerkonten und Benutzergruppen werden in den #htl3r.short[ou]s organisiert, um eine bessere Übersicht und Struktur zu gewährleisten.
 
 === OU-Struktur
+#tree-list[
+- DC=corp,DC=fenrir-ot,DC=at
+  - OU=Accounts 
+    - OU=Sales 
+      - G_Sales 
+    - OU=Marketing 
+      - G_Marketing 
+    - OU=Operations 
+      - G_Operations 
+    - OU=Infrastructure 
+      - G_Infrastructure 
+    - OU=Management 
+      - G_Management 
+]
 
 === Benutzerkonten
+#show table.cell.where(y: 0): set text(size: 8pt)
+#htl3r.fspace(
+  total_width: 100%,
+  figure(
+    table(
+      columns: (8em, auto, auto, auto,),
+      align: (left, left, left, left),
+      table.header[Benutzername][Vorname][Nachname][Abteilung],
+      [dkoch], [David], [Koch], [Management],
+      [jburger], [Julian], [Burger], [Infrastructure],
+      [buhlig], [Bastian], [Uhlig], [Infrastructure],
+      [gvogler], [Gabriel], [Vogler], [Operations],
+      [mmuster], [Maria], [Mustermann], [Marketing],
+      [jwinkler], [Johannes], [Winkler], [Sales],
+      [mhuber], [Michael], [Huber], [Management],
+      [mmeier], [Max], [Meier], [Operations],
+      [jdoe], [John], [Doe], [Sales],
+      [jbloggs], [Joe], [Bloggs], [Marketing]
+),
+))
 
 === Benutzergruppen
 #show table.cell.where(y: 0): set text(size: 8pt)

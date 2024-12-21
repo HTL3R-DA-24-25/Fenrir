@@ -105,14 +105,14 @@ Für einige Komponenten gab es keine passenden Teile, oder übermäßige Kosten 
 Deshalb wurde die Entscheidung getroffen diese Teile oder Abwandlungen, die für die Anlage sogar noch besser passen, selbst zu designen und zu drucken.
 Die Anschaffung des 3D-Druckers wurde privat getätigt und die Filamentkosten wurden von unserem Sponsor der Ikarus übernommen.
 
-== Modellieren
+=== Modellieren
 #htl3r.author("Gabriel Vogler")
 
 Die Modelle wurden mittels Autodesk Fusion 360 erstellt.
 Die Lizenz für die Software ist für SchülerInnen mit einem Nachweiß des aktiven Schulbesuchs kostenlos.
 Die Modelle sind stark in ihrer komplexität variierend. Einige sind sehr einfach zu modellieren, wie zum Beispiel das Wasserspeicherbecken, andere sind sehr komplex und benötigen viel Zeit und Erfahrung, wie zum Beispiel die Tankdeckel der Zelle 2. Andere sind etwas aufwändiger, wie zum Beispiel die Archimedische Förderschnecke in der Zelle 1.
 
-== Drucken
+=== Drucken
 #htl3r.author("Gabriel Vogler")
 
 Als Drucker wurde ein BambuLab A1 3D-Drucker verwendet.
