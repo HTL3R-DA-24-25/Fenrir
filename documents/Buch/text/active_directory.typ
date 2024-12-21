@@ -16,20 +16,28 @@ Im Szenario des Firmennetzwerkes der Firma Fenrir, wird im #htl3r.long[ad] auf e
 Der logische Aufbau des #htl3r.short[ad]s der Firma Fenrir wird mit Hilfe von #htl3r.short[ou], Benutzerkonten und Benutzergruppen strukturiert. Die Benutzerkonten und Benutzergruppen werden in den #htl3r.short[ou]s organisiert, um eine bessere Übersicht und Struktur zu gewährleisten.
 
 === OU-Struktur
-#tree-list[
-- DC=corp,DC=fenrir-ot,DC=at
-  - OU=Accounts 
-    - OU=Sales 
-      - G_Sales 
-    - OU=Marketing 
-      - G_Marketing 
-    - OU=Operations 
-      - G_Operations 
-    - OU=Infrastructure 
-      - G_Infrastructure 
-    - OU=Management 
-      - G_Management 
-]
+#htl3r.fspace(
+  total_width: 100%,
+  figure(
+    align(center, box(align(left, text[
+      DC=corp,DC=fenrir-ot,DC=at\
+      #tree-list[
+        - OU=Accounts
+          - OU=Sales
+            - G_Sales
+          - OU=Marketing
+            - G_Marketing
+          - OU=Operations
+            - G_Operations
+          - OU=Infrastructure
+            - G_Infrastructure
+          - OU=Management
+            - G_Management
+      ]
+    ]))),
+    caption: [GABI DENK DIR WAS AUS]
+  )
+)
 
 === Benutzerkonten
 #show table.cell.where(y: 0): set text(size: 8pt)
@@ -50,8 +58,10 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma Fenrir wird mit Hilfe von #h
       [mmeier], [Max], [Meier], [Operations],
       [jdoe], [John], [Doe], [Sales],
       [jbloggs], [Joe], [Bloggs], [Marketing]
-),
-))
+    ),
+    caption: [Visualisierung der Benutzer in der Domäne]
+  )
+)
 
 === Benutzergruppen
 #show table.cell.where(y: 0): set text(size: 8pt)
