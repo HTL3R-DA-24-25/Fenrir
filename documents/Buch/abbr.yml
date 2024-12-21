@@ -3,18 +3,14 @@ yaml:
     singular: YAML
   long:
     singular: YAML Ain't Markup Language
-  description: >
-    Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet.
-    Wird oft zur konfiguration eingesetzt.
+  description: Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet. Wird oft zur konfiguration eingesetzt.
 
 iac:
   short:
     singular: IaC
   long:
     singular: Infrastructure as Code
-  description: >
-    Die Abbildung der Physischen und Virtuellen Infrastruktur als Datenstruktur
-    oder auch Code.
+  description: Die Abbildung der Physischen und Virtuellen Infrastruktur als Datenstruktur oder auch Code.
 
 dvs:
   short:
@@ -25,7 +21,7 @@ dvs:
   description: >
     Ein virtueller Switch welcher in einer vSphere-Umgebung mehreren Hosts
     zugewiesen sein kann. Dies ermöglicht es VMs auf mehrere Hosts zu verteilen und sie dennoch in dasselbe Netzwerk zu hängen, dieser virtuelle
-    Switch dient zur verwaltung der Uplinks auf den jeweiligen Hosts.
+    Switch dient zur Verwaltung der Uplinks auf den jeweiligen Hosts.
 
 dpg:
   short:
@@ -42,9 +38,7 @@ dhcp:
     singular: DHCP
   long:
     singular: Dynamic Host Configuration Protocol
-  description: >
-    Ein Protokoll welches oft benutzt wird um dynamisch IP-Adressen über das
-    Netzwerk zu verteilen.
+  description: Ein Protokoll welches oft benutzt wird, um dynamisch IP-Adressen über das Netzwerk zu verteilen.
 
 uuid:
   short:
@@ -53,7 +47,7 @@ uuid:
   long:
     singular: Universally Unique Identifier
     plural: Universally Unique Identifiers
-  description: Eine Identifikationsnummer, welche Global nur ein einziges mal existiert.
+  description: Eine Identifikationsnummer, welche global nur ein einziges Mal existiert.
 
 api:
   short:
@@ -154,7 +148,7 @@ dmz:
   long:
     singular: Demilitarisierte Zone
   description: >
-    Ein eigenes Netzwerk für Dienste, die aus dem Internet zugänglich sind und vom internen Netz abgetrennt sind, um die Sicherheit zu erhöhen. Die Trennung der Netze erfolgt durch zwei Firewalls.
+    Ein eigenes Netzwerk für Dienste, die aus dem Internet zugänglich sind und vom internen Netz abgetrennt sind, um die Sicherheit zu erhöhen. Die Trennung der Netze erfolgt durch eine Firewall.
 
 scada:
   short:
@@ -167,18 +161,21 @@ uart:
     singular: UART
   long:
     singular: Universal Asynchronous Receiver Transmitter
+  description: ein Zweidraht-Protokoll für den Austausch von seriellen Daten zwischen zwei Geräten.
 
 ics:
   short:
     singular: ICS
   long:
     singular: Industrial Control System
+  description: Ein allgemeiner Begriff zur Beschreibung von Kontrollsystemen und den zugehörigen Geräten zur Prozesskontrolle.
 
 gui:
   short:
     singular: GUI
   long:
     singular: Graphical User Interface
+  description: Die grafische Benutzeroberfläche eines Computersystems.
 
 ids:
   short:
@@ -199,6 +196,7 @@ vdom:
     plural: VDOMs
   long:
     singular: Virtual Domain
+  description: Dient zur Unterteilung einer FortiGate-Firewall in zwei oder mehrere virtuelle Einheiten welche unabhängig voneinander agieren.
 
 lmp:
   short:
@@ -221,6 +219,7 @@ ou:
   long:
     singular: Organizational Unit
     plural: Organizational Units
+  description: Eine logische Gruppe innerhalb der hierarchischen Struktur einer Active-Directory-Umgebung. In ihr werden Benutzer, Computer, etc. aufbewahrt.
 
 ams:
   short:
@@ -233,15 +232,18 @@ rfid:
     singular: RFID
   long:
     singular: Radio-Frequency Identification
+  description: Daten werden mittels elektromagnetischer Wellen berührungslos und automatisiert ausgelesen sowie gespeichert.
 
 pla:
   short:
     singular: PLA
   long:
-    singular: Polyactid
+    singular: Polylactid
+  description: Ein synthetisches Polymer, welches oft in 3D-Druck-Filament zu finden ist.
 
 petg:
   short:
     singular: PETG
   long:
     singular: Polyethylenterephthalat + Glykol
+  description: Ein mit Glykol modifiziertes synthetisches Polymer, welches oft in widerstandsfähigeren 3D-Druck-Filamenten zu finden ist.

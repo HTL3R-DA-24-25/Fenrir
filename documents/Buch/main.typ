@@ -52,4 +52,6 @@
 
 #include "text/firewall_config.typ"
 
+#include "text/weitere_absicherung.typ"
+
 #include "text/angriffe_gesichert.typ"
