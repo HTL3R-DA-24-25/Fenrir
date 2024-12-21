@@ -1,6 +1,6 @@
 #import "@local/htl3r-da:0.1.0" as htl3r
 
-= Aufbau der Modell-Kläranlage
+= Aufbau der Modell-Kläranlage <aufbau-klaeranlage>
 
 Um die Absicherung eines Produktionsbetriebes oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, kann sich nicht auf ausschließlich virtualisierte Lösungen des #htl3r.short[ot]-Netzwerks verlassen werden. Dazu ist das Ausmaß eines Super-#htl3r.short[gau]s innerhalb eines virtualisierten #htl3r.short[ot]-Netzwerks nicht begreifbar/realistisch für die meisten aussenstehenden Personen. Es braucht eine angreifbare und physisch vorhandene Lösung: eine selbstgemachte Modell-Kläranlage.
 
