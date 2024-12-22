@@ -1,4 +1,4 @@
-#import "@local/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:0.1.0" as htl3r
 
 = Provisionierung und IaC
 #htl3r.author("Julian Burger")

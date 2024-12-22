@@ -1,4 +1,4 @@
-#import "@local/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:0.1.0" as htl3r
 
 = Netzwerküberwachung
 #htl3r.author("Bastian Uhlig")
