@@ -1,7 +1,7 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
-= Netzwerküberwachung
 #htl3r.author("Bastian Uhlig")
+= Netzwerküberwachung
 
 == Theoretische Netzwerküberwachung
 Ein wichtiger Teil der Sicherheit in einem Netzwerk ist die Überwachung dieses. Es ist nämlich niemals möglich, einhundertprozentig alle Angriffe abzuwehren bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernden Mitteln überwacht wird, so können Angriffe, die bereits in vollem Gange sind, entdeckt werden und in weiterer Folge unterbunden werden.

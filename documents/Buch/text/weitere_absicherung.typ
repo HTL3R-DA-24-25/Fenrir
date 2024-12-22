@@ -2,10 +2,10 @@
 
 = Weitere Absicherung des Netzwerks
 
-== Active Directory Härtung
 #htl3r.author("Gabriel Vogler")
+== Active Directory Härtung
 
-== Patch-Management
 #htl3r.author("David Koch")
+== Patch-Management
 
 == Mikrosegmentierung

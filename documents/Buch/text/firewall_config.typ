@@ -1,15 +1,16 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
+#htl3r.author("Julian Burger")
 = Firewall-Konfiguration
 
-== Uplink-Firewall
 #htl3r.author("Bastian Uhlig")
+== Uplink-Firewall
 
-== Übergangs-Firewall
 #htl3r.author("Julian Burger")
+== Übergangs-Firewall
 
-== Zellen-Firewall
 #htl3r.author("David Koch")
+== Zellen-Firewall
 
 Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindlichsten Teil des gesamten Netzwerks: der OT. Konzepte wie die physischen Segmentierung von untereinander unabhängiger Aktorik/Sensorik in Betriebszellen bringt nichts, wenn sich diese aufgrund von einer fehlenden Netzwerksegmentierung trotzdem ohne weitere Umwege gegenseitig ansprechen können. Aus diesem Grund wird die Zellen-Firewall gebraucht. Sie bietet noch dazu Features wie DPI und mitgelieferten Signaturen für bekannte OT-Daten, um die empfangenen Daten so gut es geht zu identifizieren und im Falle eines Sicherheitsvorfalls die OT-Gerätschaft zu schützen. @fw-rugged-feats
 

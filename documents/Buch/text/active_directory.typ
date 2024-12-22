@@ -4,8 +4,8 @@
 
 #let llist(..items) = box(align(left, list(..items.pos().map(item => list.item([#item])))))
 
-= Active Directory
 #htl3r.author("Gabriel Vogler")
+= Active Directory
 
 Active Directory Domain Services ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern und einem Unternehmensnetzwerk. Es wird in der Regel auf eineem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
 
@@ -94,8 +94,8 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma Fenrir wird mit Hilfe von #h
   )
 )
 
-== Domain Controller
 #htl3r.author("David Koch")
+== Domain Controller
 
 Es gibt insgesamt zwei Domain Controller in der #htl3r.short[it]-Infrastruktur der Firma Fenrir.
 Die Domain Controller teilen sich die Aufgaben:

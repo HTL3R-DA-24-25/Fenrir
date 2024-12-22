@@ -1,9 +1,10 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
+#htl3r.author("David Koch")
 = Angriffe auf das Netzwerk
 
-== Einführung
 #htl3r.author("David Koch")
+== Einführung
 
 === Sicherheitsmängel bei Bus-Systemen
 Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain, was heißt, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche TCP/IP-enkapsulierten Bussysteme eine verschlüsselte End-to-End-Kommunikation, jedoch sind diese heutzutage auch nicht ansatzweise weit verbreitet aufzufinden. Konzepte wie die CIA-Triade und das Triple-A-System sind der Bus-Welt fremd.

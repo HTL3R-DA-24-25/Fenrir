@@ -1,7 +1,7 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
-= Provisionierung und IaC
 #htl3r.author("Julian Burger")
+= Provisionierung und IaC
 
 In der Industrie gibt es einen stetigen Trend, alles zu automatisieren. Eine Automatisierung der #htl3r.short[it]-Infrastruktur bringt Zeit- und Ressourcenersparnisse. Diese Ersparnisse gilt es nicht zu vernachlässigen, demnach ist es das Ziel der Diplomarbeit, das gesamte #htl3r.short[it]-Netzwerk automatisch zu provisionieren und somit zukunftssicher zu gestalten.
 

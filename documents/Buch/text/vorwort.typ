@@ -1,7 +1,7 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
-= Vorwort
 #htl3r.author("David Koch")
+= Vorwort
 
 Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste ihrer Feinde anzugreifen, und sind dabei zu oft erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken im Betrieb häufig suboptimal ist.
 

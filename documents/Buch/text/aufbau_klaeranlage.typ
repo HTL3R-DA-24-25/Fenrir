@@ -6,16 +6,16 @@ Um die Absicherung eines Produktionsbetriebes oder eines Stücks kritischer Infr
 
 Zwar sind Kläranlagen nicht die beliebtesten OT-Angriffsziele, Kraftwerke sind , jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch welche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater
 
-== Planung der Betriebszellen
 #htl3r.author("David Koch")
+== Planung der Betriebszellen
 
 Um die Sicherheit der #htl3r.short[ot]-Komponenten so weit es geht zu gewährleisten, muss bereits bei der Planung der Anlage die Segmentierung in Betriebszellen in Betracht gezogen werden.
 Der Inhalt einer Betriebszelle soll nur untereinander kommunizieren können, die einzige Ausnahme wäre beispielsweise die Kommunikation mit einem SCADA-System auf der nächst-höheren Purdue-Ebene. Eine solche Segmentierung lässt sich somit quasi mit einer #htl3r.short[vlan]-Segmentierung in einem #htl3r.short[it]-Netzwerk vergleichen.
 
 Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage diese leicht ab- und wieder aufbauen. Wären alle Betriebszellen auf einer einzelnen Platte untergebracht, wäre diese ca 160x45cm groß und somit sehr unhandlich zu transportieren.
 
-== Zelle 1 (Grobfiltration)
 #htl3r.author("David Koch")
+== Zelle 1 (Grobfiltration)
 
 === Aufbau
 
@@ -39,8 +39,8 @@ Aktorik:
 Sensorik:
 - keine?
 
-== Zelle 2 (Feinfiltration)
 #htl3r.author("David Koch")
+== Zelle 2 (Feinfiltration)
 
 === Aufbau
 
@@ -72,8 +72,8 @@ Sensorik:
 - 2x OneWire DS18B20 Temperatursensor
 - 2x Füllstandssensor (Widerstand mit 0-190 Ohm)
 
-== Zelle 3 (Staudamm)
 #htl3r.author("Gabriel Vogler")
+== Zelle 3 (Staudamm)
 
 === Aufbau
 
@@ -98,22 +98,22 @@ Aktorik:
 Sensorik:
 - 2x Überschwemmungssensor
 
-== 3D-Druck
 #htl3r.author("Gabriel Vogler")
+== 3D-Druck
 
 Für einige Komponenten gab es keine passenden Teile, oder übermäßige Kosten für die Anschaffung dieser.
 Deshalb wurde die Entscheidung getroffen diese Teile oder Abwandlungen, die für die Anlage sogar noch besser passen, selbst zu designen und zu drucken.
 Die Anschaffung des 3D-Druckers wurde privat getätigt und die Filamentkosten wurden von unserem Sponsor der Ikarus übernommen.
 
-=== Modellieren
 #htl3r.author("Gabriel Vogler")
+=== Modellieren
 
 Die Modelle wurden mittels Autodesk Fusion 360 erstellt.
 Die Lizenz für die Software ist für SchülerInnen mit einem Nachweiß des aktiven Schulbesuchs kostenlos.
 Die Modelle sind stark in ihrer komplexität variierend. Einige sind sehr einfach zu modellieren, wie zum Beispiel das Wasserspeicherbecken, andere sind sehr komplex und benötigen viel Zeit und Erfahrung, wie zum Beispiel die Tankdeckel der Zelle 2. Andere sind etwas aufwändiger, wie zum Beispiel die Archimedische Förderschnecke in der Zelle 1.
 
-=== Drucken
 #htl3r.author("Gabriel Vogler")
+=== Drucken
 
 Als Drucker wurde ein BambuLab A1 3D-Drucker verwendet.
 Es wurde auf #htl3r.short[pla] und #htl3r.short[petg] Filament zurückgegriffen, da diese Materialien für den Einstieg in den 3D-Druck sehr gut geeignet sind und auf diesem Gebiet noch nicht sehr viele Erfahrungen vorhanden waren.
@@ -126,8 +126,8 @@ Das Ganze funktioniert mithilfe eines #htl3r.short[rfid]-Chips, der auf der Spul
 Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
 Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
 
-== Programmierung eines I2C-Kommunikationsbusses
 #htl3r.author("David Koch")
+== Programmierung eines I2C-Kommunikationsbusses
 
 Um einen Kommunikationskanal zwischen der Software-#htl3r.short[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle 2 herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.short[i2c] verwendet.
 
