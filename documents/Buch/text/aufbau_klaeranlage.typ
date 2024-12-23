@@ -31,7 +31,19 @@ Um das Abwasser zu rechen, wird es zuerst mit einer archimedischen Schraube in e
 
 === Steuerungstechnik
 
-Siemens SIMATIC S7-1200
+Die in dieser Zelle verwendete #htl3r.short[sps] ist eine Siemens SIMATIC S7-1200 mit der CPU 1212C. Sie ist kompakt sowie modular erweiterbar und somit für kleinere bis mittlere Automatisierungsaufgaben konzipiert.
+
+Europaweit hat sich die Siemens SIMATIC als die gängiste #htl3r.short[sps]-Marke durchgesetzt @siemens-marktanteil. Bereits im Jahre 1958 wurde die erste SIMATIC, eine verbindungsprogrammierte Steuerung (kurz VPS), auf den Markt gebracht @simatic-history.
+
+Die S7-1200 hat folgende Eingänge und Ausgänge:
+- 8 digitale Eingänge 24V DC, davon TODO in Verwendung
+- 6 digitale Ausgänge 24V/0,5A DC, davon TODO in Verwendung
+- 2 analoge Eingänge 0-10V, davon TODO in Verwendung
+- Eine Ethernet-Schnittstelle für die Kommunikation mit anderen Geräten über das Modbus TCP Protokoll
+
+Die Ethernet-Schnittstelle wird verwendet, um die #htl3r.short[sps] mit der Zellen-Firewall und somit der restlichen Topologie zu verbinden.
+
+* bild programm *
 
 Aktorik:
 - Schneckenmotor mit 50 RPM
@@ -64,6 +76,8 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
 === Steuerungstechnik
 
 Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.short[sps] eingesetzt: Die OpenPLC v3. Diese läuft auf einem Raspberry Pi 4 Mikrocomputer.
+
+OpenPLC is an open-source Programmable Logic Controller that is based on an easy to use software. It is the first fully functional standardized open source PLC, both in software and in hardware. The OpenPLC project was created in accordance with the IEC 61131-3 standard, which defines the basic software architecture and programming languages for PLCs. OpenPLC is mainly used on industrial and home automation, internet of things and SCADA research @openplc-overview.
 
 Aktorik:
 - Gartenpumpe mit 800L/h Durchsatz (mit eigenem 12V Relais)

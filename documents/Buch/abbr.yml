@@ -247,3 +247,15 @@ petg:
   long:
     singular: Polyethylenterephthalat + Glykol
   description: Ein mit Glykol modifiziertes synthetisches Polymer, welches oft in widerstandsfähigeren 3D-Druck-Filamenten zu finden ist.
+
+ietf:
+  short:
+    singular: IETF
+  long:
+    singular: Internet Engineering Task Force
+
+tcp:
+  short:
+    singular: TCP
+  long:
+    singular: Transmission Control Protocol

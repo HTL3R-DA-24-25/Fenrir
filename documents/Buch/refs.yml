@@ -111,3 +111,40 @@ fw-rugged-feats:
     value: https://www.fortinet.com/de/solutions/enterprise-midsize-business/ot-security
     date: 2024-12-19
   date: 2024
+
+# sowas sollte erst recht nicht als quelle benutzt werden weil das ist zu 200% ai generated china verkaufsslop
+siemens-marktanteil:
+  type: blog
+  title: Welche SPS wird in der Industrie am häufigsten eingesetzt? Die wichtigsten SPS erklärt
+  author: KWOCO Automation Co., Ltd. 
+  url:
+    value: https://kwoco-plc.com/de/most-used-plc-in-industry/
+    date: 2024-12-23
+  date: 2024
+
+simatic-history:
+  type: misc
+  title: Automatisierung passiert nicht automatisch
+  author: Siemens AG
+  url:
+    value: https://www.siemens.com/de/de/unternehmen/konzern/geschichte/specials/175-jahre/simatic.html
+    date: 2024-12-23
+  date: 2024
+
+openplc-overview:
+  type: misc
+  title: OpenPLC Overview
+  author: Thiago Alves
+  url:
+    value: https://autonomylogic.com/docs/openplc-overview/
+    date: 2024-12-23
+  date: 2022-10-05
+
+modbus-tcp-encap:
+  type: misc
+  title: Detailed description of the Modbus TCP protocol with command examples
+  author: IPC2U GmbH
+  url:
+    value: https://ipc2u.com/articles/knowledge-base/detailed-description-of-the-modbus-tcp-protocol-with-command-examples/
+    date: 2024-12-23
+  date: 2017-04-26
