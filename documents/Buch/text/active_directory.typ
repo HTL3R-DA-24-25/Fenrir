@@ -7,13 +7,13 @@
 #htl3r.author("Gabriel Vogler")
 = Active Directory
 
-Active Directory Domain Services ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern und einem Unternehmensnetzwerk. Es wird in der Regel auf eineem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
+Active Directory Domain Services ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Dieser wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
 
 == Domain und Forest
-Im Szenario des Firmennetzwerkes der Firma Fenrir, wird im #htl3r.long[ad] auf eine Domain und einen Forest gesetzt, da es sich um ein kleines Unternehmen handelt und nur ein Standort vorhanden ist. Dadurch sind die Konfiguration und die Verwaltung des #htl3r.short[ids]s einfacher und übersichtlicher. Dennoch bietet die #htl3r.short[ad] Struktur genug Flexibilität und Erweiterungsmöglichkeiten, wie es in der realen Welt auch der Fall sein sollte, falls das Unternehmen wachsen sollte.
+Im Szenario des Firmennetzwerkes der Firma "Fenrir", wird im #htl3r.long[ad] auf eine Domain und einen Forest gesetzt, da es sich um ein kleines Unternehmen handelt und nur ein Standort vorhanden ist. Dadurch sind die Konfiguration und die Verwaltung des #htl3r.short[ids] einfacher und übersichtlicher. Dennoch bietet die #htl3r.short[ad]-Struktur genug Flexibilität und Erweiterungsmöglichkeiten, wie es in der realen Welt auch der Fall sein sollte, falls das Unternehmen wächst.
 
 == Logischer Aufbau
-Der logische Aufbau des #htl3r.short[ad]s der Firma Fenrir wird mit Hilfe von #htl3r.short[ou], Benutzerkonten und Benutzergruppen strukturiert. Die Benutzerkonten und Benutzergruppen werden in den #htl3r.short[ou]s organisiert, um eine bessere Übersicht und Struktur zu gewährleisten.
+Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von #htl3r.short[ou], Benutzerkonten und Benutzergruppen strukturiert. Die Benutzerkonten und Benutzergruppen werden in den #htl3r.short[ou]s organisiert, um eine bessere Übersicht und Struktur zu gewährleisten:
 
 === OU-Struktur
 #htl3r.fspace(
@@ -97,7 +97,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma Fenrir wird mit Hilfe von #h
 #htl3r.author("David Koch")
 == Domain Controller
 
-Es gibt insgesamt zwei Domain Controller in der #htl3r.short[it]-Infrastruktur der Firma Fenrir.
+Es gibt insgesamt zwei Domain Controller in der #htl3r.short[it]-Infrastruktur der Firma "Fenrir".
 Die Domain Controller teilen sich die Aufgaben:
 
 #show table.cell.where(y: 0): strong
@@ -108,9 +108,9 @@ Die Domain Controller teilen sich die Aufgaben:
   figure(
     table(
       columns: (5em, auto, auto),
-      align: (left, center, center),
+      align: (left + horizon, center, center),
       table.header[][DC1][DC2],
-      [Rollen], align(left, llist("Domain Naming Master", "Primary Domain Controller")), llist("Infrastructure Master", "RID Pool Manager", "Schema Master"),
+      [Rollen], align(left + horizon, llist("Domain Naming Master", "Primary Domain Controller")), llist("Infrastructure Master", "RID Pool Manager", "Schema Master"),
       [DHCP], "Ja", "Failover",
       [DNS], "Ja", "Ja",
       [Remoting], table.cell(colspan: 2, llist("PowerShell Remoting", "SSH Server", "RDP", "Remote Management"))
@@ -121,7 +121,7 @@ Die Domain Controller teilen sich die Aufgaben:
 
 == Exchange Server
 Der Exchange Server ist ein E-Mail Server der Firma Micosoft.
-Dieser Server wird welweit in einigen Firmen eingesetzt und bietet die Grundlage für jegliche Inter- und Intraunternehmen Kommunikation.
+Dieser Server wird welweit in einigen Firmen eingesetzt und bietet die Grundlage für jegliche Inter- und Intraunternehmenskommunikation.
 
 Damit der Exchange Server funktioniert, wird eine bestehenende #htl3r.short[ad] Struktur benötigt.
 

@@ -4,7 +4,7 @@
 = Netzwerküberwachung
 
 == Theoretische Netzwerküberwachung
-Ein wichtiger Teil der Sicherheit in einem Netzwerk ist die Überwachung dieses. Es ist nämlich niemals möglich, einhundertprozentig alle Angriffe abzuwehren bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernden Mitteln überwacht wird, so können Angriffe, die bereits in vollem Gange sind, entdeckt werden und in weiterer Folge unterbunden werden.
+Ein wichtiger Teil der Sicherheit in einem Netzwerk ist die Überwachung dessen. Es ist nämlich niemals möglich, einhundertprozentig alle Angriffe abzuwehren bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernden Mitteln überwacht wird, können Angriffe, die bereits in vollem Gange sind, entdeckt und in weiterer Folge unterbunden werden.
 
 Hierbei ist der Begriff einer Baseline wichtig. Eine Baseline beschreibt einen Status des Netzwerkes, in welchem dieses im Normalzustand agiert.
 

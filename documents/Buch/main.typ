@@ -12,8 +12,8 @@
     (name: "Gabriel Vogler", supervisor: "Clemens Kussbach", role: "Mitarbeiter"),
   ),
   supervisor_incl_ac_degree: (
-    "Prof, Dipl.-Ing. Christian Schöndorfer",
-    "Prof, Dipl.-Ing. Clemens Kussbach",
+    "Prof. Dipl.-Ing. Christian Schöndorfer",
+    "Prof. Dipl.-Ing. Clemens Kussbach",
   ),
   sponsors: (
     "easyname GmbH",

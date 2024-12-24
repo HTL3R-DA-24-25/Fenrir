@@ -148,3 +148,30 @@ modbus-tcp-encap:
     value: https://ipc2u.com/articles/knowledge-base/detailed-description-of-the-modbus-tcp-protocol-with-command-examples/
     date: 2024-12-23
   date: 2017-04-26
+
+it-sec-de:
+  type: report
+  title: Die Lage der IT-Sicherheit in Deutschland 2014
+  author: Bundesamt für Sicherheit in der Informationstechnik (BSI)
+  url:
+    value: https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/Lageberichte/Lagebericht2014.pdf?__blob=publicationFile
+    date: 2024-12-23
+  date: 2014-10-01
+
+ndu-stuxnet:
+  type: report
+  title: STUXNET AND STRATEGY – A Special Operation in Cyberspace?
+  author: Lukas Milevski
+  url:
+    value: https://ndupress.ndu.edu/Portals/68/Documents/jfq/jfq-63/jfq-63_64-69_Milevski.pdf?ver=Jy0SW9E8UBbatlrmrw-egQ%3D%3D
+    date: 2024-12-24
+  date: 2011
+
+spiegel-10-jahre-stuxnet:
+  type: article
+  title: Die erste Cyberwaffe und ihre Folgen
+  author: Patrick Beuth
+  url:
+    value: https://www.spiegel.de/netzwelt/web/die-erste-cyberwaffe-und-ihre-folgen-a-a0ed08c9-5080-4ac2-8518-ed69347dc147
+    date: 2024-12-24
+  date: 2020-06-17

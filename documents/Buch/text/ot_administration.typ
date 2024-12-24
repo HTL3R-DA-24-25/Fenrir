@@ -6,17 +6,17 @@
 == SCADA
 
 === Was ist ein SCADA-System?
-In einer Betriebszelle existieren üblicherweise einige unterschiedliche #htl3r.shortpl[sps], auf welche Mitarbeiter keinen Zugriff haben. Selbst wenn dieser Zugriff möglich wäre, so wäre es sehr anstrengend aus den verscheidenen Registern die Werte auszulesen um die Anlage zu überwachen. Ein #htl3r.short[scada] System hilft dabei als Abhilfe, indem es als grafische Oberfläche zur Überwachung und Steuerung von verschiedenen #htl3r.shortpl[sps] agiert.
+In einer Betriebszelle existieren üblicherweise einige unterschiedliche #htl3r.shortpl[sps], auf welche Mitarbeiter keinen Zugriff haben. Selbst wenn dieser Zugriff möglich wäre, so wäre es sehr anstrengend aus den verscheidenen Registern die Werte auszulesen um die Anlage zu überwachen. Ein #htl3r.short[scada]-System hilft dabei, indem es als grafische Oberfläche zur Überwachung und Steuerung von verschiedenen #htl3r.shortpl[sps] agiert.
 
-Hierbei ist zu beachten, dass ein #htl3r.short[scada] System keine Signale automatsich sendet, sondern nur auf User-Input reagiert. Alle selbstgesteuerten Aktionen werden immer von #htl3r.short[sps]en durchgeführt.
+Hierbei ist zu beachten, dass ein #htl3r.short[scada]-System keine Signale automatsich sendet, sondern nur auf User-Input reagiert. Alle selbstgesteuerten Aktionen werden immer von #htl3r.short[sps]en durchgeführt.
 
-Normalerweise wird pro Betriebszelle mindestens ein #htl3r.short[scada] System verwendet, manchmal mehrere für Redundanz. Dies sorgt für höhere Sicherheit, da jedes #htl3r.short[scada] nur mit der "eigenen" Zelle kommunizieren darf. Falls die Zellen jedoch simpel gehalten sind und nur aus einer einzigen #htl3r.short[sps]en bestehen, so ist das verwenden von mehreren #htl3r.short[scada] Systemen unnötig und macht die Konfiguration nur komplizierter, wodurch in solch einem Fall mehrere Zellen zusammengefügt werden können, damit das System leichter zu übersehen ist.
+Normalerweise wird pro Betriebszelle mindestens ein #htl3r.short[scada]-System verwendet, manchmal mehrere für Redundanz. Dies sorgt für höhere Sicherheit, da jedes #htl3r.short[scada] nur mit der "eigenen" Zelle kommunizieren darf. Falls die Zellen jedoch simpel gehalten sind und nur aus einer einzigen #htl3r.short[sps]en bestehen, so ist das verwenden von mehreren #htl3r.short[scada]-Systemen unnötig und macht die Konfiguration nur komplizierter, wodurch in solch einem Fall mehrere Zellen zusammengefügt werden können, damit das System leichter zu übersehen ist.
 
 === Scada-LTS
-Als ein Fork von der Open-Source Software Scada-BR, Scada-LTS ist der Nachfolger der vorherigen Software. Scada-LTS läuft virtualisiert auf einem Docker, und ist über eine von tomcat veröffentlichten Website zu erreichen. Datenhistorien werden separat in einer MySQL-Datenbank gespeichert, die typischer weise auch dockerisiert läuft.
+Als ein Fork von der Open-Source Software Scada-BR ist Scada-LTS der Nachfolger der vorherigen Software. Scada-LTS läuft virtualisiert auf einem Docker, und ist über eine von tomcat veröffentlichten Website zu erreichen. Datenhistorien werden separat in einer MySQL-Datenbank gespeichert, die typischer weise auch dockerisiert läuft.
 
 ==== Aufsetzen
-Das Aufsetzten von Scada-LTS ist relativ simpel gestaltet, da nur die Docker-Images zu laden und starten sind. Auf dem öffentlichem Repository (https://github.com/SCADA-LTS/Scada-LTS) von Scada-LTS ist eine Docker-Compose Datei zu finden mit welcher das ganze System gestartet werden kann. Es ist jedoch sinnvoll, diese Datei anzupassen, um einen reibungslosen Start zu gewährleisten.
+Das Aufsetzten von Scada-LTS ist relativ simpel gestaltet, da nur die Docker-Images zu laden und zu starten sind. Auf dem öffentlichem Repository #footnote[https://github.com/SCADA-LTS/Scada-LTS] von Scada-LTS ist eine Docker-Compose Datei zu finden mit welcher das ganze System gestartet werden kann. Es ist jedoch sinnvoll, diese Datei anzupassen, um einen reibungslosen Start zu gewährleisten.
 
 Vorallem ist dabei zu beachten, dass der Scada-LTS Docker abstürzt, sollte keine Verbindung zur Datenbank hergestellt werden können. Deshalb sollte Scada-LTS in der Docker-Compose Datei eine Abhängigkeit von der Datenbank bekommen, damit es erst startet, wenn die Datenbank bereit ist.
 ```
@@ -51,7 +51,7 @@ curl 'http://localhost/Scada-LTS/dwr/call/plaincall/EmportDwr.loadProject.dwr' -
 
 rm cookies
 ```
-Zur Autorisierung wird dabei eine Datei "cookies" gespeichert, um den Login mit den Default-Anmeldedaten admin:admin zu ermöglichen. Dieses Konto sollte logischerweise nach der Konfiguration - am Besten direct mit dem Import der .zip-Datei - deaktiviert werden, bzw. die Logindaten geändert werden.
+Zur Autorisierung wird dabei eine Datei "cookies" gespeichert, um den Login mit den Default-Anmeldedaten admin:admin zu ermöglichen. Dieses Konto sollte logischerweise nach der Konfiguration -- am Besten direct mit dem Import der .zip-Datei - deaktiviert werden, bzw. die Logindaten geändert werden.
 
 == MES
 Ein #htl3r.short[mes]...
