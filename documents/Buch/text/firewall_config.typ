@@ -16,7 +16,7 @@ Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindli
 
 === Grundkonfiguration
 
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Zellen-Firewall Grundkonfiguration",
   filename: [Zellen-FW-Fenrir.conf],
   lang: "python", // TODO: wo fortios
@@ -51,7 +51,7 @@ fdfdfdf
 
 https://docs.fortinet.com/document/fortigate/7.6.1/administration-guide/597696/vdom-overview
 
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Die Konfiguration der VDOM von Zelle 1",
   filename: [Zellen-FW-Fenrir.conf],
   lang: "python", // TODO: wo fortios
@@ -60,7 +60,7 @@ https://docs.fortinet.com/document/fortigate/7.6.1/administration-guide/597696/v
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
 
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Zuweisung der Zelle 1 VDOM zum Interface",
   filename: [Zellen-FW-Fenrir.conf],
   lang: "python", // TODO: wo fortios

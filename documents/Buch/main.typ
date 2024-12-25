@@ -4,14 +4,14 @@
   title: "Fenrir",
   subtitle: "Zum Schutz von OT-Netzwerken",
   department: "ITN",
-  school_year: "2024/2025",
+  school-year: "2024/2025",
   authors: (
     (name: "Julian Burger", supervisor: "Christian Schöndorfer", role: "Mitarbeiter"),
     (name: "David Koch", supervisor: "Christian Schöndorfer", role: "Projektleiter"),
     (name: "Bastian Uhlig", supervisor: "Clemens Kussbach", role: "Stv. Projektleiter"),
     (name: "Gabriel Vogler", supervisor: "Clemens Kussbach", role: "Mitarbeiter"),
   ),
-  supervisor_incl_ac_degree: (
+  supervisor-incl-ac-degree: (
     "Prof. Dipl.-Ing. Christian Schöndorfer",
     "Prof. Dipl.-Ing. Clemens Kussbach",
   ),
@@ -23,11 +23,11 @@
     "Cyber Security Austria – Verein zur Förderung der Sicherheit Österreichs strategischer Infrastruktur",
     "NTS Netzwerk Telekom Service AG",
   ),
-  abstract_german: [#include "text/kurzfassung.typ"],
-  abstract_english: [#include "text/abstract.typ"],
+  abstract-german: [#include "text/kurzfassung.typ"],
+  abstract-english: [#include "text/abstract.typ"],
   date: datetime.today(),
-  print_ref: true,
-  generative_ai_clause: none,
+  print-ref: true,
+  generative-ai-clause: none,
   abbreviation: yaml("abbr.yml"),
   bibliography: bibliography("refs.yml", full: true, title: [Literaturverzeichnis], style: "harvard-cite-them-right"),
 )

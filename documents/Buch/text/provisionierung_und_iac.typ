@@ -36,7 +36,7 @@ packer {
 ]
 
 Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Dies ermöglicht es nun, eine #htl3r.short[vm] in der vSphere-Umgebung zu provisionieren:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Packer vSphere-VM Beispiel",
   filename: [golden_linux_server/main.pkr.hcl],
   lang: "hcl",
@@ -58,7 +58,7 @@ Das Linux-Server-Image wird mittels Cloud-Init, einer #emph["industry standard m
 
 === Terraform
 Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.shortpl[vm], #htl3r.shortpl[dvs], #htl3r.shortpl[dpg], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Terraform Bastion Provisionierung",
   filename: [stage_00/main.tf],
   lang: "tf",
@@ -70,7 +70,7 @@ Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-I
 Dieser erzwungene konvergente Zustand hat jedoch, vor allem während der Entwicklung, Nachteile. Tritt ein Fehler während der Durchführung eines Erstellungsprozesses auf, so stoppt dies den Prozess und Terraform zerstört alle bereits angelegten Ressourcen. Dies führt vor allem dann zu Frustration, wenn so ein Provisionierungsvorgang mehr als 30 Minuten andauert. Um dies zu umgehen, wird in sogenannten "Stages" Provisioniert. Jede Stage ist abhängig von der Vorherigen, somit muss beispielsweise Stage null korrekt ausgeführt werden, damit Stage eins, in weiterer Folge, ausgeführt werden kann. Jede Stage ist dafür verantwortlich zu beginnen einen Snapshot von allen Ressourcen zu machen, die für die Durchführung der Stage benötigt werden. So kann, falls die Stage fehlerhaft ausführt, zu dem vorherigen Stand zurückgesprungen werden.
 
 Solch ein Verfahren ist jedoch nicht allein mit Terraform möglich, da Terraform, falls ein Fehler auftritt, den erstellten Snapshot nur löscht und nicht auf diesen zurücksetzt. Somit werden alle fehlerhafte Änderungen, welche von Skript-Provisionieren durchgeführt wurden, auf den vorherigen Stand übertragen. Damit solch eine Situation nicht auftritt, werden Destroy-Provisioner auf den Snapshots konfiguriert:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Terraform Snapshot Destroy-Provisioner",
   filename: [stage_03/main.tf],
   lang: "tf",
@@ -80,7 +80,7 @@ Solch ein Verfahren ist jedoch nicht allein mit Terraform möglich, da Terraform
 )
 #pagebreak()
 Die von der Ressource gebrauchte ``` vm_uuids``` Variable ist in einer anderen Datei enthalten:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Terraform Snapshot Destroy-Provisioner VMs",
   filename: [stage_03/vms.tf],
   lang: "tf",
@@ -119,14 +119,14 @@ Die realen Zugangsdaten stehen in einer externen Datei, welche nicht Teil des Gi
 Ansible ist das dritte #htl3r.short[iac] Tool, welches zur Provisionierung verwendet wird. Es ermöglicht es, Maschinen mittels Ansible-Playbooks zu konfigurieren. Diese Playbooks beinhalten mehrere Tasks, welche ausgeführt werden. Diese Tasks können sehr komplex, jedoch auch sehr simpel sein. Ansible wird in der Topologie hauptsächlich für das Ausführen von Bash- und PowerShell-Skripten verwendet. Da oftmals ein Neustart nach der Ausführung eines Befehls notwendig ist. Dies ist vor allem auf Windows-Servern ein bekanntes Problem. Terraform kann mit solchen Neustarts nicht umgehen, Ansible jedoch schon.
 
 Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.short[dhcp] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem Ansible-Aufruf sieht wie folgt aus:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Terraform Ansible Provisioning",
   filename: [stage_03/main.tf],
   range: (29, 43),
   lang: "tf",
   text: read("../assets/scripts/stage_03.tf")
 )
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Ansible Execute Script",
   filename: [ansible/execute_stage_03.sh],
   range: (6, 21),
@@ -134,7 +134,7 @@ Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden
   text: read("../assets/scripts/stage_03_execute_script.sh")
 )
 #pagebreak()
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "Stage-03 Ansible-Playbook",
   filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
   range: (0, 12),
@@ -153,7 +153,7 @@ Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es
   )
 )
 Um nun diese Regeln zu definieren, muss sich zunächst bei vSphere authentifiziert werden:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "pyVmomi Authentifizierung",
   filename: [ansible/custom/create_filtering_rules.py],
   range: (152, 161),
@@ -161,7 +161,7 @@ Um nun diese Regeln zu definieren, muss sich zunächst bei vSphere authentifizie
   text: read("../assets/scripts/create_filtering_rules.py")
 )
 In weiterer Folge wird das Datacenter sowie die #htl3r.short[dpg] abgefragt:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "pyVmomi Ressourcen Abfrage",
   filename: [ansible/custom/create_filtering_rules.py],
   ranges: ((163, 164), (171, 172)),
@@ -176,7 +176,7 @@ Um nun die #htl3r.short[dpg] zu bearbeiten, wird ein ```ConfigSpec``` Objekt geb
 Der erste Schritt ist notwendig, damit das Skript bei mehreren Aufrufen dasselbe Resultat erzielt.
 
 Dies sieht in der Umsetzung wie folgt aus:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "pyVmomi Traffic-Filter Regel Bearbeitung",
   filename: [ansible/custom/create_filtering_rules.py],
   ranges: ((178, 191),),
@@ -185,7 +185,7 @@ Dies sieht in der Umsetzung wie folgt aus:
 )
 Man beachte, dass die ``` filterConfig``` Liste anfangs auf das Resultat der ```py create_filter_config()``` Funktion gesetzt wird. In dieser Funktion sind die gewollten Regeln definiert.
 Solch eine Regel sieht folgendermaßen aus:
-#htl3r.code_file(
+#htl3r.code-file(
   caption: "pyVmomi Traffic-Filter Regel Erstellung",
   filename: [ansible/custom/create_filtering_rules.py],
   ranges: ((58, 81), (131, 145),),
