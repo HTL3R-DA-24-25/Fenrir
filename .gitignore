@@ -301,6 +301,7 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
+schematics/**/*backup*
 sensitive.*
 *.vmdk
 *.iso
