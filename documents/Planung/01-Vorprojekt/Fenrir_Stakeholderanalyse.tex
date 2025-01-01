@@ -1,5 +1,4 @@
-% David Koch
-% Bastian Uhlig
+% Gabriel Vogler
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -128,7 +127,15 @@
 \renewcommand{\lstlistingname}{\inputencoding{utf8}Listing}
 
 \usepackage{tabularx}
+\usepackage{tabulary}
 \usepackage{scrhack}
+\usepackage{longtable}
+\usepackage{ragged2e}
+
+\newcommand{\positiv}{\textbf{\textcolor[HTML]{00B050}{positiv}}}
+\newcommand{\negativ}{\textbf{\textcolor[HTML]{FF0000}{negativ}}}
+\newcommand{\green}[1]{\textcolor[HTML]{00B050}{#1}}
+\newcommand{\red}[1]{\textcolor[HTML]{FF0000}{#1}}
 
 \usepackage{array}
 \newcommand\Tstrut{\rule{0pt}{3.2ex}}         % = `top' strut
@@ -139,6 +146,12 @@
 		\setlength{\partopsep}{-\parskip}
 		\tabbing}
 	{\endtabbing}
+	
+\newenvironment{myitemize}{
+    \begin{itemize}[leftmargin=1.7em]
+}{
+    \end{itemize}
+}
 
 \usepackage{titlesec}
 % \titleformat{?Überschriftenklasse?}[Absatzformatierung?]{?Textformatierung?} {?Nummerierung?}{?Abstand zwischen Nummerierung und Überschriftentext?}{?Code vor der Überschrift?}[?Code nach der Überschrift?]
@@ -158,8 +171,8 @@
 bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 {hyperref}
-\hypersetup{pdftitle={Fenrir Spielregeln},
-	pdfauthor={David Koch},
+\hypersetup{pdftitle={Fenrir Stakeholderanalyse},
+	pdfauthor={Bastian Uhlig},
 	pdfsubject={DA},
 	pdfkeywords={5CN, Fenrir, DA}}
 \urlstyle{same} % don't use monospace font for urls
@@ -170,6 +183,8 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \sloppy % weniger Meldungen
 \voffset7mm % etwas nach unten
 
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %% schöner: 10000 -- gar keine, 1000 als Mittelweg
@@ -177,7 +192,7 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \widowpenalty = 10000 % Hurenkinder verhindern
 \displaywidowpenalty = 10000
 
-{\sffamily{\textbf{\LARGE{\textcolor{orange}{Spielregeln}}}}}\\
+{\sffamily{\textbf{\LARGE{\textcolor{orange}{Stakeholderanalyse}}}}}\\
 \noindent\rule{\textwidth}{0.1pt}
 \begin{nstabbing}
 	\hspace{4cm}\=\hspace{4cm}\=\hspace{4cm}\=\kill
@@ -191,121 +206,114 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & xx.xx.2024 & David Koch & Erstellung des Dokuments (Draft)\Tstrut  \\
-	v1.1 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Spielregeln)\Tstrut  \\
-	v1.2 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Kommunikationsmatrix \\
-	v1.2.1 & xx.xx.2024 & Bastian Uhlig & Rechtschreibkorrektur \Tstrut \\
-	v1.3 & xx.xx.2024 & Bastian Uhlig & Identifikation des Projektes \Bstrut \\
+	v1.0 & 13.05.2024 & Gabriel Vogler & Erstellung des Dokuments  
+\Tstrut \\
+	v1.1 & xx.xx.2024 & Bastian Uhlig & Entfernen der Schöller Network group	
+\Bstrut \\
 	\hline
 	\end{tabularx}
 }
 
-\section{Allgemeines}
-\subsection{Identifikation des Projekts}
-In dem Projekt Fenrir geht es um die Absicherung eines OT-Netzwerkes , welches ein Modell einer Kläranlage darstellt, von dem IT-Netzwerk der Firma. 
-\subsection{Leitgedanke}
-Kritische Infrastruktur gehört abgesichert!
 
-
-\section{Organisatorisches}
-\subsection{Fehlen von Teammitgliedern}
-Bei Abwesenheit ist eine E-Mail am ersten Tag der Abwesenheit vor Schulbeginn an den Projektleiter, sowie an den leitenden Betreuer zu verschicken. Wird der kritische Pfad durch Abwesenheit von Teammitgliedern beeinträchtigt, entscheidet der Projektleiter über etwaige Gegenmaßnahmen. Verspätete Abgabetermine sind in Ordnung, solange sich diese nicht häufen. Wenn dies passiert, werden striktere Termine vergeben, welche eingehalten werden müssen.
-
-\section{Informations- \& Kommunikationssystem}
-\subsection{Meetings}
-Meetings sind entweder lokal oder über Microsoft Teams abzuhalten.\\
-Für jedes Meeting muss ein Meetingleiter sowie ein Protokollführender spätestens 24h im Vorhinein durch die Agenda festgelegt werden. Das Protokoll muss direkt nach Abschluss an alle im Verteiler eingetragenen Personen ausgeschickt werden.\\
-In der Agenda ist bereits der Kurzbericht der Tagesordnungspunkte enthalten. Es ist von allen Meetingteilnehmern erwartet, in jedem Falle das Meeting moderieren zu können.\\
-Während den Meetings ist eine entsprechende Professionalität zu halten und jeder muss im Anschluss das Besprochene wiedergeben können.
-
-\subsection{Jour Fixe/Stand up-Meeting}
-Zweiwöchentliche Stand-ups, bei welchen jeder muss anwesend sein. Sie werden über Teams oder in Person abgehalten, wobei der Termin innerhalb von der Woche variieren darf. Wenn jemand an diesem Tag abwesend ist, muss sich am nächstmöglichen Arbeitstag die Information von einem Mitarbeiter eingeholt werden.
-
-\subsection{Berichtwesen}
-In jenen Wochen, in welchen kein Meeting stattfindet, wird ein Meilensteinbericht verfasst um eventuell kranke Mitarbeiter sowie Projektbetreuer auf dem Laufenden zu halten. Management Reviews können auf Wunsch von einem Mitarbeiter einberufen werden. \\
-Mit JIRA wird die Bearbeitung verschiedener Arbeitspakete verwaltet um eine Übersicht des Projektes zu erlangen. Außerdem wird Clockify zur Zeiterfassung verwendet.
-
-\subsection{E-Mail-Verkehr}
-E-Mails, die das ganze Projektteam betreffen, sind an alle Teammitglieder und die Betreuer zu senden. 
-Der Betreff muss kurz und knapp formuliert werden.
-
-\subsection{Kommunikation via Telefon}
-Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu können, jedoch wird diese Art der Kommunikation nur in Notfällen verwendet.
-
-\subsection{Kommunikationsmatrix}
-\begin{table}[h]
-\begin{tabularx} {\textwidth} {
-	|>{\columncolor[HTML]{D9D9D9}\raggedright\arraybackslash}X
-	|X
-	|X
-	|X
-	|X
-	|X
-	|X
-	|}
+\section{Projekt Stakeholder-Liste}
+\begin{longtable}{|M{1cm}|M{2.5cm}|M{3cm}|M{2cm}|M{2cm}|M{3.5cm}|}
+\hline
 
 \hline
-\rowcolor[HTML]{D9D9D9}
-\textbf{\normalsize{Wann Wer}} &
-\raggedright{\textbf{\normalsize{Zum Projektstart}}} &
-\raggedright{\textbf{\normalsize{Zu Meilensteinen}}} &
-\raggedright{\textbf{\normalsize{Bei Verzögerungen}}} &
-\raggedright{\textbf{\normalsize{Bei Problemen}}} & 
-\raggedright\arraybackslash{\textbf{\normalsize{Zum Projektabschluss}}} \\ \hline
+\textbf{\normalsize{Nr. (Ext/Int)}} &
+\textbf{\normalsize{Bezeichnung des Stakeholders}} &
+\textbf{\normalsize{Beschreibung des Stakeholders}} &
+\textbf{\normalsize{Einfluss auf Projekt/Macht
+(gering/hoch)}} &
+\textbf{\normalsize{Einstellung zum Projekt 
+(\positiv / \negativ)}} &
+\textbf{\normalsize{Maßnahmen}} \\ \hline
+E-01 & Christian Schöndorfer & Auftraggeber & hoch & \positiv &
+\RaggedRight{
+\begin{myitemize}
+	\item Termingerechte Fertigstellung
+	\item hohe Qualität der Ergebnisse
+	\item Alle 2 Wochen Meetings
+	\item jede andere 2.Woche einen Statusbericht
+\end{myitemize}} \\ \hline 
+E-02 & Clemens Kussbach & Auftraggeber Stv. & hoch & \positiv &
+	\begin{myitemize}
+	\item Termingerechte Fertigstellung
+	\item hohe Qualität der Ergebnisse
+	\item Alle 2 Wochen Meetings
+	\item jede andere 2.Woche einen Statusbericht
+	\end{myitemize} \\ \hline
+E-03 & Fortinet & Sponsor & gering & \positiv &
+	\begin{myitemize}
+	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
+	\end{myitemize} \\ \hline 
+E-04 & Ikarus & Sponsor & gering & \positiv &
+	\begin{myitemize}
+	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
+	\end{myitemize} \\ \hline 
+E-05 & HTL Rennweg INKO Verein & Sponsor & niedrig & \positiv &
+	\begin{myitemize}
+	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
+	\end{myitemize} \\ \hline
+E-06 & IT/OT-Security Unternehmen & Konkurrenz & niedrig & \negativ &
+	\begin{myitemize}
+    \item Marktbeobachtung und Analyse
+    \item Entwicklung von Alleinstellungsmerkmalen
+	\end{myitemize} \\ \hline
+I-01 & David Koch & Projektleiter & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
+I-02 & Bastian Uhlig & Projektleiter Stv. & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
+I-03 & Gabriel Vogler & Projektmitarbeiter & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
+I-04 & Julian Burger & Projektmitarbeiter & hoch & \positiv & 
+	\begin{myitemize}
+	\item Schnellstmögliches Informieren zu Änderungen
+	\item Befragung bei größeren Problemen
+	\end{myitemize} \\ \hline
 
-Auftraggeber (SDO + KUS) &
-Projektauftrag unterschrieben &
-Protokoll &
-E-Mail &
-Face-to-Face / Mail &
-Abnahme, Abschlussmeeting \\ \hline
 
-Projektleiter &
-Projektauftrag unterschreiben, Kick-Off &
-Meilenstein-Bericht &
-Face-to-Face &
-Face-to-Face &
-Abnahme, Abschlussmeeting \\ \hline
 
-Team &
-Kick-Off &
-Meilenstein-Bericht &
-Meeting über Umstände &
-Problemsolving Meeting &
-Projekt-präsentation \\ \hline
+
+\end{longtable}
+
+\section{Stakeholder Portfolio}
+\begin{table}[h]
+\begin{tabularx} {\textwidth} {|X|X|}
+\hline
+
+\footnotesize{\textcolor[HTML]{A6A6A6}{Zufriedenstellen}}
+& \footnotesize{\textcolor[HTML]{A6A6A6}{Eng managen (hoher Aufwand)}} \\ 
+& \green {E-01 Christian Schöndorfer} \\
+& \green {E-02 Clemens Kussbach} \\
+& \green {I-01 David Koch} \\
+& \green {I-02 Bastian Uhlig} \\
+& \green {I-03 Gabriel Vogler} \\
+& \green {I-04 Julian Burger}
+ \\ \hline 
+
+\footnotesize{\textcolor[HTML]{A6A6A6}{Überwachen (wenig Aufwand betreiben)}}
+& \footnotesize{\textcolor[HTML]{A6A6A6}{Informieren/auf dem Laufenden halten}} \\
+\red {E-06 IT/OT-Security Unternehmen} 
+& \green {E-03 Fortinet} \\
+& \green {E-04 Ikarus} \\
+& \green {E-05 HTL Rennweg INKO Verein}
+
+ 
+ \\ \hline 
 
 
 
 \end{tabularx}
 \end{table}
-
-\subsection{Dokumentenablage}
-Alle Dokumente des Projektes sind in \LaTeX\ zu verfassen, wobei die einzige Ausnahme nach Absprache Agendas sowie Meetingprotokolle sind. Alle WIP Dokumente sind auf GitHub abzulegen. Wenn sie kontrolliert werden sollen bzw. abgeschlossen sind, wird das \LaTeX-Dokument als PDF kompiliert und auf Microsoft Teams hochgeladen.
-
-\section{Nomenklatur}
-\subsection{Dokumentenerstellung}
-Projektrelevante Dokumente sind alle in einer einheitlichen Fassung zu erstellen, welche das Logo des Projektes sowie der HTL3R in der Kopfzeile beinhaltet.
-
-\subsection{Dokumentenbenennung}
-Auf dem Fenrir-GitHub-Repository werden die Dokumente nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
-Fenrir\_DOKUMENTENNAME.tex \\
-Bsp.: Fenrir\_Spielregeln.tex
-
-Fertige Dokumente auf Microsoft Teams werden nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
-Fenrir\_DOKUMENTENNAME\_VERSIONSNUMMER\_JJJJMMTT.pdf \\
-Bsp.: Fenrir\_Spielregeln\_1.2\_20241003.pdf
-
-How-to Versionen:\\
-Neue Dokumente beginnen immer bei Version 1.0
-\begin{itemize}
-\item{Major (1. Nummer):}\\
-Bei Addition neuer Thematik
-
-\item{Minor (2.Nummer):}\\
-Bei Veränderung und/oder Ergänzung
-
-\item{Patch (3.Nummer) (kann weggelassen werden, wenn sie 0 ist):}\\
-z.B. Rechtschreibverbesserungen
-\end{itemize}
 
 \end{document}

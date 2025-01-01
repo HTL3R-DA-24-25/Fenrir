@@ -1,5 +1,4 @@
 % David Koch
-% Bastian Uhlig
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -46,7 +45,7 @@
 \usepackage{xspace}
 
 \usepackage{graphicx}
-\graphicspath{ {../../assets} }
+\graphicspath{ {../../assets} {../../assets/Planung/Risikoanalyse} }
 
 %%? \usepackage{textcomp}
 \usepackage[hyphens]{url}
@@ -72,6 +71,7 @@
 \usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
 \usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
 \usepackage{todonotes} % Provides tooltip-like todo notes.
+\usepackage{pdflscape}
 
 \usepackage{color}
 \usepackage[binary-units]{siunitx}
@@ -158,7 +158,7 @@
 bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 {hyperref}
-\hypersetup{pdftitle={Fenrir Spielregeln},
+\hypersetup{pdftitle={Fenrir Risikoanalyse},
 	pdfauthor={David Koch},
 	pdfsubject={DA},
 	pdfkeywords={5CN, Fenrir, DA}}
@@ -177,7 +177,7 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \widowpenalty = 10000 % Hurenkinder verhindern
 \displaywidowpenalty = 10000
 
-{\sffamily{\textbf{\LARGE{\textcolor{orange}{Spielregeln}}}}}\\
+{\sffamily{\textbf{\LARGE{\textcolor{orange}{Meilensteinplan}}}}}\\
 \noindent\rule{\textwidth}{0.1pt}
 \begin{nstabbing}
 	\hspace{4cm}\=\hspace{4cm}\=\hspace{4cm}\=\kill
@@ -191,121 +191,37 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & xx.xx.2024 & David Koch & Erstellung des Dokuments (Draft)\Tstrut  \\
-	v1.1 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Spielregeln)\Tstrut  \\
-	v1.2 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Kommunikationsmatrix \\
-	v1.2.1 & xx.xx.2024 & Bastian Uhlig & Rechtschreibkorrektur \Tstrut \\
-	v1.3 & xx.xx.2024 & Bastian Uhlig & Identifikation des Projektes \Bstrut \\
+	v1.0 & 17.09.2024 & David Koch & Erstellung des Meilensteinplans \\
+	v1.1 & 22.11.2024 & David Koch & Aktualisierung der Plantermine\Bstrut \\
 	\hline
 	\end{tabularx}
 }
 
-\section{Allgemeines}
-\subsection{Identifikation des Projekts}
-In dem Projekt Fenrir geht es um die Absicherung eines OT-Netzwerkes , welches ein Modell einer Kläranlage darstellt, von dem IT-Netzwerk der Firma. 
-\subsection{Leitgedanke}
-Kritische Infrastruktur gehört abgesichert!
-
-
-\section{Organisatorisches}
-\subsection{Fehlen von Teammitgliedern}
-Bei Abwesenheit ist eine E-Mail am ersten Tag der Abwesenheit vor Schulbeginn an den Projektleiter, sowie an den leitenden Betreuer zu verschicken. Wird der kritische Pfad durch Abwesenheit von Teammitgliedern beeinträchtigt, entscheidet der Projektleiter über etwaige Gegenmaßnahmen. Verspätete Abgabetermine sind in Ordnung, solange sich diese nicht häufen. Wenn dies passiert, werden striktere Termine vergeben, welche eingehalten werden müssen.
-
-\section{Informations- \& Kommunikationssystem}
-\subsection{Meetings}
-Meetings sind entweder lokal oder über Microsoft Teams abzuhalten.\\
-Für jedes Meeting muss ein Meetingleiter sowie ein Protokollführender spätestens 24h im Vorhinein durch die Agenda festgelegt werden. Das Protokoll muss direkt nach Abschluss an alle im Verteiler eingetragenen Personen ausgeschickt werden.\\
-In der Agenda ist bereits der Kurzbericht der Tagesordnungspunkte enthalten. Es ist von allen Meetingteilnehmern erwartet, in jedem Falle das Meeting moderieren zu können.\\
-Während den Meetings ist eine entsprechende Professionalität zu halten und jeder muss im Anschluss das Besprochene wiedergeben können.
-
-\subsection{Jour Fixe/Stand up-Meeting}
-Zweiwöchentliche Stand-ups, bei welchen jeder muss anwesend sein. Sie werden über Teams oder in Person abgehalten, wobei der Termin innerhalb von der Woche variieren darf. Wenn jemand an diesem Tag abwesend ist, muss sich am nächstmöglichen Arbeitstag die Information von einem Mitarbeiter eingeholt werden.
-
-\subsection{Berichtwesen}
-In jenen Wochen, in welchen kein Meeting stattfindet, wird ein Meilensteinbericht verfasst um eventuell kranke Mitarbeiter sowie Projektbetreuer auf dem Laufenden zu halten. Management Reviews können auf Wunsch von einem Mitarbeiter einberufen werden. \\
-Mit JIRA wird die Bearbeitung verschiedener Arbeitspakete verwaltet um eine Übersicht des Projektes zu erlangen. Außerdem wird Clockify zur Zeiterfassung verwendet.
-
-\subsection{E-Mail-Verkehr}
-E-Mails, die das ganze Projektteam betreffen, sind an alle Teammitglieder und die Betreuer zu senden. 
-Der Betreff muss kurz und knapp formuliert werden.
-
-\subsection{Kommunikation via Telefon}
-Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu können, jedoch wird diese Art der Kommunikation nur in Notfällen verwendet.
-
-\subsection{Kommunikationsmatrix}
 \begin{table}[h]
-\begin{tabularx} {\textwidth} {
-	|>{\columncolor[HTML]{D9D9D9}\raggedright\arraybackslash}X
-	|X
-	|X
-	|X
-	|X
-	|X
-	|X
-	|}
-
-\hline
-\rowcolor[HTML]{D9D9D9}
-\textbf{\normalsize{Wann Wer}} &
-\raggedright{\textbf{\normalsize{Zum Projektstart}}} &
-\raggedright{\textbf{\normalsize{Zu Meilensteinen}}} &
-\raggedright{\textbf{\normalsize{Bei Verzögerungen}}} &
-\raggedright{\textbf{\normalsize{Bei Problemen}}} & 
-\raggedright\arraybackslash{\textbf{\normalsize{Zum Projektabschluss}}} \\ \hline
-
-Auftraggeber (SDO + KUS) &
-Projektauftrag unterschrieben &
-Protokoll &
-E-Mail &
-Face-to-Face / Mail &
-Abnahme, Abschlussmeeting \\ \hline
-
-Projektleiter &
-Projektauftrag unterschreiben, Kick-Off &
-Meilenstein-Bericht &
-Face-to-Face &
-Face-to-Face &
-Abnahme, Abschlussmeeting \\ \hline
-
-Team &
-Kick-Off &
-Meilenstein-Bericht &
-Meeting über Umstände &
-Problemsolving Meeting &
-Projekt-präsentation \\ \hline
-
-
-
-\end{tabularx}
+	\begin{tabularx} {\textwidth} {
+			|>{\hsize=.05\textwidth}X
+			|>{\hsize=.457\textwidth}X
+			|>{\hsize=.12\textwidth}X
+			|>{\hsize=.12\textwidth}X
+			|>{\hsize=.12\textwidth}X|
+		}
+		
+		\hline
+		\rowcolor[HTML]{D9D9D9} 
+		\rule{0pt}{17pt}
+		\textbf{\normalsize{\#}} & \textbf{\normalsize{Meilenstein}} & \textbf{\normalsize{Basis-Termine}} & \textbf{\normalsize{Aktuelle Plantermine}} & \textbf{\normalsize{IST-Termine}} \\ \hline
+		1 & Fertigstellung der Website & 20 Sep. 2024 & 09 Sep. 2024 & 09 Sep. 2024\\ \hline
+		2 & Fertigstellung der Planung & 30 Sep. 2024 & 24 Sep. 2024 & 24 Sep. 2024\\ \hline
+		3 & Fertigstellung des ungesicherten IT-Teils & 15 Nov. 2024 & 10 Dez. 2024 & -\\ \hline
+		4 & Interne Präsentation abgehalten & 26 Nov. 2024 & 26 Nov. 2024 & -\\ \hline
+		5 & Fertigstellung des ungesicherten OT-Teils & 14 Dez. 2024 & 14 Dez. 2024 & -\\ \hline
+		6 & Zusammenführung von IT und OT & 31 Dez. 2024 & 31 Dez. 2024 & -\\ \hline
+		7 & Topologie ist abgesichert und wird überwacht & 05 Feb. 2025 & 05 Feb. 2025 & -\\ \hline
+		8 & Handbuch erstellt & 28 Feb. 2025 & 28 Feb. 2025 & -\\ \hline
+		9 & DA-Buch geschrieben & 14 Mär. 2025 & 14 Mär. 2025 & -\\ \hline
+		10 & Abnahme der Diplomarbeit & 28 Mär. 2025 & 28 Mär. 2025 & -\\ \hline
+		11 & Endpräsentation abgehalten & 02 Apr. 2025 & 02 Apr. 2025 & -\\ \hline
+	\end{tabularx}
 \end{table}
-
-\subsection{Dokumentenablage}
-Alle Dokumente des Projektes sind in \LaTeX\ zu verfassen, wobei die einzige Ausnahme nach Absprache Agendas sowie Meetingprotokolle sind. Alle WIP Dokumente sind auf GitHub abzulegen. Wenn sie kontrolliert werden sollen bzw. abgeschlossen sind, wird das \LaTeX-Dokument als PDF kompiliert und auf Microsoft Teams hochgeladen.
-
-\section{Nomenklatur}
-\subsection{Dokumentenerstellung}
-Projektrelevante Dokumente sind alle in einer einheitlichen Fassung zu erstellen, welche das Logo des Projektes sowie der HTL3R in der Kopfzeile beinhaltet.
-
-\subsection{Dokumentenbenennung}
-Auf dem Fenrir-GitHub-Repository werden die Dokumente nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
-Fenrir\_DOKUMENTENNAME.tex \\
-Bsp.: Fenrir\_Spielregeln.tex
-
-Fertige Dokumente auf Microsoft Teams werden nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
-Fenrir\_DOKUMENTENNAME\_VERSIONSNUMMER\_JJJJMMTT.pdf \\
-Bsp.: Fenrir\_Spielregeln\_1.2\_20241003.pdf
-
-How-to Versionen:\\
-Neue Dokumente beginnen immer bei Version 1.0
-\begin{itemize}
-\item{Major (1. Nummer):}\\
-Bei Addition neuer Thematik
-
-\item{Minor (2.Nummer):}\\
-Bei Veränderung und/oder Ergänzung
-
-\item{Patch (3.Nummer) (kann weggelassen werden, wenn sie 0 ist):}\\
-z.B. Rechtschreibverbesserungen
-\end{itemize}
 
 \end{document}

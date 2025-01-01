@@ -1,4 +1,4 @@
-% Gabriel Vogler
+% David Koch
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -45,7 +45,7 @@
 \usepackage{xspace}
 
 \usepackage{graphicx}
-\graphicspath{ {../../assets} }
+\graphicspath{ {../../../assets} }
 
 %%? \usepackage{textcomp}
 \usepackage[hyphens]{url}
@@ -127,15 +127,7 @@
 \renewcommand{\lstlistingname}{\inputencoding{utf8}Listing}
 
 \usepackage{tabularx}
-\usepackage{tabulary}
 \usepackage{scrhack}
-\usepackage{longtable}
-\usepackage{ragged2e}
-
-\newcommand{\positiv}{\textbf{\textcolor[HTML]{00B050}{positiv}}}
-\newcommand{\negativ}{\textbf{\textcolor[HTML]{FF0000}{negativ}}}
-\newcommand{\green}[1]{\textcolor[HTML]{00B050}{#1}}
-\newcommand{\red}[1]{\textcolor[HTML]{FF0000}{#1}}
 
 \usepackage{array}
 \newcommand\Tstrut{\rule{0pt}{3.2ex}}         % = `top' strut
@@ -146,12 +138,6 @@
 		\setlength{\partopsep}{-\parskip}
 		\tabbing}
 	{\endtabbing}
-	
-\newenvironment{myitemize}{
-    \begin{itemize}[leftmargin=1.7em]
-}{
-    \end{itemize}
-}
 
 \usepackage{titlesec}
 % \titleformat{?Überschriftenklasse?}[Absatzformatierung?]{?Textformatierung?} {?Nummerierung?}{?Abstand zwischen Nummerierung und Überschriftentext?}{?Code vor der Überschrift?}[?Code nach der Überschrift?]
@@ -171,10 +157,10 @@
 bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 {hyperref}
-\hypersetup{pdftitle={Fenrir Stakeholderanalyse},
-	pdfauthor={Bastian Uhlig},
+\hypersetup{pdftitle={Fenrir Arbeitspaketdefinition},
+	pdfauthor={David Koch & sein Python-Skript},
 	pdfsubject={DA},
-	pdfkeywords={5CN, Fenrir, DA}}
+	pdfkeywords={5CN, ITP}}
 \urlstyle{same} % don't use monospace font for urls
 
 % Auch Fußnoten bündig ausrichten
@@ -183,8 +169,6 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \sloppy % weniger Meldungen
 \voffset7mm % etwas nach unten
 
-\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %% schöner: 10000 -- gar keine, 1000 als Mittelweg
@@ -192,7 +176,7 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 \widowpenalty = 10000 % Hurenkinder verhindern
 \displaywidowpenalty = 10000
 
-{\sffamily{\textbf{\LARGE{\textcolor{orange}{Stakeholderanalyse}}}}}\\
+{\sffamily{\textbf{\LARGE{\textcolor{orange}{Arbeitspaketdefinition}}}}}\\
 \noindent\rule{\textwidth}{0.1pt}
 \begin{nstabbing}
 	\hspace{4cm}\=\hspace{4cm}\=\hspace{4cm}\=\kill
@@ -206,116 +190,12 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\begin{tabularx}{\textwidth}{l l l l}
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
-	v1.0 & 13.05.2024 & Gabriel Vogler & Erstellung des Dokuments  \Bstrut \\
+	v1.0 & 24.09.2024 & David Koch & Erstellung der LaTeX-Template für Befüllung mittels Python-Skript \\
+	v1.1 & - & Automatisiert (Jira) & Befüllung der Arbeitspaket-Daten \Bstrut \\
 	\hline
 	\end{tabularx}
 }
 
-
-\section{Projekt Stakeholder-Liste}
-\begin{longtable}{|M{1cm}|M{2.5cm}|M{3cm}|M{2cm}|M{2cm}|M{3.5cm}|}
-\hline
-
-\hline
-\textbf{\normalsize{Nr. (Ext/Int)}} &
-\textbf{\normalsize{Bezeichnung des Stakeholders}} &
-\textbf{\normalsize{Beschreibung des Stakeholders}} &
-\textbf{\normalsize{Einfluss auf Projekt/Macht
-(gering/hoch)}} &
-\textbf{\normalsize{Einstellung zum Projekt 
-(\positiv / \negativ)}} &
-\textbf{\normalsize{Maßnahmen}} \\ \hline
-E-01 & Christian Schöndorfer & Auftraggeber & hoch & \positiv &
-\RaggedRight{
-\begin{myitemize}
-	\item Termingerechte Fertigstellung
-	\item hohe Qualität der Ergebnisse
-	\item Alle 2 Wochen Meetings
-	\item jede andere 2.Woche einen Statusbericht
-\end{myitemize}} \\ \hline 
-E-02 & Clemens Kussbach & Auftraggeber Stv. & hoch & \positiv &
-	\begin{myitemize}
-	\item Termingerechte Fertigstellung
-	\item hohe Qualität der Ergebnisse
-	\item Alle 2 Wochen Meetings
-	\item jede andere 2.Woche einen Statusbericht
-	\end{myitemize} \\ \hline
-E-03 & Fortinet & Sponsor & gering & \positiv &
-	\begin{myitemize}
-	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
-	\end{myitemize} \\ \hline 
-E-04 & Ikarus & Sponsor & gering & \positiv &
-	\begin{myitemize}
-	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
-	\end{myitemize} \\ \hline 
-E-05 & Schöller Network Control & Sponsor & hoch & \positiv &
-	\begin{myitemize}
-	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
-	\end{myitemize} \\ \hline
-E-06 & HTL Rennweg INKO Verein & Sponsor & niedrig & \positiv &
-	\begin{myitemize}
-	\item Erwähnung in diversen Präsentationen, Webauftritt, Social Media und im Diplomarbeitsbuch
-	\end{myitemize} \\ \hline
-E-07 & IT/OT-Security Unternehmen & Konkurrenz & niedrig & \negativ &
-	\begin{myitemize}
-    \item Marktbeobachtung und Analyse
-    \item Entwicklung von Alleinstellungsmerkmalen
-	\end{myitemize} \\ \hline
-I-01 & David Koch & Projektleiter & hoch & \positiv & 
-	\begin{myitemize}
-	\item Schnellstmögliches Informieren zu Änderungen
-	\item Befragung bei größeren Problemen
-	\end{myitemize} \\ \hline
-I-02 & Bastian Uhlig & Projektleiter Stv. & hoch & \positiv & 
-	\begin{myitemize}
-	\item Schnellstmögliches Informieren zu Änderungen
-	\item Befragung bei größeren Problemen
-	\end{myitemize} \\ \hline
-I-03 & Gabriel Vogler & Projektmitarbeiter & hoch & \positiv & 
-	\begin{myitemize}
-	\item Schnellstmögliches Informieren zu Änderungen
-	\item Befragung bei größeren Problemen
-	\end{myitemize} \\ \hline
-I-04 & Julian Burger & Projektmitarbeiter & hoch & \positiv & 
-	\begin{myitemize}
-	\item Schnellstmögliches Informieren zu Änderungen
-	\item Befragung bei größeren Problemen
-	\end{myitemize} \\ \hline
-
-
-
-
-\end{longtable}
-
-\section{Stakeholder Portfolio}
-\begin{table}[h]
-\begin{tabularx} {\textwidth} {|X|X|}
-\hline
-
-\footnotesize{\textcolor[HTML]{A6A6A6}{Zufriedenstellen}}
-& \footnotesize{\textcolor[HTML]{A6A6A6}{Eng managen (hoher Aufwand)}} \\ 
-& \green {E-01 Christian Schöndorfer} \\
-& \green {E-02 Clemens Kussbach} \\
-& \green {I-01 David Koch} \\
-& \green {I-02 Bastian Uhlig} \\
-& \green {I-03 Gabriel Vogler} \\
-& \green {I-04 Julian Burger}
- \\ \hline 
-
-\footnotesize{\textcolor[HTML]{A6A6A6}{Überwachen (wenig Aufwand betreiben)}}
-& \footnotesize{\textcolor[HTML]{A6A6A6}{Informieren/auf dem Laufenden halten}} \\
-\red {E-07 IT/OT-Security Unternehmen} 
-& \green {E-03 Fortinet} \\
-& \green {E-04 Ikarus} \\
-& \green {E-05 Schöller Network Control} \\
-& \green {E-06 HTL Rennweg INKO Verein}
-
- 
- \\ \hline 
-
-
-
-\end{tabularx}
-\end{table}
+*INSERT*
 
 \end{document}

@@ -302,3 +302,11 @@ TSWLatexianTemp*
 #*Notes.bib
 
 schematics/**/*backup*
+sensitive.*
+*.vmdk
+*.iso
+cidata
+.idea
+.fleet
+.vscode
+id_rsa*
