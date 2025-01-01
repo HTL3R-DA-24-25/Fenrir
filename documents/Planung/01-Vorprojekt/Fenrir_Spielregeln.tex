@@ -1,4 +1,5 @@
 % David Koch
+% Bastian Uhlig
 
 \documentclass[
 	headings=optiontotocandhead,% Erweiterung für das optionale Argument der
@@ -191,14 +192,17 @@ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Autorin/Autor} & \textbf{Änderung}\Tstrut  \\
 	v1.0 & xx.xx.2024 & David Koch & Erstellung des Dokuments (Draft)\Tstrut  \\
-	v1.1 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Spielregeln \Bstrut \\
+	v1.1 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Spielregeln)\Tstrut  \\
+	v1.2 & xx.xx.2024 & Bastian Uhlig & Ergänzung der Kommunikationsmatrix \\
+	v1.2.1 & xx.xx.2024 & Bastian Uhlig & Rechtschreibkorrektur \Tstrut \\
+	v1.3 & xx.xx.2024 & Bastian Uhlig & Identifikation des Projektes \Bstrut \\
 	\hline
 	\end{tabularx}
 }
 
 \section{Allgemeines}
 \subsection{Identifikation des Projekts}
-\blindtext
+In dem Projekt Fenrir geht es um die Absicherung eines OT-Netzwerkes , welches ein Modell einer Kläranlage darstellt, von dem IT-Netzwerk der Firma. 
 \subsection{Leitgedanke}
 Kritische Infrastruktur gehört abgesichert!
 
@@ -210,16 +214,16 @@ Bei Abwesenheit ist eine E-Mail am ersten Tag der Abwesenheit vor Schulbeginn an
 \section{Informations- \& Kommunikationssystem}
 \subsection{Meetings}
 Meetings sind entweder lokal oder über Microsoft Teams abzuhalten.\\
-Für jedes Meeting muss ein Meetingleiter sowie ein Protokollführender spätestens 24h im Vorhinein durch die Agenda festgelegt werden. Das Protokoll muss direkt nach Abschluss des Meetings an alle im Verteiler eingetragenen Personen ausgeschickt werden.\\
+Für jedes Meeting muss ein Meetingleiter sowie ein Protokollführender spätestens 24h im Vorhinein durch die Agenda festgelegt werden. Das Protokoll muss direkt nach Abschluss an alle im Verteiler eingetragenen Personen ausgeschickt werden.\\
 In der Agenda ist bereits der Kurzbericht der Tagesordnungspunkte enthalten. Es ist von allen Meetingteilnehmern erwartet, in jedem Falle das Meeting moderieren zu können.\\
 Während den Meetings ist eine entsprechende Professionalität zu halten und jeder muss im Anschluss das Besprochene wiedergeben können.
 
 \subsection{Jour Fixe/Stand up-Meeting}
-Zweiwöchentliche Stand-ups, bei welchen jeder muss anwesend sein. Sie werden über Teams oder in Person abgehalten, wobei der Termin innerhalb von einer Woche variieren darf. Wenn jemand an diesem Tag abwesend ist, muss sich amnächstmöglichen Arbeitstag die Information von einem Mitarbeiter eingeholt werden.
+Zweiwöchentliche Stand-ups, bei welchen jeder muss anwesend sein. Sie werden über Teams oder in Person abgehalten, wobei der Termin innerhalb von der Woche variieren darf. Wenn jemand an diesem Tag abwesend ist, muss sich am nächstmöglichen Arbeitstag die Information von einem Mitarbeiter eingeholt werden.
 
 \subsection{Berichtwesen}
-In jenen Wochen, in welchen kein Meeting stattfindet, wird ein Meileinsteinbericht verfasst, um eventuell kranke Mitarbeiter sowie Projektbetreuer auf dem Laufenden zu halten. Management Reviews können auf Wunsch von einem MA einberufen werden. \\
-Mit JIRA wird die Bearbeitung verschiedener Arbeitspakete verwaltet, um eine Übersicht des Projektes zu erlangen. Außerdem wird Clockify zur Zeiterfassung verwendet.
+In jenen Wochen, in welchen kein Meeting stattfindet, wird ein Meilensteinbericht verfasst um eventuell kranke Mitarbeiter sowie Projektbetreuer auf dem Laufenden zu halten. Management Reviews können auf Wunsch von einem Mitarbeiter einberufen werden. \\
+Mit JIRA wird die Bearbeitung verschiedener Arbeitspakete verwaltet um eine Übersicht des Projektes zu erlangen. Außerdem wird Clockify zur Zeiterfassung verwendet.
 
 \subsection{E-Mail-Verkehr}
 E-Mails, die das ganze Projektteam betreffen, sind an alle Teammitglieder und die Betreuer zu senden. 
@@ -231,7 +235,7 @@ Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu kö
 \subsection{Kommunikationsmatrix}
 \begin{table}[h]
 \begin{tabularx} {\textwidth} {
-	|>{\columncolor[HTML]{D9D9D9}\raggedleft\arraybackslash}X
+	|>{\columncolor[HTML]{D9D9D9}\raggedright\arraybackslash}X
 	|X
 	|X
 	|X
@@ -242,13 +246,33 @@ Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu kö
 
 \hline
 \rowcolor[HTML]{D9D9D9}
-\rule{0pt}{17pt}
-\textbf{\normalsize{Wann  Wer}} &
-\textbf{\normalsize{Zum Projektstart}} &
-\textbf{\normalsize{Zu Meilensteinen}} &
-\textbf{\normalsize{Bei Verzögerungen}} &
-\textbf{\normalsize{Bei Problemen}} & 
-\textbf{\normalsize{Zum Projektabschluss}} \\ \hline
+\textbf{\normalsize{Wann Wer}} &
+\raggedright{\textbf{\normalsize{Zum Projektstart}}} &
+\raggedright{\textbf{\normalsize{Zu Meilensteinen}}} &
+\raggedright{\textbf{\normalsize{Bei Verzögerungen}}} &
+\raggedright{\textbf{\normalsize{Bei Problemen}}} & 
+\raggedright\arraybackslash{\textbf{\normalsize{Zum Projektabschluss}}} \\ \hline
+
+Auftraggeber (SDO + KUS) &
+Projektauftrag unterschrieben &
+Protokoll &
+E-Mail &
+Face-to-Face / Mail &
+Abnahme, Abschlussmeeting \\ \hline
+
+Projektleiter &
+Projektauftrag unterschreiben, Kick-Off &
+Meilenstein-Bericht &
+Face-to-Face &
+Face-to-Face &
+Abnahme, Abschlussmeeting \\ \hline
+
+Team &
+Kick-Off &
+Meilenstein-Bericht &
+Meeting über Umstände &
+Problemsolving Meeting &
+Projekt-präsentation \\ \hline
 
 
 
@@ -256,7 +280,7 @@ Private Telefonnummern werden gespeichert, um die MA im Notfall erreichen zu kö
 \end{table}
 
 \subsection{Dokumentenablage}
-Alle Dokumente des Projektes sind in \LaTeX\ zu verfassen, wobei die einzige Ausnahme nach Absprache Agendas sowie Meetingprotokolle sind. Alle WIP Dokumente sind auf Github abzulegen. Wenn sie kontrolliert werden sollen bzw. abgeschlossen sind, wird das \LaTeX-Dokument als PDF kompiliert und auf Microsoft Teams hochgeladen.
+Alle Dokumente des Projektes sind in \LaTeX\ zu verfassen, wobei die einzige Ausnahme nach Absprache Agendas sowie Meetingprotokolle sind. Alle WIP Dokumente sind auf GitHub abzulegen. Wenn sie kontrolliert werden sollen bzw. abgeschlossen sind, wird das \LaTeX-Dokument als PDF kompiliert und auf Microsoft Teams hochgeladen.
 
 \section{Nomenklatur}
 \subsection{Dokumentenerstellung}
@@ -267,7 +291,7 @@ Auf dem Fenrir-GitHub-Repository werden die Dokumente nach folgendem Schema bena
 Fenrir\_DOKUMENTENNAME.tex \\
 Bsp.: Fenrir\_Spielregeln.tex
 
-Fertige Dokumente werden nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
+Fertige Dokumente auf Microsoft Teams werden nach folgendem Schema benannt (jeweils mit einem konkreten Beispiel): \\
 Fenrir\_DOKUMENTENNAME\_VERSIONSNUMMER\_JJJJMMTT.pdf \\
 Bsp.: Fenrir\_Spielregeln\_1.2\_20241003.pdf
 

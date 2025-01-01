@@ -1,0 +1,14 @@
+- name: setup primary dc
+  hosts: primary
+  vars:
+    ansible_ssh_password: "{{ bastion_password }}"
+    ansible_ssh_common_args: >-
+      -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+      -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ForwardAgent=yes
+      {{ bastion_username }}@{{ bastion_host }} 'ssh-add && nc %h %p'"
+  vars_files:
+    - ../../../variables.yml
+    - ../../../secrets.yml
+  tasks:
+    - name: test
+      ansible.windows.win_ping:

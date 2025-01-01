@@ -1,0 +1,177 @@
+hc-auto-prov:
+  type: article
+  title: How Automated Provisioning Tools Pave the Way to Multi-Cloud Adoption
+  author:
+    given-name: Kyle
+    name: Ruddy
+  url:
+    value: "https://www.hashicorp.com/blog/how-automated-provisioning-tools-pave-the-way-to-multi-cloud-adoption"
+    date: 2024-12-14
+  date: 2021-09-23
+
+ci-docs:
+  type: misc
+  title: Cloud-init documentation
+  author: Canonical Group Ltd.
+  url:
+    value: https://cloudinit.readthedocs.io/en/latest/index.html
+    date: 2024-12-14
+  date: 2024
+
+lateral-movement-def:
+  type: misc
+  title: Lateral Movement Definition
+  author: Fortinet Inc.
+  url:
+    value: https://www.fortinet.com/resources/cyberglossary/lateral-movement
+    date: 2024-12-19
+  date: 2024
+
+lmp-list-1:
+  type: article
+  title: 9 Lateral Movement Techniques and Defending Your Network
+  author: Exabeam
+  url:
+    value: https://www.exabeam.com/explainers/what-are-ttps/9-lateral-movement-techniques-and-defending-your-network/
+    date: 2024-12-19
+  date: 2024
+
+lmp-list-2:
+  type: misc
+  title: TA0109
+  author: MITRE ATT&CK
+  url:
+    value: https://attack.mitre.org/tactics/TA0109/
+    date: 2024-12-19
+  date: 2023-03-08
+
+i2c-manual:
+  type: reference
+  title: AN10216-01 (I²C Manual)
+  author: 
+    - Irazabal, Jean-Marc 
+    - Blozis, Steve
+  url:
+    value: https://www.nxp.com/docs/en/application-note/AN10216.pdf
+    date: 2024-12-13
+  date: 2003-03-24
+
+i2c-disturbance:
+  type: report
+  title: Analysis of sensor disturbances caused by IEMI
+  author:
+    - Pahl, Arne
+    - Dickmann, Stefan
+  serial-number:
+    doi: "10.15488/12572"
+  publisher:
+    name: Apprimus
+    location: Aachen, Germany
+  url:
+    value: https://repo.uni-hannover.de/items/3e39f8b0-b3a8-47b9-bc70-af4c513f37c9
+    date: 2024-12-19
+  date: 2022
+
+esp32-meets-rpi:
+  type: misc
+  title: ESP32 meets Raspberry Pi
+  author:
+    given-name: Marc
+    name: Engrie
+  url:
+    value: https://data.engrie.be/ESP32/ESP32_-_Part_12_-_ESP32_meets_Raspberry_Pi.pdf
+    date: 2024-12-13
+  date: 2021-01-14
+
+# Wird derzeit nur verwendet um das Bauen einer Modell-Kläranlage zu rechtfertigen, enthält aber auch einige Vorgaben bzgl Absicherung also könnte man das da auch vllt verwenden als Quelle
+cisa-wastewater:
+  type: report
+  title: Defending OT Operations Against Ongoing Pro-Russia Hacktivist Activity
+  author: Cybersecurity & Infrastructure Security Agency (USA)
+  url:
+    value: https://www.cisa.gov/sites/default/files/2024-05/defending-ot-operations-against-ongoing-pro-russia-hacktivist-activity-508c.pdf
+    date: 2024-12-19
+  date: 2024-05-01
+
+cyberattacks-crit-infra:
+  type: article
+  title: Cyber attacks on critical infrastructure
+  author: Allianz SE
+  url:
+    value: https://commercial.allianz.com/news-and-insights/expert-risk-articles/cyber-attacks-on-critical-infrastructure.html
+    date: 2024-12-19
+  date: 2024-06-01
+
+# Sowas sollte eig nicht als Quelle zitiert werden aber naja
+fw-rugged-feats:
+  type: misc
+  title: Sichere Betriebstechnologie
+  author: Fortinet Inc.
+  url:
+    value: https://www.fortinet.com/de/solutions/enterprise-midsize-business/ot-security
+    date: 2024-12-19
+  date: 2024
+
+# sowas sollte erst recht nicht als quelle benutzt werden weil das ist zu 200% ai generated china verkaufsslop
+siemens-marktanteil:
+  type: blog
+  title: Welche SPS wird in der Industrie am häufigsten eingesetzt? Die wichtigsten SPS erklärt
+  author: KWOCO Automation Co., Ltd. 
+  url:
+    value: https://kwoco-plc.com/de/most-used-plc-in-industry/
+    date: 2024-12-23
+  date: 2024
+
+simatic-history:
+  type: misc
+  title: Automatisierung passiert nicht automatisch
+  author: Siemens AG
+  url:
+    value: https://www.siemens.com/de/de/unternehmen/konzern/geschichte/specials/175-jahre/simatic.html
+    date: 2024-12-23
+  date: 2024
+
+openplc-overview:
+  type: misc
+  title: OpenPLC Overview
+  author: Thiago Alves
+  url:
+    value: https://autonomylogic.com/docs/openplc-overview/
+    date: 2024-12-23
+  date: 2022-10-05
+
+modbus-tcp-encap:
+  type: misc
+  title: Detailed description of the Modbus TCP protocol with command examples
+  author: IPC2U GmbH
+  url:
+    value: https://ipc2u.com/articles/knowledge-base/detailed-description-of-the-modbus-tcp-protocol-with-command-examples/
+    date: 2024-12-23
+  date: 2017-04-26
+
+it-sec-de:
+  type: report
+  title: Die Lage der IT-Sicherheit in Deutschland 2014
+  author: Bundesamt für Sicherheit in der Informationstechnik (BSI)
+  url:
+    value: https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/Lageberichte/Lagebericht2014.pdf?__blob=publicationFile
+    date: 2024-12-23
+  date: 2014-10-01
+
+ndu-stuxnet:
+  type: report
+  title: STUXNET AND STRATEGY – A Special Operation in Cyberspace?
+  author: Lukas Milevski
+  url:
+    value: https://ndupress.ndu.edu/Portals/68/Documents/jfq/jfq-63/jfq-63_64-69_Milevski.pdf?ver=Jy0SW9E8UBbatlrmrw-egQ%3D%3D
+    date: 2024-12-24
+  date: 2011
+
+spiegel-10-jahre-stuxnet:
+  type: article
+  title: Die erste Cyberwaffe und ihre Folgen
+  author: Patrick Beuth
+  url:
+    value: https://www.spiegel.de/netzwelt/web/die-erste-cyberwaffe-und-ihre-folgen-a-a0ed08c9-5080-4ac2-8518-ed69347dc147
+    date: 2024-12-24
+  date: 2020-06-17
