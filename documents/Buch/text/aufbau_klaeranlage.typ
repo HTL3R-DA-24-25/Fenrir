@@ -67,7 +67,7 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
 === Schaltplan
 
 #htl3r.fspace(
-  total_width: 100%,
+  total-width: 100%,
   figure(
     image("../assets/Zelle_2_Schaltplan.png"),
     caption: [Schaltplan der 2. Betriebszelle]

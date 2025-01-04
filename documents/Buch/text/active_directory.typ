@@ -17,7 +17,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
 
 === OU-Struktur
 #htl3r.fspace(
-  total_width: 100%,
+  total-width: 100%,
   figure(
     align(center, box(align(left, text[
       DC=corp,DC=fenrir-ot,DC=at\
@@ -42,7 +42,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
 === Benutzerkonten
 #show table.cell.where(y: 0): set text(size: 8pt)
 #htl3r.fspace(
-  total_width: 100%,
+  total-width: 100%,
   figure(
     table(
       columns: (8em, auto, auto, auto,),
@@ -73,7 +73,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
   fill: red.lighten(60%),
 )[]
 #htl3r.fspace(
-  total_width: 100%,
+  total-width: 100%,
   figure(
     table(
       columns: (8em, auto, auto, auto, auto, auto),
@@ -104,7 +104,7 @@ Die Domain Controller teilen sich die Aufgaben:
 #show table.cell.where(x: 0): strong
 
 #htl3r.fspace(
-  total_width: 100%,
+  total-width: 100%,
   figure(
     table(
       columns: (5em, auto, auto),

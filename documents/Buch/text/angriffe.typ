@@ -16,7 +16,7 @@ Stuxnet ist ein Computerwurm, der im Juni 2010 entdeckt und zuerst unter dem Nam
 
 Da bis Ende September 2010 der Iran den größten Anteil der infizierten Computer besaß und es zu außergewöhnlichen Störungen im iranischen Atomprogramm kam, lag es nah, dass Stuxnet hauptsächlich entstand, um als Schadsoftware die Leittechnik (Zentrifugen) der Urananreicherungsanlage in Natanz oder des Kernkraftwerks Buschehr zu stören @ndu-stuxnet.
 
-Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von Industrieanlagen zu sabotieren, als bisher einzigartig @ndu-stuxnet. Das heißt aber nicht, dass in der Zukunft nicht noch weitere Netzwerkwürmer auf das Internet losgelassen werden, dessen Hauptziel es seien wird, #htl3r.short[ot]-Netzwerke lahmzulegen.
+Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von Industrieanlagen zu sabotieren, als bisher einzigartig @spiegel-10-jahre-stuxnet. Das heißt aber nicht, dass in der Zukunft nicht noch weitere Netzwerkwürmer auf das Internet losgelassen werden, dessen Hauptziel es seien wird, #htl3r.short[ot]-Netzwerke lahmzulegen.
 
 === Lateral Movement
 
@@ -25,7 +25,7 @@ Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern eines Netz
 Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, sogenannte Lateral Movement Techniques bzw. #htl3r.longpl[lmp] (#htl3r.shortpl[lmp]):
 
 #htl3r.fspace(
-  total_width: 100%,
+  total-width: 100%,
   figure(
     table(
       columns: (11em, auto, 6em, 6em),
@@ -45,7 +45,7 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
 @lmp-list-1
 @lmp-list-2
 
-Die obigen Techniken sind natürlich miteinander kombinierbar, z.B. (#htl3r.short[lotl]) und Remote Services. Es auch ebenfalls zu beachten, dass die Bewertung der Wahrscheinlichkeit und Erkennbarkeit in der obigen Tabelle von einer bestehenden Absicherung des Netzwerks und vorhandenen #htl3r.short[ids]-Geräten ausgeht.
+Die obigen Techniken sind natürlich miteinander kombinierbar, z.B. #htl3r.short[lotl] und Remote Services. Es auch ebenfalls zu beachten, dass die Bewertung der Wahrscheinlichkeit und Erkennbarkeit in der obigen Tabelle von einer bestehenden Absicherung des Netzwerks und vorhandenen #htl3r.short[ids]-Geräten ausgeht.
 
 Bevor der Angreifer jedoch mögliche #htl3r.shortpl[lmp] ausnutzen kann, muss dieser überhaupt in das Netzwerk eindringen. Dies geschieht meist durch Identity-Angriffe wie Phishing-Mails, aber auch durch maliziöse Downloads und kompromitierter Hardware.
 
@@ -71,6 +71,7 @@ Zur Verhinderung solcher Angriffe können ...
 
 === ...
 
+#htl3r.author("David Koch")
 == Konkretes Angriffsszenario
 
 Phishing Mail an Buchhaltung von außen --> mittels stolen identity eines BH Mitarbeiters eine interne Spear-Phishing-Mail an OT-Engineer schicken bzgl. Inventurliste z.B. --> Angreifer nutzt die RDP Berechtigungen des OT-Engineers um weiter einzudringen --> LotL, Angreifer sammelt Infos über SCADA wie die Anlage intern ausschaut --> Default Credentials auf OpenPLC upsi --> Steuerung der Zelle 2 wird gesprengt/umprogrammiert --> Super GAU
