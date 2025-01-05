@@ -157,11 +157,11 @@ Im PC wird ein dem #htl3r.short[i2c]-Bus sehr ähnliches System benutzt, um z.B.
 
 #htl3r.fspace(
   [
-  #figure(
-    image("../assets/rpi_esp32_i2c_fenrir.svg"),
-    caption: [Der Kommunikationsaufbau zwischen RPI, ESP32 und Sensorik]
-  )
-  <i2c-aufbau>
+    #figure(
+      image("../assets/rpi_esp32_i2c_fenrir.svg"),
+      caption: [Der Kommunikationsaufbau zwischen RPI, ESP32 und Sensorik]
+    )
+    <i2c-aufbau>
   ]
 )
 

@@ -26,30 +26,48 @@ Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindli
 
 === Multi-VDOM-Mode
 
-Eine #htl3r.short[vdom] (kurz für "Virtual Domain") ist eine von anderen #htl3r.shortpl[vdom] unabhängige administrative Einheit innerhalb einer FortiGate-Firewall. TODOOOO. Wenn kein Multi-#htl3r.short[vdom]-Mode verwendet wird, läuft alles auf der Firewall über die Root-#htl3r.short[vdom].
+Eine #htl3r.short[vdom] (kurz für "Virtual Domain") ist eine von anderen #htl3r.shortpl[vdom] unabhängige administrative Einheit innerhalb einer FortiGate-Firewall.
+
+Wenn kein Multi-#htl3r.short[vdom]-Mode verwendet wird, läuft alles auf der Firewall über die Root-#htl3r.short[vdom] und alle vorgenommenen Konfigurationen sind global auf dem Gerät vorhanden. Die Root-#htl3r.short[vdom] kann somit logischerweise nicht gelöscht werden. @vdom-overview
 
 Fortinet gibt einige Verwendungsarten für #htl3r.short[vdom]s vor, wobei bei der Zellen-Firewall zwei dieser Arten gemeinsam eingesetzt werden:
-+ *Internet access VDOM*
 
-fdfdf
-#htl3r.fspace(
-  figure(
-    image("../assets/internet_access_vdom_official.png"),
-    caption: [Die offizielle "Internet access VDOM" Topologie]
++ *Internet access VDOM*:
+  #linebreak()
+  In dieser Konfiguration ist der Internetzugriff über eine einzelne #htl3r.short[vdom] -- beispielsweise die Root-VDOM in @internet-access-vdom -- bereitgestellt. Die Root-VDOM versorgt ...
+  #htl3r.fspace(
+    total-width: 95%,
+    [
+      #figure(
+        image("../assets/internet_access_vdom_official.png"),
+        caption: [Eine Beispieltopologie für die "Internet access VDOM"]
+      )
+      <internet-access-vdom>
+    ]
   )
-)
+  Die #htl3r.shortpl[vdom] sind untereinander mit #htl3r.short[vdom]-Links verbunden. Diese Links sind notwendig, um Inter-#htl3r.short[vdom]-Routing zu erzielen und stellen virtuelle Netzwerke zwischen den #htl3r.shortpl[vdom] dar.
 
 + *Administrative VDOM* (on a management network)
-
-fdfdfdf
-#htl3r.fspace(
-  figure(
-    image("../assets/administrative_vdom_official.png"),
-    caption: [Die offizielle "Administrative VDOM" Topologie]
+  #linebreak()
+  fdfdfdf
+  #htl3r.fspace(
+    total-width: 95%,
+    [
+      #figure(
+        image("../assets/administrative_vdom_official.png"),
+        caption: [Eine Beispieltopologie für die "Administrative VDOM"]
+      )
+      <administrative-vdom>
+    ]
   )
-)
 
-https://docs.fortinet.com/document/fortigate/7.6.1/administration-guide/597696/vdom-overview
+@vdom-overview
+
+Die Aspekte der "Internet access #htl3r.short[vdom]" finden sich in der Segmentierung der Betriebszellen-spezifischen Konfiguration mittels eigenen #htl3r.shortpl[vdom] für jede Zelle wider. Somit ist beispielsweise die Konfiguration der Policies für den Traffic von Zelle 1 zum #htl3r.short[scada] vom Traffic von Zelle 2 zum #htl3r.short[scada] voneinander getrennt. Dies macht zwar die Konfiguration neuer Policies und deren Anwendung zwar umständlicher, es garantiert aber, dass sich der/die Systemadministrator*in immer dessen bewusst ist, im Rahmen welcher Zelle er/sie gerade handelt und somit weniger Konfigurationsfehler auftreten können.
+
+Die "Administrative #htl3r.short[vdom]" ist implementiert worden, um eine vom restlichen Netzwerk möglichst abgetrennte Verbindung zur Firewall bereitzustellen, über welche der Konfigurationszugriff gestattet ist.
+
+Zur Konfiguration dieser VDOMs ...
 
 #htl3r.code-file(
   caption: "Die Konfiguration der VDOM von Zelle 1",
@@ -68,3 +86,11 @@ https://docs.fortinet.com/document/fortigate/7.6.1/administration-guide/597696/v
   skips: ((115, 0), (126, 0), (134, 0)),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
+
+Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung von den Betriebszellen wäre die Verwendung von #htl3r.shortpl[vlan] mit folgendem Aufbau:
+
+* BILD *
+
+Hierbei werden alle #htl3r.shortpl[sps] an einen gemeinsamen #htl3r.short[ot]-Switch angebunden, welcher ähnlich zur Zellen-Firewall direkt im Schaltschrank hängt. Dieser weißt den einzelnen Interfaces, die zu den #htl3r.shortpl[sps] führen, eigene #htl3r.shortpl[vlan] zu, um die Verbindungen in mehrere Netzwerk aufzuspalten.
+
+Die Firewall erhält über eine Trunk-Verbindung vom Switch alle Daten aus den einzelnen #htl3r.shortpl[vlan] und leitet diese je nach ihrer Herkunft anders weiter, als wären sie aus verschiedenen Netzwerken gekommen, wobei nie die dritte OSI-Schicht verwendet worden ist. Diese Methode wird "Router on a Stick" genannt.

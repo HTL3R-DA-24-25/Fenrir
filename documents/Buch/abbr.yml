@@ -77,6 +77,7 @@ lan:
     plural: LANs
   long:
     singular: Local Area Network
+    plural: Local Area Networks
 
 vlan:
   short:
@@ -84,6 +85,7 @@ vlan:
     plural: VLANs
   long:
     singular: Virtual Local Area Network
+    plural: Virtual Local Area Networks
 
 ad:
   short:
