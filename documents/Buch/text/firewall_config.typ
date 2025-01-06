@@ -12,7 +12,7 @@
 #htl3r.author("David Koch")
 == Zellen-Firewall
 
-Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindlichsten Teil des gesamten Netzwerks: der OT. Konzepte wie die physischen Segmentierung von untereinander unabhängiger Aktorik/Sensorik in Betriebszellen bringt nichts, wenn sich diese aufgrund von einer fehlenden Netzwerksegmentierung trotzdem ohne weitere Umwege gegenseitig ansprechen können. Aus diesem Grund wird die Zellen-Firewall gebraucht. Sie bietet noch dazu Features wie DPI und mitgelieferten Signaturen für bekannte OT-Daten, um die empfangenen Daten so gut es geht zu identifizieren und im Falle eines Sicherheitsvorfalls die OT-Gerätschaft zu schützen. @fw-rugged-feats
+Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindlichsten Teil des gesamten Netzwerks: der #htl3r.short[ot]. Konzepte wie die physischen Segmentierung von untereinander unabhängiger Aktorik/Sensorik in Betriebszellen bringt nichts, wenn sich diese aufgrund von einer fehlenden Netzwerksegmentierung trotzdem ohne weitere Umwege gegenseitig ansprechen können. Aus diesem Grund wird die Zellen-Firewall gebraucht. Sie bietet noch dazu Features wie #htl3r.short[dpi] und mitgelieferten Signaturen für bekannte #htl3r.short[ot]-Daten, um die empfangenen Daten so gut es geht zu identifizieren und im Falle eines Sicherheitsvorfalls die #htl3r.short[ot]-Gerätschaft zu schützen. @fw-rugged-feats
 
 === Grundkonfiguration
 
@@ -30,7 +30,7 @@ Eine #htl3r.short[vdom] (kurz für "Virtual Domain") ist eine von anderen #htl3r
 
 Wenn kein Multi-#htl3r.short[vdom]-Mode verwendet wird, läuft alles auf der Firewall über die Root-#htl3r.short[vdom] und alle vorgenommenen Konfigurationen sind global auf dem Gerät vorhanden. Die Root-#htl3r.short[vdom] kann somit logischerweise nicht gelöscht werden. @vdom-overview
 
-Fortinet gibt einige Verwendungsarten für #htl3r.short[vdom]s vor, wobei bei der Zellen-Firewall zwei dieser Arten gemeinsam eingesetzt werden:
+Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei der Zellen-Firewall zwei dieser Arten gemeinsam eingesetzt werden:
 
 + *Internet access VDOM*:
   #linebreak()
@@ -89,7 +89,15 @@ Zur Konfiguration dieser VDOMs ...
 
 Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung von den Betriebszellen wäre die Verwendung von #htl3r.shortpl[vlan] mit folgendem Aufbau:
 
-* BILD *
+#htl3r.fspace(
+    [
+      #figure(
+        image("../assets/zellen_router_on_a_stick.svg"),
+        caption: ["Router on a Stick" als Alternative zu VDOMs]
+      )
+      <administrative-vdom>
+    ]
+  )
 
 Hierbei werden alle #htl3r.shortpl[sps] an einen gemeinsamen #htl3r.short[ot]-Switch angebunden, welcher ähnlich zur Zellen-Firewall direkt im Schaltschrank hängt. Dieser weißt den einzelnen Interfaces, die zu den #htl3r.shortpl[sps] führen, eigene #htl3r.shortpl[vlan] zu, um die Verbindungen in mehrere Netzwerk aufzuspalten.
 
