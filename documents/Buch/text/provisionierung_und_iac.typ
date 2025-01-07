@@ -54,7 +54,10 @@ Insgesamt werden vier Template-#htl3r.shortpl[vm] provisioniert, allerdings werd
 - #strong[Windows Server Golden Image:] Template für alle Windows-Server in der Topologie. Hierbei wird Windows-Server 2022 verwendet.
 - #strong[Windows Desktop Golden Image:] Template für alle Windows-Clients in der Topologie. Hierbei wird Windows 11 23H2 verwendet.
 ]
-Das Linux-Server-Image wird mittels Cloud-Init, einer #emph["industry standard multi-distribution method for cross-platform cloud instance initialisation."] @ci-docs, aufgesetzt. Cloud-Init liest eine gegebene #htl3r.short[yaml] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
+Das Linux-Server-Image wird mittels Cloud-Init, einer plattformübergreifenden Software für das Aufsetzen von Cloudinstanzen, welche sich als Industriestandard etabliert hat @ci-docs[comp], aufgesetzt. Cloud-Init liest eine gegebene #htl3r.short[yaml] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
+
+Das Linux-Server-Image wird mittels Cloud-Init, einer plattformübergreifenden Software für das Aufsetzen von Cloudinstanzen, welche sich als Industriestandard etabliert hat @ci-docs[comp], aufgesetzt. Cloud-Init liest eine gegebene #htl3r.short[yaml] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
+
 
 === Terraform
 Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.shortpl[vm], #htl3r.shortpl[dvs], #htl3r.shortpl[dpg], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
@@ -147,6 +150,7 @@ Der Grund, warum die ``` ansible_ssh_common_args``` Variable solch einen komplex
 === pyVmomi
 Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.short[api] zurückgegriffen. Hierzu wird pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im Web-#htl3r.short[gui] von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.shortpl[dpg]. Dies ist in keinem der vorher genannten Tools direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Traffic zwischen Managed-VMs möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu kommunizieren und #htl3r.short[dhcp]-Requests zu verschicken. Hierzu werden folgende Traffic-Filter-Regeln verwendet:
 #htl3r.fspace(
+  total-width: 100%,
   figure(
     image("../assets/filtering_rules.jpg"),
     caption: [Management Traffic-Filtering Regeln]
@@ -171,8 +175,10 @@ In weiterer Folge wird das Datacenter sowie die #htl3r.short[dpg] abgefragt:
 )
 #pagebreak()
 Um nun die #htl3r.short[dpg] zu bearbeiten, wird ein ```ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in zwei Gruppen zu unterteilen:
+
 + Alle eingetragenen Traffic-Filter Regeln löschen.
 + Die gebrauchten Traffic-Filter Regeln hinzufügen.
+
 Der erste Schritt ist notwendig, damit das Skript bei mehreren Aufrufen dasselbe Resultat erzielt.
 
 Dies sieht in der Umsetzung wie folgt aus:

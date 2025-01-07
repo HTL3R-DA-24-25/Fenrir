@@ -26,10 +26,10 @@
   abstract-german: [#include "text/kurzfassung.typ"],
   abstract-english: [#include "text/abstract.typ"],
   date: datetime.today(),
-  print-ref: true,
+  print-ref: false,
   generative-ai-clause: none,
   abbreviation: yaml("abbr.yml"),
-  bibliography: bibliography("refs.yml", full: true, title: [Literaturverzeichnis], style: "harvard-cite-them-right"),
+  bibliography-content: bibliography("refs.yml", full: true, title: [Literaturverzeichnis]),
 )
 
 #include "text/vorwort.typ"

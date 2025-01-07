@@ -67,7 +67,7 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
 === Schaltplan
 
 #htl3r.fspace(
-  total_width: 100%,
+  total-width: 100%,
   figure(
     image("../assets/Zelle_2_Schaltplan.png"),
     caption: [Schaltplan der 2. Betriebszelle]
@@ -157,11 +157,11 @@ Im PC wird ein dem #htl3r.short[i2c]-Bus sehr ähnliches System benutzt, um z.B.
 
 #htl3r.fspace(
   [
-  #figure(
-    image("../assets/rpi_esp32_i2c_fenrir.svg"),
-    caption: [Der Kommunikationsaufbau zwischen RPI, ESP32 und Sensorik]
-  )
-  <i2c-aufbau>
+    #figure(
+      image("../assets/rpi_esp32_i2c_fenrir.svg"),
+      caption: [Der Kommunikationsaufbau zwischen RPI, ESP32 und Sensorik]
+    )
+    <i2c-aufbau>
   ]
 )
 

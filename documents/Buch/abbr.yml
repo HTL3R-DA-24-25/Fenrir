@@ -77,6 +77,7 @@ lan:
     plural: LANs
   long:
     singular: Local Area Network
+    plural: Local Area Networks
 
 vlan:
   short:
@@ -84,6 +85,7 @@ vlan:
     plural: VLANs
   long:
     singular: Virtual Local Area Network
+    plural: Virtual Local Area Networks
 
 ad:
   short:
@@ -174,8 +176,10 @@ gui:
 ids:
   short:
     singular: IDS
+    plural: IDSs
   long:
     singular: Intrusion Detection System
+    plural: Intrusion Detection Systems
   description: Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses erkennt.
 
 mes:
@@ -253,3 +257,29 @@ tcp:
     singular: TCP
   long:
     singular: Transmission Control Protocol
+
+icp:
+  short:
+    singular: ICP
+    plural: ICPs
+  long:
+    singular: Incident Response Playbook
+    plural: Incident Response Playbooks
+
+dos:
+  short:
+    singular: DoS
+  long:
+    singular: Denial of Service
+
+rdp:
+  short:
+    singular: RDP
+  long:
+    singular: Remote Desktop Protocol
+
+dpi:
+  short:
+    singular: DPI
+  long:
+    singular: Deep Packet Inspection
