@@ -283,3 +283,9 @@ dpi:
     singular: DPI
   long:
     singular: Deep Packet Inspection
+
+http:
+  short:
+    singular: HTTP
+  long:
+    singular: Hypertext Transfer Protocol
