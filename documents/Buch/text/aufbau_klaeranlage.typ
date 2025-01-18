@@ -4,7 +4,7 @@
 
 Um die Absicherung eines Produktionsbetriebs oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, darf nicht ausschließlich auf virtualisierte Lösungen des #htl3r.short[ot]-Netzwerks vertraut werden. Dazu ist das Ausmaß eines "Super-#htl3r.short[gau]s" innerhalb eines virtualisierten #htl3r.short[ot]-Netzwerks für die meisten aussenstehenden Personen nicht begreifbar/realistisch genug. Eine selbstgebaute Modell-Kläranlage löst dieses Problem.
 
-Zwar sind Kläranlagen nicht die beliebtesten #htl3r.short[ot]-Angriffsziele, Kraftwerke wären hierbei das beliebteste Ziel von Cyberangriffen auf kritische Infrastruktur @knowbe4-cyber-attacks-crit-infra, jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch manche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater
+Zwar sind Kläranlagen nicht die beliebtesten #htl3r.short[ot]-Angriffsziele, Kraftwerke wären hierbei das beliebteste Ziel von Cyberangriffen auf kritische Infrastruktur @knowbe4-cyber-attacks-crit-infra[comp], jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch manche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater[comp]
 
 #htl3r.author("David Koch")
 == Planung der Betriebszellen
@@ -33,7 +33,7 @@ Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in e
 
 Die in dieser Zelle verwendete #htl3r.short[sps] ist eine Siemens SIMATIC S7-1200 mit der CPU 1212C. Sie ist kompakt sowie modular erweiterbar und somit für kleinere bis mittlere Automatisierungsaufgaben konzipiert.
 
-Europaweit hat sich die Siemens SIMATIC als die gängiste #htl3r.short[sps]-Marke durchgesetzt @siemens-marktanteil. Bereits im Jahre 1958 wurde die erste SIMATIC, eine verbindungsprogrammierte Steuerung (kurz VPS), auf den Markt gebracht @simatic-history.
+Europaweit hat sich die Siemens SIMATIC als die gängiste #htl3r.short[sps]-Marke durchgesetzt @siemens-marktanteil[comp]. Bereits im Jahre 1958 wurde die erste SIMATIC, eine verbindungsprogrammierte Steuerung (kurz VPS), auf den Markt gebracht @simatic-history[comp].
 
 Die S7-1200 hat folgende Eingänge und Ausgänge:
 - 8 digitale Eingänge 24V DC, davon TODO in Verwendung
@@ -192,7 +192,7 @@ Um dieses Problem zu lösen wird über die #htl3r.short[i2c]-Kommunikation zwisc
   ]
 )
 
-Die Länge des "Fenrir"-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi
+Die Länge des "Fenrir"-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi[comp]
 // ggf auch folgendes zitieren: https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus
 
 Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von ```0x02```, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von ```0x04```.

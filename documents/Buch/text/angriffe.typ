@@ -18,11 +18,11 @@ Stuxnet ist ein Computerwurm, der im Juni 2010 entdeckt und zuerst unter dem Nam
 
 Da bis Ende September 2010 der Iran den größten Anteil der infizierten Computer besaß und es zu außergewöhnlichen Störungen im iranischen Atomprogramm kam, lag es nah, dass Stuxnet hauptsächlich entstand, um als Schadsoftware die Leittechnik (Zentrifugen) der Urananreicherungsanlage in Natanz oder des Kernkraftwerks Buschehr zu stören @ndu-stuxnet.
 
-Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von Industrieanlagen zu sabotieren, als bisher einzigartig @spiegel-10-jahre-stuxnet. Das heißt aber nicht, dass in der Zukunft nicht noch weitere Netzwerkwürmer auf das Internet losgelassen werden, deren Hauptziel es sein wird, #htl3r.short[ot]-Netzwerke lahmzulegen.
+Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von Industrieanlagen zu sabotieren, als bisher einzigartig @spiegel-10-jahre-stuxnet[comp]. Das heißt aber nicht, dass in der Zukunft nicht noch weitere Netzwerkwürmer auf das Internet losgelassen werden, deren Hauptziel es sein wird, #htl3r.short[ot]-Netzwerke lahmzulegen.
 
 === Lateral Movement
 
-Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern sich innerhalb des attackierten Netzwerks vom einem System zum nächsten auszubreiten, Schwachstellen auszukundschaften, Rechteausweitung (-> privilege escalation) durchzuführen und ihr endgültiges Angriffsziel zu erreichen. @lateral-movement-def
+Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern sich innerhalb des attackierten Netzwerks vom einem System zum nächsten auszubreiten, Schwachstellen auszukundschaften, Rechteausweitung (-> privilege escalation) durchzuführen und ihr endgültiges Angriffsziel zu erreichen. @lateral-movement-def[comp]
 
 Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, sogenannte Lateral Movement Techniques bzw. #htl3r.longpl[lmp] (#htl3r.shortpl[lmp]):
 
@@ -56,10 +56,10 @@ Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk können fo
 - Mögliche #htl3r.shortpl[lmp] innerhalb des eigenen Netzwerks vorab auskundschaften, quasi in Form einer Risikoanalyse. Mit der fertigen Risikoanalyse kann proaktiv gegen #htl3r.shortpl[lmp] vorgegangen werden, aber auch für den Angriffsfall ein #htl3r.long[icp] zur Reaktion auf die ausgenutzten Schwachstellen erstellt werden, falls die Vorbeugung dieser zu umständlich seien sollte.
 - Netzwerküberwachungs-Tools bzw. #htl3r.shortpl[ids], die den Systemadministrator*innen Analysedaten über den Datenverkehr im Netzwerk liefern und somit auf die Ausnutzung eines #htl3r.short[lmp] hinweisen.
 - In Kombination mit der Nutzung von Überwachungs-Tools detailierte Dokumentationen führen, welche Geräte und Benutzer sich im Netzwerk aufhalten sollten und welche Rollen sie haben, um bei der Erkennung von unbekannten Geräten im Netzwerk als auch bei unberechtigten Zugriffen zu helfen.
-@lateral-movement-def
+@lateral-movement-def[comp]
 
 Zur Verhinderung von Lateral Movement können unter anderem Netzwerksegmentierung, Patchmanagement zur Behebung von bekannten Sicherheitslücken als auch Zugriffskontrolle auf bestimmte Daten, Geräte oder Netzwerkabschnitte implementiert werden.
-@lateral-movement-def
+@lateral-movement-def[comp]
 
 Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenrir"-Topologie wird in @netzwerkueberwachung, @firewall-config und @weitere-absicherung genauer beschrieben.
 
