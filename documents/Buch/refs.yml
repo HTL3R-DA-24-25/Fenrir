@@ -193,8 +193,8 @@ nis2-richtlinie:
   serial-number: "2022/2555"
   url:
     value: https://eur-lex.europa.eu/eli/dir/2022/2555/oj?locale=de
-    date: 2022-12-27
-  date: 2025-01-06
+    date: 2025-01-06
+  date: 2022-12-27
 
 nis2-gv-at:
   type: misc
@@ -202,6 +202,17 @@ nis2-gv-at:
   organization: Anlaufstelle Netz- und Informationssystemsicherheitsgesetz (NISG)
   url:
     value: https://www.nis.gv.at/nis-2-richtlinie.html
-    date: 2024
-  date: 2025-01-06
+    date: 2025-01-06
+  date: 2024
+
+knowbe4-cyber-attacks-crit-infra:
+  type: report
+  title: Cyber Attacks on Infrastructure
+  author: KnowBe4, Inc
+  url:
+    value: https://www.knowbe4.com/hubfs/Global-Infrastructure-Report-2024_EN_US.pdf
+    date: 2025-01-18
+  date: 2024
+
+
 

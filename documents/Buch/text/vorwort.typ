@@ -3,11 +3,11 @@
 #htl3r.author("David Koch")
 = Vorwort
 
-Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu @cyberattacks-crit-infra. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste ihrer Feinde anzugreifen, und sind dabei zu oft erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken im Betrieb häufig suboptimal ist @cisa-wastewater.
+Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu @cyberattacks-crit-infra. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste anderer Länder anzugreifen, und sind dabei zu oft erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken im Betrieb häufig suboptimal ist @cisa-wastewater.
 
 blablabal
 
-Das Bewusstsein und der Wunsch nach einer -- gegen Cyberangriffe -- sicheren physischen Infrastruktur sollte auch in der allgemeinen Bevölkerung gestärkt werden. Mit unserer Modell-Kläranlage und den eigenen Angriffen darauf möchten wir zeigen, dass mangelnde #htl3r.short[ot]-Security zu "echten" Schäden führen kann -- sei es ein überschaubarer Wasserschaden bei unserer Kläranlage oder Millionenschäden durch kaputte Hochöfen oder überhitzte Kühlsysteme von Kraftwerken @it-sec-de. Zusätzlich soll unsere Dokumentation des Absicherungsprozesses als Literaturverzeichnis von "Dos" und "Don'ts" für angehende #htl3r.short[ot]-Security-Expert*innen oder für interessierte Personen, die sich mit dem Thema auseinandersetzen möchten, dienen.
+Das Bewusstsein und der Wunsch nach einer -- gegen Cyberangriffe -- sicheren physischen Infrastruktur sollte auch in der allgemeinen Bevölkerung gestärkt werden. Mit unserer Modell-Kläranlage und den selbstorchestrierten Angriffen auf diese möchten wir zeigen, dass mangelnde #htl3r.short[ot]-Security zu "echten" Schäden führen kann -- sei es ein überschaubarer Wasserschaden bei unserer Kläranlage oder Millionenschäden durch kaputte Hochöfen oder überhitzte Kühlsysteme von Kraftwerken @it-sec-de. Zusätzlich soll unsere Dokumentation des Absicherungsprozesses als Literaturverzeichnis von "Dos" und "Don'ts" für angehende #htl3r.short[ot]-Security-Expert*innen oder für interessierte Personen, die sich mit dem Thema auseinandersetzen möchten, dienen.
 
 blablabla
 
@@ -25,10 +25,10 @@ Das Diplomarbeitsteam möchte sich ebenfalls bei Stefan Tomp der vorjährigen Di
 
 Des weiteren hat die tatkräftige Unterstützung externer Firmenpartner und deren Vertretern die Umsetzung und generelle Industrienähe der Diplomarbeit erlaubt.
 Ein recht herzlicher Dank gebührt den folgenden Firmenpartnern:
-- *easyname* für die Bereitstellung einer Domäne und eines Webservers für das Hosting der Diplomarbeitswebsite.
 - *CSA* im Namen von Herbert Dirnberger für die Bereitstellung von Server-Hardware als auch OT-Gerätschaft.
+- *easyname* für die Bereitstellung einer Domäne und eines Webservers für das Hosting der Diplomarbeitswebsite.
 - *Fortinet* für die Bereitstellung mehrerer Hardware-Firewalls und deren Lizenzen.
 - *Ikarus* für die Bereitstellung der Lizenzen für die Nozomi Guardian als auch den Arc Sensor, die finanzielle Unterstützung beim Aufbau der Modell-Kläranlage als auch die Hilfe bei der Gewinnung von weiteren Firmenpartnern durch Werbung der Diplomarbeit Fenrir.
 - *Nozomi Networks* für die Bereitstellung der Guardian sowie Arc Sensor Software, ohne welche die Netzwerkanalyse, besonders in Bezug auf den OT-Teil, unvorstellbar komplizierter gewesen wäre.
 - *NTS* für die Bereitstellung einer Cisco UCS zur ursprünglichen Virtualisierung des IT-Netzwerks gemeinsam mit Splunk-Lizenzen für das SIEM.
-- Das OT-Cybersecurity-Team der *Wien Energie* für die Bereitstellung von Informationsquelle bezüglich der Absicherung von OT-Netzwerken und einer Führung TODO
+- Das OT-Cybersecurity-Team der *Wien Energie* für die Bereitstellung von Informationsquellen bezüglich der Absicherung von OT-Netzwerken und einer privaten Führung durch die Sondermüll- und Klärschlamm-Verbrennungsanlage Simmeringer Haide.

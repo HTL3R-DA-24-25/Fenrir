@@ -15,6 +15,7 @@ Durch die Limitationen an verfügbarer physischer Hardware ist die unten gezeigt
 Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtualisierung genutzte physische Hardware und somit auch die Verknüpfung von physischer zu virtueller Gerätschaft nicht eingezeichnet ist.
 
 #htl3r.fspace(
+  total-width: 95%,
   figure(
     image("../assets/topology_logical.svg"),
     caption: [Die Projekttopologie in logischer Darstellung]
@@ -31,6 +32,7 @@ ACHTUNG: VERALTET
 #lorem(100)
 
 #htl3r.fspace(
+  total-width: 95%,
   figure(
     image("../assets/topology_physical.svg"),
     caption: [Die Projekttopologie in physischer Darstellung]
@@ -57,7 +59,7 @@ Der OT-Bereich besteht aus einem von uns selbst gebauten Modell einer Kläranlag
 
 * BILD Kläranlage *
 
-Die Details bezüglich dem Aufbau der Modell-Kläranlage und der dazugehörigen #htl3r.short[ot]-Gerätschaft siehe @aufbau-klaeranlage.
+Die Details bezüglich des Aufbaus der Modell-Kläranlage und der dazugehörigen #htl3r.short[ot]-Gerätschaft siehe @aufbau-klaeranlage.
 
 #htl3r.author("David Koch")
 == Purdue-Modell <purdue>
@@ -65,7 +67,7 @@ Die Details bezüglich dem Aufbau der Modell-Kläranlage und der dazugehörigen 
 Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum OSI-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert.
 
 Level 0 bis 3 gehören zur #htl3r.short[ot], 4 bis 5 sind Teil der #htl3r.short[it].
-Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 2 und 3 wird diese als Ebene 2.5 gekennzeichnet.
+Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 3 und 4 wird diese als Ebene 3.5 gekennzeichnet.
 
 #htl3r.fspace(
   figure(
