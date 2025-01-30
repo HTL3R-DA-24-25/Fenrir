@@ -34,7 +34,7 @@ Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei d
 
 + *Internet access VDOM*:
   #linebreak()
-  In dieser Konfiguration ist der Internetzugriff über eine einzelne #htl3r.short[vdom] -- beispielsweise die Root-VDOM in @internet-access-vdom -- bereitgestellt. Die Root-VDOM versorgt ...
+  In dieser Konfiguration ist der Internetzugang über eine einzelne #htl3r.short[vdom] -- beispielsweise die Root-VDOM in @internet-access-vdom -- bereitgestellt.
   #htl3r.fspace(
     total-width: 95%,
     [
@@ -45,11 +45,11 @@ Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei d
       <internet-access-vdom>
     ]
   )
-  Die #htl3r.shortpl[vdom] sind untereinander mit #htl3r.short[vdom]-Links verbunden. Diese Links sind notwendig, um Inter-#htl3r.short[vdom]-Routing zu erzielen und stellen virtuelle Netzwerke zwischen den #htl3r.shortpl[vdom] dar.
+  Die Root-#htl3r.short[vdom] versorgt die #htl3r.shortpl[vdom] der Betriebszellen durch sogenannte #htl3r.short[vdom]-Links -- virtuelle Netzwerke innerhalb der FortiGate, die dazu dienen, #htl3r.shortpl[vdom] untereinander zu vernetzen. Im Falle der Zellen-Firewall ist die Root-#htl3r.short[vdom] nicht für den Internetzugang zuständig, sondern für die Verbindung mit dem restlichen Firmennetzwerk über die Übergangs-Firewall.
 
 + *Administrative VDOM* (on a management network)
   #linebreak()
-  fdfdfdf
+  In dieser Konfiguration ist der Managementzugang auf die FortiGate über eine eigene #htl3r.short[vdom] bereitgestellt. Somit werden die Daten von den Geräten, die am Management-Interface hängen, von der Firewall nicht in andere Netzwerke geroutet (so lange kein #htl3r.short[vdom]-Link vorhanden ist, siehe @administrative-vdom).
   #htl3r.fspace(
     total-width: 95%,
     [
@@ -95,10 +95,30 @@ Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung vo
         image("../assets/zellen_router_on_a_stick.svg"),
         caption: ["Router on a Stick" als Alternative zu VDOMs]
       )
-      <administrative-vdom>
     ]
   )
 
 Hierbei werden alle #htl3r.shortpl[sps] an einen gemeinsamen #htl3r.short[ot]-Switch angebunden, welcher ähnlich zur Zellen-Firewall direkt im Schaltschrank hängt. Dieser weißt den einzelnen Interfaces, die zu den #htl3r.shortpl[sps] führen, eigene #htl3r.shortpl[vlan] zu, um die Verbindungen in mehrere Netzwerk aufzuspalten.
 
 Die Firewall erhält über eine Trunk-Verbindung vom Switch alle Daten aus den einzelnen #htl3r.shortpl[vlan] und leitet diese je nach ihrer Herkunft anders weiter, als wären sie aus verschiedenen Netzwerken gekommen, wobei nie die dritte OSI-Schicht verwendet worden ist. Diese Methode wird "Router on a Stick" genannt.
+
+Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext ist die, dass für die Verbindung zwischen der Zellen-Firewall und der Übergangs-Firewall nicht direkt das WAN-Interface genutzt werden kann. Ein Interface kann immer jeweils nur einer #htl3r.short[vdom] zugewiesen sein. Somit können aber keine Policies erstellt werden, die beispielsweise Datenverkehr aus den einzelnen Betriebszellen (also vom Interface ```internal1``` z.B., das der #htl3r.short[vdom] ```VDOM-CELL-1``` zugewiesen ist) in Richtung der Übergangs-Firewall erlauben, da das WAN-Interface teil der Root-#htl3r.short[vdom] ist. Um dieses Problem zu lösen, muss das WAN-Interface auf mehrere logische Interfaces aufgeteilt werden, so, dass jeweils ein Interface-Paar (innen nach außen) für jede #htl3r.short[vdom] existiert. Eine einfache Umsetzungsart dieser logischen Interfaces wäre die Nutzung von IEEE 802.1Q Enkapsulierung, d.h. #htl3r.shortpl[vlan] zwischen der Zellen- und Übergangs-Firewall.
+
+#htl3r.code-file(
+  caption: "Zuweisung der Zelle 1 VDOM zum Interface",
+  filename: [Zellen-FW-Fenrir.conf],
+  lang: "python", // TODO: wo fortios
+  ranges: ((124, 163), (200, 201),),
+  skips: ((164, 0),),
+  text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
+)
+
+Hierbei werden VLAN 10 für die erste Betriebszelle, VLAN 20 für die zweite und VLAN 30 für die dritte Betriebszelle verwendet.
+
+ACHTUNG: Die einzelnen Verbindung von der Zellen-Firewall aus zu den #htl3r.shortpl[sps] sind nicht enkapsuliert und es findet dort keine #htl3r.short[vlan]-Unterteilung statt. Nur auf dem Point-to-Point Link zwischen den zwei Firewalls werden die #htl3r.shortpl[vlan] angewendet, um das Problem mit "#htl3r.short[vdom]-übergreifenden" Policies zu lösen.
+
+#htl3r.todo("Das ganze mit VDOM-Links lösen und somit diese gesamte Seite umschreiben...")
+
+=== Lizensierte Features
+
+yup

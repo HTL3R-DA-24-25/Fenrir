@@ -1,7 +1,7 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
 #htl3r.author("David Koch")
-= Angriffe auf das Netzwerk
+= Angriffe auf das Netzwerk <angriffe-netzwerk>
 
 #htl3r.author("David Koch")
 == Einführung
@@ -65,12 +65,25 @@ Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenri
 
 == Angriffe auf das IT-Netzwerk
 
+#htl3r.author("David Koch")
 === Exchange
 
-=== ...
+Nur selten passieren Angriffe, die als Endergebnisse beispielsweise die Störung des Exchange-Mail-Servers haben. Meistens wird die Präsenz eines Mail-Servers lediglich genutzt, um als "Sprungbrett" ins interne Netzwerk zu dienen durch Phishing-Angriffe.
+
+PHISHING ANGRIFF HIER UMSETZEN
+
+=== Ransomware auf Endgeräten
+
+=== Dataleak-Trojaner auf Endgeräten
+
+#htl3r.author("Gabriel Vogler")
+=== Ticketing-Angriffe
+
+gabi hier kerberoasting und so machen jaja
 
 == Angriffe auf das OT-Netzwerk
 
+#htl3r.author("David Koch")
 === Physische Manipulation
 
 Bevor die digitale Absicherung des OT-Netzwerks in Betracht zieht, sollte die physische Sicherheit der OT-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer SPS durch ihre serielle Schnittstelle passiert -- ist vom schlimmsten auszugehen.
@@ -79,8 +92,12 @@ Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physisc
 
 ... Überwachungssysteme wie CCTV, Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen ...
 
-=== DoS einer SPS
+#htl3r.author("David Koch")
+=== DoS einer SPS <dos-sps>
 
+// https://www.tenable.com/plugins/nessus/131775
+
+#htl3r.author("David Koch")
 === Manipulation einer SPS
 
 Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine SPS oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
@@ -98,4 +115,26 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 #htl3r.author("David Koch")
 == Konkretes Angriffsszenario
 
-Phishing Mail an Buchhaltung von außen --> mittels stolen identity eines BH Mitarbeiters eine interne Spear-Phishing-Mail an OT-Engineer schicken bzgl. Inventurliste z.B. --> Angreifer nutzt die RDP Berechtigungen des OT-Engineers um weiter einzudringen --> LotL, Angreifer sammelt Infos über SCADA wie die Anlage intern ausschaut --> Default Credentials auf OpenPLC upsi --> Steuerung der Zelle 2 wird gesprengt/umprogrammiert --> Super GAU
+Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
+
+1. Eine Phishing Mail wird von außen (Internet) an die Buchhaltung geschickt.
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters eine interne Spear-Phishing-Mail an OT-Engineer schicken bzgl. einer Inventurliste z.B. 
+3. Angreifer nutzt die RDP-Berechtigungen des OT-Engineers um tiefer in die Anlage einzudringen.
+4. LotL, Angreifer sammelt über das SCADA-System Infos, wie die Anlage intern ausschaut.
+5. Angreifer entdeckt Default Credentials auf OpenPLC.
+6. Steuerung der Zelle 2 wird umprogrammiert.
+7. Anlage kommt zum Stehen, nachhaltiger Schaden wurde angerichtet.
+
+=== Phishing-Mail
+
+=== Spear-Phishing
+
+=== RDP Lateral Movement
+
+=== Living of the Land
+
+=== Default Credentials auf SPS
+
+=== SPS-Steuerung wird manipuliert
+
+=== Super-GAU tritt ein

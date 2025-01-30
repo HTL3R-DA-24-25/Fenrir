@@ -289,3 +289,23 @@ http:
     singular: HTTP
   long:
     singular: Hypertext Transfer Protocol
+
+nis:
+  short:
+    singular: NIS
+  long:
+    singular: Network and Information Security
+
+hmi:
+  short:
+    singular: HMI
+    plural: HMIs
+  long:
+    singular: Human Machine Interface
+
+vpn:
+  short:
+    singular: VPN
+    plural: VPNs
+  long:
+    singular: Virtual Private Network
