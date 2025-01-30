@@ -246,6 +246,13 @@ petg:
     singular: Polyethylenterephthalat + Glykol
   description: Ein mit Glykol modifiziertes synthetisches Polymer, welches oft in widerstandsfähigeren 3D-Druck-Filamenten zu finden ist.
 
+pva:
+  short:
+    singular: PVA
+  long:
+    singular: Polyvinylalkohol
+  description: Ein synthetisches Polymer, welches oft als Stützmaterial in 3D-Druck-Filamenten verwendet wird. Dieses Material ist wasserlöslich.
+
 ietf:
   short:
     singular: IETF
