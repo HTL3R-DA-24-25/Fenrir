@@ -102,10 +102,13 @@ Hierbei werden alle #htl3r.shortpl[sps] an einen gemeinsamen #htl3r.short[ot]-Sw
 
 Die Firewall erhält über eine Trunk-Verbindung vom Switch alle Daten aus den einzelnen #htl3r.shortpl[vlan] und leitet diese je nach ihrer Herkunft anders weiter, als wären sie aus verschiedenen Netzwerken gekommen, wobei nie die dritte OSI-Schicht verwendet worden ist. Diese Methode wird "Router on a Stick" genannt.
 
-Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext ist die, dass für die Verbindung zwischen der Zellen-Firewall und der Übergangs-Firewall nicht direkt das WAN-Interface genutzt werden kann. Ein Interface kann immer jeweils nur einer #htl3r.short[vdom] zugewiesen sein. Somit können aber keine Policies erstellt werden, die beispielsweise Datenverkehr aus den einzelnen Betriebszellen (also vom Interface ```internal1``` z.B., das der #htl3r.short[vdom] ```VDOM-CELL-1``` zugewiesen ist) in Richtung der Übergangs-Firewall erlauben, da das WAN-Interface teil der Root-#htl3r.short[vdom] ist. Um dieses Problem zu lösen, muss das WAN-Interface auf mehrere logische Interfaces aufgeteilt werden, so, dass jeweils ein Interface-Paar (innen nach außen) für jede #htl3r.short[vdom] existiert. Eine einfache Umsetzungsart dieser logischen Interfaces wäre die Nutzung von IEEE 802.1Q Enkapsulierung, d.h. #htl3r.shortpl[vlan] zwischen der Zellen- und Übergangs-Firewall.
+Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext ist die, dass für die Verbindung und nötige Absicherung zwischen der Zellen-Firewall und der Übergangs-Firewall nicht direkt das WAN-Interface genutzt werden kann. Ein Interface kann immer jeweils nur einer #htl3r.short[vdom] zugewiesen sein. Somit können aber keine Policies erstellt werden, die beispielsweise Datenverkehr aus den einzelnen Betriebszellen (also vom Interface ```internal1``` z.B., das der #htl3r.short[vdom] ```VDOM-CELL-1``` zugewiesen ist) in Richtung der Übergangs-Firewall erlauben, da das WAN-Interface Teil der Root-#htl3r.short[vdom] ist. Alle Interfaces, die in einer Policy genutzt werden, müssen in der gleichen #htl3r.short[vdom] sein. Um dieses Problem zu lösen, müssen innerhalb der Zellen-Firewall zwischen den #htl3r.shortpl[vdom] sogenannte #htl3r.short[vdom]-Links erstellt werden (wie in @internet-access-vdom).
+
+#htl3r.short[vdom]-Links stellen virtuelle Netzwerke dar, die nur innerhalb der FortiGate existieren und zur Verbindung zwischen zwei #htl3r.shortpl[vdom] dienen. Sie lösen das Problem mit dem gemeinsamen WAN-Interface nach außen, indem die Policies nicht direkt auf das WAN-Interface selbst angewendet werden, sondern auf die Virtual-Link-Interfaces, die an der Root-#htl3r.short[vdom] und somit am WAN-Interface angeschlossen sind.
+
 
 #htl3r.code-file(
-  caption: "Zuweisung der Zelle 1 VDOM zum Interface",
+  caption: "Die VDOM-Link-Konfiguration für Zelle 1",
   filename: [Zellen-FW-Fenrir.conf],
   lang: "python", // TODO: wo fortios
   ranges: ((124, 163), (200, 201),),
@@ -113,11 +116,13 @@ Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext i
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
 
-Hierbei werden VLAN 10 für die erste Betriebszelle, VLAN 20 für die zweite und VLAN 30 für die dritte Betriebszelle verwendet.
-
-ACHTUNG: Die einzelnen Verbindung von der Zellen-Firewall aus zu den #htl3r.shortpl[sps] sind nicht enkapsuliert und es findet dort keine #htl3r.short[vlan]-Unterteilung statt. Nur auf dem Point-to-Point Link zwischen den zwei Firewalls werden die #htl3r.shortpl[vlan] angewendet, um das Problem mit "#htl3r.short[vdom]-übergreifenden" Policies zu lösen.
-
-#htl3r.todo("Das ganze mit VDOM-Links lösen und somit diese gesamte Seite umschreiben...")
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/VDOM_Links.png"),
+    caption: [Graphische Darstellung der #htl3r.shortpl[vdom] und deren Links untereinander]
+  )
+)
 
 === Lizensierte Features
 
