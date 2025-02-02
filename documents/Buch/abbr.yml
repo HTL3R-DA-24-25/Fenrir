@@ -309,3 +309,15 @@ vpn:
     plural: VPNs
   long:
     singular: Virtual Private Network
+
+jwt:
+  short:
+    singular: JWT
+  long:
+    singular: JSON Web Token
+
+api:
+  short:
+    singular: API
+  long:
+    singular: Application Programming Interface

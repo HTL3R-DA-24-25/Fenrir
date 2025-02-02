@@ -48,8 +48,8 @@ lmp-list-2:
 i2c-manual:
   type: reference
   title: AN10216-01 (I²C Manual)
-  author: 
-    - Irazabal, Jean-Marc 
+  author:
+    - Irazabal, Jean-Marc
     - Blozis, Steve
   url:
     value: https://www.nxp.com/docs/en/application-note/AN10216.pdf
@@ -116,7 +116,7 @@ fw-rugged-feats:
 siemens-marktanteil:
   type: blog
   title: Welche SPS wird in der Industrie am häufigsten eingesetzt? Die wichtigsten SPS erklärt
-  author: KWOCO Automation Co., Ltd. 
+  author: KWOCO Automation Co., Ltd.
   url:
     value: https://kwoco-plc.com/de/most-used-plc-in-industry/
     date: 2024-12-23
@@ -188,7 +188,7 @@ vdom-overview:
 nis2-richtlinie:
   type: legislation
   note: directive
-  title: NIS-2 Richtlinie 
+  title: NIS-2 Richtlinie
   organization: EU
   serial-number: "2022/2555"
   url:
@@ -214,5 +214,29 @@ knowbe4-cyber-attacks-crit-infra:
     date: 2025-01-18
   date: 2024
 
+symestic-mes:
+  type: article
+  title: Was ist ein MES?
+  author: Symestic GmbH
+  url:
+    value: https://www.symestic.com/de-de/blog/mes-manufacturing-execution-system
+    date: 2025-02-02
+  date: 2024
 
+scadalts-api-docs:
+  type: misc
+  title: Scada-LTS REST API Documentation
+  author: SoftQ
+  url:
+    value: https://github.com/SCADA-LTS/Scada-LTS/tree/develop/doc/RESTAPI
+    date: 2025-02-02
+  date: 2024-01-08
 
+scadafence-ot-angriffe:
+  type: article
+  title: Most Common OT Security Threats Solutions
+  author: SCADAfence
+  url:
+    value: https://blog.scadafence.com/most-common-ot-security-threats-solutions
+    date: 2025-02-02
+  date: 2022
