@@ -6,12 +6,25 @@
 #htl3r.author("David Koch")
 == Einführung
 
-Um die Sicherheit der in den obigen Abschnitten erstellten Topologie,  herkömmlicher Firmennetzwerke mit OT-Abschnitten oder die Netzwerke von echter kritischer Infrastruktur zu gewährleisten braucht es ein theoretisches Verständnis von den möglichen Angriffsvektoren als auch die dazugehörige Absicherung, um gegen die bekannten Angriffsvektoren vorzugehen und somit Angriffen vorzubeugen.
+Um die Sicherheit der in den obigen Abschnitten erstellten Topologie,  herkömmlicher Firmennetzwerke mit #htl3r.short[ot]-Abschnitten oder die Netzwerke von echter kritischer Infrastruktur zu gewährleisten braucht es ein theoretisches Verständnis von den möglichen Angriffsvektoren als auch die dazugehörige Absicherung, um gegen die bekannten Angriffsvektoren vorzugehen und somit Angriffen vorzubeugen.
 
 === Sicherheitsmängel bei Bus-Systemen
 Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche TCP/IP-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das Triple-A-System sind der Bus-Welt fremd.
 
-Im Falle eines Angriffs auf ein Bussystem und somit auf das gesamte #htl3r.short[ot]-Netzwerk liegen dem Angreifer viele Möglichkeiten vor, große Schäden anzurichten. Ob nun lediglich alle Informationen mitgehört werden oder doch eine #htl3r.short[dos]-Attacke auf #htl3r.short[sps] innerhalb des Bussystems stattfindet, um den gesamten Betrieb lahmzulegen, ist offen. Eines ist jedoch klar: Durch eine ausreichende Absicherung des Übergangs zwischen #htl3r.short[it] und #htl3r.short[ot], das heißt der Firewall auf Ebene 2.5 des Purdue-Modells (siehe @purdue), sind Angriffe auf das #htl3r.short[ot]-Netzwerk leicht vermeidbar. Beispielsweise sollte bei der Ausbreitung eines Netzwerkwurms innerhalb des #htl3r.short[it]-Netzwerks dieser keinesfalls auch in das #htl3r.short[ot]-Netzwerk gelangen können.
+#htl3r.fspace(
+  total-width: 95%,
+  [
+    #figure(
+      image("../assets/Bus_Insecurity.svg"),
+      caption: [Übersicht eines Coil-Werte-Spoofings auf einem Modbus-RTU-Bus]
+    )
+    <coil-spoofing>
+  ]
+)
+
+Im Falle eines Angriffs auf ein Bussystem und somit auf das gesamte #htl3r.short[ot]-Netzwerk liegen dem Angreifer viele Möglichkeiten vor, große Schäden anzurichten. Ob nun lediglich alle Informationen mitgehört werden, Werte gefälscht beziehungsweise gespoofed werden wie in @coil-spoofing oder doch eine #htl3r.short[dos]-Attacke auf eine #htl3r.short[sps] innerhalb des Bussystems stattfindet, um den gesamten Betrieb lahmzulegen, ist offen. Eines ist jedoch klar: Durch eine ausreichende Absicherung des Übergangs zwischen #htl3r.short[it] und #htl3r.short[ot], das heißt der Firewall auf Ebene 2.5 des Purdue-Modells (siehe @purdue), sind Angriffe auf das #htl3r.short[ot]-Netzwerk leicht vermeidbar. Beispielsweise sollte bei der Ausbreitung eines Netzwerkwurms innerhalb des #htl3r.short[it]-Netzwerks dieser keinesfalls auch in das #htl3r.short[ot]-Netzwerk gelangen können.
+
+#htl3r.todo("BILD FIREWALL")
 
 === Stuxnet <stuxnet>
 Stuxnet ist ein Computerwurm, der im Juni 2010 entdeckt und zuerst unter dem Namen RootkitTmphider beschrieben wurde. Das Schadprogramm wurde speziell entwickelt zum Angriff auf ein System zur Überwachung und Steuerung (#htl3r.short[scada]-System), das speicherprogrammierbare Steuerungen des Herstellers Siemens vom Typ Simatic S7 verwendet. Dabei wurde in die Steuerung von Frequenzumrichtern in Teheran, der Hautpstadt Irans, eingegriffen. Frequenzumrichter dienen beispielsweise dazu, die Geschwindigkeit von Motoren zu steuern. Solche Steuerungen werden vielfach eingesetzt, etwa in Industrieanlagen wie Wasserwerken, Klimatechnik oder Pipelines.
@@ -22,7 +35,7 @@ Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von I
 
 === Lateral Movement
 
-Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern sich innerhalb des attackierten Netzwerks vom einem System zum nächsten auszubreiten, Schwachstellen auszukundschaften, Rechteausweitung (-> privilege escalation) durchzuführen und ihr endgültiges Angriffsziel zu erreichen. @lateral-movement-def[comp]
+Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern sich innerhalb des attackierten Netzwerks vom einem System zum nächsten auszubreiten, Schwachstellen auszukundschaften, Rechteausweitung (engl. privilege escalation) durchzuführen und ihr endgültiges Angriffsziel zu erreichen. @lateral-movement-def[comp]
 
 Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, sogenannte Lateral Movement Techniques bzw. #htl3r.longpl[lmp] (#htl3r.shortpl[lmp]):
 
@@ -49,6 +62,8 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
 
 Die obigen Techniken sind natürlich miteinander kombinierbar, z.B. #htl3r.short[lotl] und Remote Services. Es ist ebenfalls zu beachten, dass die Bewertung der Wahrscheinlichkeit und Erkennbarkeit in der obigen Tabelle von einer bestehenden Absicherung des Netzwerks und vorhandenen #htl3r.short[ids]-Geräten ausgeht.
 
+#htl3r.todo("BILD VON ANGREIFER IN NETZWERK MIT LMPS")
+
 Bevor der Angreifer jedoch mögliche #htl3r.shortpl[lmp] ausnutzen kann, muss dieser überhaupt in das Netzwerk eindringen. Dies geschieht meist durch Identity-Angriffe wie Phishing-Mails, aber auch durch maliziöse Downloads und kompromitierter Hardware.
 
 Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk können folgende Strategien eingesetzt werden:
@@ -60,6 +75,8 @@ Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk können fo
 
 Zur Verhinderung von Lateral Movement können unter anderem Netzwerksegmentierung, Patchmanagement zur Behebung von bekannten Sicherheitslücken als auch Zugriffskontrolle auf bestimmte Daten, Geräte oder Netzwerkabschnitte implementiert werden.
 @lateral-movement-def[comp]
+
+#htl3r.todo("BILD VON ANGREIFER IN NETZWERK MIT LMPS, DIESMAL MIT FIREWALLS UND SO VLLT")
 
 Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenrir"-Topologie wird in @netzwerkueberwachung, @firewall-config und @weitere-absicherung genauer beschrieben.
 
@@ -81,12 +98,14 @@ PHISHING ANGRIFF HIER UMSETZEN
 
 gabi hier kerberoasting und so machen jaja
 
+#htl3r.author("David Koch")
 == Angriffe auf das OT-Netzwerk
 
-#htl3r.author("David Koch")
 === Physische Manipulation
 
-Bevor man die digitale Absicherung des #htl3r.short[ot]-Netzwerks in Betracht zieht, sollte die physische Sicherheit der #htl3r.short[ot]-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer #htl3r.short[sps] durch ihre serielle Schnittstelle passiert -- ist vom schlimmsten auszugehen.
+Bevor man die digitale Absicherung des #htl3r.short[ot]-Netzwerks in Betracht zieht, sollte die physische Sicherheit der #htl3r.short[ot]-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer #htl3r.short[sps] durch ihre serielle Schnittstelle passiert -- ist vom Schlimmsten auszugehen.
+
+#htl3r.todo["Hier ein Bild, z.B. Durchtrennung Kabel"]
 
 Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physischen Sicherheit bewusst, somit werden in den meisten industriellen Anlagen bereits Überwachungssysteme wie #htl3r.short[cctv] als auch Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen eingesetzt.
 
@@ -95,9 +114,21 @@ Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstelle zw
 #htl3r.author("David Koch")
 === Netzwerkaufklärung
 
-Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt im Netzwerk gibt und was für Schwachstellen ausgenutzt werden können. Dieser wichtige Schritt nennt sich Netzwerkaufklärung und kann mit vielen verschiedenen Tools durchgeführt werden. Im Rahmen der in diesem Projekt durchgeführten OT-Angriffe werden Nmap und Metasploit verwendet, wobei Metasploit nicht nur der Netzwerkaufklärung sondern bereits auch dem Penetration-Testing dient.
+Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt im Netzwerk gibt und was für Schwachstellen ausgenutzt werden können. Dieser wichtige Schritt nennt sich Netzwerkaufklärung und kann mit vielen verschiedenen Tools durchgeführt werden. Im Rahmen der in diesem Projekt durchgeführten #htl3r.short[ot]-Angriffe werden Nmap und Metasploit verwendet, wobei Metasploit nicht nur der Netzwerkaufklärung sondern bereits auch dem Penetration-Testing dient.
 
+#htl3r.fspace(
+  total-width: 95%,
+  figure(
+    image("../assets/s7_1200_nmap.png"),
+    caption: [Port-Scan der S7-1200 #htl3r.short[sps]]
+  )
+)
 
+Bereits durch einen Port-Scan der #htl3r.short[sps] kann der Angreifer Informationen über mögliche Schwachstellen ergattern. Es sind derzeit folgende Ports offen, die eine Gefahr darstellen können:
+- *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-SPS-Administrationssoftware STEP 7 per Fernwartung mit der SPS kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
+- *UDP-Port 161:* Hostet den SNMP-Dienst und dient der Übermittlung von Logdaten an externe Log-Server. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
+
+...
 
 #htl3r.author("David Koch")
 === DoS einer SPS <dos-sps>
@@ -129,8 +160,6 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 ...
 
 === SCADA
-
-=== ...
 
 #htl3r.author("David Koch")
 == Konkretes Angriffsszenario

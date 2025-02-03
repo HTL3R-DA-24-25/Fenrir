@@ -23,8 +23,52 @@ Das Risiko eines Update-bezogenen Fehlers ist zwar realistisch, lässt sich jedo
 
 In der Projekttopologie erhalten IT-Endgeräte, auf denen als Betriebssystem Windows läuft, automatisch regelmäßige Sicherheitsupdates von Microsoft. Die Firewalls erlauben den Microsoft-spezifischen Datenverkehr ins Internet. Auf betriebskritische Geräte wie #htl3r.shortpl[sps] müssen Updates vorsichtiger als bei #htl3r.short[it]-Endgeräten eingespielt werden. Hierbei muss die #htl3r.short[sps] gestoppt und vom restlichen #htl3r.short[ot]-Netzwerk abgetrennt werden, bevor eine neue Firmware installiert werden kann. Dieser Prozess ist zwar sehr aufwendig, vermeidet aber letztendlich Angriffe wie "#htl3r.short[dos] einer SPS", die in @dos-sps beschrieben sind.
 
+=== Firmware-Update einer S7-1200
+
+Um den in @dos-sps beschriebenen #htl3r.short[dos]-Angriff gegenüber der S7-1200 #htl3r.short[sps] zu vermeiden, muss die neuste Firmware auf das Gerät eingespielt werden. Der #htl3r.short[cve]-2019-10936 beschreibt, dass alle Firmware-Versionen unter V4.4.0 von der Schwachstelle betroffen sind. Wenn nun auf eine neuere beziehungsweise die neuste Firmware-Version geupdatet wird, ist die #htl3r.short[sps] vor diesem Angriff geschützt.
+
+...
+
+Das Update muss aufgrund der benötigten Neustarts zu einer Zeit durchgeführt werden, wo die #htl3r.short[sps] nicht aktiv in der Betriebsumgebung gebraucht wird. Bei vielen Betrieben sind diese Geräte aber 24/7 im Einsatz, somit muss entweder ein kurzes Zeitfenster für diese wichtigen Updates eingeplant werden oder alternativ die Absicherung vom Netzwerk bis hin zur betroffenen #htl3r.short[sps] so stattfinden, dass die Netzwerk-Schwachstelle überhaupt nicht ausgenutzt werden kann.
+
 == Mikrosegmentierung
 
 Wenn durch die in beschriebene Netzwerksegmentierung mittels Firewalls im #htl3r.short[ot]-Bereich die einzelnen Betriebszellen trotz gemeinsamer Purdue-Ebene in mehrere Subnetze aufteilt spricht man von Mikrosegmentierung.
 
 Die #htl3r.shortpl[sps] der Modell-Kläranlage können somit zwischen Betriebszellen nicht direkt miteinander kommunizieren und müssen über das #htl3r.short[scada] gehen, wenn Inter-Zellen-Kommunikation notwendig ist.
+
+Die Zellen-Firewall ist "stateful", das heißt, dass keine Policies für Rückantworten manuell erstellt werden müssen. Es wird somit per Policy nur Kommunikation vom #htl3r.short[scada]-System zu den einzelnen #htl3r.shortpl[sps] erlaubt, die Rückantworten werden automatisch erlaubt und der restliche Verkehr wird blockiert. In diesem restlichen Verkehr ist die Kommunikation zwischen #htl3r.shortpl[sps] inkludiert, somit ist eine erfolgreiche Mikrosegmentierung der Betriebszellen umgesetzt worden.
+
+#htl3r.code(caption: "Die Policy für die Kommunikation vom SCADA zur SPS der zweiten Betriebszelle", description: none)[
+```python
+config firewall policy
+  edit 1
+    set name "Root_to_OpenPLC"
+    set srcintf "Cell2Vlnk1"
+    set dstintf "internal2"
+    set srcaddr "SCADA"
+    set dstaddr "OpenPLC"
+    set anti-replay enable
+    set action accept
+    set schedule "always"
+    set service "PING" "MODBUS_TCP"
+    set ips-sensor "OT-Security-IPS"
+    set application-list "OT-DPI"
+    set logtraffic all
+    set status enable
+  next
+nd
+```
+]
+
+#htl3r.author("David Koch")
+== NIS-2
+
+Beim Betreiben von Industriebetrieben oder kritischer Infrastruktur ist es wichtig, die gesetzlich vorgelegten Spezifikationen einzuhalten. Diese gibt es auch für den digitalen Bereich, wobei die bekannteste und derzeit relevanteste Spezifikation bzw. Richtlinie die #htl3r.short[nis]-2 wäre. 
+
+"Die #htl3r.short[nis]-2-Richtlinie soll die Resilienz und die Reaktion auf Sicherheitsvorfälle des öffentlichen und des privaten Sektors in der EU verbessern. Der bisherige Anwendungsbereich der #htl3r.short[nis]-Richtlinie nach Sektoren wird mit #htl3r.short[nis]-2 auf einen größeren Teil der Wirtschaft und des öffentlichen Sektors ausgeweitet, um eine umfassende Abdeckung jener Sektoren und Dienste zu gewährleisten, die im Binnenmarkt für grundlegende gesellschaftliche und wirtschaftliche Tätigkeiten von entscheidender Bedeutung sind. Betroffene Einrichtungen müssen daher geeignete Risikomanagementmaßnahmen für dise Sicherheit ihrer Netz- und Informationssysteme treffen und unterliegen Meldepflichten."
+
+Für später:
+@nis2-richtlinie
+
+TODO: NIS-2 Bußgelder wegen kritischer Infrastruktur auf staatlicher Ebene effektiv Ja/Nein

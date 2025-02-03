@@ -20,8 +20,7 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
     image("../assets/topology_logical.svg"),
     caption: [Die Projekttopologie in logischer Darstellung]
   )
-)  
-ACHTUNG: VERALTET
+)
 
 === Geräte
 

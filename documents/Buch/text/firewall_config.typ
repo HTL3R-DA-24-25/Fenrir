@@ -130,10 +130,9 @@ Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext i
 
 Mit einer FortiGate-Firewall lassen sich nicht nur Policies schreiben, um den Datenverkehr zu regulieren. Es können die auch Daten laufend in Form eines #htl3r.short[ips] analysiert und anhand des Inhalts blockiert bzw. erlaubt werden.
 
-Die Nutzung ...
+Die Nutzung dieser Features ist von den auf der Firewall registrierten Lizenzen abhängig, da in der Basispaket-Lizenz der Fortiguard #htl3r.short[ips] Sicherheitsservice zum Beispiel nicht inkludiert ist.
 
-OT-Signaturen sind zwar Teil des Fortiguard IPS Sicherheitsservice, sind aber standardmäßig deaktiviert. Mit folgender Konfiguration werden die OT-Signauren der IPS-Engine freigegeben: 
-@fw-ips-modbus-decoder[comp]
+#htl3r.short[ot]-Signaturen sind zwar Teil des Fortiguard #htl3r.short[ips] Sicherheitsservice, sind aber standardmäßig deaktiviert. Mit folgender Konfiguration werden die #htl3r.short[ot]-Signaturen der #htl3r.short[ips]-Engine freigegeben: 
 
 #htl3r.code-file(
   caption: "OT-Signaturen und Modbus-Decoder im IPS aktivieren",
@@ -142,5 +141,6 @@ OT-Signaturen sind zwar Teil des Fortiguard IPS Sicherheitsservice, sind aber st
   ranges: ((161, 170),),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
+@fw-ips-modbus-decoder[comp]
 
-Es wurde ebenfalls der Modbus-Decoder des IPS auf den Port 502 eingeschränkt, da Modbus TCP immer auf Port 502 kommuniziert. Der Modbus-Decoder sollte zwar standardmäßig bereits nur die Daten auf Port 502 bearbeiten, falls die Range jedoch größer konfiguriert sein sollte, kann dies zu erheblichen Perfomance-Problemen mit der Firewall führen.
+Es wurde ebenfalls der Modbus-Decoder des IPS auf den Port 502 eingeschränkt, da Modbus-TCP immer auf Port 502 kommuniziert. Der Modbus-Decoder sollte zwar standardmäßig bereits nur die Daten auf Port 502 bearbeiten, falls die Range jedoch größer konfiguriert sein sollte, kann dies zu erheblichen Perfomance-Problemen mit der Firewall führen.

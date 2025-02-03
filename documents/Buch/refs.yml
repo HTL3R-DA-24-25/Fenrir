@@ -21,7 +21,7 @@ ci-docs:
 lateral-movement-def:
   type: misc
   title: Lateral Movement Definition
-  author: Fortinet Inc.
+  author: Fortinet, Inc.
   url:
     value: https://www.fortinet.com/resources/cyberglossary/lateral-movement
     date: 2024-12-19
@@ -106,7 +106,7 @@ cyberattacks-crit-infra:
 fw-rugged-feats:
   type: misc
   title: Sichere Betriebstechnologie
-  author: Fortinet Inc.
+  author: Fortinet, Inc.
   url:
     value: https://www.fortinet.com/de/solutions/enterprise-midsize-business/ot-security
     date: 2024-12-19
@@ -179,7 +179,7 @@ spiegel-10-jahre-stuxnet:
 vdom-overview:
   type: misc
   title: VDOM overview
-  author: Fortinet Inc.
+  author: Fortinet, Inc.
   url:
     value: https://docs.fortinet.com/document/fortigate/7.6.1/administration-guide/597696/vdom-overview
     date: 2025-01-05
@@ -244,7 +244,7 @@ scadafence-ot-angriffe:
 fw-ips-modbus-decoder:
   type: misc
   title: IPS Modbus TCP decoder
-  author: Fortinet Inc.
+  author: Fortinet, Inc.
   url:
     value: https://docs.fortinet.com/index.php/document/fortigate/7.6.2/administration-guide/635285/ips-modbus-tcp-decoder
     date: 2025-02-01
@@ -258,3 +258,12 @@ siemens-sps-dos-cve:
     value: https://nvd.nist.gov/vuln/detail/CVE-2019-10936
     date: 2025-02-01
   date: 2019-10-10
+
+fortigate-subscriptions:
+  type: misc
+  title: FortiGate Subscriptions and FortiGuard Bundles
+  author: Fortinet, Inc.
+  url:
+    value: https://www.fortinet.com/content/dam/fortinet/assets/data-sheets/og-fortiguard.pdf
+    date: 2025-02-03
+  date: 2024

@@ -1,3 +1,9 @@
+ip:
+  short:
+    singular: IP
+  long:
+    singular: Internet Protocol
+
 yaml:
   short:
     singular: YAML
@@ -363,3 +369,17 @@ osi:
   long:
     singular: Open Systems Interconnection
   description: Ein Modell zur Beschreibung der Kommunikation zwischen unterschiedlichen technischen Systemen.
+
+usb:
+  short:
+    singular: USB
+  long:
+    singular: Universal Serial Bus
+
+cve:
+  short:
+    singular: CVE
+    plural: CVEs
+  long:
+    singular: Critical Vulnerability Exploit
+    plural: Critical Vulnerability Exploits
