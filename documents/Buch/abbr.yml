@@ -323,8 +323,9 @@ jwt:
   long:
     singular: JSON Web Token
 
-api:
+ssh:
   short:
-    singular: API
+    singular: SSH
   long:
-    singular: Application Programming Interface
+    singular: Secure Shell
+  description: Ein verschlüsseltes Netzwerkprotokoll, welches es einem Benutzer ermöglicht sich auf einem, über das Netzwerk erreichbarem, Computer oder Server zu Authentifizieren und zugriff zu einer Kommandozeile zu erhalten.

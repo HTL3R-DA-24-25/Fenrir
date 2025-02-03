@@ -59,7 +59,7 @@ Das Linux-Server-Image wird mittels Cloud-Init, einer plattformübergreifenden S
 Das Linux-Server-Image wird mittels Cloud-Init, einer plattformübergreifenden Software für das Aufsetzen von Cloudinstanzen, welche sich als Industriestandard etabliert hat @ci-docs[comp], aufgesetzt. Cloud-Init liest eine gegebene #htl3r.short[yaml] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
 
 
-=== Terraform
+=== Terraform <terraform-prov>
 Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.shortpl[vm], #htl3r.shortpl[dvs], #htl3r.shortpl[dpg], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
 #htl3r.code-file(
   caption: "Terraform Bastion Provisionierung",
@@ -205,4 +205,22 @@ Solch eine Regel sieht folgendermaßen aus:
 Die gezeigte Regel erlaubt #htl3r.short[dhcp]-Requests von den Managed #htl3r.shortpl[vm] auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
 
 == Provisionierung mittels Bastion <prov-mit-bastion>
-#lorem(90)
+Bei der Provisionierung eines großen Netzwerkes kann es zu verschiedensten Problemen kommen. Ein großes Problem welches sich häufiger entpuppt ist Trust. Um diverse Dienste und Programme zu Konfigurieren braucht es einen Remote-Shell zugriff in beliebigen Form. Da im Rahmen dieser Diplomarbeit vor allem auf Packer, Terraform und Ansible gesetzt wird, macht es sinn #htl3r.short[ssh] für diesen Zweck einzusetzen, da jedes dieser Tools dies unterstützt.
+
+#htl3r.short[ssh] erfordert eine authentifizierung, demnach ist es wichtig Passwörter oder auch Schlüsselpaare bei der Provisionierung, sowie im laufenden Betrieb, zu verwalten. Um diesen Prozess zu erleichtern gibt es eine zentrale Quelle des Vertrauens. Dies wird in Form einer besonderen #htl3r.short[vm] erzielt. Diese #htl3r.short[vm] besitzt einen besonderen Schlüssel, welcher ihr den Zugriff auf alle anderen #htl3r.shortpl[vm] gewährt. Diese #htl3r.short[vm] wird Bastion genannt, denn diese #htl3r.short[vm] darf unter keinen Umständen kompromentiert werden. Schafft es ein Angreifer die Bastion einzunehmen, so bekommt er Zugriff auf das gesamte Netzwerk, da jede #htl3r.short[vm] den Schlüsseln der Bastion vertraut. Um Angriffe auf die Bastion zu vermeiden wird diese in kein produktiv Netzwerk eingebunden und Internetzugriff wird untersagt. Es ist lediglich möglich über das Management-Netzwerk auf die Bastion zuzugreifen, da eine Schnittstelle für die #htl3r.short[iac]-Tools gebraucht wird. Der Zugriff in das Management-Netzwerk ist jedoch nur über einen #htl3r.short[vpn] möglich.
+
+=== Ablauf der Provisionierung
+Wie in @terraform-prov bereits erklärt worden ist, wird in Stages provisioniert. Die Bastion wird hierbei innerhalb von Stage Null aufgesetzt. Damit der erstamlige #htl3r.short[ssh]-Zugriff auf die Bastion gelingt wird ein vordefinierten Passwort verwendet. Dieser Zugriff ist nötig um das Schlüsselpaar auf die Bastion zu kopieren.
+
+In weitere folge, ebenfalls in Stage Null, werden die Template-#htl3r.shortpl[vm] für alle anderen #htl3r.shortpl[vm], welche für das Produktivnetzwerk gebraucht werden, erstellt. Um den öffentlichen Schlüssel der Bastion auf die Template-#htl3r.shortpl[vm] zu kopieren wird ebenfalls #htl3r.short[ssh] verwendet. Dieser #htl3r.short[ssh]-Zugriff geschieht noch direkt im Management-Netzwerk und über ein zufälliges Passwort, welches direkt nach Abschluss der Provisionierung verworfen wird. Die erstellten Template-#htl3r.shortpl[vm] können nun gekloned werden und über das Bastion-Management-Netzwerk weiter konfiguriert werden.
+#pagebreak(weak: true)
+Abstrakt betrachtet sieht dieser Provisionierungsvorgang wie folgt aus:
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/prov_mit_bastion.png"),
+    caption: [Abstrakte Provisionierung mittels Bastion]
+  )
+)
+
+=== SSH Agent
