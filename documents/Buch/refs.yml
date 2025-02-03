@@ -240,3 +240,21 @@ scadafence-ot-angriffe:
     value: https://blog.scadafence.com/most-common-ot-security-threats-solutions
     date: 2025-02-02
   date: 2022
+
+fw-ips-modbus-decoder:
+  type: misc
+  title: IPS Modbus TCP decoder
+  author: Fortinet Inc.
+  url:
+    value: https://docs.fortinet.com/index.php/document/fortigate/7.6.2/administration-guide/635285/ips-modbus-tcp-decoder
+    date: 2025-02-01
+  date: 2025
+
+siemens-sps-dos-cve:
+  type: misc
+  title: CVE-2019-10936 Detail
+  author: Siemens AG
+  url:
+    value: https://nvd.nist.gov/vuln/detail/CVE-2019-10936
+    date: 2025-02-01
+  date: 2019-10-10

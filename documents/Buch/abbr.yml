@@ -71,6 +71,14 @@ ot:
   long:
     singular: Operational Technology
 
+wan:
+  short:
+    singular: WAN
+    plural: WANs
+  long:
+    singular: Wide Area Network
+    plural: Wide Area Networks
+
 lan:
   short:
     singular: LAN
@@ -181,6 +189,16 @@ ids:
     singular: Intrusion Detection System
     plural: Intrusion Detection Systems
   description: Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses erkennt.
+
+ips:
+  short:
+    singular: IPS
+    plural: IPSs
+  long:
+    singular: Intrusion Prevention System
+    plural: Intrusion Prevention Systems
+  description: Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses verhindert.
+
 
 mes:
   short:
@@ -309,6 +327,8 @@ hmi:
     plural: HMIs
   long:
     singular: Human Machine Interface
+    plural: Human Machine Interfaces
+  description: Eine Benutzerschnittstelle, die der Interaktion zwischen Mensch und Maschine dient. 
 
 vpn:
   short:
@@ -329,3 +349,17 @@ ssh:
   long:
     singular: Secure Shell
   description: Ein verschlüsseltes Netzwerkprotokoll, welches es einem Benutzer ermöglicht sich auf einem, über das Netzwerk erreichbarem, Computer oder Server zu Authentifizieren und zugriff zu einer Kommandozeile zu erhalten.
+
+cctv:
+  short:
+    singular: CCTV
+  long:
+    singular: Closed Circuit Television
+  description: Ist allgemein als Videoüberwachung bekannt und wird zur Verbrechensverhinderung eingesetzt. "Closed Circuit" bedeutet hier, dass Aufzeichnungen an eine begrenzte (geschlossene) Anzahl von Monitoren übertragen werden, im Gegensatz zum "regulären" bzw. öffentlichen Fernsehen.
+
+osi:
+  short:
+    singular: OSI
+  long:
+    singular: Open Systems Interconnection
+  description: Ein Modell zur Beschreibung der Kommunikation zwischen unterschiedlichen technischen Systemen.

