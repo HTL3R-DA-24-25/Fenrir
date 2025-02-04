@@ -383,3 +383,10 @@ cve:
   long:
     singular: Critical Vulnerability Exploit
     plural: Critical Vulnerability Exploits
+
+snmp:
+  short:
+    singular: SNMP
+  long:
+    singular: Simple Network Management Protocol
+  description: Netzwerkprotokoll zur Überwachung von Netzwerkgeräten, indem sie Logdaten an einen zentralen Log-Server schicken.

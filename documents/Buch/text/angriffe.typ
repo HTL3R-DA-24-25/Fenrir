@@ -49,10 +49,11 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
       table.header(
         [*Bezeichnung*], [*Beschreibung*], [*Wahrscheinlichkeit*], [*Erkennbarkeit*],
       ),
-      "Internal Spear Phishing", "Angreifer nutzt das kompromitierte E-Mail-Konto eines Mitarbeiters aus, um mit dessen Identität andere Mitarbeiter zu phishen", "Hoch", "Mittel",
-      [#htl3r.long[lotl] (#htl3r.short[lotl])], "Angreifer nutzt die ihm bereits verfügbaren Admin-Tools um unaufällig in den Betriebsprozess einzugreifen und weitere Informationen zu erhalten", "Hoch", "Mittel/Schwer",
-      "Default/Hardcoded Credentials", "Angreifer kann durch die öffentlich bekannten Standard-Zugangsdaten von im Netzwerk eingesetzer Software/Hardware diese übernehmen", "Niedrig", "Mittel",
-      "Remote Services", "...", "...", "..."
+      "Internal Spear Phishing", "Angreifer nutzt das kompromitierte E-Mail-Konto eines Mitarbeiters aus, um mit dessen Identität andere Mitarbeiter zu phishen.", "Hoch", "Mittel",
+      [#htl3r.long[lotl] (#htl3r.short[lotl])], "Angreifer nutzt die ihm bereits verfügbaren Admin-Tools um unaufällig in den Betriebsprozess einzugreifen und weitere Informationen zu erhalten.", "Hoch", "Mittel/Schwer",
+      "Default/Hardcoded Credentials", "Angreifer kann durch die öffentlich bekannten Standard-Zugangsdaten von im Netzwerk eingesetzer Software/Hardware diese übernehmen.", "Niedrig", "Einfach",
+      "Remote Services", [Die für routinemäßige Systemadministration erlaubten Kommunikationsschnittstellen wie #htl3r.short[rdp] oder #htl3r.short[ssh] werden vom Angreifer ausgenutzt, um sich weiter im Netzwerk auszubreiten.], "Mittel", "Mittel",
+      "Valid Accounts", "Die durch z.B. Phishing erhaltenen Anmeldeinformationen erlauben dem Angreifer, sich als legitimer Benutzer auszugeben.", "Hoch", "Schwer"
     ),
     caption: [Bekannte #htl3r.longpl[lmp]],
   )
@@ -62,9 +63,15 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
 
 Die obigen Techniken sind natürlich miteinander kombinierbar, z.B. #htl3r.short[lotl] und Remote Services. Es ist ebenfalls zu beachten, dass die Bewertung der Wahrscheinlichkeit und Erkennbarkeit in der obigen Tabelle von einer bestehenden Absicherung des Netzwerks und vorhandenen #htl3r.short[ids]-Geräten ausgeht.
 
-#htl3r.todo("BILD VON ANGREIFER IN NETZWERK MIT LMPS")
+#htl3r.fspace(
+  total-width: 95%,
+  figure(
+    image("../assets/LMPs_Ungesichert.svg"),
+    caption: [Die möglichen LMPs innerhalb eines ungesicherten Netzwerks]
+  )
+)
 
-Bevor der Angreifer jedoch mögliche #htl3r.shortpl[lmp] ausnutzen kann, muss dieser überhaupt in das Netzwerk eindringen. Dies geschieht meist durch Identity-Angriffe wie Phishing-Mails, aber auch durch maliziöse Downloads und kompromitierter Hardware.
+Bevor der Angreifer jedoch mögliche #htl3r.shortpl[lmp] ausnutzen kann, muss dieser überhaupt in das Netzwerk eindringen. Dies geschieht meist durch Identity-Angriffe wie Phishing-Mails, aber auch durch maliziöse Downloads und bereits kompromitierte Hardware.
 
 Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk können folgende Strategien eingesetzt werden:
 
@@ -87,11 +94,11 @@ Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenri
 
 Nur selten passieren Angriffe, die als Endergebnisse beispielsweise die Störung des Exchange-Mail-Servers haben. Meistens wird die Präsenz eines Mail-Servers lediglich genutzt, um als "Sprungbrett" ins interne Netzwerk zu dienen durch Phishing-Angriffe.
 
-PHISHING ANGRIFF HIER UMSETZEN
+#htl3r.todo("Phishing Angriff hier umsetzen")
 
 === Ransomware auf Endgeräten
 
-=== Dataleak-Trojaner auf Endgeräten
+=== Keylogging-Trojaner auf Endgeräten
 
 #htl3r.author("Gabriel Vogler")
 === Ticketing-Angriffe
@@ -126,9 +133,13 @@ Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt
 
 Bereits durch einen Port-Scan der #htl3r.short[sps] kann der Angreifer Informationen über mögliche Schwachstellen ergattern. Es sind derzeit folgende Ports offen, die eine Gefahr darstellen können:
 - *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-SPS-Administrationssoftware STEP 7 per Fernwartung mit der SPS kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
-- *UDP-Port 161:* Hostet den SNMP-Dienst und dient der Übermittlung von Logdaten an externe Log-Server. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
+- *UDP-Port 161:* Hostet den #htl3r.short[snmp]-Dienst und dient der Übermittlung von Logdaten an externe Log-Server. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
 
 ...
+
+METASPLOIT NIX GEHEN
+
+Der #htl3r.short[cve]-2019-10936
 
 #htl3r.author("David Koch")
 === DoS einer SPS <dos-sps>
@@ -151,11 +162,11 @@ send(udp_packet)
 #htl3r.author("David Koch")
 === Manipulation einer SPS
 
-Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine SPS oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
+Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine #htl3r.short[sps] oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
 
 Der im obigen @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register ...
 
-Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im OT-Netzwerk hat.
+Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
 
 ...
 
@@ -167,9 +178,9 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
 1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
-2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen OT-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste 
-3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des OT-Engineers um tiefer in die Anlage einzudringen.
-4. LotL, Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste 
+3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des #htl3r.short[ot]-Engineers um tiefer in die Anlage einzudringen.
+4. #htl3r.short[lotl], Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
 5. Angreifer entdeckt Default Credentials auf OpenPLC.
 6. Steuerung der zweiten Betriebszelle wird umprogrammiert.
 7. Anlage kommt zum Stehen, nachhaltiger Schaden wurde angerichtet.

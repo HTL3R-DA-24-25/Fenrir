@@ -13,7 +13,7 @@ Um die Wirksamkeit der in dieser Diplomarbeit durchgeführten Netzwerksabsicheru
 
 === Ransomware auf Endgeräten
 
-=== Dataleak-Trojaner auf Endgeräten
+=== Keylogging-Trojaner auf Endgeräten
 
 === Ticketing-Angriffe
 
