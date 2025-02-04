@@ -23,10 +23,6 @@ Als erster Schritt zur erfolgreichen Abwasserfiltration braucht es einen Weg, gr
 
 Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter geschraubt, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochgeschraubte Wasser durch das Rechengitter fallen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher der Anfang der Leitung in die zweite Zelle ist.
 
-Die Schraube wurde 3D modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte dieses Problem behoben werden.
-
-Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen.
-
 * BILD *
 
 === Schaltplan
@@ -146,6 +142,43 @@ Das Ganze funktioniert mithilfe eines #htl3r.short[rfid]-Chips, der auf der Spul
 Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
 Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
 Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwendet, um Stützstrukturen zu drucken, die nach dem Druck einfach in Wasser aufgelöst werden können. Dies half uns dabei, auch komplexere Modelle zu drucken, die ohne Stützstrukturen nicht möglich gewesen wären und die dennoch eine hoheh Qualität des Drucks zu gewährleisten. Das #htl3r.short[pva]-Filament stammt ebenfalls aus dem Hause BambuLab. Die Problematik bei der Vernwedung von #htl3r.short[pva]-Filament ist, dass dieses eine sehr trockene Umgebung benötigt, da es sehr emplindlich gegenüber Feuthigkeit ist. Anfänglich wurde probiert das Filament im Vorhinein mit einem Filamenttrockner zu trocknen und anschließend aus dem #htl3r.short[ams] zu drucken. Obwohl in einem trockenen Raum gedruckt wurde, wollte das Filament nicht so wie geünscht auf der Druckplatte und dem zu druckenden Körper haften. Nach einigen Anpassungen an den Druckeinstellungen sowie dem Wechsel von #htl3r.short[petg] auf #htl3r.short[pla] als Druckmaterial, konnte das Problem gelöst werden. Dies liegt daran, dass #htl3r.short[petg] heißer gedruckt werden muss als #htl3r.short[pla] und die Temperatur für das #htl3r.short[pva]-Filament zu hoch war und das Stützmaterial zum kochen begonnnen hat. Dies führte zum Ziehen von Fäden und somit zu einem unbrauchbaren Druck. Außerdem wurde das #htl3r.short[pva]-Filament direkt aus dem Filamenttrockner gedruckt, somit konnte auch während des Druckens die Trockenheit gewährleistet werden. 
+
+== Modelle
+=== Förderschnecke
+Die Schraube wurde 3D modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte dieses Problem behoben werden.
+
+Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen.
+
+#figure(
+  image("../assets/3D-Modelle/Fenrir_Förderschnecke.png"),
+  caption: [3D-Modell der Förderschnecke]
+)
+//TODO TEXT + Formatierung
+#figure(
+  image("../assets/3D-Modelle/Motor_Halterung.png"),
+  caption: [3D-Modell der Halterung für den Schneckenmotor]
+)
+
+== Zelle-2 Tankabdeckungen
+//TODO TEXT + Formatierung
+#figure(
+  image("../assets/3D-Modelle/Fenrir-Betriebszelle-2-Abdeckung.png"),
+  caption: [3D-Modell der Tankdeckel]
+)
+
+== Zelle-3 Einlasshalterung
+//TODO TEXT + Formatierung
+#figure(
+  image("../assets/3D-Modelle/Fenrir-Betriebszelle-3-Abdeckung.png"),
+  caption: [3D-Modell der Einlasshalterung]
+)
+
+== Zelle-3 Überschwemmungsgebiet Häusern
+//TODO TEXT + Formatierung
+#figure(
+  image("../assets/3D-Modelle/Fenrir_house_4.png"),
+  caption: [3D-Modell der Häuser]
+)
 
 #htl3r.author("David Koch")
 == Programmierung eines I2C-Kommunikationsbusses
