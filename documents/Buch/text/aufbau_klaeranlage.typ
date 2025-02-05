@@ -143,38 +143,40 @@ Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten
 Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
 Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwendet, um Stützstrukturen zu drucken, die nach dem Druck einfach in Wasser aufgelöst werden können. Dies half uns dabei, auch komplexere Modelle zu drucken, die ohne Stützstrukturen nicht möglich gewesen wären und die dennoch eine hoheh Qualität des Drucks zu gewährleisten. Das #htl3r.short[pva]-Filament stammt ebenfalls aus dem Hause BambuLab. Die Problematik bei der Vernwedung von #htl3r.short[pva]-Filament ist, dass dieses eine sehr trockene Umgebung benötigt, da es sehr emplindlich gegenüber Feuthigkeit ist. Anfänglich wurde probiert das Filament im Vorhinein mit einem Filamenttrockner zu trocknen und anschließend aus dem #htl3r.short[ams] zu drucken. Obwohl in einem trockenen Raum gedruckt wurde, wollte das Filament nicht so wie geünscht auf der Druckplatte und dem zu druckenden Körper haften. Nach einigen Anpassungen an den Druckeinstellungen sowie dem Wechsel von #htl3r.short[petg] auf #htl3r.short[pla] als Druckmaterial, konnte das Problem gelöst werden. Dies liegt daran, dass #htl3r.short[petg] heißer gedruckt werden muss als #htl3r.short[pla] und die Temperatur für das #htl3r.short[pva]-Filament zu hoch war und das Stützmaterial zum kochen begonnnen hat. Dies führte zum Ziehen von Fäden und somit zu einem unbrauchbaren Druck. Außerdem wurde das #htl3r.short[pva]-Filament direkt aus dem Filamenttrockner gedruckt, somit konnte auch während des Druckens die Trockenheit gewährleistet werden. 
 
-== Modelle
+#pagebreak(weak: true)
+== 3D-Modelle
 === Förderschnecke
-Die Schraube wurde 3D modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte dieses Problem behoben werden.
-
-Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen.
+Die Schraube wurde 3D modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
 
 #figure(
-  image("../assets/3D-Modelle/Fenrir_Förderschnecke.png"),
+  image("../assets/3D-Modelle/Fenrir_Förderschnecke.png", width: 90%),
   caption: [3D-Modell der Förderschnecke]
 )
-//TODO TEXT + Formatierung
+#pagebreak(weak: true)
+== Schneckenmotor-Halterung
+Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen vesetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt wurde außerdem eine abdeckung gedruckt. diese wird einfach auf den Motor gesetzt und anschließend mit der Halterung mit 4 M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
+
 #figure(
   image("../assets/3D-Modelle/Motor_Halterung.png"),
   caption: [3D-Modell der Halterung für den Schneckenmotor]
 )
-
+#pagebreak(weak: true)
 == Zelle-2 Tankabdeckungen
-//TODO TEXT + Formatierung
+Für beide Tanks der Zelle-2 wurden idente Deckel entworfen und gedruckt. Diese Deckel haben eine Öffnung für einen Schlauch, welcher als Zufluss dient. Außerdem sind im Deckel die notwendigen Sensoren befestigt. Der Füllstandssensor wird durch die Öffnung von oben in den Tank gesteckt und liegt auf dem Deckel auf. Der Temparatursensor hat eine eigene Öffnung, in welche dieser dann ebenfalls von oben in den Tankgesteckt werden kann. Die Deckel sind so konzipiert, dass die 3 Löcher nur so groß wie nötig sind, damit keine Verunreinigungen ins Wasser kommen können. Die Löcher wurden mit kreisförmigen Skizzen erstellt und anschließend Extrudiert und damit Deckel ausgeschnitten. damit diese nicht verrutschen gibt es an der Unerseite des Deckels eine erhöhung die in den tank hineinragt. Damit ist der Deckel befestigt ohne jeglichen Einsatz von Schrauben oder Kleber.
 #figure(
   image("../assets/3D-Modelle/Fenrir-Betriebszelle-2-Abdeckung.png"),
-  caption: [3D-Modell der Tankdeckel]
+  caption: [3D-Modell des Tankdeckels]
 )
-
+#pagebreak(weak: true)
 == Zelle-3 Einlasshalterung
-//TODO TEXT + Formatierung
+Für das Wassereinlaufbecken in der Zelle-3 gibt wurde eine Halterung für den Wasserschlauch modelliert und gedruckt. Diese ist im Becken an links und rechts montiert. Dies wurde mithilfe von zwei Steckverbindungen erreicht. Das Becken hat etwa 2 cm x 0,5 cm große Löcher in die die Halterung gesteckt wird. Modelliert wurden die beiden Einschübe mit einer Skizze die anschließend 1 cm lang extrudiert wurde. Die Öffnung für den Schlauch wurde mit einer Kreisförmigen Skizze erstellt und anschließend extrudiert. Die Öffnung für den Schlauch wurde so angepasst, dass bei Bedarf der Schlauch einfach entfernt werden kann und dennoch bei Benutzung fest sitzt.
 #figure(
   image("../assets/3D-Modelle/Fenrir-Betriebszelle-3-Abdeckung.png"),
   caption: [3D-Modell der Einlasshalterung]
 )
-
+#pagebreak(weak: true)
 == Zelle-3 Überschwemmungsgebiet Häusern
-//TODO TEXT + Formatierung
+Für die Zelle-3 wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell erstellt und anschließend im Slicer nach Belieben skaliert. Dabei wurde die volle Größe und die Hälfte genommen. Der Modellierungsprozess begann mit der Grundform des Hauses, einem Quader, auf dem dann ein Dreieck, was anschließend extrudiert wurde, platziert wurde. Der Reichfang ist durch einen Zylinder dargestellt. Dabei wurde eine Kreisförmige Skizze durch das Dach des Hauses hindurch extrudiert. Das Haus ist innen hohl, damit weniger Material verbraucht wird und es für nicht notwendig ist, das Haus zu füllen.
 #figure(
   image("../assets/3D-Modelle/Fenrir_house_4.png"),
   caption: [3D-Modell der Häuser]
