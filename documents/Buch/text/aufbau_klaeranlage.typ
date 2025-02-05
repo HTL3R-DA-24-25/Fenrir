@@ -45,10 +45,10 @@ Die in dieser Zelle verwendete #htl3r.short[sps] ist eine Siemens SIMATIC S7-120
 Europaweit hat sich die Siemens SIMATIC als die gängiste #htl3r.short[sps]-Marke durchgesetzt @siemens-marktanteil[comp]. Bereits im Jahre 1958 wurde die erste SIMATIC, eine verbindungsprogrammierte Steuerung (kurz VPS), auf den Markt gebracht @simatic-history[comp].
 
 Die S7-1200 hat folgende Eingänge und Ausgänge:
-- 8 digitale Eingänge 24V DC, davon TODO in Verwendung
-- 6 digitale Ausgänge 24V/0,5A DC, davon TODO in Verwendung
-- 2 analoge Eingänge 0-10V, davon TODO in Verwendung
-- Eine Ethernet-Schnittstelle für die Kommunikation mit anderen Geräten über das Modbus TCP Protokoll
+- 8 digitale Eingänge 24V DC
+- 6 digitale Ausgänge 24V/0,5A DC,
+- 2 analoge Eingänge 0-10V
+- Eine Profinet-Schnittstelle für die Kommunikation mit anderen Ethernet-Geräten
 
 Die Ethernet-Schnittstelle wird verwendet, um die #htl3r.short[sps] mit der Zellen-Firewall und somit der restlichen Topologie zu verbinden.
 

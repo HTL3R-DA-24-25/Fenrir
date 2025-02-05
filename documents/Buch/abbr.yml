@@ -289,6 +289,12 @@ tcp:
   long:
     singular: Transmission Control Protocol
 
+udp:
+  short:
+    singular: UDP
+  long:
+    singular: User Datagram Protocol
+
 icp:
   short:
     singular: ICP

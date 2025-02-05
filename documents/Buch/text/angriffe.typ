@@ -119,7 +119,7 @@ Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physisc
 Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstelle zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken, das heißt, dass keine physische Absicherung stattfindet.
 
 #htl3r.author("David Koch")
-=== Netzwerkaufklärung
+=== Netzwerkaufklärung <recon>
 
 Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt im Netzwerk gibt und was für Schwachstellen ausgenutzt werden können. Dieser wichtige Schritt nennt sich Netzwerkaufklärung und kann mit vielen verschiedenen Tools durchgeführt werden. Im Rahmen der in diesem Projekt durchgeführten #htl3r.short[ot]-Angriffe werden Nmap und Metasploit verwendet, wobei Metasploit nicht nur der Netzwerkaufklärung sondern bereits auch dem Penetration-Testing dient.
 
@@ -144,20 +144,26 @@ Der #htl3r.short[cve]-2019-10936
 #htl3r.author("David Koch")
 === DoS einer SPS <dos-sps>
 
-@siemens-sps-dos-cve
+Die CVE-Beschreibung von #htl3r.short[cve]-2019-10936 lautet: "Affected devices improperly handle large amounts of specially crafted #htl3r.short[udp] packets. This could allow an unauthenticated remote attacker to trigger a denial of service condition." @siemens-sps-dos-cve Es wird ebenfalls erwähnt, dass nur Firmware-Versionen unter v4.4.0 von dieser Schwachstelle betroffen sind. Wie bereits in @recon ermittelt worden ist, hat die auf der S7-1200 derzeit installierte Firmware die Version v4.3.1. Das heißt: Der Angriff kann beginnen.
+
+Was mit "specially crafted #htl3r.short[udp] packets" gemeint ist, ist nicht näher beschrieben. In den meisten #htl3r.short[dos]-Angriffen handelt es sich bei diesen Packets meist um Buffer-Underflow- bzw. Buffer-Overflow-Payloads. Bei einem Underflow werden in den einzelnen Packets zu wenige Nutzdaten übermittelt, bei einem Overflow werden zu viele Nutzdaten übermittelt. Insgesamt werden diese Packets dann in sehr großen Mengen an das anzugreifende Gerät geschickt, um den #htl3r.short[dos]-Zustand auszulösen.
 
 #htl3r.code(caption: "Das UDP-Packet für den DoS-Angriff auf die S7-1200", description: none)[
 ```python
-from scapy.all import *
+from scapy.layers.inet import IP, UDP
+from scapy.sendrecv import send
 
 target_ip = "10.79.84.1"
 target_port = 102
 payload = b"A" * 1000
 
 udp_packet = IP(dst=target_ip) / UDP(dport=target_port) / payload
-send(udp_packet)
+while True:
+    send(udp_packet, count=2000)
 ```
 ]
+
+In Quellcode 7.1 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte UDP-Packet zu erstellen und anschließend an die SPS zu schicken.
 
 #htl3r.author("David Koch")
 === Manipulation einer SPS

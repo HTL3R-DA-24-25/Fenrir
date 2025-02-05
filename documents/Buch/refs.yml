@@ -254,6 +254,7 @@ siemens-sps-dos-cve:
   type: misc
   title: CVE-2019-10936 Detail
   author: Siemens AG
+  publisher: National Institute of Standards and Technology (USA)
   url:
     value: https://nvd.nist.gov/vuln/detail/CVE-2019-10936
     date: 2025-02-01
