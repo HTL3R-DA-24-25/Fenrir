@@ -396,3 +396,11 @@ snmp:
   long:
     singular: Simple Network Management Protocol
   description: Netzwerkprotokoll zur Überwachung von Netzwerkgeräten, indem sie Logdaten an einen zentralen Log-Server schicken.
+
+rtu:
+  short:
+    singular: RTU
+    plural: RTUs
+  long:
+    singular: Remote Terminal Unit
+    plural: Remote Terminal Units
