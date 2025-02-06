@@ -5,13 +5,7 @@
 
 Die politische Lage der Welt spitzt sich zu, Angriffe auf kritische Infrastruktur nehmen zu @cyberattacks-crit-infra. Immer mehr staatliche Akteure versuchen, die kritischen Industrie- sowie Infrastrukturdienste anderer Länder anzugreifen, und sind dabei zu oft erfolgreich, da die Absicherung des Übergangs zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken im Betrieb häufig suboptimal ist @cisa-wastewater.
 
-blablabal
-
-#htl3r.todo("muss mal fertig werden")
-
 Das Bewusstsein und der Wunsch nach einer -- gegen Cyberangriffe -- sicheren physischen Infrastruktur sollte auch in der allgemeinen Bevölkerung gestärkt werden. Mit unserer Modell-Kläranlage und den selbstorchestrierten Angriffen auf diese möchten wir zeigen, dass mangelnde #htl3r.short[ot]-Security zu "echten" Schäden führen kann -- sei es ein überschaubarer Wasserschaden bei unserer Kläranlage oder Millionenschäden durch kaputte Hochöfen oder überhitzte Kühlsysteme von Kraftwerken @it-sec-de. Zusätzlich soll unsere Dokumentation des Absicherungsprozesses als Literaturverzeichnis von "Dos" und "Don'ts" für angehende #htl3r.short[ot]-Security-Expert*innen oder für interessierte Personen, die sich mit dem Thema auseinandersetzen möchten, dienen.
-
-blablabla
 
 == Danksagung
 
