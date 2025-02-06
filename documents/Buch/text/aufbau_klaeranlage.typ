@@ -214,7 +214,7 @@ Die Schraube wurde 3D modelliert. Gestartet wurde mit dem Erstellen des Stabs in
   caption: [3D-Modell der Förderschnecke]
 )
 #pagebreak(weak: true)
-== Schneckenmotor-Halterung
+=== Schneckenmotor-Halterung
 Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen vesetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt wurde außerdem eine abdeckung gedruckt. diese wird einfach auf den Motor gesetzt und anschließend mit der Halterung mit 4 M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
 
 #figure(
@@ -222,22 +222,22 @@ Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Ha
   caption: [3D-Modell der Halterung für den Schneckenmotor]
 )
 #pagebreak(weak: true)
-== Zelle-2 Tankabdeckungen
-Für beide Tanks der Zelle-2 wurden idente Deckel entworfen und gedruckt. Diese Deckel haben eine Öffnung für einen Schlauch, welcher als Zufluss dient. Außerdem sind im Deckel die notwendigen Sensoren befestigt. Der Füllstandssensor wird durch die Öffnung von oben in den Tank gesteckt und liegt auf dem Deckel auf. Der Temparatursensor hat eine eigene Öffnung, in welche dieser dann ebenfalls von oben in den Tankgesteckt werden kann. Die Deckel sind so konzipiert, dass die 3 Löcher nur so groß wie nötig sind, damit keine Verunreinigungen ins Wasser kommen können. Die Löcher wurden mit kreisförmigen Skizzen erstellt und anschließend Extrudiert und damit Deckel ausgeschnitten. damit diese nicht verrutschen gibt es an der Unerseite des Deckels eine erhöhung die in den tank hineinragt. Damit ist der Deckel befestigt ohne jeglichen Einsatz von Schrauben oder Kleber.
+=== Zelle Zwei Tankabdeckungen
+Für beide Tanks der Zelle Zwei wurden idente Deckel entworfen und gedruckt. Diese Deckel haben eine Öffnung für einen Schlauch, welcher als Zufluss dient. Außerdem sind im Deckel die notwendigen Sensoren befestigt. Der Füllstandssensor wird durch die Öffnung von oben in den Tank gesteckt und liegt auf dem Deckel auf. Der Temparatursensor hat eine eigene Öffnung, in welche dieser dann ebenfalls von oben in den Tankgesteckt werden kann. Die Deckel sind so konzipiert, dass die 3 Löcher nur so groß wie nötig sind, damit keine Verunreinigungen ins Wasser kommen können. Die Löcher wurden mit kreisförmigen Skizzen erstellt und anschließend Extrudiert und damit Deckel ausgeschnitten. damit diese nicht verrutschen gibt es an der Unerseite des Deckels eine erhöhung die in den tank hineinragt. Damit ist der Deckel befestigt ohne jeglichen Einsatz von Schrauben oder Kleber.
 #figure(
   image("../assets/3D-Modelle/Fenrir-Betriebszelle-2-Abdeckung.png"),
   caption: [3D-Modell des Tankdeckels]
 )
 #pagebreak(weak: true)
-== Zelle-3 Einlasshalterung
-Für das Wassereinlaufbecken in der Zelle-3 gibt wurde eine Halterung für den Wasserschlauch modelliert und gedruckt. Diese ist im Becken an links und rechts montiert. Dies wurde mithilfe von zwei Steckverbindungen erreicht. Das Becken hat etwa 2 cm x 0,5 cm große Löcher in die die Halterung gesteckt wird. Modelliert wurden die beiden Einschübe mit einer Skizze die anschließend 1 cm lang extrudiert wurde. Die Öffnung für den Schlauch wurde mit einer Kreisförmigen Skizze erstellt und anschließend extrudiert. Die Öffnung für den Schlauch wurde so angepasst, dass bei Bedarf der Schlauch einfach entfernt werden kann und dennoch bei Benutzung fest sitzt.
+=== Zelle Drei Einlasshalterung
+Für das Wassereinlaufbecken in der Zelle Drei gibt wurde eine Halterung für den Wasserschlauch modelliert und gedruckt. Diese ist im Becken an links und rechts montiert. Dies wurde mithilfe von zwei Steckverbindungen erreicht. Das Becken hat etwa 2 cm x 0,5 cm große Löcher in die die Halterung gesteckt wird. Modelliert wurden die beiden Einschübe mit einer Skizze die anschließend 1 cm lang extrudiert wurde. Die Öffnung für den Schlauch wurde mit einer Kreisförmigen Skizze erstellt und anschließend extrudiert. Die Öffnung für den Schlauch wurde so angepasst, dass bei Bedarf der Schlauch einfach entfernt werden kann und dennoch bei Benutzung fest sitzt.
 #figure(
   image("../assets/3D-Modelle/Fenrir-Betriebszelle-3-Abdeckung.png"),
   caption: [3D-Modell der Einlasshalterung]
 )
 #pagebreak(weak: true)
-== Zelle-3 Überschwemmungsgebiet Häusern
-Für die Zelle-3 wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell erstellt und anschließend im Slicer nach Belieben skaliert. Dabei wurde die volle Größe und die Hälfte genommen. Der Modellierungsprozess begann mit der Grundform des Hauses, einem Quader, auf dem dann ein Dreieck, was anschließend extrudiert wurde, platziert wurde. Der Reichfang ist durch einen Zylinder dargestellt. Dabei wurde eine Kreisförmige Skizze durch das Dach des Hauses hindurch extrudiert. Das Haus ist innen hohl, damit weniger Material verbraucht wird und es für nicht notwendig ist, das Haus zu füllen.
+=== Zelle Drei Überschwemmungsgebiet-Häuser
+Für die Zelle Drei wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell erstellt und anschließend im Slicer nach Belieben skaliert. Dabei wurde die volle Größe und die Hälfte genommen. Der Modellierungsprozess begann mit der Grundform des Hauses, einem Quader, auf dem dann ein Dreieck, was anschließend extrudiert wurde, platziert wurde. Der Reichfang ist durch einen Zylinder dargestellt. Dabei wurde eine Kreisförmige Skizze durch das Dach des Hauses hindurch extrudiert. Das Haus ist innen hohl, damit weniger Material verbraucht wird und es für nicht notwendig ist, das Haus zu füllen.
 #figure(
   image("../assets/3D-Modelle/Fenrir_house_4.png"),
   caption: [3D-Modell der Häuser]
