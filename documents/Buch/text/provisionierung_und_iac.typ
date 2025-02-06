@@ -176,7 +176,6 @@ In weiterer Folge werden das Datacenter sowie die #htl3r.short[dpg] abgefragt:
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-#pagebreak()
 Um nun die #htl3r.short[dpg] zu bearbeiten, wird ein ```ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in zwei Gruppen zu unterteilen:
 
 + Alle eingetragenen Traffic-Filter Regeln löschen.
@@ -207,12 +206,12 @@ Die gezeigte Regel erlaubt #htl3r.short[dhcp]-Requests von den Managed #htl3r.sh
 == Provisionierung mittels Bastion <prov-mit-bastion>
 Bei der Provisionierung eines großen Netzwerkes kann es zu verschiedensten Problemen kommen. Ein großes Problem welches sich häufiger entpuppt ist Trust. Um diverse Dienste und Programme zu Konfigurieren braucht es einen Remote-Shell zugriff in beliebigen Form. Da im Rahmen dieser Diplomarbeit vor allem auf Packer, Terraform und Ansible gesetzt wird, macht es sinn #htl3r.short[ssh] für diesen Zweck einzusetzen, da jedes dieser Tools dies unterstützt.
 
-#htl3r.short[ssh] erfordert eine authentifizierung, demnach ist es wichtig Passwörter oder auch Schlüsselpaare bei der Provisionierung, sowie im laufenden Betrieb, zu verwalten. Um diesen Prozess zu erleichtern gibt es eine zentrale Quelle des Vertrauens. Dies wird in Form einer besonderen #htl3r.short[vm] erzielt. Diese #htl3r.short[vm] besitzt einen besonderen Schlüssel, welcher ihr den Zugriff auf alle anderen #htl3r.shortpl[vm] gewährt. Diese #htl3r.short[vm] wird Bastion genannt, denn diese #htl3r.short[vm] darf unter keinen Umständen kompromentiert werden. Schafft es ein Angreifer die Bastion einzunehmen, so bekommt er Zugriff auf das gesamte Netzwerk, da jede #htl3r.short[vm] den Schlüsseln der Bastion vertraut. Um Angriffe auf die Bastion zu vermeiden wird diese in kein produktiv Netzwerk eingebunden und Internetzugriff wird untersagt. Es ist lediglich möglich über das Management-Netzwerk auf die Bastion zuzugreifen, da eine Schnittstelle für die #htl3r.short[iac]-Tools gebraucht wird. Der Zugriff in das Management-Netzwerk ist jedoch nur über einen #htl3r.short[vpn] möglich.
+#htl3r.short[ssh] erfordert eine authentifizierung, demnach ist es wichtig Passwörter oder auch Schlüsselpaare bei der Provisionierung, sowie im laufenden Betrieb, zu verwalten. Um diesen Prozess zu erleichtern gibt es eine zentrale Quelle des Vertrauens. Dies wird in Form einer besonderen #htl3r.short[vm] erzielt. Diese #htl3r.short[vm] besitzt einen besonderen Schlüssel, welcher ihr den Zugriff auf alle anderen #htl3r.shortpl[vm] gewährt. Diese #htl3r.short[vm] wird Bastion genannt, denn diese #htl3r.short[vm] darf unter keinen Umständen kompromentiert werden. Schafft es ein Angreifer die Bastion einzunehmen, so bekommt er Zugriff auf das gesamte Netzwerk, da jede #htl3r.short[vm] dem Schlüssel der Bastion vertraut. Um Angriffe auf die Bastion zu vermeiden wird diese in kein produktiv Netzwerk eingebunden und Internetzugriff wird untersagt. Es ist lediglich möglich über das Management-Netzwerk auf die Bastion zuzugreifen, da eine Schnittstelle für die #htl3r.short[iac]-Tools gebraucht wird. Der Zugriff in das Management-Netzwerk ist jedoch nur über einen #htl3r.short[vpn] möglich.
 
 === Ablauf der Provisionierung
 Wie in @terraform-prov bereits erklärt worden ist, wird in Stages provisioniert. Die Bastion wird hierbei innerhalb von Stage Null aufgesetzt. Damit der erstamlige #htl3r.short[ssh]-Zugriff auf die Bastion gelingt wird ein vordefinierten Passwort verwendet. Dieser Zugriff ist nötig um das Schlüsselpaar auf die Bastion zu kopieren.
 
-In weitere folge, ebenfalls in Stage Null, werden die Template-#htl3r.shortpl[vm] für alle anderen #htl3r.shortpl[vm], welche für das Produktivnetzwerk gebraucht werden, erstellt. Um den öffentlichen Schlüssel der Bastion auf die Template-#htl3r.shortpl[vm] zu kopieren wird ebenfalls #htl3r.short[ssh] verwendet. Dieser #htl3r.short[ssh]-Zugriff geschieht noch direkt im Management-Netzwerk und über ein zufälliges Passwort, welches direkt nach Abschluss der Provisionierung verworfen wird. Die erstellten Template-#htl3r.shortpl[vm] können nun gekloned werden und über das Bastion-Management-Netzwerk weiter konfiguriert werden.
+In weitere folge, ebenfalls in Stage Null, werden die Template-#htl3r.shortpl[vm] für alle anderen #htl3r.shortpl[vm], welche für das Produktivnetzwerk gebraucht werden, erstellt. Um den öffentlichen Schlüssel der Bastion auf die Template-#htl3r.shortpl[vm] zu kopieren wird unter Windows von einem Answer-File gebrauch gemacht und unter Linux, in diesem Fall Ubuntu-Server, von cloud-init. Packer ermöglicht es beim Provisioniervorgang temporäre virtuelle Floppy-Disks zu erstellen, welche die nötigen Dateien für den automatisierten Setup-Prozess und den öffentlichen Schlüssel der Bastion beinhalten. Die erstellten Template-#htl3r.shortpl[vm] können nun gekloned werden und über das Bastion-Management-Netzwerk weiter konfiguriert werden.
 #pagebreak(weak: true)
 Abstrakt betrachtet sieht dieser Provisionierungsvorgang wie folgt aus:
 #htl3r.fspace(
@@ -224,3 +223,38 @@ Abstrakt betrachtet sieht dieser Provisionierungsvorgang wie folgt aus:
 )
 
 === SSH Agent
+Nun stellt sich vielleicht die Frage, wie die #htl3r.short[iac]-Tools über die Bastion eine Verbindung zu den #htl3r.shortpl[vm] aufbauen können und sich mit dem Schlüssel der Bastion authentifizieren können. Hierzu wird ein #htl3r.short[ssh]-Agent, oft auch #htl3r.short[ssh]-Forwarder genannt, benutzt. Wie der Name schon sagt, agiert hierbei die Bastion, mit ihrem Schlüssel, für die #htl3r.short[iac]-Tools. Im Idealfall kommen bei dem Verbindungsaufbau zur Bastion ebenfalls Schlüssel zum einsatz, im Rahmen dieser Diplomarbeit wurde jedoch auf eine Authentifizierung mittels Passwort gesetzt, da dies leichter zum verwalten ist. Das Passwort kann in einer Environment-Datei (`.env`) abgespeichert werden und mittels `.gitignore` aus dem Git-Repository excludiert werden.
+
+Abstrakt betracht kann der Zugriff, welcher von den #htl3r.short[iac]-Tools durchführen, folgender maßen visualisiert werden:
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/bastion_workflow.png"),
+    caption: [Abstrakte SSH-Agent übersicht]
+  )
+)
+
+==== Terraform und Packer
+Terraform und Packer unterstützen die Nutzung eines #htl3r.short[ssh]-Agents Nativ, somit ist es lediglich nötig die passenden Konfigurationszeilen hinzuzufügen. Dies ist, wie später beschrieben wird, nicht bei jedem Tool der Fall.
+
+Die Konfigurationsoptionen in Packer sind selbsterklärend benannt und verständlich. Veranschaulichen lässt sich dies gut an der Packer-Konfiguration des Golden Linux Images:
+#htl3r.code-file(
+  caption: "Packer verwendung von einer Bastion",
+  filename: [packer/images/golde_linux_server/main.pkr.hcl],
+  skips: ((0,9),(1, 62),),
+  lang: "hcl",
+  text: read("../assets/scripts/packer-ssh-example.pkr.hcl")
+)
+
+Ähnlich simpel ist es auch in Terraform. Zu sehen ist ein ausschnitt aus der zweiten Stage, in dieser Stage wird das Scada aufgesetzt:
+#htl3r.code-file(
+  caption: "Terraform verwendung von einer Bastion",
+  filename: [terraform/stage_02/main.tf],
+  skips: ((30, 0),(32,0), (42, 0), (45, 0)),
+  ranges: ((30, 30), (32, 32), (34, 41), (45, 45), (59, 59)),
+  lang: "hcl",
+  text: read("../assets/scripts/stage02-main.tf")
+)
+Die nicht gezeigten Abschnitte werden ausgeblendet um für bessere Lesbarkeit zu sorgen. Es ist somit sehr gut erkennbar wie sich die Konfiguration zu der selbigen in Packer ähnelt.
+==== Ansible
+#htl3r.todo[Beschreiben warum Ansible SSH-Proxies über SSH-Agents bevorzugt, sowie auch auf die Unterschiede eingehen. Aufregen warum das ein schaß ist.]
