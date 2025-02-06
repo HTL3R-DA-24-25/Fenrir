@@ -262,11 +262,23 @@ Aufgrund von Ansible seiner simplizität unterstützt es #htl3r.short[ssh]-Agent
 #htl3r.code-file(
   caption: "Ansible verwendung von einer Bastion",
   filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
-  skips: ((10, 0),),
-  ranges: ((0, 10),),
+  skips: ((11, 0),),
+  ranges: ((0, 11),),
   lang: "yml",
   text: read("../assets/scripts/setup_dc_primary.yml")
 )
-Der Aufbau des Playbooks ist jedoch wesentlich komplexer als der gleiche in Terraform oder Packer. Zerlegt man den `ansible_ssh_common_args` Parameter in seine Einzelteile, so ist auch dieser Logisch nachzuvollziehen:
+Der Aufbau des Playbooks ist jedoch wesentlich komplexer als der gleiche in Terraform oder Packer. Zerlegt man den `ansible_ssh_common_args` Parameter in seine Einzelteile, so ist auch dieser logisch nachzuvollziehen. Es wird hierbei von einem groben verständniss von #htl3r.short[ssh] ausgegangen, somit wird lediglich auf die `ProxyCommand`-Option eingegangen.
 
-#htl3r.todo[Beschreiben warum Ansible SSH-Proxies über SSH-Agents bevorzugt, sowie auch auf die Unterschiede eingehen. Aufregen warum das ein schaß ist.]
+Der Befehl, welcher der `ProxyCommand`-Option mitgegeben wird, wird lokal ausgeführt. Das Ziel der `ProxyCommand`-Option ist es einen Tunnel aufzubauen, über welchen die eigentliche Ziel-#htl3r.short[vm] erreicht werden kann. somit liegt das wirkliche Interesse an folgendem ausschnitt:
+#htl3r.code(caption: "Ansible ProxyCommand Ausschnitt", description: none)[
+```bash
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ForwardAgent=yes $bastion_username@$bastion_host 'ssh-add && nc %h %p'
+```
+]
+
+Das erste Argument von besonderem Interesse ist `ForwardAgent=yes`. Dadurch wird der lokale #htl3r.short[ssh]-Agent der Bastion weitergeleitet. Dies ist vorallem in den folgenden Schritten sehr wichtig, da die Schlüssel der Bastion zu diesem hinzugefügt werden. Genau dieses hinzufügen der Schlüssel passiert im mitgegebenen Befehl: `'ssh-add && nc %h %p'`, welcher auf der Bastion ausgeführt wird. `ssh-add` lädt die Schlüssel der Bastion in den aktuellen #htl3r.short[ssh]-Agent, welcher in diesem Fall der Lokale ist. Mittels Netcat wird im anschluss ein Tunnel zur Ziel-#htl3r.short[vm] aufgebaut: `nc %h %p`. Die Argumente `%h` und `%p` sind Templateparameter von #htl3r.short[ssh] und werden, bevor der Befehl ausgeführt wird, mit dem Hostnamen und dem Port der Ziel-#htl3r.short[vm] ersetzt.
+
+Dieser Prozess vom hinzufügen der Schlüssel der Bastion zum lokalen #htl3r.short[ssh]-Agent ist nicht ideal. Im Rahmen dieser Diplomarbeit wurde diese Lösung gewählt, da eine ähnliche Verbindung wie bei Terraform und Packer angestrebt wurde. Es ist zu Raten, sollte lediglich Ansible verwendet werden, dass die Schlüssel lokal verwaltet werden und nicht auf der Bastion liegen. Somit kann die Bastion einfach als Jump-Host verwendet werden und die Konfiguration fällt wesentlich simpler aus. Dies ist eine wichtige Lernerfahrung, jedoch funktioniert der beschriebene Ansatz ebenso und wird deshalb weiterhin verwendet.
+
+=== SSH-Proxy
+#htl3r.todo[Beschreibung des Unterschiedes zu SSH-Agent-Forwarding.]
