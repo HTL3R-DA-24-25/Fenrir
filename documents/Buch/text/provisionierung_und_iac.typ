@@ -256,5 +256,17 @@ Die Konfigurationsoptionen in Packer sind selbsterklärend benannt und verständ
   text: read("../assets/scripts/stage02-main.tf")
 )
 Die nicht gezeigten Abschnitte werden ausgeblendet um für bessere Lesbarkeit zu sorgen. Es ist somit sehr gut erkennbar wie sich die Konfiguration zu der selbigen in Packer ähnelt.
+
 ==== Ansible
+Aufgrund von Ansible seiner simplizität unterstützt es #htl3r.short[ssh]-Agents nicht direkt Nativ. Ansible bevorzugt eine #htl3r.short[ssh]-Proxy. Eine #htl3r.short[ssh]-Proxy ist ähnlich zu einem #htl3r.short[ssh]-Agent, jedoch gibt es unterschiede in der Art wie mit den Schlüsseln umgegangen wird. Es ist allerdings trotzdem möglich einen Ablauf mit einem #htl3r.short[ssh]-Agent zu realisieren:
+#htl3r.code-file(
+  caption: "Ansible verwendung von einer Bastion",
+  filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
+  skips: ((10, 0),),
+  ranges: ((0, 10),),
+  lang: "yml",
+  text: read("../assets/scripts/setup_dc_primary.yml")
+)
+Der Aufbau des Playbooks ist jedoch wesentlich komplexer als der gleiche in Terraform oder Packer. Zerlegt man den `ansible_ssh_common_args` Parameter in seine Einzelteile, so ist auch dieser Logisch nachzuvollziehen:
+
 #htl3r.todo[Beschreiben warum Ansible SSH-Proxies über SSH-Agents bevorzugt, sowie auch auf die Unterschiede eingehen. Aufregen warum das ein schaß ist.]
