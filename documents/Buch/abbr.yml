@@ -404,3 +404,9 @@ rtu:
   long:
     singular: Remote Terminal Unit
     plural: Remote Terminal Units
+
+sql:
+  short:
+    singular: SQL
+  long:
+    singular: Structured Query Language

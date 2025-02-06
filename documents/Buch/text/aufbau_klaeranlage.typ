@@ -46,7 +46,7 @@ Europaweit hat sich die Siemens SIMATIC als die gängiste #htl3r.short[sps]-Mark
 
 Die S7-1200 hat folgende Eingänge und Ausgänge:
 - 8 digitale Eingänge 24V DC
-- 6 digitale Ausgänge 24V/0,5A DC,
+- 6 digitale Ausgänge 24V/0,5A DC
 - 2 analoge Eingänge 0-10V
 - Eine Profinet-Schnittstelle für die Kommunikation mit anderen Ethernet-Geräten
 
@@ -54,11 +54,8 @@ Die Ethernet-Schnittstelle wird verwendet, um die #htl3r.short[sps] mit der Zell
 
 * bild programm *
 
-Aktorik:
-- Schneckenmotor mit 50 RPM
-
-Sensorik:
-- keine?
+*Aktorik:*
+- 12V Schneckenmotor mit 50 RPM
 
 #htl3r.author("David Koch")
 == Zelle Zwei (Feinfiltration)
@@ -95,38 +92,85 @@ Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.shor
 
 OpenPLC ist eine einfach bedienbare Open-Source Software-#htl3r.short[sps]. Sie ist die erste vollständig funktionsfähige standardisierte Open Source #htl3r.short[sps], im Software- als auch im Hardwarebereich. Das OpenPLC-Projekt wurde in Übereinstimmung mit der IEC 61131-3 Norm erstellt, welche die grundlegende Softwarearchitektur und Programmiersprache für #htl3r.shortpl[sps] festlegt. OpenPLC wird hauptsächlich für die Automatisierung in industriellen Anlagen, bei der Hausautomation (Internet of Things) und im Forschungsbereich eingesetzt @openplc-overview.
 
-Aktorik:
-- Gartenpumpe mit 800L/h Durchsatz (mit eigenem 12V Relais)
+#htl3r.fspace(
+  total-width: 90%,
+  figure(
+    table(
+      columns: (15em, auto, auto, auto, auto),
+      align: (left, left, left, left, left),
+      table.header[Name][Datentyp][Location][Startwert][Konstant],
+      [TANK_1_TEMP], [INT], [%IW0], [-], [Nein],
+      [TANK_2_TEMP], [INT], [%IW1], [-], [Nein],
+      [TANK_1_LEVEL], [INT], [%IW2], [-], [Nein],
+      [TANK_2_LEVEL], [INT], [%IW3], [-], [Nein],
+      [FILTER_PUMP_ACTIVE], [BOOL], [%QX0], [-], [Nein],[PROGRESSION_PUMP_ACTIVE], [BOOL], [%QX1], [-], [Nein],
+      [TANK_FULL], [INT], [-], [100], [Ja],
+      [PUMP_DELAY], [TIME], [-], [T\#2000ms], [Ja],
+    ),
+    caption: [Die Variablen des OpenPLC-Programms]
+  )
+)
 
-Sensorik:
+#htl3r.fspace(
+  figure(
+    image("../assets/Zelle_2_Programm.png"),
+    caption: [Kontaktplan-Darstellung des OpenPLC-Programms]
+  )
+)
+
+*Aktorik:*
+- 2x Gartenpumpe mit 800L/h Durchsatz (mit eigenem 12V Relais)
+
+*Sensorik:*
 - 2x OneWire DS18B20-Temperatursensor
 - 2x Füllstandssensor mit Schwimmer (Widerstand mit 0-190 Ohm)
+
+Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins des RaspberryPi zu übermitteln, wird ein ESP32 als ADC verwendet, welcher dem RaspberryPi über einen eigenen #htl3r.short[i2c]-Bus laufend die Füllstandsmesswerte als 8-bit Integer-Werte übermittelt. Mehr Informationen zu der Umsetzung dessen sind in @diy-i2c zu finden.
 
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
 
 === Aufbau
 
-Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für diese Steuerung ist eine Siemens LOGO! #htl3r.short[sps] zuständig. Diese steuert das Magnetventil und somit den Wasserfluss. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
+Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/zelle_3.jpeg"),
+    caption: [Die dritte Betriebszelle mit Wasserspeicherbecken und Wassereinlaufbecken]
+  )
+)
 
 Für das Wassereinlaufbecken bzw. das Überschwemmungebiet wurde als Basis eine weitere 30cm x 20cm x 7cm Eurobox verwendet. Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten roten Häusern unterschiedlicher Größe bestückt. Unter anderem sind mehrere Wasserstandsensoren an der Seite des Behälters befestigt, um im Falle eines Hochwasser bzw. einer Überschwemmung einen Alarm auszulösen (Leuchte mit Alarmton neben dem Behälter).
 
-* BILD *
+#htl3r.fspace(
+  figure(
+    image("../assets/zelle_3_gebiet.jpeg"),
+    caption: [Das Überschwemmungsgebiet]
+  )
+)
 
 === Schaltplan
 
-* BILD *
+* bild *
 
 === Steuerungstechnik
 
-Siemens LOGO!
+Für die Steuerung des Magnetventils und die Auswertung der Überschwemmungssensoren ist eine Siemens LOGO! #htl3r.short[sps] zuständig. Diese steuert das Magnetventil und somit den Wasserfluss.
 
-Aktorik:
-- Magnetventil
-- Alarmleuchte (+ Ton)
+#htl3r.fspace(
+  figure(
+    image("../assets/Zelle_3_Programm.png"),
+    caption: [Kontaktplan-Darstellung des LOGO!-Programms]
+  )
+)
 
-Sensorik:
-- 2x Überschwemmungssensor
+*Aktorik:*
+- 12V Magnetventil
+- 24V Alarmleuchte (+ Ton)
+
+*Sensorik:*
+- 3x Überschwemmungssensor
 
 #htl3r.author("Gabriel Vogler")
 == 3D-Druck
@@ -148,28 +192,31 @@ Die Modelle sind stark in ihrer Komplexität variierend. Einige sind sehr einfac
 Als Drucker wurde ein BambuLab A1 3D-Drucker verwendet.
 Es wurde auf #htl3r.short[pla] und #htl3r.short[petg] Filament zurückgegriffen, da diese Materialien für den Einstieg in den 3D-Druck sehr gut geeignet sind und auf diesem Gebiet noch nicht sehr viele Erfahrungen vorhanden waren.
 Außerdem sind diese Materialien in der Anschaffung günstiger als andere und bieten eine mehr als ausreichende Qualität, im Sinne von Stabilät und Strapazierfähigkeit, sowohl als auch in der Druckqualität.
+
 Die Wahl des Filamentherstellers fiel auf das Filament von BambuLab, da diese das Filament und der Drucker aus dem selben Hause stammen und so perfekt aufeinander abgestimmt sind.
 Außerdem ist das #htl3r.short[pla] Filament von BambuLab biologisch abbaubar und ist somit umweltfreundlicher und nachhaltiger als andere Filamente.
+
 Für den Druck wurden die Standard Druckprofile von BambuLab verwendet, mit kleinen Anpassungen an die Druckgeschwindigkeit und die Temperatur, damit das für uns gewünschte Ergebnis erzielt werden konnte.
 Diese Profile werden automatisch erfasst sobald eine originale BambuLab Spule Filament in das #htl3r.short[ams] eingelegt wird.
 Das Ganze funktioniert mithilfe eines #htl3r.short[rfid]-Chips, der auf der Spule angebracht ist und mit einem #htl3r.short[rfid]-Lesegerät im #htl3r.short[ams] kommuniziert.
 Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
 Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
+
 Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwendet, um Stützstrukturen zu drucken, die nach dem Druck einfach in Wasser aufgelöst werden können. Dies half uns dabei, auch komplexere Modelle zu drucken, die ohne Stützstrukturen nicht möglich gewesen wären und die dennoch eine hoheh Qualität des Drucks zu gewährleisten. Das #htl3r.short[pva]-Filament stammt ebenfalls aus dem Hause BambuLab. Die Problematik bei der Vernwedung von #htl3r.short[pva]-Filament ist, dass dieses eine sehr trockene Umgebung benötigt, da es sehr emplindlich gegenüber Feuthigkeit ist. Anfänglich wurde probiert das Filament im Vorhinein mit einem Filamenttrockner zu trocknen und anschließend aus dem #htl3r.short[ams] zu drucken. Obwohl in einem trockenen Raum gedruckt wurde, wollte das Filament nicht so wie geünscht auf der Druckplatte und dem zu druckenden Körper haften. Nach einigen Anpassungen an den Druckeinstellungen sowie dem Wechsel von #htl3r.short[petg] auf #htl3r.short[pla] als Druckmaterial, konnte das Problem gelöst werden. Dies liegt daran, dass #htl3r.short[petg] heißer gedruckt werden muss als #htl3r.short[pla] und die Temperatur für das #htl3r.short[pva]-Filament zu hoch war und das Stützmaterial zum kochen begonnnen hat. Dies führte zum Ziehen von Fäden und somit zu einem unbrauchbaren Druck. Außerdem wurde das #htl3r.short[pva]-Filament direkt aus dem Filamenttrockner gedruckt, somit konnte auch während des Druckens die Trockenheit gewährleistet werden. 
 
 #htl3r.author("David Koch")
-== Programmierung eines I2C-Kommunikationsbusses
+== Programmierung eines I²C-Kommunikationsbusses <diy-i2c>
 
 Um einen Kommunikationskanal zwischen der Software-#htl3r.short[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle zwei herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.short[i2c] verwendet.
 
-=== I2C Überblick
+=== I²C Überblick
 
 Kurz für "Inter-Integrated Circuit". #htl3r.short[i2c] ist ein 1982 von Philips Semiconductors entwickelter serieller Datenbus, der als Master-Slave-Bus konzipiert ist, aber auch das Multi-Master-Prinzip unterstützt. Bei diesem Protokoll werden zwei Signalleitungen benötigt, eine Takt- und eine Datenleitung. Eine Eigenschaft von #htl3r.short[i2c] ist die Tatsache, dass ein Mikrocontroller ein ganzes Netzwerk an integrierten Schaltungen mit nur zwei #htl3r.short[io]-Pins und einfacher Software kontrollieren kann. Daher wird #htl3r.short[i2c] hauptsächlich geräteintern für die Kommunikation zwischen verschiedenen Schaltungsteilen benutzt, zum Beispiel innerhalb eines Fernsehers.
 @i2c-manual
 
 Im PC wird ein dem #htl3r.short[i2c]-Bus sehr ähnliches System benutzt, um z.B. die Daten eines SDRAM-Modules auszulesen. Dieser nennt sich SMBus (System Management Bus).
 
-=== Aufbau ???
+=== Kommunikationskonzept
 
 #htl3r.fspace(
   [
@@ -181,7 +228,7 @@ Im PC wird ein dem #htl3r.short[i2c]-Bus sehr ähnliches System benutzt, um z.B.
   ]
 )
 
-Der in @i2c-aufbau sichtbare Aufbau
+Der in @i2c-aufbau sichtbare Aufbau zeigt den Weg, wie die Füllstandsmesswerte der Sensoren vom ESP32 analog gemessen werden und darauf per #htl3r.short[i2c]-Bus an OpenPLC geschickt wird.
 
 === Kodierung der #htl3r.short[i2c]-Daten
 

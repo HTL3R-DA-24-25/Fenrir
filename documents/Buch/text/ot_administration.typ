@@ -56,7 +56,7 @@ curl 'http://localhost/Scada-LTS/dwr/call/plaincall/EmportDwr.loadProject.dwr' -
 
 rm cookies
 ```
-Zur Authentifizierung wird dabei eine Datei "cookies" gespeichert, um den Login mit den Default-Anmeldedaten admin:admin zu ermöglichen. Dieses Konto sollte logischerweise nach der Konfiguration -- am Besten direct mit dem Import der .zip-Datei - deaktiviert werden, bzw. die Logindaten geändert werden.
+Zur Authentifizierung wird dabei eine Datei "cookies" gespeichert, um den Login mit den Default-Anmeldedaten admin:admin zu ermöglichen. Dieses Konto sollte logischerweise nach der Konfiguration -- am Besten direct mit dem Import der .zip-Datei -- deaktiviert werden, bzw. die Logindaten geändert werden.
 
 === Administration der Modell-Kläranlage
 
@@ -78,13 +78,13 @@ blabla
 ==== Betriebszelle Drei
 
 == MES
-Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte und dadurch können leichter Optimierungen durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden - dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
+Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte und dadurch können leichter Optimierungen durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden -- dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
 
 === Next.js - shadcn
-Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich wäre, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine WebApp im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese WebApp ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar zu machen.
+Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich wäre, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar zu machen.
 
 === Authentifizierung
-Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] sind Benutzer in einer Datenbank gespeichert. Diese Datenbank läuft auf dem #htl3r.short[mes]-Server, ist eine SQL-Lite Datenbank und ist nur über das eigene Netzwerk erreichbar, um Sicherheit zu gewährleisten. Unter Anwendung einer Middleware wird die Authentifizierung durchgeführt, wobei die Datenbankabfrage nur bei der Anmeldung durchgeführt wird. Dem Benutzer wird bei erfolgreicher Anmeldung ein #htl3r.short[jwt]-Token ausgestellt. 
+Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] sind Benutzer in einer Datenbank gespeichert. Diese Datenbank läuft auf dem #htl3r.short[mes]-Server, ist eine #htl3r.short[sql]-Lite Datenbank und ist nur über das eigene Netzwerk erreichbar, um Sicherheit zu gewährleisten. Unter Anwendung einer Middleware wird die Authentifizierung durchgeführt, wobei die Datenbankabfrage nur bei der Anmeldung durchgeführt wird. Dem Benutzer wird bei erfolgreicher Anmeldung ein #htl3r.short[jwt]-Token ausgestellt. 
 
 === Funktionsweise
 Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jeder Zeit im #htl3r.short[scada] überschrieben werden können. Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via #htl3r.short[api]-calls, die vom Backend des #htl3r.short[mes] verwaltet werden wie sie in @scadalts-api-docs beschrieben ist. Es ist stark zu empfählen, diese #htl3r.short[api] vor der Verwendung mittels einem Tool wie Postman zu testen, um sich mit der Funktionsweise dieser vertraut zu machen.
