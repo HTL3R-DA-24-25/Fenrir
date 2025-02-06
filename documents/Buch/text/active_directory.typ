@@ -35,7 +35,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
             - G_Management
       ]
     ]))),
-    caption: [GABI DENK DIR WAS AUS]
+    caption: [Die OU-Struktur der corp.fenrir-ot.at Domäne]
   )
 )
 
