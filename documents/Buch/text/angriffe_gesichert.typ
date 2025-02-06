@@ -5,10 +5,40 @@
 #htl3r.author("David Koch")
 == Einführung
 
+Um die Wirksamkeit der in dieser Diplomarbeit durchgeführten Netzwerksabsicherung zu bestätigen, müssen die in @angriffe-netzwerk beschriebenen Angriffe wiederholt werden. Falls alle zuvor erfolgreichen Angriffe nun erfolgslos ausfallen sollten und noch dazu das Netzwerk gesetzlichen Vorschriften wie der #htl3r.short[nis]-2 entspricht, gilt dieses als ausreichend abgesichert.
+
+== Angriffe auf das IT-Netzwerk
+
+=== Exchange
+
+=== Ransomware auf Endgeräten
+
+=== Keylogging-Trojaner auf Endgeräten
+
+=== Ticketing-Angriffe
+
+== Angriffe auf das OT-Netzwerk
+
+=== DoS einer SPS
+
+=== Manipulation einer SPS
+
+
 #htl3r.author("David Koch")
-=== NIS2
+== Konkretes Angriffsszenario
 
-"Die NIS-2-Richtlinie soll die Resilienz und die Reaktion auf Sicherheitsvorfälle des öffentlichen und des privaten Sektors in der EU verbessern. Der bisherige Anwendungsbereich der NIS-Richtlinie nach Sektoren wird mit NIS-2 auf einen größeren Teil der Wirtschaft und des öffentlichen Sektors ausgeweitet, um eine umfassende Abdeckung jener Sektoren und Dienste zu gewährleisten, die im Binnenmarkt für grundlegende gesellschaftliche und wirtschaftliche Tätigkeiten von entscheidender Bedeutung sind. Betroffene Einrichtungen müssen daher geeignete Risikomanagementmaßnahmen für die Sicherheit ihrer Netz- und Informationssysteme treffen und unterliegen Meldepflichten."
+Das in @angriffe-netzwerk beschriebene Angriffsszenario wird erneut durchgeführt, um zu überprüfen, ob mit der nun vorhandenen Netzwerkabsicherung der #htl3r.short[gau] verhindert werden kann.
 
-Für später:
-@nis2-richtlinie
+=== Phishing-Mail
+
+=== Spear-Phishing
+
+=== RDP Lateral Movement
+
+=== Living of the Land
+
+=== Default Credentials auf SPS
+
+=== SPS-Steuerung wird manipuliert
+
+=== GAU tritt ein

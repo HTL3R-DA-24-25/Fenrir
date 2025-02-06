@@ -1,12 +1,12 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
 #htl3r.author("David Koch")
-= Angriffe auf das Netzwerk
+= Angriffe auf das Netzwerk <angriffe-netzwerk>
 
 #htl3r.author("David Koch")
 == Einführung
 
-Um die Sicherheit der in den obigen Abschnitten erstellten Topologie,  herkömmlicher Firmennetzwerke mit OT-Abschnitten oder die Netzwerke von echter kritischer Infrastruktur zu gewährleisten braucht es ein theoretisches Verständnis von den möglichen Angriffsvektoren als auch die dazugehörige Absicherung, um gegen die bekannten Angriffsvektoren vorzugehen und somit Angriffen vorzubeugen.
+Um die Sicherheit der in den obigen Abschnitten erstellten Topologie,  herkömmlicher Firmennetzwerke mit #htl3r.short[ot]-Abschnitten oder die Netzwerke von echter kritischer Infrastruktur zu gewährleisten braucht es ein theoretisches Verständnis von den möglichen Angriffsvektoren als auch die dazugehörige Absicherung, um gegen die bekannten Angriffsvektoren vorzugehen und somit Angriffen vorzubeugen.
 
 === Sicherheitsmängel bei Bus-Systemen
 Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche TCP/IP-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das Triple-A-System sind der Bus-Welt fremd.
@@ -35,7 +35,7 @@ Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von I
 
 === Lateral Movement
 
-Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern sich innerhalb des attackierten Netzwerks vom einem System zum nächsten auszubreiten, Schwachstellen auszukundschaften, Rechteausweitung (-> privilege escalation) durchzuführen und ihr endgültiges Angriffsziel zu erreichen. @lateral-movement-def[comp]
+Der Begriff "Lateral Movement" beschreibt das Vorgehen von Angreifern sich innerhalb des attackierten Netzwerks vom einem System zum nächsten auszubreiten, Schwachstellen auszukundschaften, Rechteausweitung (engl. privilege escalation) durchzuführen und ihr endgültiges Angriffsziel zu erreichen. @lateral-movement-def[comp]
 
 Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, sogenannte Lateral Movement Techniques bzw. #htl3r.longpl[lmp] (#htl3r.shortpl[lmp]):
 
@@ -49,10 +49,11 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
       table.header(
         [*Bezeichnung*], [*Beschreibung*], [*Wahrscheinlichkeit*], [*Erkennbarkeit*],
       ),
-      "Internal Spear Phishing", "Angreifer nutzt das kompromitierte E-Mail-Konto eines Mitarbeiters aus, um mit dessen Identität andere Mitarbeiter zu phishen", "Hoch", "Mittel",
-      [#htl3r.long[lotl] (#htl3r.short[lotl])], "Angreifer nutzt die ihm bereits verfügbaren Admin-Tools um unaufällig in den Betriebsprozess einzugreifen und weitere Informationen zu erhalten", "Hoch", "Mittel/Schwer",
-      "Default/Hardcoded Credentials", "Angreifer kann durch die öffentlich bekannten Standard-Zugangsdaten von im Netzwerk eingesetzer Software/Hardware diese übernehmen", "Niedrig", "Mittel",
-      "Remote Services", "...", "...", "..."
+      "Internal Spear Phishing", "Angreifer nutzt das kompromitierte E-Mail-Konto eines Mitarbeiters aus, um mit dessen Identität andere Mitarbeiter zu phishen.", "Hoch", "Mittel",
+      [#htl3r.long[lotl] (#htl3r.short[lotl])], "Angreifer nutzt die ihm bereits verfügbaren Admin-Tools um unaufällig in den Betriebsprozess einzugreifen und weitere Informationen zu erhalten.", "Hoch", "Mittel/Schwer",
+      "Default/Hardcoded Credentials", "Angreifer kann durch die öffentlich bekannten Standard-Zugangsdaten von im Netzwerk eingesetzer Software/Hardware diese übernehmen.", "Niedrig", "Einfach",
+      "Remote Services", [Die für routinemäßige Systemadministration erlaubten Kommunikationsschnittstellen wie #htl3r.short[rdp] oder #htl3r.short[ssh] werden vom Angreifer ausgenutzt, um sich weiter im Netzwerk auszubreiten.], "Mittel", "Mittel",
+      "Valid Accounts", "Die durch z.B. Phishing erhaltenen Anmeldeinformationen erlauben dem Angreifer, sich als legitimer Benutzer auszugeben.", "Hoch", "Schwer"
     ),
     caption: [Bekannte #htl3r.longpl[lmp]],
   )
@@ -82,41 +83,124 @@ Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk können fo
 Zur Verhinderung von Lateral Movement können unter anderem Netzwerksegmentierung, Patchmanagement zur Behebung von bekannten Sicherheitslücken als auch Zugriffskontrolle auf bestimmte Daten, Geräte oder Netzwerkabschnitte implementiert werden.
 @lateral-movement-def[comp]
 
+#htl3r.todo("BILD VON ANGREIFER IN NETZWERK MIT LMPS, DIESMAL MIT FIREWALLS UND SO VLLT")
+
 Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenrir"-Topologie wird in @netzwerkueberwachung, @firewall-config und @weitere-absicherung genauer beschrieben.
 
 == Angriffe auf das IT-Netzwerk
 
+#htl3r.author("David Koch")
 === Exchange
 
-=== ...
+Nur selten passieren Angriffe, die als Endergebnisse beispielsweise die Störung des Exchange-Mail-Servers haben. Meistens wird die Präsenz eines Mail-Servers lediglich genutzt, um als "Sprungbrett" ins interne Netzwerk zu dienen durch Phishing-Angriffe.
 
+#htl3r.todo("Phishing Angriff hier umsetzen")
+
+=== Ransomware auf Endgeräten
+
+=== Keylogging-Trojaner auf Endgeräten
+
+#htl3r.author("Gabriel Vogler")
+=== Ticketing-Angriffe
+
+gabi hier kerberoasting und so machen jaja
+
+#htl3r.author("David Koch")
 == Angriffe auf das OT-Netzwerk
 
 === Physische Manipulation
 
-Bevor die digitale Absicherung des OT-Netzwerks in Betracht zieht, sollte die physische Sicherheit der OT-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer SPS durch ihre serielle Schnittstelle passiert -- ist vom schlimmsten auszugehen.
+Bevor man die digitale Absicherung des #htl3r.short[ot]-Netzwerks in Betracht zieht, sollte die physische Sicherheit der #htl3r.short[ot]-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer #htl3r.short[sps] durch ihre serielle Schnittstelle passiert -- ist vom Schlimmsten auszugehen.
 
-Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physischen Sicherheit bewusst, somit ...
+#htl3r.todo["Hier ein Bild, z.B. Durchtrennung Kabel"]
 
-... Überwachungssysteme wie CCTV, Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen ...
+Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physischen Sicherheit bewusst, somit werden in den meisten industriellen Anlagen bereits Überwachungssysteme wie #htl3r.short[cctv] als auch Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen eingesetzt.
 
-=== DoS einer SPS
+Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstelle zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken, das heißt, dass keine physische Absicherung stattfindet.
 
+#htl3r.author("David Koch")
+=== Netzwerkaufklärung <recon>
+
+Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt im Netzwerk gibt und was für Schwachstellen ausgenutzt werden können. Dieser wichtige Schritt nennt sich Netzwerkaufklärung und kann mit vielen verschiedenen Tools durchgeführt werden. Im Rahmen der in diesem Projekt durchgeführten #htl3r.short[ot]-Angriffe werden Nmap und Metasploit verwendet, wobei Metasploit nicht nur der Netzwerkaufklärung sondern bereits auch dem Penetration-Testing dient.
+
+#htl3r.fspace(
+  total-width: 95%,
+  figure(
+    image("../assets/s7_1200_nmap.png"),
+    caption: [Port-Scan der S7-1200 #htl3r.short[sps]]
+  )
+)
+
+Bereits durch einen Port-Scan der #htl3r.short[sps] kann der Angreifer Informationen über mögliche Schwachstellen ergattern. Es sind derzeit folgende Ports offen, die eine Gefahr darstellen können:
+- *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-SPS-Administrationssoftware STEP 7 per Fernwartung mit der SPS kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
+- *UDP-Port 161:* Hostet den #htl3r.short[snmp]-Dienst und dient der Übermittlung von Logdaten an externe Log-Server. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
+
+...
+
+METASPLOIT NIX GEHEN
+
+Der #htl3r.short[cve]-2019-10936
+
+#htl3r.author("David Koch")
+=== DoS einer SPS <dos-sps>
+
+Die CVE-Beschreibung von #htl3r.short[cve]-2019-10936 lautet: "Affected devices improperly handle large amounts of specially crafted #htl3r.short[udp] packets. This could allow an unauthenticated remote attacker to trigger a denial of service condition." @siemens-sps-dos-cve Es wird ebenfalls erwähnt, dass nur Firmware-Versionen unter v4.4.0 von dieser Schwachstelle betroffen sind. Wie bereits in @recon ermittelt worden ist, hat die auf der S7-1200 derzeit installierte Firmware die Version v4.3.1. Das heißt: Der Angriff kann beginnen.
+
+Was mit "specially crafted #htl3r.short[udp] packets" gemeint ist, ist nicht näher beschrieben. In den meisten #htl3r.short[dos]-Angriffen handelt es sich bei diesen Packets meist um Buffer-Underflow- bzw. Buffer-Overflow-Payloads. Bei einem Underflow werden in den einzelnen Packets zu wenige Nutzdaten übermittelt, bei einem Overflow werden zu viele Nutzdaten übermittelt. Insgesamt werden diese Packets dann in sehr großen Mengen an das anzugreifende Gerät geschickt, um den #htl3r.short[dos]-Zustand auszulösen.
+
+#htl3r.code(caption: "Das UDP-Packet für den DoS-Angriff auf die S7-1200", description: none)[
+```python
+from scapy.layers.inet import IP, UDP
+from scapy.sendrecv import send
+
+target_ip = "10.79.84.1"
+target_port = 102
+payload = b"A" * 1000
+
+udp_packet = IP(dst=target_ip) / UDP(dport=target_port) / payload
+while True:
+    send(udp_packet, count=2000)
+```
+]
+
+In Quellcode 7.1 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte UDP-Packet zu erstellen und anschließend an die SPS zu schicken.
+
+#htl3r.author("David Koch")
 === Manipulation einer SPS
 
-Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine SPS oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
+Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine #htl3r.short[sps] oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
 
 Der im obigen @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register ...
 
-Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im OT-Netzwerk hat.
+Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
 
 ...
 
 === SCADA
 
-=== ...
-
 #htl3r.author("David Koch")
 == Konkretes Angriffsszenario
 
-Phishing Mail an Buchhaltung von außen --> mittels stolen identity eines BH Mitarbeiters eine interne Spear-Phishing-Mail an OT-Engineer schicken bzgl. Inventurliste z.B. --> Angreifer nutzt die RDP Berechtigungen des OT-Engineers um weiter einzudringen --> LotL, Angreifer sammelt Infos über SCADA wie die Anlage intern ausschaut --> Default Credentials auf OpenPLC upsi --> Steuerung der Zelle 2 wird gesprengt/umprogrammiert --> Super GAU
+Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
+
+1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste 
+3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des #htl3r.short[ot]-Engineers um tiefer in die Anlage einzudringen.
+4. #htl3r.short[lotl], Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
+5. Angreifer entdeckt Default Credentials auf OpenPLC.
+6. Steuerung der zweiten Betriebszelle wird umprogrammiert.
+7. Anlage kommt zum Stehen, nachhaltiger Schaden wurde angerichtet.
+
+=== Phishing-Mail
+
+=== Spear-Phishing
+
+=== RDP Lateral Movement
+
+=== Living of the Land
+
+=== Default Credentials auf SPS
+
+=== SPS-Steuerung wird manipuliert
+
+=== GAU tritt ein
