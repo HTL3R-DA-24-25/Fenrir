@@ -1,3 +1,9 @@
+ip:
+  short:
+    singular: IP
+  long:
+    singular: Internet Protocol
+
 yaml:
   short:
     singular: YAML
@@ -70,6 +76,14 @@ ot:
     singular: OT
   long:
     singular: Operational Technology
+
+wan:
+  short:
+    singular: WAN
+    plural: WANs
+  long:
+    singular: Wide Area Network
+    plural: Wide Area Networks
 
 lan:
   short:
@@ -182,6 +196,16 @@ ids:
     plural: Intrusion Detection Systems
   description: Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses erkennt.
 
+ips:
+  short:
+    singular: IPS
+    plural: IPSs
+  long:
+    singular: Intrusion Prevention System
+    plural: Intrusion Prevention Systems
+  description: Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses verhindert.
+
+
 mes:
   short:
     singular: MES
@@ -265,6 +289,12 @@ tcp:
   long:
     singular: Transmission Control Protocol
 
+udp:
+  short:
+    singular: UDP
+  long:
+    singular: User Datagram Protocol
+
 icp:
   short:
     singular: ICP
@@ -296,3 +326,87 @@ http:
     singular: HTTP
   long:
     singular: Hypertext Transfer Protocol
+
+nis:
+  short:
+    singular: NIS
+  long:
+    singular: Network and Information Security
+
+hmi:
+  short:
+    singular: HMI
+    plural: HMIs
+  long:
+    singular: Human Machine Interface
+    plural: Human Machine Interfaces
+  description: Eine Benutzerschnittstelle, die der Interaktion zwischen Mensch und Maschine dient. 
+
+vpn:
+  short:
+    singular: VPN
+    plural: VPNs
+  long:
+    singular: Virtual Private Network
+
+jwt:
+  short:
+    singular: JWT
+  long:
+    singular: JSON Web Token
+
+ssh:
+  short:
+    singular: SSH
+  long:
+    singular: Secure Shell
+  description: Ein verschlüsseltes Netzwerkprotokoll, welches es einem Benutzer ermöglicht sich auf einem, über das Netzwerk erreichbarem, Computer oder Server zu Authentifizieren und zugriff zu einer Kommandozeile zu erhalten.
+
+cctv:
+  short:
+    singular: CCTV
+  long:
+    singular: Closed Circuit Television
+  description: Ist allgemein als Videoüberwachung bekannt und wird zur Verbrechensverhinderung eingesetzt. "Closed Circuit" bedeutet hier, dass Aufzeichnungen an eine begrenzte (geschlossene) Anzahl von Monitoren übertragen werden, im Gegensatz zum "regulären" bzw. öffentlichen Fernsehen.
+
+osi:
+  short:
+    singular: OSI
+  long:
+    singular: Open Systems Interconnection
+  description: Ein Modell zur Beschreibung der Kommunikation zwischen unterschiedlichen technischen Systemen.
+
+usb:
+  short:
+    singular: USB
+  long:
+    singular: Universal Serial Bus
+
+cve:
+  short:
+    singular: CVE
+    plural: CVEs
+  long:
+    singular: Critical Vulnerability Exploit
+    plural: Critical Vulnerability Exploits
+
+snmp:
+  short:
+    singular: SNMP
+  long:
+    singular: Simple Network Management Protocol
+  description: Netzwerkprotokoll zur Überwachung von Netzwerkgeräten, indem sie Logdaten an einen zentralen Log-Server schicken.
+
+rtu:
+  short:
+    singular: RTU
+    plural: RTUs
+  long:
+    singular: Remote Terminal Unit
+    plural: Remote Terminal Units
+
+sql:
+  short:
+    singular: SQL
+  long:
+    singular: Structured Query Language
