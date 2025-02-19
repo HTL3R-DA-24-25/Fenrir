@@ -1,10 +1,13 @@
 #import "@preview/htl3r-da:0.1.0" as htl3r
 
+#htl3r.author("David Koch")
 = Aufbau der Modell-Kläranlage <aufbau-klaeranlage>
 
 Um die Absicherung eines Produktionsbetriebs oder eines Stücks kritischer Infrastruktur ausreichend dokumentieren zu können, darf nicht ausschließlich auf virtualisierte Lösungen des #htl3r.short[ot]-Netzwerks vertraut werden. Dazu ist das Ausmaß eines "Super-#htl3r.short[gau]s" innerhalb eines virtualisierten #htl3r.short[ot]-Netzwerks für die meisten aussenstehenden Personen nicht begreifbar/realistisch genug. Eine selbstgebaute Modell-Kläranlage löst dieses Problem.
 
 Zwar sind Kläranlagen nicht die beliebtesten #htl3r.short[ot]-Angriffsziele, Kraftwerke wären hierbei das beliebteste Ziel von Cyberangriffen auf kritische Infrastruktur @knowbe4-cyber-attacks-crit-infra[comp], jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch manche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater[comp]
+
+#htl3r.todo("bitte grobe schematische Darstellung ergänzen aus der die Betriebszellen erkennbar sind")
 
 #htl3r.author("David Koch")
 == Planung der Betriebszellen
@@ -21,11 +24,13 @@ Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage die
 
 Als erster Schritt zur erfolgreichen Abwasserfiltration braucht es einen Weg, grobe Schmutzpartikel wie zum Beispiel Kieselsteine filtrieren zu können. Einen feinen Wasserfilter würden solche großen Partikel verstopfen oder sogar zerstören. Somit erfolgt die erste Filtration mit einem gröberen Metallgitter als Rechen.
 
-Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter geschraubt, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochgeschraubte Wasser durch das Rechengitter fallen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher der Anfang der Leitung in die zweite Zelle ist.
+Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter befördert, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochbeförderte Wasser durch das Rechengitter fallen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher eine Öffnung für die Leitung in die zweite Zelle birgt.
 
-Die Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte dieses Problem behoben werden.
+Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann aufwindet. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprozesses ist die Möglichkeit, die Schraube im Nachhinein noch beliebig zu verändern, da sobald eine Skizze verändert wird, das Modell automatisch angepasst wird. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte dieses Problem behoben werden.
 
-Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen.
+Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Befestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen.
+
+#htl3r.todo("SDO mag hier Grafik bzgl Modellierung haben?")
 
 #htl3r.fspace(
   figure(
@@ -33,10 +38,6 @@ Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Ha
     caption: [Der Aufbau der 1. Betriebszelle]
   )
 )
-
-=== Schaltplan
-
-* BILD *
 
 === Steuerungstechnik
 
@@ -52,10 +53,26 @@ Die S7-1200 hat folgende Eingänge und Ausgänge:
 
 Die Ethernet-Schnittstelle wird verwendet, um die #htl3r.short[sps] mit der Zellen-Firewall und somit der restlichen Topologie zu verbinden.
 
-* bild programm *
-
 *Aktorik:*
 - 12V Schneckenmotor mit 50 RPM
+
+Das Programm für die Steuerung dieser Betriebszelle ist von allen drei Zellen das simpelste. Es wird lediglich ein digitaler Eingang und ein digitaler Ausgang verwendet, um die Stromzufuhr zur Förderschnecke zu kontrollieren. Für diesen Zweck bräuchte man eigentlich keine #htl3r.short[sps] wie die S7-1200, mit der einzigen Ausnahme, dass der digitale Eingang auch per Ethernet-Schnittstelle -- z.B. vom #htl3r.short[scada]-System -- gesteuert werden kann. Somit kann der Motor der Förderschnecke nicht nur vor Ort durch einen herkömmlichen Ein-Aus-Knopf, sondern auch aus der Ferne gesteuert werden.
+
+#htl3r.fspace(
+  [
+    #figure(
+      image("../assets/Zelle_1_Programm.png"),
+      caption: [Kontaktplan-Darstellung des Programms der S7-1200]
+    )
+    <zelle-1-programm>
+  ]
+)
+
+Das in @zelle-1-programm abgebildete Programm -- welches in der Kontaktplan-Programmiersprache erstellt worden ist (Erklärung in @sps-programmierung) -- nutzt wie zuvor erwähnt den digitalen Eingang ```%I0.1``` als Kontakt und den digitalen Ausgang ```%Q0.1``` als Spule zur Steuerung der Stromzufuhr zum Schneckenmotor. Sie sind direkt miteinander verbunden, das heißt, dass wenn der Kontakt im Zustand "AN" ist, dann ist die Spule ebenfalls im Zustand "AN".
+
+=== Schaltplan
+
+* BILD *
 
 #htl3r.author("David Koch")
 == Zelle Zwei (Feinfiltration)
@@ -76,21 +93,24 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
   )
 )
 
-=== Schaltplan
-
-#htl3r.fspace(
-  total-width: 100%,
-  figure(
-    image("../assets/Zelle_2_Schaltplan.png"),
-    caption: [Schaltplan der 2. Betriebszelle]
-  )
-)
-
 === Steuerungstechnik
 
 Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.short[sps] eingesetzt: Die OpenPLC v3. Diese läuft auf einem Raspberry Pi 4 Mikrocomputer.
 
 OpenPLC ist eine einfach bedienbare Open-Source Software-#htl3r.short[sps]. Sie ist die erste vollständig funktionsfähige standardisierte Open Source #htl3r.short[sps], im Software- als auch im Hardwarebereich. Das OpenPLC-Projekt wurde in Übereinstimmung mit der IEC 61131-3 Norm erstellt, welche die grundlegende Softwarearchitektur und Programmiersprache für #htl3r.shortpl[sps] festlegt. OpenPLC wird hauptsächlich für die Automatisierung in industriellen Anlagen, bei der Hausautomation (Internet of Things) und im Forschungsbereich eingesetzt @openplc-overview.
+
+*Aktorik:*
+- 2x Gartenpumpe mit 800L/h Durchsatz (mit eigenem 12V Relais)
+
+*Sensorik:*
+- 2x OneWire DS18B20-Temperatursensor
+- 2x Füllstandssensor mit Schwimmer (Widerstand mit 0-190 Ohm)
+
+Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins des Raspberry Pi zu übermitteln, wird ein ESP32 als ADC verwendet, welcher dem Raspberry Pi über einen eigenen #htl3r.short[i2c]-Bus laufend die Füllstandsmesswerte als 8-bit Integer-Werte übermittelt. Mehr Informationen zu der Umsetzung sind in @diy-i2c zu finden.
+
+Der Raspberry Pi ist auch nicht direkt in der Lage, eine klassische Relay-Steuerung zu ersetzen. Die Pins liefern maximal 3,3V, wobei die meisten Aktoren und Sensoren in der Modell-Kläranlage 12V oder auch 24V brauchen. Somit AAAAAAAAAAAAAA
+
+Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständig, welches die Werte der Füllstandssensoren in Betracht zieht, um je nach Füllstand in den Tanks die jeweilige Pumpe zum Abpumpen des Wassers in den nächsten Behälter per Relay einzuschalten.
 
 #htl3r.fspace(
   total-width: 90%,
@@ -112,20 +132,26 @@ OpenPLC ist eine einfach bedienbare Open-Source Software-#htl3r.short[sps]. Sie 
 )
 
 #htl3r.fspace(
-  figure(
-    image("../assets/Zelle_2_Programm.png"),
-    caption: [Kontaktplan-Darstellung des OpenPLC-Programms]
-  )
+  [
+    #figure(
+      image("../assets/Zelle_2_Programm.png"),
+      caption: [Kontaktplan-Darstellung des OpenPLC-Programms]
+    )
+    <zelle-2-programm>
+  ]
 )
 
-*Aktorik:*
-- 2x Gartenpumpe mit 800L/h Durchsatz (mit eigenem 12V Relais)
+Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche AAAAAAAAAAAA
 
-*Sensorik:*
-- 2x OneWire DS18B20-Temperatursensor
-- 2x Füllstandssensor mit Schwimmer (Widerstand mit 0-190 Ohm)
+=== Schaltplan
 
-Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins des RaspberryPi zu übermitteln, wird ein ESP32 als ADC verwendet, welcher dem RaspberryPi über einen eigenen #htl3r.short[i2c]-Bus laufend die Füllstandsmesswerte als 8-bit Integer-Werte übermittelt. Mehr Informationen zu der Umsetzung dessen sind in @diy-i2c zu finden.
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/Zelle_2_Schaltplan.png"),
+    caption: [Schaltplan der 2. Betriebszelle]
+  )
+)
 
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
@@ -150,20 +176,9 @@ Für das Wassereinlaufbecken bzw. das Überschwemmungebiet wurde als Basis eine 
   )
 )
 
-=== Schaltplan
-
-* bild *
-
 === Steuerungstechnik
 
 Für die Steuerung des Magnetventils und die Auswertung der Überschwemmungssensoren ist eine Siemens LOGO! #htl3r.short[sps] zuständig. Diese steuert das Magnetventil und somit den Wasserfluss.
-
-#htl3r.fspace(
-  figure(
-    image("../assets/Zelle_3_Programm.png"),
-    caption: [Kontaktplan-Darstellung des LOGO!-Programms]
-  )
-)
 
 *Aktorik:*
 - 12V Magnetventil
@@ -172,15 +187,28 @@ Für die Steuerung des Magnetventils und die Auswertung der Überschwemmungssens
 *Sensorik:*
 - 3x Überschwemmungssensor
 
+PROGRAMM ERKLÄRUNG
+
+#htl3r.fspace(
+  figure(
+    image("../assets/Zelle_3_Programm_cut.png"),
+    caption: [Funktionsplan-Darstellung des LOGO!-Programms]
+  )
+)
+
+=== Schaltplan
+
+* bild *
+
 #htl3r.author("Gabriel Vogler")
 == 3D-Druck
 
-Für einige Komponenten gab es keine passenden Teile, oder übermäßige Kosten für die Anschaffung dessen.
-Deshalb wurde die Entscheidung getroffen diese Teile oder Abwandlungen, die für die Anlage sogar noch besser passen, selbst zu designen und zu drucken.
+Für einige Komponenten gab es keine passenden Teile, oder übermäßige Kosten für die Anschaffung.
+Deshalb wurde die Entscheidung getroffen, diese Teile und ihre angepassten Varianten, die für die Anlage sogar noch besser passen, selbst zu designen und zu drucken.
 Die Anschaffung des 3D-Druckers wurde privat getätigt und die Filamentkosten wurden von unserem Sponsor -- der Ikarus -- übernommen.
 
 #htl3r.author("Gabriel Vogler")
-=== Modellieren
+=== Modellierung der Teile
 
 Die Modelle wurden mittels Autodesk Fusion 360 erstellt.
 
@@ -207,41 +235,97 @@ Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwend
 #pagebreak(weak: true)
 == 3D-Modelle
 === Förderschnecke
-Die Schraube wurde 3D modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
+Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
 
-#figure(
-  image("../assets/3D-Modelle/Fenrir_Förderschnecke.png", width: 90%),
-  caption: [3D-Modell der Förderschnecke]
+#htl3r.fspace(
+  figure(
+    image("../assets/3D-Modelle/Fenrir_Förderschnecke.png", width: 90%),
+    caption: [3D-Modell der Förderschnecke]
+  )
 )
+
 #pagebreak(weak: true)
+
 === Schneckenmotor-Halterung
 Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen vesetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt wurde außerdem eine abdeckung gedruckt. diese wird einfach auf den Motor gesetzt und anschließend mit der Halterung mit 4 M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
 
-#figure(
-  image("../assets/3D-Modelle/Motor_Halterung.png"),
-  caption: [3D-Modell der Halterung für den Schneckenmotor]
+#htl3r.fspace(
+  figure(
+    image("../assets/3D-Modelle/Motor_Halterung.png"),
+    caption: [3D-Modell der Halterung für den Schneckenmotor]
+  )
 )
+
 #pagebreak(weak: true)
+
 === Zelle Zwei Tankabdeckungen
 Für beide Tanks der Zelle Zwei wurden idente Deckel entworfen und gedruckt. Diese Deckel haben eine Öffnung für einen Schlauch, welcher als Zufluss dient. Außerdem sind im Deckel die notwendigen Sensoren befestigt. Der Füllstandssensor wird durch die Öffnung von oben in den Tank gesteckt und liegt auf dem Deckel auf. Der Temparatursensor hat eine eigene Öffnung, in welche dieser dann ebenfalls von oben in den Tankgesteckt werden kann. Die Deckel sind so konzipiert, dass die 3 Löcher nur so groß wie nötig sind, damit keine Verunreinigungen ins Wasser kommen können. Die Löcher wurden mit kreisförmigen Skizzen erstellt und anschließend Extrudiert und damit Deckel ausgeschnitten. damit diese nicht verrutschen gibt es an der Unerseite des Deckels eine erhöhung die in den tank hineinragt. Damit ist der Deckel befestigt ohne jeglichen Einsatz von Schrauben oder Kleber.
-#figure(
-  image("../assets/3D-Modelle/Fenrir-Betriebszelle-2-Abdeckung.png"),
-  caption: [3D-Modell des Tankdeckels]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/3D-Modelle/Fenrir-Betriebszelle-2-Abdeckung.png"),
+    caption: [3D-Modell des Tankdeckels]
+  )
 )
+
 #pagebreak(weak: true)
+
 === Zelle Drei Einlasshalterung
 Für das Wassereinlaufbecken in der Zelle Drei gibt wurde eine Halterung für den Wasserschlauch modelliert und gedruckt. Diese ist im Becken an links und rechts montiert. Dies wurde mithilfe von zwei Steckverbindungen erreicht. Das Becken hat etwa 2 cm x 0,5 cm große Löcher in die die Halterung gesteckt wird. Modelliert wurden die beiden Einschübe mit einer Skizze die anschließend 1 cm lang extrudiert wurde. Die Öffnung für den Schlauch wurde mit einer Kreisförmigen Skizze erstellt und anschließend extrudiert. Die Öffnung für den Schlauch wurde so angepasst, dass bei Bedarf der Schlauch einfach entfernt werden kann und dennoch bei Benutzung fest sitzt.
-#figure(
-  image("../assets/3D-Modelle/Fenrir-Betriebszelle-3-Abdeckung.png"),
-  caption: [3D-Modell der Einlasshalterung]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/3D-Modelle/Fenrir-Betriebszelle-3-Abdeckung.png"),
+    caption: [3D-Modell der Einlasshalterung]
+  )
 )
+
 #pagebreak(weak: true)
+
 === Zelle Drei Überschwemmungsgebiet-Häuser
 Für die Zelle Drei wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell erstellt und anschließend im Slicer nach Belieben skaliert. Dabei wurde die volle Größe und die Hälfte genommen. Der Modellierungsprozess begann mit der Grundform des Hauses, einem Quader, auf dem dann ein Dreieck, was anschließend extrudiert wurde, platziert wurde. Der Reichfang ist durch einen Zylinder dargestellt. Dabei wurde eine Kreisförmige Skizze durch das Dach des Hauses hindurch extrudiert. Das Haus ist innen hohl, damit weniger Material verbraucht wird und es für nicht notwendig ist, das Haus zu füllen.
-#figure(
-  image("../assets/3D-Modelle/Fenrir_house_4.png"),
-  caption: [3D-Modell der Häuser]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/3D-Modelle/Fenrir_house_4.png"),
+    caption: [3D-Modell der Häuser]
+  )
 )
+
+#htl3r.author("David Koch")
+== Programmierung der Speicherprogrammierbaren Steuerungen <sps-programmierung>
+
+#htl3r.shortpl[sps] können, im Vergleich zu "festverdrahteten" verbindungsprogrammierten Steuerungen (VPS), jederzeit digital umprogrammiert werden. Sie bieten somit einen viel flexibleren Umgang bei der Steuerung von industriellen Anlagen.  
+
+Bei der Programmierung von #htl3r.shortpl[sps] wird zwischen 5 in der EN 61131-3 #footnote("Europäische Norm EN 61131, basierend auf der internationalen Norm IEC 61131") genormten Programmiersprachen unterschieden. Diese wären:
+
+/ #htl3r.short[awl]: Kurz für "#htl3r.long[awl]". Basierend auf reinem #htl3r.short[ascii]-Text und vergleichbar mit Assemblerprogrammierung. Bei Siemens heißt sie STL (engl. kurz für "Statement List"). Diese Art der Programmierung gilt als veraltet und wird mit der Zeit hauptsächlich von \acrshort{st} abgelöst.
+/ #htl3r.short[st]: Kurz für "#htl3r.long[st]". Basierend auf reinem #htl3r.short[ascii]-Text und angelehnt an konventionelle Programmiersprachen. Die Syntax der Sprachelemente ähneln denen der Programmiersprache Pascal und es wird bei Schlüsselwörtern keine Unterscheidung zwischen Groß- und Kleinschreibung gemacht. #htl3r.short[st] bietet mehr Strukturierungsmöglichkeiten als #htl3r.short[awl] und löst diese daher immer weiter ab.
+/ #htl3r.short[kop]: Kurz für "#htl3r.long[kop]". Vergleichbar mit einem Stromlaufplan, der um 90° gedreht ist. In fast allen modernen #htl3r.short[kop]-Sprachen sind aber auch Funktionsblöcke verfügbar, die weit über die eigentliche Verknüpfungssteuerung hinausgehen und ähneln somit eher einem #htl3r.short[fup].
+#htl3r.fspace(
+  figure(
+          image("../assets/Kontaktplan.svg"),
+          caption: [Kontaktplan]
+        ),
+        figure(
+          image("../assets/Stromlaufplan.svg", width: 55%),
+          caption: [Stromlaufplan]
+        ),
+)
+
+// Quelle: https://de.wikipedia.org/wiki/Kontaktplan\#/}
+
+/ #htl3r.short[fup]: Kurz für "#htl3r.long[fup]". Auch als "Funktionsbausteinsprache" (kurz FBS) bekannt, diese Art der #htl3r.short[sps] ähnelt Logik-Schaltplänen.
+/ #htl3r.short[as]: Kurz für "#htl3r.long[as]". Auch als Ablaufsteuerung bekannt, diese Art der #htl3r.short[sps]-Programmierung ist besteht aus einer Kette von Steuerungsschritten, welche durch Weiterschaltbedingungen (auch bekannt als "Transitionen") miteinander verbunden sind. An den einzelnen Schritten werden Befehle bzw. Aktionen eingebunden, diese dienen zur gezielten Ansteuerung von der jeweiligen Aktorik im System. Somit kann die #htl3r.long[as] als quasi "Flowchart-Programmierung" angesehen werden.
+
+#htl3r.todo("QUELLE")
+
+\subsubsection{OpenPLC-Editor}
+Die Bereits im \autoref{sec:sps_openplc} erwähnte Software-SPS-Runtime -- die "'OpenPLC-Runtime"' -- kann mithilfe des OpenPLC-Editors mittels grafischer Oberfläche mit Bausteinen oder auch mittels eingebautem Texteditor programmiert werden, je nach gewünschter SPS-Programmierart (siehe \autoref{sec:sps_programmierung}).
+
+#htl3r.todo("klarerweise todo")
+
+Im Rahmen dieser Diplomarbeit werden KOP- und FUP-Programme verwendet.
 
 #htl3r.author("David Koch")
 == Programmierung eines I²C-Kommunikationsbusses <diy-i2c>

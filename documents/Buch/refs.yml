@@ -268,3 +268,39 @@ fortigate-subscriptions:
     value: https://www.fortinet.com/content/dam/fortinet/assets/data-sheets/og-fortiguard.pdf
     date: 2025-02-03
   date: 2024
+
+ethernet-bus-protocols-comp:
+  type: article
+  title: "EtherNet/IP, EtherCAT, Profinet and Modbus TCP: which protocol is right for you?"
+  author: Jeremy Pollard
+  url:
+    value: https://www.controldesign.com/connections/data-acquisition-monitoring/article/55249378/ethernet-ip-ethercat-profinet-and-modbus-tcp-which-protocol-is-right-for-you
+    date: 2025-02-17
+  date: 2024-12-12
+
+modbus-comp:
+  type: misc
+  title: What is the difference between Modbus, Modbus Plus, and ModbusTCP/IP?
+  author: Prosoft Technology
+  url:
+    value: https://www.prosoft-technology.com/knowledge-base/Protocols/What-is-the-difference-between-Modbus-Modbus-Plus-and-ModbusTCPIP
+    date: 2025-02-17
+  date: 2016-10-14
+
+tcpip-fortinet-doc:
+  type: misc
+  title: What Is Transmission Control Protocol TCP/IP?
+  author: Fortinet Inc.
+  url:
+    value: https://www.fortinet.com/resources/cyberglossary/tcp-ip
+    date: 2025-02-17
+  date: 2025
+
+modbustcp_intro:
+  type: reference
+  title: Introduction to Modbus TCP/IP
+  author: Acromag Inc.
+  url:
+    value: https://www.prosoft-technology.com/kb/assets/intro_modbustcp.pdf
+    date: 2025-02-17
+  date: 2005

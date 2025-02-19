@@ -410,3 +410,40 @@ sql:
     singular: SQL
   long:
     singular: Structured Query Language
+
+awl:
+  short:
+    singular: AWL
+  long:
+    singular: Anweisungsliste
+
+st:
+  short:
+    singular: ST
+  long:
+    singular: Strukturierter Text
+
+kop:
+  short:
+    singular: KOP
+  long:
+    singular: Kontaktplan
+
+fup:
+  short:
+    singular: FUP
+  long:
+    singular: Funktionsplan
+
+as:
+  short:
+    singular: AS
+  long:
+    singular: Ablaufsprache
+
+ascii:
+  short:
+    singular: ASCII
+  long:
+    singular: American Standard Code for Information Interchange
+  description: Eine 7-Bit-Zeichenkodierung, die das lateinische Alphabet in Groß- und Kleinschreibung, die zehn Ziffern sowie einige Satzzeichen und Sonderzeichen enthält.
