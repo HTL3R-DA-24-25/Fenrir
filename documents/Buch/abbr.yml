@@ -64,18 +64,21 @@ vm:
   long:
     singular: Virtuelle Maschine
     plural: Virtuelle Maschines
+  description: Eine softwarebasierte Nachbildung eines physischen Computers.
 
 it:
   short:
     singular: IT
   long:
     singular: Informational Technology
+  description: Ein Überbegriff für die Technologien zur Verarbeitung, Speicherung, Übertragung und Verwaltung von Informationen.
 
 ot:
   short:
     singular: OT
   long:
     singular: Operational Technology
+  description: Ein Überbegriff für die Technologien zur Überwachung, Steuerung und Automatisierung industrieller Prozesse und physischer Systeme, insbesondere in Bereichen wie Fertigung, Energie und Infrastruktur.
 
 wan:
   short:
@@ -84,6 +87,7 @@ wan:
   long:
     singular: Wide Area Network
     plural: Wide Area Networks
+  description: Ein Netzwerk, das sich über große geografische Entfernungen erstreckt und mehrere lokale Netzwerke (LANs) miteinander verbindet.
 
 lan:
   short:
@@ -92,6 +96,7 @@ lan:
   long:
     singular: Local Area Network
     plural: Local Area Networks
+  description: Ein Netzwerk, das auf ein begrenztes geografisches Gebiet wie ein Gebäude beschränkt ist und Geräte wie Computer und Server miteinander verbindet.
 
 vlan:
   short:
@@ -100,6 +105,7 @@ vlan:
   long:
     singular: Virtual Local Area Network
     plural: Virtual Local Area Networks
+  description: Eine logische Unterteilung eines physischen Netzwerks, die es ermöglicht, Geräte in separaten, virtuellen Netzwerken zu gruppieren, um den Datenverkehr zu isolieren.
 
 ad:
   short:
@@ -146,12 +152,14 @@ crc:
     singular: CRC
   long:
     singular: Cyclic Redundancy Check
+  description: Ein Verfahren zur Erkennung von Fehlern in übertragenen oder gespeicherten Daten, bei dem ein Prüfwert basierend auf einer polynomiellen Division berechnet und verglichen wird.
 
 psm:
   short:
     singular: PSM
   long:
     singular: Python Submodule (for OpenPLC)
+
 
 dmz:
   short:
@@ -211,6 +219,7 @@ mes:
     singular: MES
   long:
     singular: Manufacturing Execution System
+  description: Eine Software zur Überwachung, Steuerung und Optimierung von Produktionsprozessen in Echtzeit.
 
 vdom:
   short:
@@ -282,6 +291,7 @@ ietf:
     singular: IETF
   long:
     singular: Internet Engineering Task Force
+  description: Eine internationale Freiwilligenvereinigung von Netzwerktechnikexperten*innen, die sich mit der Entwicklung und Förderung von offenen Internetstandards und Protokollen beschäftigt,
 
 tcp:
   short:
@@ -302,6 +312,7 @@ icp:
   long:
     singular: Incident Response Playbook
     plural: Incident Response Playbooks
+  description: Eine Sammlung von Checklisten und Handlungsanweisungen, die es Incident-Response-Teams ermöglicht, effizient und strukturiert auf Sicherheitsvorfälle zu reagieren.
 
 dos:
   short:
@@ -314,18 +325,21 @@ rdp:
     singular: RDP
   long:
     singular: Remote Desktop Protocol
+  description: Ein Netzwerkprotokoll zur Steuerung und Bedienung der grafischen Benutzeroberfläche eines entfernten Computers.
 
 dpi:
   short:
     singular: DPI
   long:
     singular: Deep Packet Inspection
+  description: Die detaillierte Analyse von Datenverkehr in einem Netzwerk, bei der nicht nur der Header, sondern auch die Inhalte der Datenpakete untersucht werden.
 
 http:
   short:
     singular: HTTP
   long:
     singular: Hypertext Transfer Protocol
+  description: Ein Netzwerkprotokoll zum Austausch von Daten, insbesondere von Webseiten.
 
 nis:
   short:
@@ -381,14 +395,14 @@ usb:
     singular: USB
   long:
     singular: Universal Serial Bus
+  description: Ein Standard zur Verbindung, Datenübertragung und Stromversorgung zwischen Computern und externen Geräten wie Speichermedien und Peripheriegeräten.
 
 cve:
   short:
     singular: CVE
-    plural: CVEs
   long:
-    singular: Critical Vulnerability Exploit
-    plural: Critical Vulnerability Exploits
+    singular: Common Vulnerabilities and Exposures
+  description: Eine Liste mit öffentliche bekannten Sicherheitsschwachstellen in Computersystemen.
 
 snmp:
   short:
@@ -410,6 +424,7 @@ sql:
     singular: SQL
   long:
     singular: Structured Query Language
+  description: Eine standardisierte Datenbanksprache zur Verwaltung von Daten in relationalen Datenbanken.
 
 awl:
   short:
