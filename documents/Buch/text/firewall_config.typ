@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:1.0.0" as htl3r
 
 #htl3r.author("Bastian Uhlig")
 = Firewall-Konfiguration <firewall-config>
@@ -122,7 +122,7 @@ Mit einer FortiGate-Firewall lassen sich nicht nur Policies schreiben, um den Da
 
 Die Nutzung dieser Features ist von den auf der Firewall registrierten Lizenzen abhängig, da in der Basispaket-Lizenz der Fortiguard #htl3r.short[ips] Sicherheitsservice zum Beispiel nicht inkludiert ist.
 
-#htl3r.short[ot]-Signaturen sind zwar Teil des Fortiguard #htl3r.short[ips] Sicherheitsservice, sind aber standardmäßig deaktiviert. Mit folgender Konfiguration werden die #htl3r.short[ot]-Signaturen der #htl3r.short[ips]-Engine freigegeben: 
+#htl3r.short[ot]-Signaturen sind zwar Teil des Fortiguard #htl3r.short[ips] Sicherheitsservice, sind aber standardmäßig deaktiviert. Mit folgender Konfiguration werden die #htl3r.short[ot]-Signaturen der #htl3r.short[ips]-Engine freigegeben:
 
 #htl3r.code-file(
   caption: "OT-Signaturen und Modbus-Decoder im IPS aktivieren",

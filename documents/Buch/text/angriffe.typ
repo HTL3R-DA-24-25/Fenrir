@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:1.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Angriffe auf das Netzwerk <angriffe-netzwerk>
@@ -184,7 +184,7 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
 1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
-2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste 
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste
 3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des #htl3r.short[ot]-Engineers um tiefer in die Anlage einzudringen.
 4. #htl3r.short[lotl], Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
 5. Angreifer entdeckt Default Credentials auf OpenPLC.

@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:1.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Topologie
@@ -45,7 +45,10 @@ ACHTUNG: VERALTET
 
 
 #htl3r.author("Julian Burger")
-== VMware ESXi
+== Virtualisierungsplatform
+Innerhalb der Diplomarbeit werden alle IT-Geräte virtualisiert. Dies bringt meherere Vorteile mit sich, unter anderem schnelles und resourcensparendes Deployment, da #htl3r.shortpl[vm] mit exact den Ressourcen gestartet werden können, welche sie auch tatsächlich benötigen. Natürlich ist es ebenso von großer Wichtigkeit, dass die Virtualisierungsplatform gute Integrationen mit #htl3r.long[iac]-Tools bietet. Eine Platform, welche gute #htl3r.short[iac]-Tools integration und leichtes Management bietet, ist VMware-ESXi. VMware bietet ebenso einen Clusteringdienst an, namens vCenter. VMware-vCenter ermöglicht es mehrere ESXi-Instanzen in ein logisches Datacenter zusammenzufassen. Somit können die #htl3r.shortpl[vm] auf einem geteiltem Speichermedium abgespeichert werden und beliebig von den ESXi-Instanzen gestartet werden.
+
+
 
 === vCenter
 

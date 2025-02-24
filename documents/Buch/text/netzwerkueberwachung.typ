@@ -1,10 +1,10 @@
-#import "@preview/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:1.0.0" as htl3r
 
 #htl3r.author("Bastian Uhlig")
 = Netzwerküberwachung <netzwerkueberwachung>
 
 == Theoretische Netzwerküberwachung
-Ein wichtiger Teil der Sicherheit in einem Netzwerk ist Überwachung dessen. Damit kann die Zuverlässlichkeit und der derzeitige Zustand sofort erkannt werden. Es ist nämlich niemals möglich, sämtliche Angriffe abzuwehren, bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernen Mitteln überwacht wird, können Angriffe, die bereits in vollem Gange sind, entdeckt und (in weiterer Folge) unterbunden werden. 
+Ein wichtiger Teil der Sicherheit in einem Netzwerk ist Überwachung dessen. Damit kann die Zuverlässlichkeit und der derzeitige Zustand sofort erkannt werden. Es ist nämlich niemals möglich, sämtliche Angriffe abzuwehren, bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernen Mitteln überwacht wird, können Angriffe, die bereits in vollem Gange sind, entdeckt und (in weiterer Folge) unterbunden werden.
 
 Hierbei ist der Begriff einer Baseline wichtig. Eine Baseline beschreibt einen Status des Netzwerkes, in welchem dieses im Normalzustand agiert.
 
@@ -16,7 +16,7 @@ Tools zur Überwachung von Netzwerken gibt es tausende. Von dem selbstentwickelt
 === Wireshark
 Wireshark ist ein Packet-Sniffer. Das heißt, es liest einfach allen Datenverkehr, der auf einem gewissen Interface eines Computers läuft, und gibt diesen aus. Es gibt auch eine Version von Wireshark für die Kommandozeile, diese heißt "tshark".
 
-Zur Benutzung von Wireshark muss nur das Interface angegeben werden, auf welchem der Datenverkehr mitgelesen werden soll. Sobald dies geschehen ist, wird jedes Paket, das gelesen wird, in einer Tabelle nach der Zeit geordnet dargestellt. 
+Zur Benutzung von Wireshark muss nur das Interface angegeben werden, auf welchem der Datenverkehr mitgelesen werden soll. Sobald dies geschehen ist, wird jedes Paket, das gelesen wird, in einer Tabelle nach der Zeit geordnet dargestellt.
 
 #htl3r.fspace(
   total-width: 95%,
