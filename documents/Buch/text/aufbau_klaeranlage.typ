@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:1.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Aufbau der Modell-Kläranlage <aufbau-klaeranlage>
@@ -7,7 +7,12 @@ Um die Absicherung eines Produktionsbetriebs oder eines Stücks kritischer Infra
 
 Zwar sind Kläranlagen nicht die beliebtesten #htl3r.short[ot]-Angriffsziele, Kraftwerke wären hierbei das beliebteste Ziel von Cyberangriffen auf kritische Infrastruktur @knowbe4-cyber-attacks-crit-infra[comp], jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch manche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater[comp]
 
-#htl3r.todo("bitte grobe schematische Darstellung ergänzen aus der die Betriebszellen erkennbar sind")
+#htl3r.fspace(
+  figure(
+    image("../assets/klaeranlage_blockschaltbild.png"),
+    caption: [Die drei Betriebszellen der Modell-Kläranlage]
+  )
+)
 
 #htl3r.author("David Koch")
 == Planung der Betriebszellen
@@ -20,17 +25,13 @@ Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage die
 #htl3r.author("David Koch")
 == Zelle Eins (Grobfiltration)
 
-=== Aufbau
+=== Aufbau der ersten Betriebszelle
 
 Als erster Schritt zur erfolgreichen Abwasserfiltration braucht es einen Weg, grobe Schmutzpartikel wie zum Beispiel Kieselsteine filtrieren zu können. Einen feinen Wasserfilter würden solche großen Partikel verstopfen oder sogar zerstören. Somit erfolgt die erste Filtration mit einem gröberen Metallgitter als Rechen.
 
 Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter befördert, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochbeförderte Wasser durch das Rechengitter fallen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher eine Öffnung für die Leitung in die zweite Zelle birgt.
 
-Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann aufwindet. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprozesses ist die Möglichkeit, die Schraube im Nachhinein noch beliebig zu verändern, da sobald eine Skizze verändert wird, das Modell automatisch angepasst wird. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte dieses Problem behoben werden.
-
-Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Befestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen.
-
-#htl3r.todo("SDO mag hier Grafik bzgl Modellierung haben?")
+Für Details zur Modellierung der archimedischen Schraube und der Halterung des Schneckenmotors siehe @schnegge und @motor-halterung.
 
 #htl3r.fspace(
   figure(
@@ -39,7 +40,7 @@ Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Ha
   )
 )
 
-=== Steuerungstechnik
+=== Steuerungstechnik der ersten Betriebszelle
 
 Die in dieser Zelle verwendete #htl3r.short[sps] ist eine Siemens SIMATIC S7-1200 mit der CPU 1212C. Sie ist kompakt sowie modular erweiterbar und somit für kleinere bis mittlere Automatisierungsaufgaben konzipiert.
 
@@ -70,14 +71,20 @@ Das Programm für die Steuerung dieser Betriebszelle ist von allen drei Zellen d
 
 Das in @zelle-1-programm abgebildete Programm -- welches in der Kontaktplan-Programmiersprache erstellt worden ist (Erklärung in @sps-programmierung) -- nutzt wie zuvor erwähnt den digitalen Eingang ```%I0.1``` als Kontakt und den digitalen Ausgang ```%Q0.1``` als Spule zur Steuerung der Stromzufuhr zum Schneckenmotor. Sie sind direkt miteinander verbunden, das heißt, dass wenn der Kontakt im Zustand "AN" ist, dann ist die Spule ebenfalls im Zustand "AN".
 
-=== Schaltplan
+=== Schaltplan der ersten Betriebszelle
 
-* BILD *
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/Zelle_1_Schaltplan.png"),
+    caption: [Schaltplan der 1. Betriebszelle]
+  )
+)
 
 #htl3r.author("David Koch")
 == Zelle Zwei (Feinfiltration)
 
-=== Aufbau
+=== Aufbau der zweiten Betriebszelle
 
 Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
 
@@ -93,7 +100,7 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
   )
 )
 
-=== Steuerungstechnik
+=== Steuerungstechnik der zweiten Betriebszelle
 
 Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.short[sps] eingesetzt: Die OpenPLC v3. Diese läuft auf einem Raspberry Pi 4 Mikrocomputer.
 
@@ -143,7 +150,7 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
 
 Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche AAAAAAAAAAAA
 
-=== Schaltplan
+=== Schaltplan der zweiten Betriebszelle
 
 #htl3r.fspace(
   total-width: 100%,
@@ -156,7 +163,7 @@ Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-P
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
 
-=== Aufbau
+=== Aufbau der dritten Betriebszelle
 
 Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
 
@@ -176,7 +183,7 @@ Für das Wassereinlaufbecken bzw. das Überschwemmungebiet wurde als Basis eine 
   )
 )
 
-=== Steuerungstechnik
+=== Steuerungstechnik der dritten Betriebszelle
 
 Für die Steuerung des Magnetventils und die Auswertung der Überschwemmungssensoren ist eine Siemens LOGO! #htl3r.short[sps] zuständig. Diese steuert das Magnetventil und somit den Wasserfluss.
 
@@ -196,12 +203,12 @@ PROGRAMM ERKLÄRUNG
   )
 )
 
-=== Schaltplan
+=== Schaltplan der dritten Betriebszelle
 
 * bild *
 
 #htl3r.author("Gabriel Vogler")
-== 3D-Druck
+== 3D-Druck zur Herstellung passender Teile
 
 Für einige Komponenten gab es keine passenden Teile, oder übermäßige Kosten für die Anschaffung.
 Deshalb wurde die Entscheidung getroffen, diese Teile und ihre angepassten Varianten, die für die Anlage sogar noch besser passen, selbst zu designen und zu drucken.
@@ -215,7 +222,7 @@ Die Modelle wurden mittels Autodesk Fusion 360 erstellt.
 Die Modelle sind stark in ihrer Komplexität variierend. Einige sind sehr einfach zu modellieren, wie zum Beispiel die Tankdeckel der Zelle Zwei. Andere sind etwas aufwändiger, wie zum Beispiel die Archimedische Förderschnecke in der Zelle Eins.
 
 #htl3r.author("Gabriel Vogler")
-=== Drucken
+=== Details zum Druckprozess
 
 Als Drucker wurde ein BambuLab A1 3D-Drucker verwendet.
 Es wurde auf #htl3r.short[pla] und #htl3r.short[petg] Filament zurückgegriffen, da diese Materialien für den Einstieg in den 3D-Druck sehr gut geeignet sind und auf diesem Gebiet noch nicht sehr viele Erfahrungen vorhanden waren.
@@ -230,11 +237,11 @@ Das Ganze funktioniert mithilfe eines #htl3r.short[rfid]-Chips, der auf der Spul
 Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
 Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
 
-Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwendet, um Stützstrukturen zu drucken, die nach dem Druck einfach in Wasser aufgelöst werden können. Dies half uns dabei, auch komplexere Modelle zu drucken, die ohne Stützstrukturen nicht möglich gewesen wären und die dennoch eine hoheh Qualität des Drucks zu gewährleisten. Das #htl3r.short[pva]-Filament stammt ebenfalls aus dem Hause BambuLab. Die Problematik bei der Vernwedung von #htl3r.short[pva]-Filament ist, dass dieses eine sehr trockene Umgebung benötigt, da es sehr emplindlich gegenüber Feuthigkeit ist. Anfänglich wurde probiert das Filament im Vorhinein mit einem Filamenttrockner zu trocknen und anschließend aus dem #htl3r.short[ams] zu drucken. Obwohl in einem trockenen Raum gedruckt wurde, wollte das Filament nicht so wie geünscht auf der Druckplatte und dem zu druckenden Körper haften. Nach einigen Anpassungen an den Druckeinstellungen sowie dem Wechsel von #htl3r.short[petg] auf #htl3r.short[pla] als Druckmaterial, konnte das Problem gelöst werden. Dies liegt daran, dass #htl3r.short[petg] heißer gedruckt werden muss als #htl3r.short[pla] und die Temperatur für das #htl3r.short[pva]-Filament zu hoch war und das Stützmaterial zum kochen begonnnen hat. Dies führte zum Ziehen von Fäden und somit zu einem unbrauchbaren Druck. Außerdem wurde das #htl3r.short[pva]-Filament direkt aus dem Filamenttrockner gedruckt, somit konnte auch während des Druckens die Trockenheit gewährleistet werden. 
+Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwendet, um Stützstrukturen zu drucken, die nach dem Druck einfach in Wasser aufgelöst werden können. Dies half dabei, auch komplexere Modelle zu drucken, die ohne Stützstrukturen nicht möglich gewesen wären und die dennoch eine hohe Qualität des Drucks gewährleisten. Das #htl3r.short[pva]-Filament stammt ebenfalls vom Hersteller BambuLab. Die Problematik bei der Verwendung von #htl3r.short[pva]-Filament ist, dass dieses eine sehr trockene Umgebung benötigt, da es sehr empfindlich gegenüber Feuchtigkeit ist. Anfänglich wurde probiert, das Filament im Vorhinein mit einem Filamenttrockner zu trocknen und anschließend aus dem #htl3r.short[ams] zu drucken. Obwohl in einem trockenen Raum gedruckt wurde, wollte das Filament nicht so wie gewünscht auf der Druckplatte und dem zu druckenden Körper haften. Nach einigen Anpassungen an den Druckeinstellungen sowie dem Wechsel von #htl3r.short[petg] auf #htl3r.short[pla] als Druckmaterial, konnte das Problem gelöst werden. Dies liegt daran, dass #htl3r.short[petg] heißer gedruckt werden muss als #htl3r.short[pla] und die Temperatur für das #htl3r.short[pva]-Filament zu hoch war und das Stützmaterial zum kochen begonnnen hat. Dies führte zum Ziehen von Fäden und somit zu einem unbrauchbaren Druck. Außerdem wurde das #htl3r.short[pva]-Filament direkt aus dem Filamenttrockner gedruckt, somit konnte auch während des Druckens die Trockenheit gewährleistet werden. 
 
 #pagebreak(weak: true)
 == 3D-Modelle
-=== Förderschnecke
+=== Förderschnecke <schnegge>
 Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
 
 #htl3r.fspace(
@@ -246,8 +253,8 @@ Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstelle
 
 #pagebreak(weak: true)
 
-=== Schneckenmotor-Halterung
-Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen vesetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt wurde außerdem eine abdeckung gedruckt. diese wird einfach auf den Motor gesetzt und anschließend mit der Halterung mit 4 M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
+=== Schneckenmotor-Halterung <motor-halterung>
+Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen versetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt, wurde außerdem eine Abdeckung gedruckt. Diese wird einfach auf den Motor gesetzt und anschließend an die Halterung mit 4 M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
 
 #htl3r.fspace(
   figure(
@@ -403,7 +410,7 @@ def crc8(data: list):
 
 Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r.short[crc]8-Code jedoch in C implementiert worden.
 
-=== Integration in OpenPLC
+=== Integration der I²C-Daten in OpenPLC
 
 OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-TCP. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC (siehe OpenPLC -> PSM Kapitel TODO) lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten.
 
@@ -483,7 +490,7 @@ Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps
   )
 )
 
-== Schaltschrank
+== Schaltschrank der Modell-Kläranlage
 
 #htl3r.fspace(
   figure(

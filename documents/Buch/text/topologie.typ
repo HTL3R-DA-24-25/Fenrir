@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:1.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Topologie
@@ -22,7 +22,7 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
   )
 )
 
-=== Geräte
+=== Alle Geräte in der logischen Topologie
 
 #htl3r.todo("Hier Tabelle oder so machen")
 
@@ -41,11 +41,11 @@ ACHTUNG: VERALTET
 
 * BILD schrank bzw schränke *
 
-=== Verwendete Geräte
+=== Verwendete Geräte in der physischen Topologie
 
 
 #htl3r.author("Julian Burger")
-== VMware ESXi
+== VMware ESXi 
 
 === vCenter
 
@@ -77,7 +77,7 @@ Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwis
 
 == Verknüpfung der physischen & virtuellen Netzwerke
 
-=== Modbus TCP
+=== Modbus TCP als Kommunikationsprotokoll
 
 Neben Profinet, EtherCat und co. hat sich dieses Protokoll für die industrielle Kommunikation über Ethernet-Leitungen etabliert. @ethernet-bus-protocols-comp[comp]
 
