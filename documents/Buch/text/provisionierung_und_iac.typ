@@ -1,7 +1,7 @@
 #import "@preview/htl3r-da:1.0.0" as htl3r
 
 #htl3r.author("Julian Burger")
-= Provisionierung und IaC
+= Provisionierung und IaC <provisionierung>
 
 In der Industrie gibt es einen stetigen Trend, alles zu automatisieren. Eine Automatisierung der #htl3r.short[it]-Infrastruktur bringt Zeit- und Ressourcenersparnisse. Diese Ersparnisse gilt es nicht zu vernachlässigen, demnach ist es das Ziel der Diplomarbeit, das gesamte #htl3r.short[it]-Netzwerk automatisch zu provisionieren und somit zukunftssicher zu gestalten.
 
@@ -92,7 +92,7 @@ Die von der Ressource gebrauchte ``` vm_uuids``` Variable ist in einer anderen D
 Terraform fragt mithilfe des Skriptes die #htl3r.shortpl[uuid] der ADDCs ab und befüllt mit ihnen die lokale Variable ``` vm_uuids```.
 
 Um all dies zu ermöglichen, braucht Terraform den passenden Provider. Ein Terraform-Provider gibt an, wie mit einem gegebenen System zu interagieren ist. Durch einen Provider werden Ressourcen definiert welche angelegt werden können und ebenso welche Daten abgefragt werden können. Um den Provider einzubinden, ist dieser zuerst zu definieren:
-#htl3r.code(caption: "Terraform vSphere-Provider einbindung", description: none)[
+#htl3r.code(caption: "Terraform vSphere-Provider Einbindung", description: none)[
 ```hcl
 terraform {
   required_providers {
@@ -121,7 +121,7 @@ Die realen Zugangsdaten stehen in einer externen Datei, welche nicht Teil des Gi
 === Ansible
 Ansible ist das dritte #htl3r.short[iac] Tool, welches zur Provisionierung verwendet wird. Es ermöglicht, Maschinen mittels Ansible-Playbooks zu konfigurieren. Diese Playbooks beinhalten mehrere Tasks, welche ausgeführt werden. Diese Tasks können sehr komplex, jedoch auch sehr simpel sein. Ansible wird in der Topologie hauptsächlich für das Ausführen von Bash- und PowerShell-Skripten verwendet, da oftmals ein Neustart nach der Ausführung eines Befehls notwendig ist. Dies ist vor allem auf Windows-Servern ein bekanntes Problem. Terraform kann mit solchen Neustarts nicht umgehen, Ansible jedoch schon.
 
-Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.short[dhcp] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem Ansible-Aufruf sieht wie folgt aus:
+Die IPv4-Adressen der #htl3r.shortpl[vm] im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.short[dhcp] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem Ansible-Aufruf sieht wie folgt aus:
 #htl3r.code-file(
   caption: "Terraform Ansible Provisioning",
   filename: [stage_03/main.tf],
@@ -145,7 +145,7 @@ Die IPv4-Adressen der VMs im Managementnetzwerk sind oft unklar, denn sie werden
   lang: "yml",
   text: read("../assets/scripts/setup_dc_primary.yml")
 )
-Der Grund, warum die ``` ansible_ssh_common_args``` Variable solch einen komplexen Inhalt hat, wird in @prov-mit-bastion beschrieben.
+Der Grund, warum die ```ansible_ssh_common_args``` Variable solch einen komplexen Inhalt hat, wird in @prov-mit-bastion beschrieben.
 
 === pyVmomi
 Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.short[api] zurückgegriffen. Hierzu wird pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im Web-#htl3r.short[gui] von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.shortpl[dpg]. Dies ist in keinem der vorher genannten Tools direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Datenverkehr zwischen Managed-#htl3r.shortpl[vm] möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu kommunizieren und #htl3r.short[dhcp]-Requests zu verschicken. Hierzu werden folgende Traffic-Filter-Regeln verwendet:
@@ -258,16 +258,16 @@ Die Konfigurationsoptionen in Packer sind selbsterklärend benannt und verständ
 Die nicht gezeigten Abschnitte werden ausgeblendet um für bessere Lesbarkeit zu sorgen. Es ist somit sehr gut erkennbar, wie sich die Konfiguration zu der selbigen in Packer ähnelt.
 
 ==== Ansible
-Aufgrund von Ansible seiner simplizität unterstützt es #htl3r.short[ssh]-Agents nicht direkt nativ. Ansible bevorzugt eine #htl3r.short[ssh]-Proxy. Eine #htl3r.short[ssh]-Proxy ist ähnlich zu einem #htl3r.short[ssh]-Agent, jedoch gibt es Unterschiede in der Art, wie mit den Schlüsseln umgegangen wird. Es ist allerdings trotzdem möglich, einen Ablauf mit einem #htl3r.short[ssh]-Agent zu realisieren:
+Aufgrund von der Simplizität von Ansible unterstützt es #htl3r.short[ssh]-Agents nicht direkt nativ. Ansible bevorzugt eine #htl3r.short[ssh]-Proxy. Eine #htl3r.short[ssh]-Proxy ist ähnlich zu einem #htl3r.short[ssh]-Agent, jedoch gibt es Unterschiede in der Art, wie mit den Schlüsseln umgegangen wird. Es ist allerdings trotzdem möglich, einen Ablauf mit einem #htl3r.short[ssh]-Agent zu realisieren:
 #htl3r.code-file(
-  caption: "Ansible verwendung von einer Bastion",
+  caption: "Ansible Verwendung von einer Bastion",
   filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
   skips: ((11, 0),),
   ranges: ((0, 11),),
   lang: "yml",
   text: read("../assets/scripts/setup_dc_primary.yml")
 )
-Der Aufbau des Playbooks ist jedoch wesentlich komplexer als der gleiche in Terraform oder Packer. Zerlegt man den `ansible_ssh_common_args` Parameter in seine Einzelteile, so ist auch dieser logisch nachzuvollziehen. Es wird hierbei von einem groben verständniss von #htl3r.short[ssh] ausgegangen, somit wird lediglich auf die `ProxyCommand`-Option eingegangen.
+Der Aufbau des Playbooks ist jedoch wesentlich komplexer als der gleiche in Terraform oder Packer. Zerlegt man den `ansible_ssh_common_args` Parameter in seine Einzelteile, so ist auch dieser logisch nachzuvollziehen. Es wird hierbei von einem groben Verständnis von #htl3r.short[ssh] ausgegangen, somit wird lediglich auf die `ProxyCommand`-Option eingegangen.
 
 Der Befehl, welcher der `ProxyCommand`-Option mitgegeben wird, wird lokal ausgeführt. Das Ziel der `ProxyCommand`-Option ist es einen Tunnel aufzubauen, über welchen die eigentliche Ziel-#htl3r.short[vm] erreicht werden kann. somit liegt das wirkliche Interesse an folgendem ausschnitt:
 #htl3r.code(caption: "Ansible ProxyCommand Ausschnitt", description: none)[
@@ -276,9 +276,9 @@ ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ForwardAgent=
 ```
 ]
 
-Das erste Argument von besonderem Interesse ist `ForwardAgent=yes`. Dadurch wird der lokale #htl3r.short[ssh]-Agent der Bastion weitergeleitet. Dies ist vorallem in den folgenden Schritten sehr wichtig, da die Schlüssel der Bastion zu diesem hinzugefügt werden. Genau dieses hinzufügen der Schlüssel passiert im mitgegebenen Befehl: `'ssh-add && nc %h %p'`, welcher auf der Bastion ausgeführt wird. `ssh-add` lädt die Schlüssel der Bastion in den aktuellen #htl3r.short[ssh]-Agent, welcher in diesem Fall der Lokale ist. Mittels Netcat wird im anschluss ein Tunnel zur Ziel-#htl3r.short[vm] aufgebaut: `nc %h %p`. Die Argumente `%h` und `%p` sind Templateparameter von #htl3r.short[ssh] und werden, bevor der Befehl ausgeführt wird, mit dem Hostnamen und dem Port der Ziel-#htl3r.short[vm] ersetzt.
+Das erste Argument von besonderem Interesse ist `ForwardAgent=yes`. Dadurch wird der lokale #htl3r.short[ssh]-Agent der Bastion weitergeleitet. Dies ist vorallem in den folgenden Schritten sehr wichtig, da die Schlüssel der Bastion zu diesem hinzugefügt werden. Genau dieses Hinzufügen der Schlüssel passiert im mitgegebenen Befehl: `'ssh-add && nc %h %p'`, welcher auf der Bastion ausgeführt wird. `ssh-add` lädt die Schlüssel der Bastion in den aktuellen #htl3r.short[ssh]-Agent, welcher in diesem Fall der Lokale ist. Mittels Netcat wird im anschluss ein Tunnel zur Ziel-#htl3r.short[vm] aufgebaut: `nc %h %p`. Die Argumente `%h` und `%p` sind Templateparameter von #htl3r.short[ssh] und werden, bevor der Befehl ausgeführt wird, mit dem Hostnamen und dem Port der Ziel-#htl3r.short[vm] ersetzt.
 
-Dieser Prozess vom hinzufügen der Schlüssel der Bastion zum lokalen #htl3r.short[ssh]-Agent ist nicht ideal. Im Rahmen dieser Diplomarbeit wurde diese Lösung gewählt, da eine ähnliche Verbindung wie bei Terraform und Packer angestrebt wurde. Es ist zu Raten, sollte lediglich Ansible verwendet werden, dass die Schlüssel lokal verwaltet werden und nicht auf der Bastion liegen. Somit kann die Bastion einfach als Jump-Host verwendet werden und die Konfiguration fällt wesentlich simpler aus. Dies ist eine wichtige Lernerfahrung, jedoch funktioniert der beschriebene Ansatz ebenso und wird deshalb weiterhin verwendet.
+Dieser Prozess vom Hinzufügen der Schlüssel der Bastion zum lokalen #htl3r.short[ssh]-Agent ist nicht ideal. Im Rahmen dieser Diplomarbeit wurde diese Lösung gewählt, da eine ähnliche Verbindung wie bei Terraform und Packer angestrebt wurde. Es wird empfohlen -- sollte lediglich Ansible verwendet werden -- dass die Schlüssel lokal verwaltet werden und nicht auf der Bastion liegen. Somit kann die Bastion einfach als Jump-Host verwendet werden und die Konfiguration fällt wesentlich simpler aus. Dies ist eine wichtige Lernerfahrung, jedoch funktioniert der beschriebene Ansatz ebenso und wird deshalb weiterhin verwendet.
 
 === SSH-Proxy
 #htl3r.todo[Beschreibung des Unterschiedes zu SSH-Agent-Forwarding.]

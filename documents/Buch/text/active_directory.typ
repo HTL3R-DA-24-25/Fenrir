@@ -16,6 +16,7 @@ Im Szenario des Firmennetzwerkes der Firma "Fenrir", wird im #htl3r.long[ad] auf
 Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von #htl3r.short[ou], Benutzerkonten und Benutzergruppen strukturiert. Die Benutzerkonten und Benutzergruppen werden in den #htl3r.short[ou]s organisiert, um eine bessere Übersicht und Struktur zu gewährleisten:
 
 === OU-Struktur
+
 #htl3r.fspace(
   total-width: 100%,
   figure(
@@ -38,6 +39,31 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
     caption: [Die OU-Struktur der corp.fenrir-ot.at Domäne]
   )
 )
+
+Um die oben dargestellte OU-Struktur in der AD-Umgebung umzusetzen, muss auf einem Domain Controller folgendes PowerShell-Skript ausgeführt werden:
+
+#htl3r.code(caption: "OU-Erstellung in PowerShell", description: none)[
+```powershell
+$ous = @(
+    "OU=Accounts,DC=corp,DC=fenrir-ot,DC=at",
+    "OU=Sales,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at",
+    "OU=Marketing,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at",
+    "OU=Operations,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at",
+    "OU=Infrastructure,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at",
+    "OU=Management,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at"
+)
+
+foreach ($ou in $ous) {
+    if (-not (Get-ADOrganizationalUnit -Filter "DistinguishedName -eq '$ou'" -ErrorAction SilentlyContinue)) {
+        New-ADOrganizationalUnit -Name $ou.Split(",")[0].Split("=")[1] -Path $ou.Substring($ou.IndexOf(",") + 1)
+        Write-Host "OU wurde erfolgreich erstellt: $ou"
+    }
+    else {
+        Write-Host "OU existiert bereits: $ou"
+    }
+}
+```
+]
 
 === Benutzerkonten
 #show table.cell.where(y: 0): set text(size: 8pt)
@@ -94,6 +120,10 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
   )
 )
 
+#htl3r.author("Bastian Uhlig")
+== GPOs
+fdfdfd
+
 #htl3r.author("David Koch")
 == Domain Controller
 
@@ -119,6 +149,39 @@ Die Domain Controller teilen sich die Aufgaben:
   )
 )
 
+=== Aufsetzung der Domain Controller
+
+Durch den in @provisionierung beschriebenen Provisionierungsvorgang lassen sich die Domain Controller automatisiert aufsetzen. Zu den für die DC-Provisionierung notwendigen Dateien und Skripts zählen, unter anderem, das Ansible-Playbook, die PowerShell-Skripts für die Hochstufung und Konfigurations der DCs und jegliche Extra-Dateien wie eine CSV-Tabelle mit den AD-Gruppen, die von den PowerShell-Skripts verarbeitet wird.
+
+#htl3r.code-file(
+  caption: "Ansible-Playbook für die Aufsetzung von DC1",
+  filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
+  lang: "yml",
+  text: read("../assets/scripts/setup_dc_primary.yml")
+)
+
+Der Aufsetzungsprozess wird im Playbook durch die sogenannten "Tasks" gesteuert. Eine Task ist jeweils eine zu erledigende Aufgabe, bevor die nächsten Tasks abgearbeitet werden können. Somit wird als erste Task das "part_1"-PowerShell-Skript ausgeführt, welches für die Grundkonfiguration des Geräts zuständig ist. Hierbei wird der Hostname, das Admin-Passwort und der Netzwerkadapter konfiguriert und es wird das für die DC-Hochstufung notwendige Package ```AD-Domain-Services``` installiert.
+
+#htl3r.code-file(
+  caption: "Part-1-Skript für die Aufsetzung von DC1",
+  filename: [ansible/playbooks/stages/stage_03/extra/DC1_part_1.ps1],
+  skips: ((26, 0),),
+  ranges: ((0, 25), (63, 63)),
+  lang: "powershell",
+  text: read("../assets/scripts/DC1_part_1.ps1")
+)
+
+Nach der fertigen Ausführung vom Part-1-Skript ist ein Neustart des Domain Controllers notwendig. Dieser wird auch durch die im Ansible Playbook eingetragenen Tasks durchgeführt.
+
+Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten die Hochstufung und im dritten -- unter anderem -- die Konfiguration der OU-Struktur, Benutzer, Gruppen und GPOs stattfindet.
+
+#htl3r.code-file(
+  caption: "Part-2-Skript für die Aufsetzung von DC1",
+  filename: [ansible/playbooks/stages/stage_03/extra/DC1_part_2.ps1],
+  lang: "powershell",
+  text: read("../assets/scripts/DC1_part_2.ps1")
+)
+
 #htl3r.author("Gabriel Vogler")
 == Exchange Server
 Der Exchange Server ist ein E-Mail Server der Firma Micosoft.
@@ -126,4 +189,10 @@ Dieser Server wird weltweit in einigen Firmen eingesetzt und bietet die Grundlag
 
 Damit der Exchange Server funktioniert, wird eine bestehenende #htl3r.short[ad] Struktur benötigt.
 
+
+
+=== Aufsetzung des Exchange Servers
+
 == File Server
+
+=== Aufsetzung des File Servers

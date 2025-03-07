@@ -198,7 +198,7 @@ PROGRAMM ERKLÄRUNG
 
 #htl3r.fspace(
   figure(
-    image("../assets/Zelle_3_Programm_cut.png"),
+    image("../assets/Zelle_3_Programm.png"),
     caption: [Funktionsplan-Darstellung des LOGO!-Programms]
   )
 )
@@ -392,6 +392,7 @@ Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten 
 
 Die #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem RaspberryPi mittels Python folgend berechnet:
 
+#htl3r.code(caption: "Berechnung der CRC8-Prüfsumme in Python", description: none)[
 ```Python
 def crc8(data: list):
     crc = 0
@@ -407,6 +408,7 @@ def crc8(data: list):
 
     return crc
 ```
+]
 
 Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r.short[crc]8-Code jedoch in C implementiert worden.
 
@@ -416,6 +418,7 @@ OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-TCP. Somit 
 
 Bevor die Daten per #htl3r.short[psm] gemappt werden können, müssen sie zuerst empfangen und dekodiert werden. Dazu wird folgende Python-Funktion verwendet:
 
+#htl3r.code(caption: "Auswertung der Daten am I²C-Datenbus für das PSM", description: none)[
 ```Python
 # read data from ESP32
 def read_from_esp32(i2caddress: hex, size: int):
@@ -430,6 +433,7 @@ def read_from_esp32(i2caddress: hex, size: int):
     except Exception as e:
         print("ERROR: {}".format(e))
 ```
+]
 
 Die Adafruit-SMBus-Library bietet die Methode ```.read_bytes()``` an, um von einer zuvor mit ```bus = SMBus(1)``` deklarierten #htl3r.short[i2c]/SMBus-Leitung die Nutzdaten der #htl3r.short[i2c]-Frames zu lesen. Diese werden dem selbstgeschriebenen #htl3r.short[i2c]-Decoder übergeben, damit dieser aus den #htl3r.short[i2c]-Rohnutzdaten den "Fenrir"-Frame rekonstruieren und somit die gewünschten Nutzdaten (Füllstandsmesswerte) inklusive Prüfsumme gewinnen kann.
 

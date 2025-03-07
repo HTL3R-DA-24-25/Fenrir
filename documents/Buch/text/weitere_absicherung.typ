@@ -10,6 +10,12 @@ Eine Lösung wäre, Firewalls von unterschiedlichen Herstellern zu nutzen, um da
 #htl3r.author("Gabriel Vogler")
 == Active Directory Härtung
 
+=== LAPS
+
+Dass die Admin-Passwörter beim Provisionierungsvorgang auf allen Geräten gleich gesetzt werden ist klarerweise ein Sicherheitsrisiko. Wenn ein Angreifer eines der Passwörter herausfindet, kann er sich auf allen anderen Geräten ebenfalls mit diesem Passwort anmelden -- Es kommt zu Lateral Movement.
+
+TODO
+
 #htl3r.author("David Koch")
 == Patch-Management
 
