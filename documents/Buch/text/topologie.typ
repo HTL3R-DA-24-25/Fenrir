@@ -45,12 +45,48 @@ ACHTUNG: VERALTET
 
 
 #htl3r.author("Julian Burger")
-== Virtualisierungsplatform
+== Virtualisierungsplatform und Umgebung
 Innerhalb der Diplomarbeit werden alle IT-Geräte virtualisiert. Dies bringt meherere Vorteile mit sich, unter anderem schnelles und resourcensparendes Deployment, da #htl3r.shortpl[vm] mit exact den Ressourcen gestartet werden können, welche sie auch tatsächlich benötigen. Natürlich ist es ebenso von großer Wichtigkeit, dass die Virtualisierungsplatform gute Integrationen mit #htl3r.long[iac]-Tools bietet. Eine Platform, welche gute #htl3r.short[iac]-Tools integration und leichtes Management bietet, ist VMware-ESXi. VMware bietet ebenso einen Clusteringdienst an, namens vCenter. VMware-vCenter ermöglicht es mehrere ESXi-Instanzen in ein logisches Datacenter zusammenzufassen. Somit können die #htl3r.shortpl[vm] auf einem geteiltem Speichermedium abgespeichert werden und beliebig von den ESXi-Instanzen gestartet werden.
 
+#htl3r.fspace(
+  figure(
+    image("../assets/vcenter_logical.png"),
+    caption: [Logischer Plan der vCenter Umgebung]
+  )
+)
 
+Dies ermöglicht ebenso eine gewisse Ausfallsicherheit, da #htl3r.shortpl[vm] unabhängig von den ESXi-Instanzen sind und im Falle eines Ausfalls von einer Instanz auf eine andere Übertragen werden können. Hier gibt es bei VMware Lösungen wie vMotion, welche solche Live-Migrationen durchführen können. Im Rahmen dieser Diplomarbeit kommt dies jedoch nicht zum Einsatz. Es wird lediglich #htl3r.long[drs] verwendet um die #htl3r.shortpl[vm] auf die ESXi-Instanzen aufzuteilen.
 
-=== vCenter
+=== vCenter Umgebung
+Der vCenter-Dienst läuft als #htl3r.short[vm] auf ESXi 1 und kommuniziert mit den restlichen ESXi-Instanzen über ein Management-Netzwerk. Dieses Mangement-Netzwerk ist als #htl3r.short[vlan] realisiert. Die #htl3r.short[vlan]-ID des Netzwerks ist 120 und als Subnetz wird 10.40.20.0/24 verwendet. Da vCenter eine #htl3r.short[sso]-Domäne erstellt, welche eine #htl3r.short[dns]-Domäne benötigt, existiert innerhalb des Management-Netzwerkes die #htl3r.short[dns]-Domäne fenrir.local mit folgenden #htl3r.short[dns]-Einträgen:
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (2fr, 1fr, 1fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + center, horizon + left),
+      table.header(
+        [*DNS-Name*], [*Adresse*], [*Gerät*],
+      ),
+      [vcenter.fenrir.local], [10.40.20.10], [vCenter VM],
+      [esxi1.fenrir.local], [10.40.20.11], [ESXi 1],
+      [esxi2.fenrir.local], [10.40.20.12], [ESXi 2],
+      [esxi3.fenrir.local], [10.40.20.13], [ESXi 3],
+      [shared-storage.fenrir.local], [10.40.20.80], [NFS Share],
+      [nozomi.fenrir.local], [10.40.20.100], [Nozomi Guardian],
+      [cluster-switch.fenrir.local], [10.40.20.200], [Cluster Switch],
+    ),
+    caption: [Management-Netzwerk DNS Einträge],
+  )
+)
+
+Als DNS-Server fungiert eine Uplink-Firewall. Diese ermöglicht ebenso einen Internetzugang, welcher benötigt wird um Software auf den #htl3r.shortpl[vm] herunterzuladen.
+
+Wie bereits beschrieben existiert ebenso ein Storage-Server, welcher von den ESXi-Instanzen erreichbar ist. Dies passiert allerdings nicht über das Management-Netzwerk, sondern über ein eigenes Storage #htl3r.short[vlan]. Dies hat den Grund, dass das Storage-Netzwerk eine sehr hohe Auslastung aufgrund von #htl3r.short[nfs] Lese- und Schreibzugriffen hat. Um dieser Auslastung gerecht zu werden ist der Storage-Server mit vier Gigabit-Ethernet Links angeschlossen. Diese vier physischen Links wurden mittels #htl3r.short[lacp] zu einem logischen Link zusammengefasst. Die ESXi-Instanzen haben jeweils einen dedizierten Gigabit-Ethernet Link für #htl3r.short[nfs]. So ist es möglich mit akzeptabler Geschwindigkeit auf das Speicher-Medium zuzugreifen.
+
+=== Konfiguration des vCenters
 
 #htl3r.author("David Koch")
 == OT-Bereich
