@@ -25,7 +25,6 @@ Ein recht herzlicher Dank gebührt den folgenden Firmenpartnern:
 - *easyname* für die Bereitstellung einer Domäne und eines Webservers für das Hosting der Diplomarbeitswebsite.
 - *Fortinet* für die Bereitstellung mehrerer Hardware-Firewalls und deren Lizenzen.
 - *Ikarus* für die Bereitstellung der Lizenzen für die Nozomi Guardian als auch den Arc Sensor, die finanzielle Unterstützung beim Aufbau der Modell-Kläranlage als auch die Hilfe bei der Gewinnung von weiteren Firmenpartnern durch Werbung der Diplomarbeit Fenrir.
-- Felix Eberstaller der *Limes Security* für seine ausführliche Unterstützung bei der Durchführung von Cyberangriffen gegen SPSen, insbesondere der S7-1200.
 - *Nozomi Networks* für die Bereitstellung der Guardian sowie Arc Sensor Software, ohne welche die Netzwerkanalyse, besonders in Bezug auf den #htl3r.short[ot]-Teil, unvorstellbar komplizierter gewesen wäre.
 - *NTS* für die Bereitstellung einer Cisco UCS zur ursprünglichen Virtualisierung des IT-Netzwerks gemeinsam mit Splunk-Lizenzen für das SIEM.
 - Das #htl3r.short[ot]-Cybersecurity-Team der *Wien Energie* für die Bereitstellung von Informationsquellen bezüglich der Absicherung von #htl3r.short[ot]-Netzwerken und einer privaten Führung durch die Sondermüll- und Klärschlamm-Verbrennungsanlage Simmeringer Haide.

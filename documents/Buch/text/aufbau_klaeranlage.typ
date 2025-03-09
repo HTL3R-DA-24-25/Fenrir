@@ -100,11 +100,11 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
   )
 )
 
-=== Steuerungstechnik der zweiten Betriebszelle
+=== Steuerungstechnik der zweiten Betriebszelle <steuerung-zwei>
 
-Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.short[sps] eingesetzt: Die OpenPLC v3. Diese läuft auf einem Raspberry Pi 4 Mikrocomputer.
+Im Vergleich zu den anderen zwei Zellen wird in dieser eine Software-#htl3r.short[sps] eingesetzt: Die OpenPLC-Runtime v3. Diese läuft auf einem Raspberry Pi 4 Mikrocomputer.
 
-OpenPLC ist eine einfach bedienbare Open-Source Software-#htl3r.short[sps]. Sie ist die erste vollständig funktionsfähige standardisierte Open Source #htl3r.short[sps], im Software- als auch im Hardwarebereich. Das OpenPLC-Projekt wurde in Übereinstimmung mit der IEC 61131-3 Norm erstellt, welche die grundlegende Softwarearchitektur und Programmiersprache für #htl3r.shortpl[sps] festlegt. OpenPLC wird hauptsächlich für die Automatisierung in industriellen Anlagen, bei der Hausautomation (Internet of Things) und im Forschungsbereich eingesetzt @openplc-overview.
+OpenPLC ist eine einfach bedienbare Open-Source Software-#htl3r.short[sps]. Sie ist die erste vollständig funktionsfähige standardisierte Open Source #htl3r.short[sps], im Software- als auch im Hardwarebereich. Das OpenPLC-Projekt wurde in Übereinstimmung mit der IEC 61131-3 Norm erstellt, welche die grundlegende Softwarearchitektur und Programmiersprache für #htl3r.shortpl[sps] festlegt. Als Teil des Projekts wird die OpenPLC-Runtime -- die tatsächliche #htl3r.short[sps]-Steuerungssoftware -- und der OpenPLC-Editor zur Programmierung der Runtime bereitgestellt. OpenPLC wird hauptsächlich für die Automatisierung in industriellen Anlagen, bei der Hausautomation (Internet of Things) und im Forschungsbereich eingesetzt @openplc-overview.
 
 *Aktorik:*
 - 2x Gartenpumpe mit 800L/h Durchsatz (mit eigenem 12V Relais)
@@ -115,7 +115,7 @@ OpenPLC ist eine einfach bedienbare Open-Source Software-#htl3r.short[sps]. Sie 
 
 Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins des Raspberry Pi zu übermitteln, wird ein ESP32 als Analogdigitalwandler verwendet, welcher dem Raspberry Pi über einen eigenen #htl3r.short[i2c]-Bus laufend die Füllstandsmesswerte als 8-bit Integer-Werte übermittelt. Mehr Informationen zu der Umsetzung sind in @diy-i2c zu finden.
 
-Der Raspberry Pi ist auch nicht direkt in der Lage, eine klassische Relay-Steuerung zu ersetzen. Die Pins liefern maximal 3,3V, wobei die meisten Aktoren und Sensoren in der Modell-Kläranlage 12V oder auch 24V brauchen. Somit muss ein externes Relaismodul verwendet werden, um die gewünschte Funktionalität zu erreichen. Für diesen Zweck werden zwei KY-019 Relaismodule von AZ-Delivery eingesetzt. Diese können jeweils mit 5V DC betrieben werden, wobei das Schaltsignal auch lediglich 3,3V sein kann. Wenn das Schaltsignal auf "hoch" gesetzt wird, fließt auf der anderen Seite der Strom von einer 12V-Stromversorgung zur Pumpe. Somit werden insgesamt zwei Pins des Raspberry Pi verwendet, um jeweils das Relay für die Filterpumpe und die Übergangspumpe anzusteuern.
+Der Raspberry Pi ist auch nicht direkt in der Lage, eine klassische Relay-Steuerung zu ersetzen. Die Pins liefern maximal 3.3V, wobei die meisten Aktoren und Sensoren in der Modell-Kläranlage 12V oder auch 24V brauchen. Somit muss ein externes Relaismodul verwendet werden, um die gewünschte Funktionalität zu erreichen. Für diesen Zweck werden zwei KY-019 Relaismodule von AZ-Delivery eingesetzt. Diese können jeweils mit 5V DC betrieben werden, wobei das Schaltsignal auch lediglich 3.3V sein kann. Wenn das Schaltsignal auf "hoch" gesetzt wird, fließt auf der anderen Seite der Strom von einer 12V-Stromversorgung zur Pumpe. Somit werden insgesamt zwei Pins des Raspberry Pi verwendet, um jeweils das Relay für die Filterpumpe und die Übergangspumpe anzusteuern.
 
 * BILD RELAY*
 
@@ -350,13 +350,15 @@ Für die Zelle Drei wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell 
 
 #htl3r.shortpl[sps] können, im Vergleich zu "festverdrahteten" verbindungsprogrammierten Steuerungen (VPS), jederzeit digital umprogrammiert werden. Sie bieten somit einen viel flexibleren Umgang bei der Steuerung von industriellen Anlagen.  
 
+=== Überblick über die SPS-Programmiersprachen <sps-langs>
+
 Bei der Programmierung von #htl3r.shortpl[sps] wird zwischen 5 in der EN 61131-3 #footnote("Europäische Norm EN 61131, basierend auf der internationalen Norm IEC 61131") genormten Programmiersprachen unterschieden. Diese wären:
 
-/ #htl3r.short[awl]: Kurz für "#htl3r.long[awl]". Basierend auf reinem #htl3r.short[ascii]-Text und vergleichbar mit Assemblerprogrammierung. Bei Siemens heißt sie STL (engl. kurz für "Statement List"). Diese Art der Programmierung gilt als veraltet und wird mit der Zeit hauptsächlich von \acrshort{st} abgelöst.
-/ #htl3r.short[st]: Kurz für "#htl3r.long[st]". Basierend auf reinem #htl3r.short[ascii]-Text und angelehnt an konventionelle Programmiersprachen. Die Syntax der Sprachelemente ähneln denen der Programmiersprache Pascal und es wird bei Schlüsselwörtern keine Unterscheidung zwischen Groß- und Kleinschreibung gemacht. #htl3r.short[st] bietet mehr Strukturierungsmöglichkeiten als #htl3r.short[awl] und löst diese daher immer weiter ab.
-/ #htl3r.short[kop]: Kurz für "#htl3r.long[kop]". Vergleichbar mit einem Stromlaufplan, der um 90° gedreht ist. In fast allen modernen #htl3r.short[kop]-Sprachen sind aber auch Funktionsblöcke verfügbar, die weit über die eigentliche Verknüpfungssteuerung hinausgehen und ähneln somit eher einem #htl3r.short[fup].
+/ #htl3r.short[awl] - "#htl3r.long[awl]": Basierend auf reinem #htl3r.short[ascii]-Text und vergleichbar mit Assemblerprogrammierung. Bei Siemens heißt sie STL (engl. kurz für "Statement List"). Diese Art der Programmierung gilt als veraltet und wird mit der Zeit hauptsächlich von #htl3r.short[st] abgelöst.
+/ #htl3r.short[st] - "#htl3r.long[st]": Basierend auf reinem #htl3r.short[ascii]-Text und angelehnt an konventionelle Programmiersprachen. Die Syntax der Sprachelemente ähneln denen der Programmiersprache Pascal und es wird bei Schlüsselwörtern keine Unterscheidung zwischen Groß- und Kleinschreibung gemacht. #htl3r.short[st] bietet mehr Strukturierungsmöglichkeiten als #htl3r.short[awl] und löst diese daher immer weiter ab.
+/ #htl3r.short[kop] - "#htl3r.long[kop]": Vergleichbar mit einem Stromlaufplan, der um 90° gedreht ist. In fast allen modernen #htl3r.short[kop]-Sprachen sind aber auch Funktionsblöcke verfügbar, die weit über die eigentliche Verknüpfungssteuerung hinausgehen und ähneln somit eher einem #htl3r.short[fup].
 #htl3r.fspace(
-  figure(
+    figure(
           image("../assets/Kontaktplan.svg"),
           caption: [Kontaktplan]
         ),
@@ -368,22 +370,45 @@ Bei der Programmierung von #htl3r.shortpl[sps] wird zwischen 5 in der EN 61131-3
 
 // Quelle: https://de.wikipedia.org/wiki/Kontaktplan\#/}
 
-/ #htl3r.short[fup]: Kurz für "#htl3r.long[fup]". Auch als "Funktionsbausteinsprache" (kurz FBS) bekannt, diese Art der #htl3r.short[sps] ähnelt Logik-Schaltplänen.
-/ #htl3r.short[as]: Kurz für "#htl3r.long[as]". Auch als Ablaufsteuerung bekannt, diese Art der #htl3r.short[sps]-Programmierung ist besteht aus einer Kette von Steuerungsschritten, welche durch Weiterschaltbedingungen (auch bekannt als "Transitionen") miteinander verbunden sind. An den einzelnen Schritten werden Befehle bzw. Aktionen eingebunden, diese dienen zur gezielten Ansteuerung von der jeweiligen Aktorik im System. Somit kann die #htl3r.long[as] als quasi "Flowchart-Programmierung" angesehen werden.
+/ #htl3r.short[fup] - "#htl3r.long[fup]": Auch als "Funktionsbausteinsprache" (kurz FBS) bekannt, diese Art der #htl3r.short[sps]-Programmierung ähnelt Logik-Schaltplänen.
+/ #htl3r.short[as] - "#htl3r.long[as]": Auch als Ablaufsteuerung bekannt, diese Art der #htl3r.short[sps]-Programmierung ist besteht aus einer Kette von Steuerungsschritten, welche durch Weiterschaltbedingungen (auch bekannt als "Transitionen") miteinander verbunden sind. An den einzelnen Schritten werden Befehle bzw. Aktionen eingebunden, diese dienen zur gezielten Ansteuerung von der jeweiligen Aktorik im System. Somit kann die #htl3r.long[as] als quasi "Flowchart-Programmierung" angesehen werden.
 
 #htl3r.todo("QUELLE")
 
-\subsubsection{OpenPLC-Editor}
-Die Bereits im \autoref{sec:sps_openplc} erwähnte Software-SPS-Runtime -- die "'OpenPLC-Runtime"' -- kann mithilfe des OpenPLC-Editors mittels grafischer Oberfläche mit Bausteinen oder auch mittels eingebautem Texteditor programmiert werden, je nach gewünschter SPS-Programmierart (siehe \autoref{sec:sps_programmierung}).
+Im Rahmen dieser Diplomarbeit werden #htl3r.short[kop]- und #htl3r.short[fup]-Programme verwendet.
 
-#htl3r.todo("klarerweise todo")
+=== Verwendete Entwicklungsumgebungen für die SPS-Programmierung
 
-Im Rahmen dieser Diplomarbeit werden KOP- und FUP-Programme verwendet.
+Je nach #htl3r.short[sps]-Modell bzw. Hersteller wird jeweils eine eigene Entwicklungsumgebung für die Programmierung benötigt. Jede der drei #htl3r.shortpl[sps], die in der Modell-Kläranlage verwendet werden, brauchen eine eigene Entwicklungsumgebung, die vom jeweiligen Hersteller zur Verfügung gestellt wird.
+
+==== Siemens TIA Portal
+
+Das Siemens TIA ("Totally Integrated Automation") Portal ist eine Kombination aus verschiedenen Konfigurations- und Diagnose-Tools für von Siemens hergestellten #htl3r.shortpl[sps], #htl3r.shortpl[hmi] und sonstiger Peripherie.
+
+Aus dieser Suite wird für die Programmierung der Siemens SIMATIC-#htl3r.short[sps] das Tool "STEP 7" verwendet. Die verwendeten Versionen sind hierbei V16 des TIA Portals und ebenfalls V16 von STEP 7.
+
+Wichtig zu beachten ist, dass STEP 7 als einzige im Rahmen dieser Diplomarbeit verwendete #htl3r.short[sps]-Programmierungssoftware die Konfiguration von einem SCADA-Override zulässt. Bei der Konfiguration einer Variable in STEP 7 kann eine TODOOOO
+
+* BILD *
+
+==== OpenPLC-Editor
+
+Die Bereits im @steuerung-zwei erwähnte Software-#htl3r.short[sps]-Runtime -- die "OpenPLC-Runtime" -- kann mithilfe des OpenPLC-Editors mittels grafischer Oberfläche mit Funktionsbausteinen oder auch mittels eingebautem Texteditor programmiert werden, je nach gewünschter #htl3r.short[sps]-Programmierart (siehe @sps-langs).
+
+==== Siemens LOGO! Soft Comfort
+
+Im Vergleich zu einer Siemens SIMATIC-#htl3r.short[sps] kann eine Siemens LOGO!-#htl3r.short[sps] nicht mittels STEP-7 programmiert werden. Für die LOGO!-Reihe bietet Siemens eine vom TIA Portal unabhängige Entwicklungsumgebung an, die "Siemens LOGO! Soft Comfort".
+
+#htl3r.todo("vllt hier oben etwas mehr schreiben")
+
+=== OpenPLC Python Submodule <openplc-psm>
+
+#htl3r.todo("todo")
 
 #htl3r.author("David Koch")
 == Programmierung eines I²C-Kommunikationsbusses <diy-i2c>
 
-Um einen Kommunikationskanal zwischen der Software-#htl3r.short[sps] (OpenPLC) auf dem RaspberryPi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle zwei herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.short[i2c] verwendet.
+Um einen Kommunikationskanal zwischen der Software-#htl3r.short[sps] (OpenPLC) auf dem Raspberry Pi und dem Analogdigitalwandler ESP32 für die Füllstandssensoren in Betriebszelle zwei herzustellen, wird ein Zweidrahtbussystem mit dem Protokoll #htl3r.short[i2c] verwendet.
 
 === I²C Überblick
 
@@ -419,7 +444,7 @@ Bei der Datenübertragungen über einen #htl3r.short[i2c]-Bus wird folgendes Fra
 
 Das Protokoll des #htl3r.short[i2c]-Bus ist von der Definition her recht einfach, aber auch recht störanfällig @i2c-disturbance. Wie man erkennen kann, werden pro Frame insgesamt 16 Bits an Nutzdaten übertragen. Dazu gibt es keinen Mechanismus zur Erkennenung von Übertragungsfehlern, nur ACK/NACK Bits, ob Bits überhaupt angekommen sind.
 
-Um dieses Problem zu lösen wird über die #htl3r.short[i2c]-Kommunikation zwischen RaspberryPi und ESP32 eine weitere Kommunikationsschicht erstellt. Beispiel aus der Netzwerktechnik: Frames der OSI-Schicht zwei übertragen in ihren Nutzdaten alle Bits der Packets auf OSI-Schicht drei, somit bildet #htl3r.short[i2c] die quasi Unterschicht und das Custom-Fenrir-Protokoll die Oberschicht.
+Um dieses Problem zu lösen wird über die #htl3r.short[i2c]-Kommunikation zwischen Raspberry Pi und ESP32 eine weitere Kommunikationsschicht erstellt. Beispiel aus der Netzwerktechnik: Frames der OSI-Schicht zwei übertragen in ihren Nutzdaten alle Bits der Packets auf OSI-Schicht drei, somit bildet #htl3r.short[i2c] die quasi Unterschicht und das Custom-Fenrir-Protokoll die Oberschicht.
 
 #htl3r.fspace(
   [
@@ -434,12 +459,12 @@ Um dieses Problem zu lösen wird über die #htl3r.short[i2c]-Kommunikation zwisc
 Die Länge des "Fenrir"-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi[comp]
 // ggf auch folgendes zitieren: https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus
 
-Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von ```0x02```, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von ```0x04```.
+Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von `0x02`, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von `0x04`.
 
-Die #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem RaspberryPi mittels Python folgend berechnet:
+Die #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem Raspberry Pi mittels Python folgend berechnet:
 
 #htl3r.code(caption: "Berechnung der CRC8-Prüfsumme in Python", description: none)[
-```Python
+```python
 def crc8(data: list):
     crc = 0
 
@@ -456,16 +481,16 @@ def crc8(data: list):
 ```
 ]
 
-Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r.short[crc]8-Code jedoch in C implementiert worden.
+Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r.short[crc]8-Code jedoch in der Programmiersprache C implementiert worden.
 
 === Integration der I²C-Daten in OpenPLC <i2c-integration>
 
-OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-TCP. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC (siehe OpenPLC -> PSM Kapitel TODO) lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten.
+OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-#htl3r.short[i2c]. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten. Mehr Informationen zum PSM sind in @openplc-psm zu finden.
 
 Bevor die Daten per #htl3r.short[psm] gemappt werden können, müssen sie zuerst empfangen und dekodiert werden. Dazu wird folgende Python-Funktion verwendet:
 
 #htl3r.code(caption: "Auswertung der Daten am I²C-Datenbus für das PSM", description: none)[
-```Python
+```python
 # read data from ESP32
 def read_from_esp32(i2caddress: hex, size: int):
     decoder = I2C_Decoder()
@@ -483,10 +508,10 @@ def read_from_esp32(i2caddress: hex, size: int):
 
 Die Adafruit-SMBus-Library bietet die Methode ```.read_bytes()``` an, um von einer zuvor mit ```bus = SMBus(1)``` deklarierten #htl3r.short[i2c]/SMBus-Leitung die Nutzdaten der #htl3r.short[i2c]-Frames zu lesen. Diese werden dem selbstgeschriebenen #htl3r.short[i2c]-Decoder übergeben, damit dieser aus den #htl3r.short[i2c]-Rohnutzdaten den "Fenrir"-Frame rekonstruieren und somit die gewünschten Nutzdaten (Füllstandsmesswerte) inklusive Prüfsumme gewinnen kann.
 
-Um die Werte vom ESP32 zu erhalten, welcher ein #htl3r.short[i2c]-Slave-Gerät ist, muss der RaspberryPi als #htl3r.short[i2c]-Master-Gerät zuerst eine Nachricht an den Slave schicken, dass dieser überhaupt mit dem Füllstandsdaten antwortet. Dies wird mit folgender Python-Funktion gemacht:
+Um die Werte vom ESP32 zu erhalten, welcher ein #htl3r.short[i2c]-Slave-Gerät ist, muss der Raspberry Pi als #htl3r.short[i2c]-Master-Gerät zuerst eine Nachricht an den Slave schicken, dass dieser überhaupt mit dem Füllstandsdaten antwortet. Dies wird mit folgender Python-Funktion gemacht:
 
-#htl3r.code(caption: "I2C-Kommunikation von OpenPLC zu ESP32", description: none)[
-```Python
+#htl3r.code(caption: "I²C-Kommunikation von OpenPLC zu ESP32", description: none)[
+```python
 # write data to ESP32
 def write_to_esp32(i2caddress: hex, data: str):
     encoder = I2C_Encoder()
@@ -511,15 +536,15 @@ Einen Zweidrahtbus aufzubauen und mit dem #htl3r.short[i2c]-Protokoll zu verwend
 - #htl3r.short[i2c] ist ein weitverbreitetes Busprotokoll und dient als guter Kontrast zum komplizierteren Modbus-Protokoll.
 - Bei Bedarf kann ein weiterer ESP32 oder ein anderes #htl3r.short[i2c]-Slave-Gerät angeschlossen werden und es müssen nur die bereits programmierten Funktion erneut aufgerufen werden.
 
-Um die über einen #htl3r.short[i2c]-Bus erhaltenen Daten in OpenPLC auf einem RaspberryPi einsetzen zu können, müssen diese über das #htl3r.short[psm] (siehe OpenPLC PSM) auf eine #htl3r.short[sps]-Hardwareadresse gemappt werden. Beispielsweise kann der erste vom ESP32 erhaltenene Wert auf die Hardwareadresse ```%IW2``` gemappt werden:
+Um die über einen #htl3r.short[i2c]-Bus erhaltenen Daten in OpenPLC auf einem Raspberry Pi einsetzen zu können, müssen diese über das #htl3r.short[psm] (für genauere Erklärung siehe @openplc-psm) auf eine #htl3r.short[sps]-Hardwareadresse gemappt werden. Beispielsweise kann der erste vom ESP32 erhaltenene Wert auf die Hardwareadresse `%IW2` gemappt werden:
 #htl3r.code(caption: "PSM-Mapping einer SPS-Hardwareadresse", description: none)[
-```Python
+```python
 data: list[int] = read_from_esp32(ESP_I2C_address, 32)
 psm.set_var("IW2", data[0])
 ```
 ]
 
-Nun kann die #htl3r.short[sps]-Hardwareadresse ```%IW2``` in einem #htl3r.short[sps]-Programm mit einer Input-Variable verknüpft und verwendet werden:
+Nun kann die #htl3r.short[sps]-Hardwareadresse `%IW2` in einem #htl3r.short[sps]-Programm mit einer Input-Variable verknüpft und verwendet werden:
 
 #htl3r.fspace(
   [
@@ -531,21 +556,29 @@ Nun kann die #htl3r.short[sps]-Hardwareadresse ```%IW2``` in einem #htl3r.short[
   ]
 )
 
-Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps] in Zelle Zwei zu sehen, darunter auch die Variable ``` TANK_1_LEVEL```, welche zuvor per #htl3r.short[psm] aus Python in eine Hardwareadresse geladen worden ist.
+Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps] in Zelle Zwei zu sehen, darunter auch die Variable `TANK_1_LEVEL`, welche zuvor per #htl3r.short[psm] aus Python in eine Hardwareadresse geladen worden ist.
 
 #htl3r.fspace(
   figure(
     image("../assets/openplc_tank_comp.png", width: 50%),
-    caption: [Einsatz der PSM-gemappten Hardwareadresse ```%IW2``` als ``` TANK_1_LEVEL``` in der SPS-Logik]
+    caption: [Einsatz der PSM-gemappten Hardwareadresse `%IW2` als `TANK_1_LEVEL` in der SPS-Logik]
   )
 )
 
 == Schaltschrank der Modell-Kläranlage
 
+Der Schaltschrank der Modell-Kläranlage ist ein AAAAAA mit zwei verbauten Hutschienen. 
+
+#htl3r.todo("dies das schrank")
+
+An der oberen Hutschiene hängen die Netzwerkkomponenten des #htl3r.short[ot]-Netzwerks. Dazu gehören die Zellen-Firewall als auch ein industrieller Switch von Phoenix Contact für das #htl3r.short[span]-Mirroring des Datenverkehrs zwischen Zellen- und Übergangs-Firewall an die Nozomi Guardian.
+
+An der unteren Hutschiene hängt die gesamte Steuerungstechnik aller Betriebszellen bis auf die von Betriebszelle Zwei. Unter anderem sind auch die nötigen Stromversorgungen bzw. Netzteile der #htl3r.short[ot]-Geräte an der unten Hutschiene angebracht.
+
 #htl3r.fspace(
   figure(
     image("../assets/schrank.png"),
-    caption: [Der Schaltschrank der Modell-Kläranlage inklusive SPSen, Netzteilen und Firewall]
+    caption: [Der Schaltschrank der Modell-Kläranlage]
   )
 )
 

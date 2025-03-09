@@ -462,3 +462,9 @@ ascii:
   long:
     singular: American Standard Code for Information Interchange
   description: Eine 7-Bit-Zeichenkodierung, die das lateinische Alphabet in Groß- und Kleinschreibung, die zehn Ziffern sowie einige Satzzeichen und Sonderzeichen enthält.
+
+span:
+  short:
+    singular: SPAN
+  long:
+    singular: Switch Port Analyzer

@@ -19,7 +19,7 @@ Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindli
 #htl3r.code-file(
   caption: "Zellen-Firewall Grundkonfiguration",
   filename: [Zellen-FW-Fenrir.conf],
-  lang: "python", // TODO: wo fortios
+  lang: "fortios",
   ranges: ((35, 41),),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
@@ -63,7 +63,7 @@ Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei d
 
 @vdom-overview
 
-Die Aspekte der "Internet access #htl3r.short[vdom]" finden sich in der Segmentierung der Betriebszellen-spezifischen Konfiguration mittels eigenen #htl3r.shortpl[vdom] für jede Zelle wider. Somit ist beispielsweise die Konfiguration der Policies für den Datenverkehr von Zelle 1 zum #htl3r.short[scada] vom Datenverkehr von Zelle 2 zum #htl3r.short[scada] voneinander getrennt. Dies macht zwar die Konfiguration neuer Policies und deren Anwendung zwar umständlicher, es garantiert aber, dass sich der/die Systemadministrator*in immer dessen bewusst ist, im Rahmen welcher Zelle er/sie gerade handelt und somit weniger Konfigurationsfehler auftreten können.
+Die Aspekte der "Internet access #htl3r.short[vdom]" finden sich in der Segmentierung der Betriebszellen-spezifischen Konfiguration mittels eigenen #htl3r.shortpl[vdom] für jede Zelle wider. Somit ist beispielsweise die Konfiguration der Policies für den Datenverkehr von Zelle Eins zum #htl3r.short[scada] vom Datenverkehr von Zelle Zwei zum #htl3r.short[scada] voneinander getrennt. Dies macht zwar die Konfiguration neuer Policies und deren Anwendung zwar umständlicher, es garantiert aber, dass sich der/die Systemadministrator*in immer dessen bewusst ist, im Rahmen welcher Zelle er/sie gerade handelt und somit weniger Konfigurationsfehler auftreten können.
 
 Die "Administrative #htl3r.short[vdom]" ist implementiert worden, um eine vom restlichen Netzwerk möglichst abgetrennte Verbindung zur Firewall bereitzustellen, über welche der Konfigurationszugriff gestattet ist.
 
@@ -72,7 +72,7 @@ Zur Konfiguration dieser VDOMs ... TODO
 #htl3r.code-file(
   caption: "Die Grundkonfiguration der VDOM von Zelle Eins",
   filename: [Zellen-FW-Fenrir.conf],
-  lang: "python", // TODO: wo fortios
+  lang: "fortios",
   ranges: ((78, 103),),
   skips: ((77, 0), (104, 0),),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
@@ -93,12 +93,12 @@ Hierbei werden alle #htl3r.shortpl[sps] an einen gemeinsamen #htl3r.short[ot]-Sw
 
 Die Firewall erhält über eine Trunk-Verbindung vom Switch alle Daten aus den einzelnen #htl3r.shortpl[vlan] und leitet diese je nach ihrer Herkunft anders weiter, als wären sie aus verschiedenen Netzwerken gekommen, wobei nie die dritte #htl3r.short[osi]-Schicht verwendet worden ist. Diese Methode wird "Router on a Stick" genannt.
 
-Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext ist die, dass für die Verbindung und nötige Absicherung zwischen der Zellen-Firewall und der Übergangs-Firewall nicht direkt das #htl3r.short[wan]-Interface genutzt werden kann. Ein Interface kann immer jeweils nur einer #htl3r.short[vdom] zugewiesen sein. Somit können aber keine Policies erstellt werden, die beispielsweise Datenverkehr aus den einzelnen Betriebszellen (also vom Interface ```internal1``` z.B., das der #htl3r.short[vdom] ```VDOM-CELL-1``` zugewiesen ist) in Richtung der Übergangs-Firewall erlauben, da das #htl3r.short[wan]-Interface Teil der Root-#htl3r.short[vdom] ist. Alle Interfaces, die in einer Policy genutzt werden, müssen in der gleichen #htl3r.short[vdom] wie die Policy selbst sein. Um dieses Problem zu lösen, müssen innerhalb der Zellen-Firewall zwischen den #htl3r.shortpl[vdom] sogenannte #htl3r.short[vdom]-Links erstellt werden (wie in @internet-access-vdom).
+Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext ist die, dass für die Verbindung und nötige Absicherung zwischen der Zellen-Firewall und der Übergangs-Firewall nicht direkt das #htl3r.short[wan]-Interface genutzt werden kann. Ein Interface kann immer jeweils nur einer #htl3r.short[vdom] zugewiesen sein. Somit können aber keine Policies erstellt werden, die beispielsweise Datenverkehr aus den einzelnen Betriebszellen (also vom Interface `internal1` z.B., das der #htl3r.short[vdom] `VDOM-CELL-1` zugewiesen ist) in Richtung der Übergangs-Firewall erlauben, da das #htl3r.short[wan]-Interface Teil der Root-#htl3r.short[vdom] ist. Alle Interfaces, die in einer Policy genutzt werden, müssen in der gleichen #htl3r.short[vdom] wie die Policy selbst sein. Um dieses Problem zu lösen, müssen innerhalb der Zellen-Firewall zwischen den #htl3r.shortpl[vdom] sogenannte #htl3r.short[vdom]-Links erstellt werden (wie in @internet-access-vdom).
 
 #htl3r.code-file(
   caption: "Zuweisung der Zelle Eins VDOM zu den Interfaces",
   filename: [Zellen-FW-Fenrir.conf],
-  lang: "python", // TODO: wo fortios
+  lang: "fortios",
   ranges: ((205, 205), (214, 227), (262, 270),),
   skips: ((206, 0), (228, 0), (271, 0)),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
@@ -127,7 +127,7 @@ Die Nutzung dieser Features ist von den auf der Firewall registrierten Lizenzen 
 #htl3r.code-file(
   caption: "OT-Signaturen und Modbus-Decoder im IPS aktivieren",
   filename: [Zellen-FW-Fenrir.conf],
-  lang: "python", // TODO: wo fortios
+  lang: "fortios",
   ranges: ((161, 170),),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
