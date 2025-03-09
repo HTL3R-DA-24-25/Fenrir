@@ -155,7 +155,7 @@ Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-P
 
 Das Ziel des Programms ist es, je nach Füllstand der Tanks die jeweiligen Pumpen einzuschalten. Einmal um das schmutzige Wasser aus dem ersten Tank durch den Filter in den zweiten Tank zu befördern und einmal um aus dem zweiten Tank das saubere Wasser in den Staudamm zu befördern. Hierfür wird zuerst ein Vergleich mittels eines "Greater Than"-Funktionsbausteins getätigt, ob der Füllstand des Tanks (`TANK_1_LEVEL` bzw. `TANK_2_LEVEL`) den für das Umpumpen festgelegten konstanten Füllstandswert `TANK_FULL` überschreitet. Falls dies der Fall ist, wird das Signal zum Einschalten der jeweiligen Pumpe an einen "Off Delay Timer"-Funktionsbaustein weitergeleitet. Dieser versichert, dass durch die Unterschreitung des zum Umpumpen nötigen Füllstandswerts während des Pumpvorgangs dieser nicht mittendrin abbricht. Die von diesem Funktionsbaustein getätigte Zeitverzögerung wird durch die konstante Variable `PUMP_DELAY` -- die 2000 Millisekunden entspricht -- gesteuert. Das vom "Off Delay Timer"-Funktionsbaustein manipulierte Signal wird final noch an ein "Or"-Funktionsbaustein weitergegeben, welcher dazu dient, dem SCADA einen Override der Pumpenaktivierung über die Variablen `FILTER_PUMP_OVERRIDE` bzw. `PROGRESSION_PUMP_OVERRIDE` zu gewähren.
 
-Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen den Wert der ihnen zugehörigen Adresse auf "hoch". In @i2c-integration wird genauer erläutert, wie die Modbus-Output-Adresse mit den GPIO-Pins des Raspberry Pi verknüpft ist. 
+Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen den Wert der ihnen zugehörigen Adresse auf "hoch". In @i2c-integration wird genauer erläutert, wie die Modbus-Output-Adresse mit den GPIO-Pins des Raspberry Pi verknüpft ist.
 
 === Schaltplan der zweiten Betriebszelle
 
@@ -235,7 +235,7 @@ Für die Steuerung der Betriebszelle "Staudamm" ist ein Programm zuständig, wel
   ]
 )
 
-@zelle-3-programm zeigt das #htl3r.long[fup]-Programm, welches von der Siemens LOGO! #htl3r.short[sps] ausgeführt wird, um die dritte Betriebszelle zu steuern. 
+@zelle-3-programm zeigt das #htl3r.long[fup]-Programm, welches von der Siemens LOGO! #htl3r.short[sps] ausgeführt wird, um die dritte Betriebszelle zu steuern.
 
 Das Programm ist auf zwei wesentliche Bestandteile aufgeteilt:
   - Die Messung der Überschwemmungsgebiet-Füllstandssensoren und die Auslösung des Alarms. Dieser Teil ist in der oberen Hälfte von @zelle-3-programm zu sehen.
@@ -283,7 +283,7 @@ Das Ganze funktioniert mithilfe eines #htl3r.short[rfid]-Chips, der auf der Spul
 Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
 Das wird automatisch berechnet und angepasst, sobald das Modell in die Drucksoftware geladen wurde.
 
-Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwendet, um Stützstrukturen zu drucken, die nach dem Druck einfach in Wasser aufgelöst werden können. Dies half dabei, auch komplexere Modelle zu drucken, die ohne Stützstrukturen nicht möglich gewesen wären und die dennoch eine hohe Qualität des Drucks gewährleisten. Das #htl3r.short[pva]-Filament stammt ebenfalls vom Hersteller BambuLab. Die Problematik bei der Verwendung von #htl3r.short[pva]-Filament ist, dass dieses eine sehr trockene Umgebung benötigt, da es sehr empfindlich gegenüber Feuchtigkeit ist. Anfänglich wurde probiert, das Filament im Vorhinein mit einem Filamenttrockner zu trocknen und anschließend aus dem #htl3r.short[ams] zu drucken. Obwohl in einem trockenen Raum gedruckt wurde, wollte das Filament nicht so wie gewünscht auf der Druckplatte und dem zu druckenden Körper haften. Nach einigen Anpassungen an den Druckeinstellungen sowie dem Wechsel von #htl3r.short[petg] auf #htl3r.short[pla] als Druckmaterial, konnte das Problem gelöst werden. Dies liegt daran, dass #htl3r.short[petg] heißer gedruckt werden muss als #htl3r.short[pla] und die Temperatur für das #htl3r.short[pva]-Filament zu hoch war und das Stützmaterial zum kochen begonnnen hat. Dies führte zum Ziehen von Fäden und somit zu einem unbrauchbaren Druck. Außerdem wurde das #htl3r.short[pva]-Filament direkt aus dem Filamenttrockner gedruckt, somit konnte auch während des Druckens die Trockenheit gewährleistet werden. 
+Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwendet, um Stützstrukturen zu drucken, die nach dem Druck einfach in Wasser aufgelöst werden können. Dies half dabei, auch komplexere Modelle zu drucken, die ohne Stützstrukturen nicht möglich gewesen wären und die dennoch eine hohe Qualität des Drucks gewährleisten. Das #htl3r.short[pva]-Filament stammt ebenfalls vom Hersteller BambuLab. Die Problematik bei der Verwendung von #htl3r.short[pva]-Filament ist, dass dieses eine sehr trockene Umgebung benötigt, da es sehr empfindlich gegenüber Feuchtigkeit ist. Anfänglich wurde probiert, das Filament im Vorhinein mit einem Filamenttrockner zu trocknen und anschließend aus dem #htl3r.short[ams] zu drucken. Obwohl in einem trockenen Raum gedruckt wurde, wollte das Filament nicht so wie gewünscht auf der Druckplatte und dem zu druckenden Körper haften. Nach einigen Anpassungen an den Druckeinstellungen sowie dem Wechsel von #htl3r.short[petg] auf #htl3r.short[pla] als Druckmaterial, konnte das Problem gelöst werden. Dies liegt daran, dass #htl3r.short[petg] heißer gedruckt werden muss als #htl3r.short[pla] und die Temperatur für das #htl3r.short[pva]-Filament zu hoch war und das Stützmaterial zum kochen begonnnen hat. Dies führte zum Ziehen von Fäden und somit zu einem unbrauchbaren Druck. Außerdem wurde das #htl3r.short[pva]-Filament direkt aus dem Filamenttrockner gedruckt, somit konnte auch während des Druckens die Trockenheit gewährleistet werden.
 
 #pagebreak(weak: true)
 == 3D-Modelle
@@ -348,7 +348,7 @@ Für die Zelle Drei wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell 
 #htl3r.author("David Koch")
 == Programmierung der Speicherprogrammierbaren Steuerungen <sps-programmierung>
 
-#htl3r.shortpl[sps] können, im Vergleich zu "festverdrahteten" verbindungsprogrammierten Steuerungen (VPS), jederzeit digital umprogrammiert werden. Sie bieten somit einen viel flexibleren Umgang bei der Steuerung von industriellen Anlagen.  
+#htl3r.shortpl[sps] können, im Vergleich zu "festverdrahteten" verbindungsprogrammierten Steuerungen (VPS), jederzeit digital umprogrammiert werden. Sie bieten somit einen viel flexibleren Umgang bei der Steuerung von industriellen Anlagen.
 
 Bei der Programmierung von #htl3r.shortpl[sps] wird zwischen 5 in der EN 61131-3 #footnote("Europäische Norm EN 61131, basierend auf der internationalen Norm IEC 61131") genormten Programmiersprachen unterschieden. Diese wären:
 
@@ -548,4 +548,3 @@ Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps
     caption: [Der Schaltschrank der Modell-Kläranlage inklusive SPSen, Netzteilen und Firewall]
   )
 )
-

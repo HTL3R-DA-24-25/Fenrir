@@ -15,7 +15,7 @@ Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussys
   total-width: 95%,
   [
     #figure(
-      image("../assets/Bus_Insecurity.svg"),
+      image("../assets/Bus_Insecurity.png"),
       caption: [Übersicht eines Coil-Werte-Spoofings auf einem Modbus-RTU-Bus]
     )
     <coil-spoofing>
@@ -66,7 +66,7 @@ Die obigen Techniken sind natürlich miteinander kombinierbar, z.B. #htl3r.short
 #htl3r.fspace(
   total-width: 95%,
   figure(
-    image("../assets/LMPs_Ungesichert.svg"),
+    image("../assets/LMPs_Ungesichert.png"),
     caption: [Die möglichen LMPs innerhalb eines ungesicherten Netzwerks]
   )
 )
@@ -184,7 +184,7 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
 1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
-2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste 
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste
 3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des #htl3r.short[ot]-Engineers um tiefer in die Anlage einzudringen.
 4. #htl3r.short[lotl], Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
 5. Angreifer entdeckt Default Credentials auf OpenPLC.

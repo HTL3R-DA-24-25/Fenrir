@@ -4,7 +4,7 @@
 = OT-Administration
 
 == SCADA
-#htl3r.short[scada] steht kurz für #htl3r.long[scada] und ist ein System zur Überwachung und Steuerung von mehreren Aktoren und Sensoren. 
+#htl3r.short[scada] steht kurz für #htl3r.long[scada] und ist ein System zur Überwachung und Steuerung von mehreren Aktoren und Sensoren.
 
 === Was ist ein SCADA-System?
 In einer Betriebszelle existieren üblicherweise einige unterschiedliche #htl3r.shortpl[sps], auf welche Mitarbeiter keinen Zugriff haben. Selbst wenn dieser Zugriff möglich wäre, so wäre es sehr anstrengend aus den verscheidenen Registern die Werte auszulesen um die Anlage zu überwachen. Ein #htl3r.short[scada]-System hilft dabei, indem es als grafische Oberfläche zur Überwachung und Steuerung von verschiedenen #htl3r.shortpl[sps] agiert.
@@ -84,11 +84,10 @@ Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit 
 Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich wäre, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar zu machen.
 
 === Authentifizierung
-Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] sind Benutzer in einer Datenbank gespeichert. Diese Datenbank läuft auf dem #htl3r.short[mes]-Server, ist eine #htl3r.short[sql]-Lite Datenbank und ist nur über das eigene Netzwerk erreichbar, um Sicherheit zu gewährleisten. Unter Anwendung einer Middleware wird die Authentifizierung durchgeführt, wobei die Datenbankabfrage nur bei der Anmeldung durchgeführt wird. Dem Benutzer wird bei erfolgreicher Anmeldung ein #htl3r.short[jwt]-Token ausgestellt. 
+Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] sind Benutzer in einer Datenbank gespeichert. Diese Datenbank läuft auf dem #htl3r.short[mes]-Server, ist eine #htl3r.short[sql]-Lite Datenbank und ist nur über das eigene Netzwerk erreichbar, um Sicherheit zu gewährleisten. Unter Anwendung einer Middleware wird die Authentifizierung durchgeführt, wobei die Datenbankabfrage nur bei der Anmeldung durchgeführt wird. Dem Benutzer wird bei erfolgreicher Anmeldung ein #htl3r.short[jwt]-Token ausgestellt.
 
 === Funktionsweise
 Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jeder Zeit im #htl3r.short[scada] überschrieben werden können. Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via #htl3r.short[api]-calls, die vom Backend des #htl3r.short[mes] verwaltet werden wie sie in @scadalts-api-docs beschrieben ist. Es ist stark zu empfählen, diese #htl3r.short[api] vor der Verwendung mittels einem Tool wie Postman zu testen, um sich mit der Funktionsweise dieser vertraut zu machen.
 
 === Aufsetzen
 #htl3r.todo("Dokumentation des Aufsetzens des MES")
-
