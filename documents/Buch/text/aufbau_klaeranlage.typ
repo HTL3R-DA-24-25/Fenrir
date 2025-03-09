@@ -113,24 +113,27 @@ OpenPLC ist eine einfach bedienbare Open-Source Software-#htl3r.short[sps]. Sie 
 - 2x OneWire DS18B20-Temperatursensor
 - 2x Füllstandssensor mit Schwimmer (Widerstand mit 0-190 Ohm)
 
-Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins des Raspberry Pi zu übermitteln, wird ein ESP32 als ADC verwendet, welcher dem Raspberry Pi über einen eigenen #htl3r.short[i2c]-Bus laufend die Füllstandsmesswerte als 8-bit Integer-Werte übermittelt. Mehr Informationen zu der Umsetzung sind in @diy-i2c zu finden.
+Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins des Raspberry Pi zu übermitteln, wird ein ESP32 als Analogdigitalwandler verwendet, welcher dem Raspberry Pi über einen eigenen #htl3r.short[i2c]-Bus laufend die Füllstandsmesswerte als 8-bit Integer-Werte übermittelt. Mehr Informationen zu der Umsetzung sind in @diy-i2c zu finden.
 
-Der Raspberry Pi ist auch nicht direkt in der Lage, eine klassische Relay-Steuerung zu ersetzen. Die Pins liefern maximal 3,3V, wobei die meisten Aktoren und Sensoren in der Modell-Kläranlage 12V oder auch 24V brauchen. Somit AAAAAAAAAAAAAA
+Der Raspberry Pi ist auch nicht direkt in der Lage, eine klassische Relay-Steuerung zu ersetzen. Die Pins liefern maximal 3,3V, wobei die meisten Aktoren und Sensoren in der Modell-Kläranlage 12V oder auch 24V brauchen. Somit muss ein externes Relaismodul verwendet werden, um die gewünschte Funktionalität zu erreichen. Für diesen Zweck werden zwei KY-019 Relaismodule von AZ-Delivery eingesetzt. Diese können jeweils mit 5V DC betrieben werden, wobei das Schaltsignal auch lediglich 3,3V sein kann. Wenn das Schaltsignal auf "hoch" gesetzt wird, fließt auf der anderen Seite der Strom von einer 12V-Stromversorgung zur Pumpe. Somit werden insgesamt zwei Pins des Raspberry Pi verwendet, um jeweils das Relay für die Filterpumpe und die Übergangspumpe anzusteuern.
+
+* BILD RELAY*
 
 Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständig, welches die Werte der Füllstandssensoren in Betracht zieht, um je nach Füllstand in den Tanks die jeweilige Pumpe zum Abpumpen des Wassers in den nächsten Behälter per Relay einzuschalten.
 
 #htl3r.fspace(
-  total-width: 90%,
+  total-width: 95%,
   figure(
     table(
       columns: (15em, auto, auto, auto, auto),
       align: (left, left, left, left, left),
-      table.header[Name][Datentyp][Location][Startwert][Konstant],
+      table.header[*Name*][*Datentyp*][*Location*][*Startwert*][*Konstant*],
       [TANK_1_TEMP], [INT], [%IW0], [-], [Nein],
       [TANK_2_TEMP], [INT], [%IW1], [-], [Nein],
       [TANK_1_LEVEL], [INT], [%IW2], [-], [Nein],
       [TANK_2_LEVEL], [INT], [%IW3], [-], [Nein],
-      [FILTER_PUMP_ACTIVE], [BOOL], [%QX0], [-], [Nein],[PROGRESSION_PUMP_ACTIVE], [BOOL], [%QX1], [-], [Nein],
+      [FILTER_PUMP_OVERRIDE], [BOOL], [%IW4], [-], [Nein],
+      [PROGRESSION_PUMP_OVERRIDE], [BOOL], [%IW5], [-], [Nein],      [FILTER_PUMP_ACTIVE], [BOOL], [%QX0], [-], [Nein],[PROGRESSION_PUMP_ACTIVE], [BOOL], [%QX1], [-], [Nein],
       [TANK_FULL], [INT], [-], [100], [Ja],
       [PUMP_DELAY], [TIME], [-], [T\#2000ms], [Ja],
     ),
@@ -148,12 +151,16 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
   ]
 )
 
-Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche AAAAAAAAAAAA
+Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche charakteristisch für ein #htl3r.long[fup]-Programm sind. Mehr Informationen zu dieser Überschneidung sind in @sps-programmierung zu finden.
+
+Das Ziel des Programms ist es, je nach Füllstand der Tanks die jeweiligen Pumpen einzuschalten. Einmal um das schmutzige Wasser aus dem ersten Tank durch den Filter in den zweiten Tank zu befördern und einmal um aus dem zweiten Tank das saubere Wasser in den Staudamm zu befördern. Hierfür wird zuerst ein Vergleich mittels eines "Greater Than"-Funktionsbausteins getätigt, ob der Füllstand des Tanks (`TANK_1_LEVEL` bzw. `TANK_2_LEVEL`) den für das Umpumpen festgelegten konstanten Füllstandswert `TANK_FULL` überschreitet. Falls dies der Fall ist, wird das Signal zum Einschalten der jeweiligen Pumpe an einen "Off Delay Timer"-Funktionsbaustein weitergeleitet. Dieser versichert, dass durch die Unterschreitung des zum Umpumpen nötigen Füllstandswerts während des Pumpvorgangs dieser nicht mittendrin abbricht. Die von diesem Funktionsbaustein getätigte Zeitverzögerung wird durch die konstante Variable `PUMP_DELAY` -- die 2000 Millisekunden entspricht -- gesteuert. Das vom "Off Delay Timer"-Funktionsbaustein manipulierte Signal wird final noch an ein "Or"-Funktionsbaustein weitergegeben, welcher dazu dient, dem SCADA einen Override der Pumpenaktivierung über die Variablen `FILTER_PUMP_OVERRIDE` bzw. `PROGRESSION_PUMP_OVERRIDE` zu gewähren.
+
+Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen den Wert der ihnen zugehörigen Adresse auf "hoch". In @i2c-integration wird genauer erläutert, wie die Modbus-Output-Adresse mit den GPIO-Pins des Raspberry Pi verknüpft ist. 
 
 === Schaltplan der zweiten Betriebszelle
 
 #htl3r.fspace(
-  total-width: 100%,
+  total-width: 95%,
   figure(
     image("../assets/Zelle_2_Schaltplan.png"),
     caption: [Schaltplan der 2. Betriebszelle]
@@ -189,23 +196,62 @@ Für die Steuerung des Magnetventils und die Auswertung der Überschwemmungssens
 
 *Aktorik:*
 - 12V Magnetventil
-- 24V Alarmleuchte (+ Ton)
+- 12V Alarmleuchte (+ Ton)
 
 *Sensorik:*
+- 2x Füllstandssensor
 - 3x Überschwemmungssensor
 
-PROGRAMM ERKLÄRUNG
+Für die Steuerung der Betriebszelle "Staudamm" ist ein Programm zuständig, welches die offenen Kontakte im Staudamm- und Überschwemmungsgebiet-Behälter auf ihre anliegende Spannung überwacht und je nach den aktivierten Kontakten das Magnetventil öffnet oder den Alarm für das Überschwemmungsgebiet auslöst.
 
 #htl3r.fspace(
+  total-width: 70%,
   figure(
-    image("../assets/Zelle_3_Programm.png"),
-    caption: [Funktionsplan-Darstellung des LOGO!-Programms]
+    table(
+      columns: (15em, auto, auto),
+      align: (left, left, left),
+      table.header[*Name*][*Datentyp*][*Location*],
+      [SCADA_Sound_Override], [BOOL], [I1],
+      [Damm-Sensor-1], [BOOL], [I2],
+      [Damm-Sensor-2], [BOOL], [I3],
+      [Flut-Sensor-1], [BOOL], [I8],
+      [Flut-Sensor-2], [BOOL], [I6],
+      [Flut-Sensor-3], [BOOL], [I7],
+      [Alarmlicht_AN], [BOOL], [Q1],
+      [Alarmsound_AN], [BOOL], [Q2],
+      [Magnetventil_AN], [BOOL], [Q3],
+    ),
+    caption: [Die Variablen des LOGO!-Programms]
   )
 )
 
+#htl3r.fspace(
+  [
+    #figure(
+      image("../assets/Zelle_3_Programm.png"),
+      caption: [Funktionsplan-Darstellung des LOGO!-Programms]
+    )
+    <zelle-3-programm>
+  ]
+)
+
+@zelle-3-programm zeigt das #htl3r.long[fup]-Programm, welches von der Siemens LOGO! #htl3r.short[sps] ausgeführt wird, um die dritte Betriebszelle zu steuern. 
+
+Das Programm ist auf zwei wesentliche Bestandteile aufgeteilt:
+  - Die Messung der Überschwemmungsgebiet-Füllstandssensoren und die Auslösung des Alarms. Dieser Teil ist in der oberen Hälfte von @zelle-3-programm zu sehen.
+  - Die Messung der Damm-Füllstandssensoren und die Ansteuerung des Magnetventils. Dieser Teil ist in der unteren Hälfte zu sehen.
+
+Bei der Messung der Flut-Sensoren Eins bis Drei wird darauf geschaut, ob diese eine Spannung von ca. 24V aufweisen. Diese Spannung wird durch ein eigenes Kabel in das Wasser vom Überschwemmungsgebiet übertragen. Da das innerhalb der Kläranlage verwendete Wasser nicht destilliert ist, leitet dieses Strom recht gut. Wenn nun das Spannungskabel und die offenen Kontakte der Flut-Sensoren (weitere Kabel, die in den Behälter ragen) per gemeinsamen Wasserkörper miteinander verbunden sind, fließt durch das Wasser Strom und aktiviert somit die Flut-Sensoren. Wenn alle drei Flut-Sensoren Spannung aufweisen -- was per "AND"-Funktionsbaustein überprüft wird -- das Signal an die Alarm-Outputs `Alarmsound_AN` und `Alarmlicht_AN` weitergeleitet. Da wie bei OpenPLC die LOGO! #htl3r.short[sps] keine direkte Setzung der Output-Variablen-Wert per #htl3r.short[scada] erlaubt, muss ein eigener Override-Wert `SCADA_Sound_Override` für das Ausschalten des Alarmsounds im Programm integriert sein. Dieser wird mit einem "NOT"-Funktionsbaustein invertiert, da hier eine Deaktivierung bei eingeschaltetem Wert erwünscht ist, darauf mit dem gemeinsamen Output der Flut-Sensoren per weiterem "AND"-Funktionsbaustein kombiniert und anschließlend in die Output-Variable `Alarmsound_AN` gespeichert. Für das Alarmlicht ist kein Override implementiert, sondern ein Impulsblock, welcher jede Sekunde das eingehende Signal aus- bzw. wieder einschaltet, um ein blinkendes Alarmlicht zu bewirken.
+
 === Schaltplan der dritten Betriebszelle
 
-* bild *
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/Zelle_3_Schaltplan.png"),
+    caption: [Schaltplan der 3. Betriebszelle]
+  )
+)
 
 #htl3r.author("Gabriel Vogler")
 == 3D-Druck zur Herstellung passender Teile
@@ -226,7 +272,7 @@ Die Modelle sind stark in ihrer Komplexität variierend. Einige sind sehr einfac
 
 Als Drucker wurde ein BambuLab A1 3D-Drucker verwendet.
 Es wurde auf #htl3r.short[pla] und #htl3r.short[petg] Filament zurückgegriffen, da diese Materialien für den Einstieg in den 3D-Druck sehr gut geeignet sind und auf diesem Gebiet noch nicht sehr viele Erfahrungen vorhanden waren.
-Außerdem sind diese Materialien in der Anschaffung günstiger als andere und bieten eine mehr als ausreichende Qualität, im Sinne von Stabilät und Strapazierfähigkeit, sowohl als auch in der Druckqualität.
+Außerdem sind diese Materialien in der Anschaffung günstiger als andere und bieten eine mehr als ausreichende Qualität, im Sinne von Stabilität und Strapazierfähigkeit, sowohl als auch in der Druckqualität.
 
 Die Wahl des Filamentherstellers fiel auf das Filament von BambuLab, da diese das Filament und der Drucker aus dem selben Hause stammen und so perfekt aufeinander abgestimmt sind.
 Außerdem ist das #htl3r.short[pla] Filament von BambuLab biologisch abbaubar und ist somit umweltfreundlicher und nachhaltiger als andere Filamente.
@@ -412,7 +458,7 @@ def crc8(data: list):
 
 Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r.short[crc]8-Code jedoch in C implementiert worden.
 
-=== Integration der I²C-Daten in OpenPLC
+=== Integration der I²C-Daten in OpenPLC <i2c-integration>
 
 OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-TCP. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC (siehe OpenPLC -> PSM Kapitel TODO) lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten.
 
