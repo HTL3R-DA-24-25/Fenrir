@@ -160,7 +160,6 @@ psm:
   long:
     singular: Python Submodule (for OpenPLC)
 
-
 dmz:
   short:
     singular: DMZ
@@ -212,7 +211,6 @@ ips:
     singular: Intrusion Prevention System
     plural: Intrusion Prevention Systems
   description: Ein System, welches ein Netzwerk überwacht und Angriffe auf dieses verhindert.
-
 
 mes:
   short:
@@ -354,7 +352,7 @@ hmi:
   long:
     singular: Human Machine Interface
     plural: Human Machine Interfaces
-  description: Eine Benutzerschnittstelle, die der Interaktion zwischen Mensch und Maschine dient. 
+  description: Eine Benutzerschnittstelle, die der Interaktion zwischen Mensch und Maschine dient.
 
 vpn:
   short:
@@ -468,3 +466,34 @@ span:
     singular: SPAN
   long:
     singular: Switch Port Analyzer
+  
+drs:
+  short:
+    singular: DRS
+  long:
+    singular: Distributed Resource Scheduling
+  description: Eine Technologie von VMware, welche das Loadbalancing von Virtuellen Maschinen auf mehrere ESXi-Instanzen ermöglicht.
+
+sso:
+  short:
+    singular: SSO
+  long:
+    singular: Single Sign On
+
+dns:
+  short:
+    singular: DNS
+  long:
+    singular: Domain Name System
+
+nfs:
+  short:
+    singular: NFS
+  long:
+    singular: Network File System
+
+lacp:
+  short:
+    singular: LACP
+  long:
+    singular: Link Aggregation Control Protocol

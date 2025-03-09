@@ -6,16 +6,16 @@
 
 Die Nozomi Guardian ist ein #htl3r.short[ids]. Wie auch Wireshark ließt sie allen Datenverkehr auf einem Interface aus und verarbeitet diesen. Es können je nach Anwendungsfall jedoch auch mehrere Interfaces aufgezeichnet werden. Im Gegensatz zu Wireshark, kann die Guardian diesen Datenverkehr automatisch verwerten. Sie erstellt von alleine eine Baseline und kann dann Aufgrund dieser erkennen, ob unerwünschter Datenverkehr in dem Netzwerk unterwegs ist.
 
-Dazu sind in der Guardian Phasen definiert, in welchen die Funktionsweise stets etwas unterschiedlich ist. 
+Dazu sind in der Guardian Phasen definiert, in welchen die Funktionsweise stets etwas unterschiedlich ist.
 - *Learning:*
   In dieser Phase wird einfach nur auf den Netzwerktraffic geachtet. Es wird eine Baseline erstellt, in welcher alle Geräte des Netzwerkes erfasst sind. Es werden jedoch noch keine Alarme ausgelöst.
-- *Protecting:* 
+- *Protecting:*
   In dieser Phase wird auf den Netzwerktraffic geachtet und aufgrund der Baseline entschieden, ob ein Paket unerwünscht ist. Sollte dies der Fall sein, wird ein Alarm ausgelöst.
 
-Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Assets bringt sie so viel wie möglich in Erfahrung. Sei dies von einer #htl3r.short[ip]-Adresse bis hin zu dem laufenden Betriebssystem oder Firmware-Version. Zu jedem Asset wird auch ein risk assessment erstellt, in welchem auf bekannte und erkannte Vulnerabilitäten eingeganen wird. 
+Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Assets bringt sie so viel wie möglich in Erfahrung. Sei dies von einer #htl3r.short[ip]-Adresse bis hin zu dem laufenden Betriebssystem oder Firmware-Version. Zu jedem Asset wird auch ein risk assessment erstellt, in welchem auf bekannte und erkannte Vulnerabilitäten eingeganen wird.
 #htl3r.todo[Bild vom Risk Assessment eines Assets]
 
-Durch die automatische Erkennung ist die Guardian vorallem in Netzwerken, in welchen der genaue Aufbau nicht bekannt ist, sehr nützlich. Sie kann Administratoren und Administratorinnen helfen, unbekannte Geräte zu entdecken, falls sich beispielsweise ein Angreifer vor Ort an das System anstecken will. Doch sie hilft auch, die Übersicht eines Netzwerks zu erlangen und halten, indem sie Kommunikationspartner auch grafisch anzeigen kann. 
+Durch die automatische Erkennung ist die Guardian vorallem in Netzwerken, in welchen der genaue Aufbau nicht bekannt ist, sehr nützlich. Sie kann Administratoren und Administratorinnen helfen, unbekannte Geräte zu entdecken, falls sich beispielsweise ein Angreifer vor Ort an das System anstecken will. Doch sie hilft auch, die Übersicht eines Netzwerks zu erlangen und halten, indem sie Kommunikationspartner auch grafisch anzeigen kann.
 #htl3r.todo[Bild von Netzwerkübersicht (Graph)]
 
 == Arc Sensor
