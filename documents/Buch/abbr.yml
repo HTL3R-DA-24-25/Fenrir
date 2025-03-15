@@ -170,6 +170,7 @@ dmz:
 scada:
   short:
     singular: SCADA
+    plural: SCADAs
   long:
     singular: Supervisory Control and Data Acquisition
 
