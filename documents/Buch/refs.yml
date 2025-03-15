@@ -79,7 +79,7 @@ esp32-meets-rpi:
     given-name: Marc
     name: Engrie
   url:
-    value: https://data.engrie.be/ESP32/ESP32_-_Part_12_-_ESP32_meets_Raspberry_Pi.pdf
+    value: https://wp.engrie.be/wp-content/uploads/2025/03/ESP32_-_Part_12_-_ESP32_meets_Raspberry_Pi.pdf
     date: 2024-12-13
   date: 2021-01-14
 
@@ -304,3 +304,81 @@ modbustcp_intro:
     value: https://www.prosoft-technology.com/kb/assets/intro_modbustcp.pdf
     date: 2025-02-17
   date: 2005
+
+relais-datenblatt:
+  type: reference
+  title: KY-019 1-Relais Modul Datenblatt
+  author: AZ-Delivery
+  date: 2025-02-07
+
+kontaktplan-image:
+  type: misc
+  title: Einfacher Kontaktplan
+  author: MatthiasDD
+  url:
+    value: https://commons.wikimedia.org/wiki/File:Kontaktplan.svg
+    date: 2025-03-15
+  date: 2007-12-30
+
+kontaktplan-sps-image:
+  type: misc
+  title: Einfacher Kontaktplan als SPS-Programm
+  author: MatthiasDD
+  url:
+    value: https://commons.wikimedia.org/wiki/File:Kontaktplan_Software.svg
+    date: 2025-03-15
+  date: 2007-12-30
+
+sps-programmierung-1:
+  type: reference
+  title: Grundwissen SPS-Technik 
+  author: TH Mittelhessen
+  url:
+    value: https://homepages.thm.de/~mlth53/wp-content/uploads/2010/04/sps
+    date: 2025-03-15
+  date: 2010
+
+sps-programmierung-2:
+  type: reference
+  title: Handbuch für SPS Programmierung mit CoDeSys 2.3
+  author: Smart Software Solutions GmbH
+  url:
+    value: https://www.wago.com/wagoweb/documentation/759/ger_manu/333/m07590333_00000000_1de.pdf
+    date: 2025-03-15
+  date: 2010-10-28
+
+tia-portal-ref:
+  type: misc
+  title: Totally Integrated Automation Portal – Always ready for tomorrow
+  author: Siemens AG
+  url:
+    value: https://www.siemens.com/de/de/produkte/automatisierung/industrie-software/automatisierungs-software/tia-portal.html
+    date: 2025-03-15
+  date: 2025
+
+s7-put-get:
+  type: reference
+  title: S7-Kommunikation mit PUT / GET
+  author: Siemens AG
+  url:
+    value: https://cache.industry.siemens.com/dl/files/115/82212115/att_1034353/v3/82212115_S7_communication_Sequencer_TIA_Portal_de.pdf
+    date: 2025-03-15
+  date: 2020
+
+openplc-psm-guide:
+  type: misc
+  title: OpenPLC guide for Home Automation Card
+  author: Alexandru Burcea
+  url:
+    value: https://github.com/SequentMicrosystems/ioplus-rpi/blob/master/OpenPLC.md
+    date: 2025-03-15
+  date: 2021-11-01
+
+vps-vs-sps:
+  type: article
+  title: Unterschied VPS vs. SPS
+  autor: ElektrikerWissen.de
+  url:
+    value: https://www.elektrikerwissen.de/unterschied-vps-vs-sps/
+    date: 2025-03-15
+  date: 2025

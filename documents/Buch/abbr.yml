@@ -498,3 +498,9 @@ lacp:
     singular: LACP
   long:
     singular: Link Aggregation Control Protocol
+
+gpio:
+  short:
+    singular: GPIO
+  long: 
+    singular: General Purpose Input/Output

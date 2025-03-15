@@ -83,8 +83,6 @@ Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk können fo
 Zur Verhinderung von Lateral Movement können unter anderem Netzwerksegmentierung, Patchmanagement zur Behebung von bekannten Sicherheitslücken als auch Zugriffskontrolle auf bestimmte Daten, Geräte oder Netzwerkabschnitte implementiert werden.
 @lateral-movement-def[comp]
 
-#htl3r.todo("BILD VON ANGREIFER IN NETZWERK MIT LMPS, DIESMAL MIT FIREWALLS UND SO VLLT")
-
 Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenrir"-Topologie wird in @netzwerkueberwachung, @firewall-config und @weitere-absicherung genauer beschrieben.
 
 == Angriffe auf das IT-Netzwerk
