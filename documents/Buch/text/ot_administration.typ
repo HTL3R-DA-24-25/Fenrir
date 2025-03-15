@@ -2,6 +2,7 @@
 
 #htl3r.author("Bastian Uhlig")
 = OT-Administration
+#htl3r.info[Hier MUSS text hin]
 
 == SCADA
 #htl3r.short[scada] steht kurz für #htl3r.long[scada] und ist ein System zur Überwachung und Steuerung von mehreren Aktoren und Sensoren.
@@ -90,7 +91,7 @@ Das grafische Oberfläche der zweiten Betriebszelle zeigt auch nicht ansteuerbar
 
 ==== Betriebszelle Drei
 
-In der dritten Betriebszelle ist der Stausee sowie das Überschwemmungsgebiet zu sehen. Hier ist über das #htl3r.short[scada] das Ventil manuell steuerbar. Auch der Sound-Alarm kann über das #htl3r.short[scada] überschrieben werden, um den Lärm bei einer Überflutung zu unterbinden. 
+In der dritten Betriebszelle ist der Stausee sowie das Überschwemmungsgebiet zu sehen. Hier ist über das #htl3r.short[scada] das Ventil manuell steuerbar. Auch der Sound-Alarm kann über das #htl3r.short[scada] überschrieben werden, um den Lärm bei einer Überflutung zu unterbinden.
 
 #htl3r.fspace(
   figure(
@@ -108,6 +109,7 @@ Wenn es in der Betriebszelle zu einer Überflutung kommt, so wird dies im #htl3r
   )
 )
 
+#pagebreak(weak: true)
 == MES
 Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen die Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte, und dadurch können Optimierungen leichter durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden -- dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
 

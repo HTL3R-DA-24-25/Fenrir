@@ -26,6 +26,7 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
 
 #htl3r.todo("Hier Tabelle oder so machen")
 
+#pagebreak(weak: true)
 == Physische Topologie <physische-topo>
 
 #lorem(100)
@@ -42,7 +43,7 @@ ACHTUNG: VERALTET
 * BILD schrank bzw schränke *
 
 === Verwendete Geräte in der physischen Topologie
-
+#htl3r.info[Hier MUSS text stehen]
 
 #htl3r.author("Julian Burger")
 == Virtualisierungsplatform und Umgebung
@@ -87,6 +88,7 @@ Als DNS-Server fungiert die Uplink-Firewall. Diese ermöglicht ebenso einen Inte
 Wie bereits beschrieben existiert ebenso ein Storage-Server, welcher von den ESXi-Instanzen erreichbar ist. Dies passiert allerdings nicht über das Management-Netzwerk, sondern über ein eigenes Storage #htl3r.short[vlan]. Dies hat den Grund, dass das Storage-Netzwerk eine sehr hohe Auslastung aufgrund von #htl3r.short[nfs] Lese- und Schreibzugriffen hat. Um dieser Auslastung gerecht zu werden ist der Storage-Server mit vier Gigabit-Ethernet Links angeschlossen. Diese vier physischen Links wurden mittels #htl3r.short[lacp] zu einem logischen Link zusammengefasst. Die ESXi-Instanzen haben jeweils einen dedizierten Gigabit-Ethernet Link für #htl3r.short[nfs]. So ist es möglich mit akzeptabler Geschwindigkeit auf das Speicher-Medium zuzugreifen.
 
 === Konfiguration des vCenters
+#htl3r.info[Hier MUSS text stehen]
 
 #htl3r.author("David Koch")
 == OT-Bereich
@@ -114,7 +116,9 @@ Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwis
   )
 )
 
+#pagebreak(weak: true)
 == Verknüpfung der physischen & virtuellen Netzwerke
+#htl3r.info[Hier MUSS text stehen]
 
 === Modbus TCP als Kommunikationsprotokoll
 
