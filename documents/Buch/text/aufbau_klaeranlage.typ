@@ -14,6 +14,8 @@ Zwar sind Kläranlagen nicht die beliebtesten #htl3r.short[ot]-Angriffsziele, Kr
   )
 )
 
+TODO TOWER
+
 #htl3r.author("David Koch")
 == Planung der Betriebszellen
 
@@ -22,10 +24,17 @@ Die Gerätschaft einer Betriebszelle soll nur innerhalb dieser kommunizieren kö
 
 Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage diese leicht ab- und wieder aufbauen. Wären alle Betriebszellen auf einer einzelnen Platte untergebracht, wäre diese circa 160x45cm groß und somit sehr unhandlich zu transportieren.
 
-#htl3r.author("David Koch")
 == Zelle Eins (Grobfiltration)
+#htl3r.info[Hier MUSS text stehen]
 
 Die erste Betriebszelle dient der Grobfiltration des schmutzigen Wassers. Falls im Wasser gröbere Schmutzpartikel -- wie z.B. Kieselsteine -- enhalten sind, müssen sie aus dem Abwasser filtriert werden, bevor sie in den feineren Filter der zweiten Betriebszelle kommen, um diesen nicht zu beschädigen. Nach der ersten Zelle wird das Abwasser durch einen Höhenunterschied zwischen dem Auffangbecken und dem ersten Tank der Zelle Zwei mittels Schwerkraft abtransportiert.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/grobfiltration_block.png", width: 75%),
+    caption: [Schematische Darstellung der ersten Betriebszelle]
+  )
+)
 
 === Aufbau der ersten Betriebszelle
 
@@ -83,10 +92,18 @@ Das in @zelle-1-programm abgebildete Programm -- welches in der Kontaktplan-Prog
   )
 )
 
-#htl3r.author("David Koch")
+#pagebreak(weak: true)
 == Zelle Zwei (Feinfiltration)
+#htl3r.info[Hier MUSS text stehen]
 
 Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/feinfiltration_block.png", width: 90%),
+    caption: [Schematische Darstellung der zweiten Betriebszelle]
+  )
+)
 
 === Aufbau der zweiten Betriebszelle
 
@@ -120,6 +137,7 @@ Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins d
 Der Raspberry Pi ist auch nicht direkt in der Lage, eine klassische Relay-Steuerung zu ersetzen. Die Pins liefern maximal 3,3V, wobei die meisten Aktoren und Sensoren in der Modell-Kläranlage 12V oder auch 24V brauchen. Somit muss ein externes Relaismodul verwendet werden, um die gewünschte Funktionalität zu erreichen. Für diesen Zweck werden zwei KY-019 Relaismodule von AZ-Delivery eingesetzt. Diese können jeweils mit 5V DC betrieben werden, wobei das Schaltsignal auch lediglich 3,3V sein kann @relais-datenblatt[comp]. Wenn das Schaltsignal auf "hoch" gesetzt wird, fließt auf der anderen Seite der Strom von einer 12V-Stromversorgung zur Pumpe. Somit werden insgesamt zwei Pins des Raspberry Pi verwendet, um jeweils das Relay für die Filterpumpe und die Übergangspumpe anzusteuern.
 
 #htl3r.fspace(
+  total-width: 40%,
   figure(
     image("../assets/extra_relay.jpg"),
     caption: [Das verwendete KY-019 Relaismodul]
@@ -156,6 +174,7 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
 )
 
 #htl3r.fspace(
+  total-width: 90%,
   [
     #figure(
       image("../assets/Zelle_2_Programm.png"),
@@ -183,10 +202,22 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
 
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
+#htl3r.info[Hier MUSS text stehen]
+
+#htl3r.todo("hier kurze einführung")
+
+#htl3r.fspace(
+  figure(
+    image("../assets/staudamm_block.png", width: 90%),
+    caption: [Schematische Darstellung der dritten Betriebszelle]
+  )
+)
 
 === Aufbau der dritten Betriebszelle
 
-Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
+Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden.
+
+Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Schwerkraft in das Wassereinlaufbecken fließen kann.
 
 #htl3r.fspace(
   figure(
@@ -301,6 +332,8 @@ Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwend
 
 #pagebreak(weak: true)
 == 3D-Modelle
+#htl3r.info[Hier MUSS text stehen]
+
 === Förderschnecke <schnegge>
 Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
 
@@ -310,8 +343,6 @@ Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstelle
     caption: [3D-Modell der Förderschnecke]
   )
 )
-
-#pagebreak(weak: true)
 
 === Schneckenmotor-Halterung <motor-halterung>
 Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen versetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt, wurde außerdem eine Abdeckung gedruckt. Diese wird einfach auf den Motor gesetzt und anschließend an die Halterung mit 4 M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
@@ -524,7 +555,7 @@ Bei der Datenübertragungen über einen #htl3r.short[i2c]-Bus wird folgendes Fra
 #htl3r.fspace(
   figure(
     image("../assets/i2c_standard_frame.png"),
-    caption: [Das #htl3r.short[i2c]-Frame-Format]
+    caption: [Das I²C-Frame-Format]
   )
 )
 
@@ -651,7 +682,7 @@ Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps
 #htl3r.author("Gabriel Vogler")
 == Schaltschrank der Modell-Kläranlage
 
-Der Schaltschrank der Modell-Kläranlage ist ein AAAAAA mit zwei verbauten Hutschienen. 
+Der Schaltschrank der Modell-Kläranlage ist ein AAAAAA mit zwei verbauten Hutschienen.
 
 An der oberen Hutschiene hängen die Netzwerkkomponenten des #htl3r.short[ot]-Netzwerks. Dazu gehören die Zellen-Firewall als auch ein industrieller Switch von Phoenix Contact für das #htl3r.short[span]-Mirroring des Datenverkehrs zwischen Zellen- und Übergangs-Firewall an die Nozomi Guardian.
 

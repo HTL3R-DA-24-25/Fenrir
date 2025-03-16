@@ -9,7 +9,7 @@ yaml:
     singular: YAML
   long:
     singular: YAML Ain't Markup Language
-  description: Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet. Wird oft zur konfiguration eingesetzt.
+  description: Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet. Wird oft zur Konfiguration eingesetzt.
 
 iac:
   short:
@@ -24,6 +24,7 @@ dvs:
     plural: DVSs
   long:
     singular: Distributed Virtual Switch
+    plural: Distributed Virtual Switches
   description: Ein virtueller Switch welcher in einer vSphere-Umgebung mehreren Hosts zugewiesen sein kann. Dies ermöglicht es VMs auf mehrere Hosts zu verteilen und sie dennoch in dasselbe Netzwerk zu hängen, dieser virtuelle Switch dient zur Verwaltung der Uplinks auf den jeweiligen Hosts.
 
 dpg:
@@ -113,6 +114,12 @@ ad:
   long:
     singular: Active Directory
 
+adds:
+  short:
+    singular: ADDS
+  long:
+    singular: Active Directory Domain Services
+
 addc:
   short:
     singular: ADDC
@@ -173,6 +180,7 @@ scada:
     plural: SCADAs
   long:
     singular: Supervisory Control and Data Acquisition
+  description: Ein System zur Überwachung und Steuerung von Prozessen in industriellen Anlagen in Echtzeit.
 
 uart:
   short:
@@ -218,7 +226,7 @@ mes:
     singular: MES
   long:
     singular: Manufacturing Execution System
-  description: Eine Software zur Überwachung, Steuerung und Optimierung von Produktionsprozessen in Echtzeit.
+  description: Eine Software zur Steuerung und Optimierung von Produktionsprozessen.
 
 vdom:
   short:
@@ -467,7 +475,7 @@ span:
     singular: SPAN
   long:
     singular: Switch Port Analyzer
-  
+
 drs:
   short:
     singular: DRS
@@ -502,5 +510,51 @@ lacp:
 gpio:
   short:
     singular: GPIO
-  long: 
+  long:
     singular: General Purpose Input/Output
+
+mtu:
+  short:
+    singular: MTU
+  long:
+    singular: Maximum transmission unit
+  description: Die maximale größe einer PDU einer OSI-Layer 3 übetragung, gleicht nicht der Größe eines Ethernet-Frames.
+
+lvm:
+  short:
+    singular: LVM
+  long:
+    singular: Logical Volume Manager
+  description: Logical Volume Manager ist ein Framework unter Linux, welches es ermöglicht mehrere logische Volumes in ein Dateisystem zu aggregieren.
+
+raid:
+  short:
+    singular: RAID
+  long:
+    singular: redundant array of independent disks
+
+gip:
+  long:
+    singular: Golden Image Pipeline
+  description: Eine Golden Image Pipeline stellt VM-Templates zur verfügung, von welcher Virtuelle Maschinen erstellt werden.
+
+ldap: 
+  short:
+    singular: LDAP
+  long:
+    singular: Lightweight Directory Access Protocol
+  description: Ein Protokoll zur Abfrage und Änderung von Informationen in einem Verzeichnisdienst.
+
+ras:
+  short:
+    singular: RAS
+  long:
+    singular: Remote Access Service
+  description: Ein Dienst, der es ermöglicht, sich von einem entfernten Standort aus mit einem Netzwerk zu verbinden.
+
+ipsec:
+  short:
+    singular: IPsec
+  long:
+    singular: Internet Protocol Security
+  description: Ein Protokoll, welches es ermöglicht, Datenpakete zu verschlüsseln und zu authentifizieren.

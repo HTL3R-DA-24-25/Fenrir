@@ -146,7 +146,7 @@ Die CVE-Beschreibung von #htl3r.short[cve]-2019-10936 lautet: "Affected devices 
 
 Was mit "specially crafted #htl3r.short[udp] packets" gemeint ist, ist nicht näher beschrieben. In den meisten #htl3r.short[dos]-Angriffen handelt es sich bei diesen Packets meist um Buffer-Underflow- bzw. Buffer-Overflow-Payloads. Bei einem Underflow werden in den einzelnen Packets zu wenige Nutzdaten übermittelt, bei einem Overflow werden zu viele Nutzdaten übermittelt. Insgesamt werden diese Packets dann in sehr großen Mengen an das anzugreifende Gerät geschickt, um den #htl3r.short[dos]-Zustand auszulösen.
 
-#htl3r.code(caption: "Das UDP-Packet für den DoS-Angriff auf die S7-1200", description: none)[
+#htl3r.code(caption: "Erstellung und Versendung des UDP-Packets für den DoS-Angriff auf die S7-1200", description: none)[
 ```python
 from scapy.layers.inet import IP, UDP
 from scapy.sendrecv import send
@@ -161,16 +161,14 @@ while True:
 ```
 ]
 
-In Quellcode 7.1 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte UDP-Packet zu erstellen und anschließend an die SPS zu schicken.
+In Quellcode 7.1 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte #htl3r.short[udp]-Packet zu erstellen und anschließend an die #htl3r.short[sps] zu schicken.
 
 #htl3r.author("David Koch")
 === Manipulation einer SPS
 
 Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine #htl3r.short[sps] oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
 
-Der im obigen @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register ...
-
-Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
+Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-#htl3r.shortpl[sps] manipuliert. Der Angriff hat auf einem sogenannten "Zero-Day-Exploit" beruht, einer Schwachstelle, die dem Hersteller -- in diesem Fall Siemens -- noch nicht bekannt war. Da die Entdeckung eines Zero-Day-Exploits  in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
 
 ...
 
@@ -182,7 +180,7 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
 1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
-2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste.
 3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des #htl3r.short[ot]-Engineers um tiefer in die Anlage einzudringen.
 4. #htl3r.short[lotl], Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
 5. Angreifer entdeckt Default Credentials auf OpenPLC.
@@ -191,14 +189,42 @@ Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein 
 
 === Phishing-Mail
 
+Der Angriff beginnt -- wie viele andere Angriffe in der Realität auch -- mit einer Phishing-Mail. Zuerst wird eine E-Mail an eine Person geschickt, die regelmäßig mit externen Personen kontakt hat und es somit nicht unbedingt auffällt, wenn mit einer gefälschten Identität eine Phishing-Mail empfagen wird.
+
+#htl3r.todo("mit gabi seinem exchange setup hier emails verschicken")
+
 === Spear-Phishing
+
+Nachdem das E-Mail-Konto des Buchhaltungsmitarbeiters übernommen worden ist, wird dessen gestohlene Identität dazu ausgenutzt, eine weitere Phishing-Mail zu verschicken. Diesmal ist in dieser jedoch ein maliziöser Dateianhang enthalten, um nicht nur das Konto zu übernehmen, sondern das Gerät, auf dem die E-Mail geöffnet wird, mit einem Virus zu infizieren.
+
+TODO
 
 === RDP Lateral Movement
 
+TODO
+
 === Living of the Land
 
-=== Default Credentials auf SPS
+TODO
+
+=== Default Credentials auf der SPS
+
+Durch die flüchtige Implementierung bzw. eine mangelnde Härtung der OpenPLC-#htl3r.short[sps] wurden die Default-Anmeldedaten für das Webdashboard nicht geändert. Diese sind unabhängig von jeglichen Systembenutzern und müssen im Webdashboard unter "Users" manuell geändert werden.
+
+Da der Angreifer bereits in der #htl3r.short[lotl]-Phase herausgefunden hat, dass eine OpenPLC-#htl3r.short[sps] im Einsatz ist und die Default-Anmeldedaten -- Benutzername sowie Passwort sind "openplc" -- im Internet auffindbar sind, hat er nun einen uneingeschränkten Admin-Zugriff auf die #htl3r.short[sps] der "Feinfiltration" und kann sie nach Belieben umprogrammieren.
+
+* BILD LOGIN *
 
 === SPS-Steuerung wird manipuliert
 
+Mit dem uneingeschränkten Zugriff auf das OpenPLC-Webdashboard kann der Angreifer sein eigenes Programm hochladen. Bevor dies getan wird, ist es aus Angreifersicht sinnvoll, die Default-Anmeldedaten umzuändern. Wenn im Zuge des Angriffs ein sichtbarer Schaden verursacht wird und das Management der Kläranlage anfängt zu ermitteln, ist ein aufgrund von falschen Anmeldedaten unzugängliches Webdashboard -- als einzige Schnittstelle zur Umprogrammierung -- verheerend.
+
+* BILD PROGRAMMUPLOAD *
+
+* BILD USER CHANGE *
+
 === GAU tritt ein
+
+Das Netzwerk wurde aufgrund von fehlender Segmentierung infiltriert, das Lateral Movement des Angreifers wurde wegen fehlender Netzwerküberwachung nicht entdeckt. Eine für die Steuerung des Klärprozesses unabdingbare SPS wurde umprogrammiert und unzugänglich gemacht. 
+
+Damit durch die manipulierte Steuerung keine weiteren Flutungen zustande kommen, muss die gesamte Anlage gestoppt werden -- der größte anzunehmende Unfall (#htl3r.short[gau]) tritt ein. Damit die Kläranlage wieder klären kann, muss die #htl3r.short[sps] für die Feinfiltration zurückgesetzt werden und das gesamte Netzwerk gesäubert werden, ob durch Virenscans oder sicherheitshalber einem Ersetzen der Geräte.

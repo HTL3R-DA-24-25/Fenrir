@@ -2,16 +2,17 @@
 
 #htl3r.author("Bastian Uhlig")
 = OT-Administration
+Um ein #htl3r.short[ot]-Netzwerk zu administrieren, sind einige spezielle Tools notwendig. Diese Tools sind speziell auf die Anforderungen von #htl3r.short[ot]-Netzwerken zugeschnitten und können so die Sicherheit und Zuverlässigkeit eines solchen Netzwerks gewährleisten. Vorallem ein #htl3r.short[scada] und ein #htl3r.short[mes] sind hierbei von großer Bedeutung. 
 
 == SCADA
-#htl3r.short[scada] steht kurz für #htl3r.long[scada] und ist ein System zur Überwachung und Steuerung von mehreren Aktoren und Sensoren.
+Ein #htl3r.full[scada] ist ein System zur Überwachung und Steuerung von mehreren Aktoren und Sensoren. Es ist ein wichtiger Bestandteil eines #htl3r.short[ot]-Netzwerks und stellt das Interface zwischen Mensch und Maschine dar. Ein #htl3r.short[scada] ist in der Lage, Daten von Sensoren zu lesen und Aktoren zu steuern. Es ist jedoch nicht in der Lage, eigenständig Aktionen durchzuführen, sondern reagiert nur auf User-Input.
 
 === Was ist ein SCADA-System?
-In einer Betriebszelle existieren üblicherweise einige unterschiedliche #htl3r.shortpl[sps], auf welche Mitarbeiter keinen Zugriff haben. Selbst wenn dieser Zugriff möglich wäre, so wäre es sehr anstrengend, aus den verscheidenen Registern die Werte auszulesen, um die Anlage zu überwachen. Ein #htl3r.short[scada]-System hilft dabei, indem es als grafische Oberfläche zur Überwachung und Steuerung von verschiedenen #htl3r.shortpl[sps] agiert.
+In einer Betriebszelle existieren üblicherweise einige unterschiedliche #htl3r.shortpl[sps], auf welche Mitarbeiter keinen Zugriff haben. Selbst wenn dieser Zugriff möglich wäre, so wäre es sehr anstrengend, aus den verschiedenen Registern die Werte auszulesen oder in die Register Werte zu schreiben, um die Anlage zu überwachen oder zu steuern. Ein #htl3r.short[scada]-System hilft dabei, indem es als grafische Oberfläche zur Überwachung und Steuerung von verschiedenen #htl3r.shortpl[sps] agiert.
 
 Hierbei ist zu beachten, dass ein #htl3r.short[scada]-System keine Signale automatisch sendet, sondern nur auf User-Input reagiert. Alle selbstgesteuerten Aktionen werden immer von #htl3r.shortpl[sps] durchgeführt.
 
-Normalerweise wird pro Betriebszelle mindestens ein #htl3r.short[scada]-System verwendet, manchmal mehrere für Redundanz. Dies sorgt für höhere Sicherheit, da jedes #htl3r.short[scada] nur mit der "eigenen" Zelle kommunizieren darf. Falls die Zellen jedoch simpel gehalten sind und nur aus einer einzigen #htl3r.short[sps]en bestehen, so ist die Verwendung von mehreren #htl3r.short[scada]-Systemen unnötig und macht die Konfiguration nur komplizierter. In solch einem Fall können mehrere Zellen zusammengefügt werden, damit das System leichter zu übersehen ist.
+Normalerweise wird pro Betriebszelle mindestens ein #htl3r.short[scada]-System verwendet, manchmal mehrere zur Redundanz. Dies sorgt für höhere Sicherheit, da jedes #htl3r.short[scada] nur mit der "eigenen" Zelle kommunizieren darf. Falls die Zellen jedoch simpel gehalten sind und nur aus einer einzigen #htl3r.short[sps]en bestehen, so ist die Verwendung von mehreren #htl3r.short[scada]-Systemen unnötig und macht die Konfiguration nur komplizierter. In solch einem Fall können mehrere Zellen zusammengefügt werden, damit das System überschaubarer ist.
 
 === Scada-LTS
 Als ein Fork von der Open-Source Software Scada-BR ist Scada-LTS der Nachfolger der vorhergehenden Software. Scada-LTS läuft virtualisiert auf einem Docker und ist über eine von tomcat veröffentlichten Website zu erreichen. Datenhistorien werden separat in einer MySQL-Datenbank gespeichert, die typischerweise auch dockerisiert läuft.
@@ -33,11 +34,11 @@ expose: ["80"]
 ```
 
 ==== Konfiguration von SCADA-LTS
-Jegliche Konfiguration von Scada-LTS erfolgt über das Webdashbord, welches unter `10.34.0.50/Scada-LTS` zu finden ist. Bei einer Erstaufsetzung meldet man sich hier mit den Anmeldedaten admin:admin an, diese sollten jedoch geändert werden.
+Jegliche Konfiguration von Scada-LTS erfolgt über das Webdashbord, welches unter `10.34.0.50/Scada-LTS` zu finden ist. Bei einer Erstaufsetzung meldet man sich hier mit den Anmeldedaten admin:admin an, diese sollten jedoch später geändert werden.
 
 Die mit Abstand wichtigste Konfiguration in einem #htl3r.short[scada] sind die Datasources, da diese jegliche Datenquellen darstellen. In Scada-LTS konfiguriert man diese unter dem gleichnamigen Punkt, wobei zu Testzwecken es auch möglich ist, virtuelle Datenquellen anzulegen. Dies ist im Echtbetrieb jedoch kaum sinnvoll.
 
-Stattessen werden reale Datenquellen angegeben, welche typischerweise Modbus IP Quellen sind. Bei der Konfiguration sind einige Daten anzugeben, die wichtigsten hierbei sind der Transport-Type, Host und Port.
+Stattdessen werden reale Datenquellen angegeben, welche typischerweise Modbus-IP Quellen sind. Bei der Konfiguration sind einige Daten anzugeben, die wichtigsten hierbei sind der Transport-Type, Host und Port.
 
 Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint sind, die von der #htl3r.short[sps] ausgegeben werden. Datenpunkte beziehen sich immer auf eine Register range, Datentyp und einem Offset. Es können pro Datenquelle beliebig viele Datenpunkte konfiguriert werden, diese müssen jedoch mit der Konfiguration der Register auf der gegenüberliegenden #htl3r.short[sps] übereinstimmen, um die Binärwerte richtig auslesen zu können.
 
@@ -65,7 +66,7 @@ Im Falle der Modell-Kläranlage ist es nicht der Fall. Hier wird jede Betriebsze
 
 ==== Betriebszelle Eins
 
-In der ersten Betriebszelle ist nur die Schraube mittels #htl3r.short[sps] gesteuert, wodurch auch das #htl3r.short[scada] nur diese Schraube steuern kann. Über das #htl3r.short[scada] kann die Schraube ein- bzw. ausgeschalten werden. \
+In der ersten Betriebszelle ist nur die Schraube, welche das Wasser in den obersten Wassertank befördert, mittels #htl3r.short[sps] gesteuert, wodurch auch das #htl3r.short[scada] nur diese Schraube steuern kann. Über das #htl3r.short[scada] kann die Schraube ein- bzw. ausgeschalten werden. \
 Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab, den Fluss des Wassers zu visualisieren. So sind die Tanks und die Schraube grafisch dargestellt, um Endnutzern eine einfache Übersicht zu geben.
 
 #htl3r.fspace(
@@ -90,7 +91,7 @@ Das grafische Oberfläche der zweiten Betriebszelle zeigt auch nicht ansteuerbar
 
 ==== Betriebszelle Drei
 
-In der dritten Betriebszelle ist der Stausee sowie das Überschwemmungsgebiet zu sehen. Hier ist über das #htl3r.short[scada] das Ventil manuell steuerbar. Auch der Sound-Alarm kann über das #htl3r.short[scada] überschrieben werden, um den Lärm bei einer Überflutung zu unterbinden. 
+In der dritten Betriebszelle ist der Stausee sowie das Überschwemmungsgebiet zu sehen. Hier ist über das #htl3r.short[scada] das Ventil manuell steuerbar. Auch der Sound-Alarm kann über das #htl3r.short[scada] überschrieben werden, um den Lärm bei einer Überflutung zu unterbinden.
 
 #htl3r.fspace(
   figure(
@@ -108,6 +109,7 @@ Wenn es in der Betriebszelle zu einer Überflutung kommt, so wird dies im #htl3r
   )
 )
 
+#pagebreak(weak: true)
 == MES
 Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen die Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte, und dadurch können Optimierungen leichter durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden -- dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
 
@@ -115,10 +117,12 @@ Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit 
 Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich wären, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar zu machen.
 
 === Authentifizierung
-Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] sind Benutzer in einer Datenbank gespeichert. Diese Datenbank läuft auf dem #htl3r.short[mes]-Server, ist eine #htl3r.short[sql]-Lite Datenbank und ist nur über das eigene Netzwerk erreichbar, um Sicherheit zu gewährleisten. Unter Anwendung einer Middleware wird die Authentifizierung durchgeführt, wobei die Datenbankabfrage nur bei der Anmeldung durchgeführt wird. Dem Benutzer wird bei erfolgreicher Anmeldung ein #htl3r.short[jwt]-Token ausgestellt.
+Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit gültig, um die Sicherheit zu gewährleisten. \
+Versucht ein Benutzer, auf eine Seite zuzugreifen, ohne angemeldet zu sein, oder sollte der vorgewiesene Token ungültig sein, so wird dieser von einer Middleware abgefangen und der Benutzer auf die Anmeldeseite weitergeleitet. Gleichfalls fängt die Middleware auch bereits angemeldete Benutzer davon ab, sich erneut anzumelden.
 
 === Funktionsweise
-Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit  im #htl3r.short[scada] überschrieben werden können. Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via #htl3r.short[api]-calls, die vom Backend des #htl3r.short[mes] verwaltet werden, wie sie in @scadalts-api-docs beschrieben ist. Es ist stark zu empfählen, diese #htl3r.short[api] vor der Verwendung mittels eines Tools wie Postman zu testen, um sich mit der Funktionsweise dieser vertraut zu machen.
+Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit im #htl3r.short[scada] überschrieben werden können. Das #htl3r.short[mes] ruft automatisch alle vorhandenen Datenpunkte vom #htl3r.short[scada] ab und stellt alle binären -- also alle, welche nur ein- und ausschalten sind -- auf dem Dashboard dar. Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
+Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via #htl3r.short[api]-calls, die vom Backend des #htl3r.short[mes] verwaltet werden, wie sie in @scadalts-api-docs beschrieben ist. Es ist stark zu empfehlen, diese #htl3r.short[api] vor der Verwendung mittels eines Tools wie Postman zu testen, um sich mit der Funktionsweise dieser vertraut zu machen.
 
 === Aufsetzen
-#htl3r.todo("Dokumentation des Aufsetzens des MES")
+Da das #htl3r.short[mes] mittels Next.js geschrieben ist, kann das fertige System in einen Docker-Container gepackt werden. Dieser Container ist dann nur auf den Server zu spielen und mit Beigabe der .env Datei zu starten. Diese .env Datei enthält die Konfiguration des #htl3r.short[mes], wie beispielsweise die Anmeldedaten für die #htl3r.short[api] des #htl3r.short[scada] oder die Adresse des #htl3r.short[scada]-Servers.

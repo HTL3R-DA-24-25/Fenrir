@@ -5,9 +5,8 @@
 
 Der Aufbau einer realistischen Netzwerktopologie wie sie in einer echten Kläranlage zu finden wäre ist unabdingbar wenn es darum geht, die Gefahr von Cyberangriffen auf #htl3r.short[ot]-Systeme zu dokumentieren.
 
-In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuellen Geräten im Rahmen der Diplomarbeitstopologie genauer gezeigt und erklärt.
+In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuellen Geräten im Rahmen der Diplomarbeitstopologie genauer gezeigt und erklärt. Man bedenke, dass es nicht möglich ist die gesamte Topologie in einer einzigen Graphik im vollen Detail zu erfassen. Demnach wurd mit vereinzelten Abstraktionen gearbeitet.
 
-#htl3r.author("David Koch")
 == Logische Topologie <logische-topo>
 
 Durch die Limitationen an verfügbarer physischer Hardware ist die unten gezeigte logische Topologie physisch nicht direkt umsetzbar. Durch den Einsatz von Virtualisierung, welcher in @physische-topo genauer erklärt wird, lassen sich alle nötigen Geräte, für die sonst keine physische Hardware verfügbar wäre, trotzdem in das Netzwerk einbinden.
@@ -26,23 +25,58 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
 
 #htl3r.todo("Hier Tabelle oder so machen")
 
+#htl3r.author("Julian Burger")
 == Physische Topologie <physische-topo>
 
-#lorem(100)
+Logisch betrachtet scheint die Topologie zunächst recht simpel, jedoch kommen mehrere abstraktions Ebenen ins spiel, um die IT-Infrastruktur einer Kläranlage zu emulieren. So kommen zum Beispiel #htl3r.shortpl[vlan] zum Einsatz, um die einzelnen Netzwerke zu separieren.
+
+Eigentlich physische Server- und Clientgeräte werden virtualisiert und mittels #htl3r.fullpl[dvs] mit #htl3r.short[vlan]-Tags versehen, um diese dann wiederrum zu einem physischen Switch zu trunked, welcher die #htl3r.shortpl[vlan] dann zu den physischen Firewalls nochmals weiter trunked. Dies geschieht für ein jedes Netzwerk in der Kläranlagen-Topologie. Besondere Netzwerke wie ein Management, Storage und Internet werden ähnlich, jedoch etwas abgewandelt realisiert, siehe @conf_vsphere.
+
+Durch die getrunkten Netzwerke ist es möglich auf den Firewalls mit Sub-Interfaces zu arbeiten und anhand von diesen die gebrauchten Policies zu realisieren. Absicherung der Kläranlagen-Topologie spielt eine große Rolle im Rahmen dieser Diplomarbeit und wird nicht vernachlässigt, siehe @firewall-config.
+
+Die #htl3r.shortpl[vlan] können ebenfalls mittels #htl3r.short[span] an ein #htl3r.short[ids] geschickt werden, welches die Informationen verarbeitet und Alerts Rückmeldet, siehe @nozomi-guardian.
+
+Um einen groben Überblick über den physischen Aufbau des Netzwerks zu bekommen kann man sich an der nachstehenden Graphik orientieren. Es werden alle essentiellen Netzwerkkomponenten aufgeführt, für genauere informationen siehe vorherig aufgeführte Abschnitte.
 
 #htl3r.fspace(
-  total-width: 95%,
+  total-width: 100%,
   figure(
-    image("../assets/topology_physical.svg"),
+    image("../assets/fenrir_physical_topology.png"),
     caption: [Die Projekttopologie in physischer Darstellung]
   )
 )
-ACHTUNG: VERALTET
 
-* BILD schrank bzw schränke *
+#htl3r.todo[BILD schrank bzw schränke]
 
 === Verwendete Geräte in der physischen Topologie
 
+#htl3r.inline-todo[In der physischen Topologie kommen nur eine Handvoll von Geräten zum Einsatz.]
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (3fr, 5fr, 2fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + center, horizon + left),
+      table.header(
+        [*Name*], [*Model*], [*Herstelller*],
+      ),
+      [ESXi 1], [Precision 5820 Tower X-Series], [DELL],
+      [ESXi 2], [PRIMERGY TX1330 M1], [Fujitsu],
+      [ESXi 3], [PRIMERGY TX1330 M1], [Fujitsu],
+      [Shared Storage], [PRIMERGY TX1330 M1], [Fujitsu],
+      [Cluster Switch], [WS-C2960X-48TS-L], [cisco],
+      [Uplink Firewall], [FortiGate 60E], [Fortinet],
+      [Separation Firewall], [FortiGate 92D], [Fortinet],
+      [Rugged Firewall], [IDFK], [Fortinet],
+      [Zelle 1], [IDFK], [IDFK],
+      [Zelle 2], [IDFK], [IDFK],
+      [Zelle 3], [IDFK], [IDFK],
+    ),
+    caption: [Verwendete Hardware],
+  )
+)
 
 #htl3r.author("Julian Burger")
 == Virtualisierungsplatform und Umgebung
@@ -86,7 +120,120 @@ Als DNS-Server fungiert die Uplink-Firewall. Diese ermöglicht ebenso einen Inte
 
 Wie bereits beschrieben existiert ebenso ein Storage-Server, welcher von den ESXi-Instanzen erreichbar ist. Dies passiert allerdings nicht über das Management-Netzwerk, sondern über ein eigenes Storage #htl3r.short[vlan]. Dies hat den Grund, dass das Storage-Netzwerk eine sehr hohe Auslastung aufgrund von #htl3r.short[nfs] Lese- und Schreibzugriffen hat. Um dieser Auslastung gerecht zu werden ist der Storage-Server mit vier Gigabit-Ethernet Links angeschlossen. Diese vier physischen Links wurden mittels #htl3r.short[lacp] zu einem logischen Link zusammengefasst. Die ESXi-Instanzen haben jeweils einen dedizierten Gigabit-Ethernet Link für #htl3r.short[nfs]. So ist es möglich mit akzeptabler Geschwindigkeit auf das Speicher-Medium zuzugreifen.
 
-=== Konfiguration des vCenters
+=== Konfiguration des vCenters/vSphere <conf_vsphere>
+
+Innerhalb des vCenters wurde einige Dienste und Strukturen konfiguriert, um das saubere Arbeiten von den #htl3r.short[iac]-Tools zu ermöglichen. Dies inkludiert: VMkernel Adapter, einen Datastore, #htl3r.short[drs], #htl3r.shortpl[dvs], eine Content Library und eine Ordnerstruktur für die #htl3r.shortpl[vm].
+
+==== Netzwerk konnektivität des Clusters <vmkernel_config>
+
+Damit sich dir Hosts innerhalb des vCenter-Clusters verbinden können braucht es dafür einen VMkernel Adapter, welcher diesen Managementzugriff ermöglicht und Teil von einer #htl3r.short[dpg] ist welche diesen - wie im Falle diese Diplomarbeit - mit einem #htl3r.short[vlan]-Tag verseht.
+
+Es werden zwei VMkernel Adapter verwendet, welche über den selben physischen Adapter mit dem Netzwerk verbunden sind. Diese Verbindung wird über einen #htl3r.short[dvs] geschaffen, welcher drei #htl3r.shortpl[dpg] hat:
+- *ManagementPG*: Zuständig für die Web-Management Platformen der ESXi-Hosts, vCenter und vSphere. Tagged Frames mit #htl3r.short[vlan] nummer 120.
+- *StoragePG*: Zuständig um auf den geteilten Datastore zuzugreifen, siehe @nfs_datastore. Tagged Frames mit #htl3r.short[vlan] nummer 80.
+- *InternetPG*: Ermöglicht es #htl3r.shortpl[vm] mit dem Internet über ein abgekapseltes Netzwerk zu verbinden. Wird vorallem bei der Provisionierung der #htl3r.shortpl[vm] verwendet um Software herunterzuladen. Tagged Frames mit #htl3r.short[vlan] nummer 800. Hat keinen VMkernel Adapter mit sich assoziiert.
+
+Die angesprochenen VMkernel Adapter existieren in identer Form auf allen ESXi-Hosts. VMkernel Adapter können verschiedene Dienste aktiviert haben, mit welchen es beeinflussen lässt wie diese Dienste über das Netzwerk kommunizieren. Die VMkernel Adapter sind wiefolgt belegt:
+- *vmk0*: Ist mit der _ManagementPG_ verbunden und hat den _Management_-Dienst aktiviert. Dies teilt vCenter/vSphere mit, dass sämtlicher Management-Traffic über diesen Adapter und somit über die _ManagementPG_ geschickt werden soll.
+- *vmk1*: Ist mi der _StoragePG_ verbunden und hat den _vMotion_-Dienst aktiviert. vMotion ermögllicht es #htl3r.shortpl[vm], während diese gestartet sind, auf andere ESXi-Hosts zu migrieren und dies mit minimalen ausfällen.
+
+Auch wenn vMotion nicht zwingend gebraucht wird, existiert der VMkernel Adapter aus performance Gründen, welche in @nfs_datastore beschrieben werden. Der andere VMkernel Adapter existiert aus gründen der Segmentierung und somit Sicherheit. Es ist möglich über einen VPN in das Management-Netzwerk zu gelangen und somit den Provisionierungsvorgang einzuleiten, wie in @provisionierung beschrieben.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/vmkernel_adapter.png"),
+    caption: [Abstrakter überblick der VMkernel Adapter]
+  )
+)
+
+==== Konfiguration des NFS-Datastores <nfs_datastore>
+
+Damit es allen ESXi-Hosts möglich ist auf die gleichen Dateien, wie zum Beispiel #htl3r.shortpl[vm], #htl3r.short[vm]-Templates und ISOs, zuzugreifen ist ein geteilter Datastore von nöten, welcher über das Netzwerk erreichbar ist. Die einfachste Lösung währe ein vSAN, welche mehrere physische Festppllatten über das Netzwerk zu einem Datastore zusammenfassen kann. Dies ist jedoch nur unter gewissen Hardwarekonfigurationen möglich und die Anforderungen sind zu hoch für den Rahmen der Diplomarbeit. Somit wurde sich für einen #htl3r.short[nfs]-Share entschieden, welcher von allen ESXi-Hosts über ein Storage-Netzwerk erreichbar ist. Dieses Storage-Netzwerk ist mittels #htl3r.short[vlan] realisiert und hat den #htl3r.short[vlan]-Tag 80. Damit alle ESXi-Hosts innerhalb des vCenters über dieses Netzwerk zugreifen, gibt es einen dedizierten VMkernel Adapter, siehe @vmkernel_config.
+
+Der NFS-Datastore hat insgesammt fünf physische Verbindungen mit dem Cluster-Switch. Eine für das Management-#htl3r.short[vlan] 120 und vier weitere, welche mittels LACP aggregiert sind und mit dem Storage-#htl3r.short[vlan] 80 verbunden sind. Es wurde ebenfalls die #htl3r.short[mtu]-Größe auf 9000 gestellt um maximalen Durchsatz zu erzielen. Diese #htl3r.short[mtu]-Größe wurde ebenfalls auf dem VMkernel Adapter und dem #htl3r.short[dvs] konfiguriert.
+So wird garantieren, dass alle ESXi-Hosts die volle Bandbreite ihrer Links, von einem Gigabit pro Sekunde, nutzen können.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/datastore_connection.png"),
+    caption: [Abstrakter überblick der NFS-Datastore anbindung]
+  )
+)
+
+Die einbindung des NFS-Shares als Datastore erfolgt über vSphere, hierbei muss lediglich die IP-Adresse, sowie Benutzername und Passwort des NFS-Shares eingegeben werden. Die Konfiguration des NFS-Shares ist simpel gehalten:
+
+#htl3r.code(caption: "NFS-Share Export-Konfiguration", description: none)[
+```
+# /etc/exports: the access control list for filesystems which may be exported
+#		to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+/storage *(rw,fsid=0,sync,all_squash,no_subtree_check)
+```
+]
+
+Das Dateisystem, welches auf `/storage` gemounted ist, ist ein #htl3r.short[lvm]. Dies hat den Vorteil, dass das Dateisystem jederzeit vergrößert werden kann und sogar auf mehreren physischen Festplatten verteilt liegen kann, ohne ein #htl3r.short[raid] zu verwenden.
+
+==== Konfiguration von DRS und Resource-Pool
+
+#htl3r.full[drs] ist eine Technologie von VMware welche #htl3r.shortpl[vm] automatisch auf ESXi-Hosts, welche dem selben Cluster zugewiesen sind, load-balanced. Sprich #htl3r.shortpl[vm] werden automatisch so auf alle ESXi-Hosts in einem Cluster verteilt, sodass alle die ungefähr die gleiche CPU, Arbeitspeicher und Netzwerkauslastung haben. Im Rahmen wird dieser Diplomarbeit wird #htl3r.short[drs] verwendet um #htl3r.longpl[vm] während des Provisioniervorgangs gleichmäßig auf die ESXi-Hosts zu verteilen.
+
+Desweiteren besteht die möglichkeit ein Resource-Pool anzulegen. Einem Resource-Pool sind gewisse CPU und Arbeitsspeicher Anteile zugewiesen, welche es nicht überschreiten kann. Ebenso können Resource-Pools gewisse Hardware-Resource für sich reservieren. Dies ermöglicht einem Nutzer mehrere Resource-Pools für unterschiedlichste Verwendungen anzulegen und gewisse Hardware-Anteile zu garantieren.
+
+Dies wird im Rahmen dieser Diplomarbeit verwendet um, wie in @provisionierung beschrieben, mittels #htl3r.short[drs] die #htl3r.shortpl[vm] auf alle ESXi-Hosts, welche dem Cluster angehören zu verteilen. Das Resource-Pool hilft zu garantieren, dass die vCenter-#htl3r.short[vm], welche nicht Teil des Resource-Pools ist, immer genug Ressourcen hat um zu Arbeiten.
+
+vSphere erstellt im Hintergrund einen #htl3r.short[drs]-Score, welcher die Verteilung der #htl3r.longpl[vm] bewertet. Man bedenke, dass im Rahmen dieser Diplomarbeit sehr unterschiedliche Hardware für die ESXi-Hosts verwendet wurde und #htl3r.short[drs] daher nicht optimal funktioniert:
+
+#htl3r.fspace(
+  figure(
+    image("../assets/drs_example.png"),
+    caption: [Beispiel für eine DRS-Score bewertung]
+  )
+)
+#pagebreak(weak: true)
+#htl3r.short[drs] selbst wird vollautomatisch betrieben, es besteht jedoch die möglichkeit, dass #htl3r.short[drs] nur vorschläge macht und dem Benutzer freie Wahl lässt diese umzusetzen. Die Konfiguration für #htl3r.short[drs] ist recht simpel, zunächst wählt man das Cluster aus welches Konfiguriert werden soll, danach sind die Einstellungen unter #htl3r.breadcrumbs(("Configure", "Services", "vSphere DRS", "Edit...")) zu finden:
+
+#htl3r.fspace(
+  figure(
+    image("../assets/drs_settings.png"),
+    caption: [Konfiguration von vSphere DRS]
+  )
+)
+
+Unter #htl3r.breadcrumbs(("Monitor", "vSphere DRS", "Recommendations")) ist es nun möglich die Vorschläge von #htl3r.short[drs] einzusehen und druchzuführen. Wurde `Fully Automated` unter `Automation Level` eingestellt, so gibt es keine Vorschläge.
+
+==== Content Library und Ordnerstruktur von VMs und DVS
+
+Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von Golden Image Pipelline verwendet, diese ist obwohl nicht optimal, allerdings passend für den Anwendungszweck innerhalb des Projektes.
+
+Content Libraries unterscheiden zwischen zwei Arten von #htl3r.short[vm]-Templates. Zunächst sind da _OVF/OVA Templates_, welche einfach nur Dateien auf einem Datastore sind und Metadaten und Disks beinhalten. Diese stehen in kontrast zu normalen #htl3r.short[vm]-Templates, welche ebenso im vSphere-Inventar registriert sein müssen. Normale #htl3r.short[vm]-Templates sind OVF/OVA-Templates zu bevorzugen, da der Erstellungsprozess wesentlich kürzer ist und Linked-Clones möglich sind.
+
+Im Rahmen dieser Diplomarbeit werden alle verwendeten #htl3r.short[vm]-Templates mittels Packer erstellt, für genauere Informationen siehe @provisionierung, mit Ausnahme von der #htl3r.short[ot]-Workstations Template. Diese benötigt spezielle Software für die Programmierung und Verwaltung von #htl3r.shortpl[sps] und kann nur schwer automatisiert aufgesetzt werden.
+
+Wie schon angesprochen müssen normale #htl3r.short[vm]-Templates, welche in einer Content Library liegen, ebenso im vSphere-Inventar registriert sein. Dies geschieht innerhalb des Projektes mithilfe eines Ordners namens "Templates":
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/templates_inventory.png"),
+    caption: [Templates im Inventar]
+  ),
+  figure(
+    image("../assets/content_library.png"),
+    caption: [Content Library Inhalt]
+  )
+)
+
+Die eigentlichen #htl3r.shortpl[vm] sind dann in einem Ordner namens "Topology VMs" welcher mehrere Unterordner für die verwendeten Netzwerke besitzt. Einzig und allein die Bastion, siehe @prov-mit-bastion, liegt direkt innerhalb des "Topology VMs" Ordners.
+
+Ein ähnliches Konzept existiert auch bei den vSwitches. Hier liegt der "ManagementDVS" #htl3r.short[dvs] direkt auf der Datacenter-Node ohne Ordner gemeinsam mit den Standard-vSwitches, während der "FenrirDVS", welcher die #htl3r.shortpl[dpg] beinhaltet, welche verwendet werden um #htl3r.shortpl[vm] mit einem VLAN zu versehen, in einem Ordner namens "Topology Networks" liegt.
 
 #htl3r.author("David Koch")
 == OT-Bereich
@@ -114,7 +261,9 @@ Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwis
   )
 )
 
+#pagebreak(weak: true)
 == Verknüpfung der physischen & virtuellen Netzwerke
+#htl3r.info[Hier MUSS text stehen]
 
 === Modbus TCP als Kommunikationsprotokoll
 
@@ -150,5 +299,9 @@ Bei der Enkapsulierung von Modbus in #htl3r.short[tcp] werden nicht nur der Befe
 
 Durch die Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40\% seiner ursprünglichen Daten-Durchsatzes. Jedoch wird dieser Verlust durch die zuvor erwähnten -- von #htl3r.short[tcp] mitgebrachten -- Vorteile ausgeglichen. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
 
-=== BURGER DU HIER MACHEN
-#htl3r.todo("Bitte drüber schreiben wie die VMs in vSphere über den Switch per VLANs und so mit der echten Welt kommunizieren")
+#htl3r.author("Julian Burger")
+=== Cluster Switch Konfiguration
+#htl3r.todo[Darüber schreiben wie der Cluster Switch konfiguriert ist.]
+
+=== VLAN zuweisungen
+#htl3r.todo[Bitte drüber schreiben wie die VMs in vSphere über den Switch per VLANs und so mit der echten Welt kommunizieren]
