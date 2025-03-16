@@ -467,7 +467,7 @@ span:
     singular: SPAN
   long:
     singular: Switch Port Analyzer
-  
+
 drs:
   short:
     singular: DRS
@@ -499,8 +499,30 @@ lacp:
   long:
     singular: Link Aggregation Control Protocol
 
+<<<<<<< HEAD
 gpio:
   short:
     singular: GPIO
   long: 
     singular: General Purpose Input/Output
+=======
+mtu:
+  short:
+    singular: MTU
+  long:
+    singular: Maximum transmission unit
+  description: Die maximale größe einer PDU einer OSI-Layer 3 übetragung, gleicht nicht der Größe eines Ethernet-Frames.
+
+lvm:
+  short:
+    singular: LVM
+  long:
+    singular: Logical Volume Manager
+  description: Logical Volume Manager ist ein Framework unter Linux, welches es ermöglicht mehrere logische Volumes in ein Dateisystem zu aggregieren.
+
+raid:
+  short:
+    singular: RAID
+  long:
+    singular: redundant array of independent disks
+>>>>>>> 0f35bcd (fuck ton of vmware shit)

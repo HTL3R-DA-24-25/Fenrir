@@ -544,7 +544,7 @@ Bei der Datenübertragungen über einen #htl3r.short[i2c]-Bus wird folgendes Fra
 #htl3r.fspace(
   figure(
     image("../assets/i2c_standard_frame.png"),
-    caption: [Das #htl3r.short[i2c]-Frame-Format]
+    caption: [Das I²C-Frame-Format]
   )
 )
 
@@ -672,6 +672,11 @@ Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps
 == Schaltschrank der Modell-Kläranlage
 
 Der Schaltschrank der Modell-Kläranlage ist ein AAAAAA mit zwei verbauten Hutschienen.
+<<<<<<< HEAD
+=======
+
+#htl3r.todo("dies das schrank")
+>>>>>>> 0f35bcd (fuck ton of vmware shit)
 
 An der oberen Hutschiene hängen die Netzwerkkomponenten des #htl3r.short[ot]-Netzwerks. Dazu gehören die Zellen-Firewall als auch ein industrieller Switch von Phoenix Contact für das #htl3r.short[span]-Mirroring des Datenverkehrs zwischen Zellen- und Übergangs-Firewall an die Nozomi Guardian.
 

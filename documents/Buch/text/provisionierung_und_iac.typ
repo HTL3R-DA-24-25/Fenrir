@@ -46,7 +46,7 @@ Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Die
 )
 
 Durch das ```hcl convert_to_template = true``` im vorherigen Beispiel wird die #htl3r.short[vm] automatisch nach Abschluss des Provisioniervorganges zu einer Template-#htl3r.short[vm] umgewandelt und kann dadurch direkt geklont werden.
-#pagebreak()
+
 Insgesamt werden vier Template-#htl3r.shortpl[vm] provisioniert, allerdings werden nur drei davon in der Topologie, wie sie im physischen Netzplan sind, verwendet. Das extra Template ist eine Bastion. Die Verwendung dieser wird im @prov-mit-bastion beschrieben. Die restlichen drei Templates sind folgende:
 #[
 #set par(hanging-indent: 12pt)
@@ -58,7 +58,7 @@ Das Linux-Server-Image wird mittels Cloud-Init, einer plattformübergreifenden S
 
 Das Linux-Server-Image wird mittels Cloud-Init, einer plattformübergreifenden Software für das Aufsetzen von Cloudinstanzen, welche sich als Industriestandard etabliert hat @ci-docs[comp], aufgesetzt. Cloud-Init liest eine gegebene #htl3r.short[yaml] Datei, im passenden Format, aus und konfiguriert damit den Server. Die Windows-Images werden ähnlich aufgesetzt, jedoch wird eine ```autounatend.xml``` Datei verwendet. Das Prinzip bleibt jedoch dasselbe.
 
-
+#pagebreak(weak: true)
 === Terraform <terraform-prov>
 Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.shortpl[vm], #htl3r.shortpl[dvs], #htl3r.shortpl[dpg], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
 #htl3r.code-file(
@@ -70,7 +70,7 @@ Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-I
   text: read("../assets/scripts/stage_00.tf")
 )
 
-Dieser erzwungene konvergente Zustand hat jedoch -- vor allem während der Entwicklung -- Nachteile. Tritt ein Fehler während der Durchführung eines Erstellungsprozesses auf, so stoppt dies den Prozess und Terraform zerstört alle bereits angelegten Ressourcen. Dies stört vor allem dann, wenn ein Provisionierungsvorgang mehr als 30 Minuten andauert. Um dies zu umgehen, wird in sogenannten "Stages" provisioniert. Jede Stage ist abhängig von der Vorherigen, somit muss beispielsweise Stage null korrekt ausgeführt werden, damit Stage eins, in weiterer Folge, ausgeführt werden kann. Jede Stage ist dafür verantwortlich zu Beginn einen Snapshot von allen Ressourcen zu machen, die für die Durchführung der Stage benötigt werden. So kann, falls die Stage fehlerhaft ausführt, zu dem vorherigen Stand zurückgesprungen werden.
+Dieser erzwungene konvergente Zustand hat jedoch -- vor allem während der Entwicklung -- Nachteile. Tritt ein Fehler während der Durchführung eines Erstellungsprozesses auf, so stoppt dies den Prozess und Terraform zerstört alle bereits angelegten Ressourcen. Dies stört vor allem dann, wenn ein Provisionierungsvorgang mehr als 2 Stunden andauert. Um dies zu umgehen, wird in sogenannten "Stages" provisioniert. Jede Stage ist abhängig von der Vorherigen, somit muss beispielsweise Stage null korrekt ausgeführt werden, damit Stage eins, in weiterer Folge, ausgeführt werden kann. Jede Stage ist dafür verantwortlich zu Beginn einen Snapshot von allen Ressourcen zu machen, die für die Durchführung der Stage benötigt werden. So kann, falls die Stage fehlerhaft ausführt, zu dem vorherigen Stand zurückgesprungen werden.
 
 Solch ein Verfahren ist nicht allein mit Terraform möglich, da Terraform, falls ein Fehler auftritt, den erstellten Snapshot nur löscht und nicht auf diesen zurücksetzt. Somit werden alle fehlerhafte Änderungen, welche von Skript-Provisionieren durchgeführt wurden, auf den vorherigen Stand übertragen. Damit solch eine Situation nicht auftritt, werden Destroy-Provisioner auf den Snapshots konfiguriert:
 #htl3r.code-file(
@@ -81,7 +81,6 @@ Solch ein Verfahren ist nicht allein mit Terraform möglich, da Terraform, falls
   skips: ((6, 0),),
   text: read("../assets/scripts/stage_03.tf")
 )
-#pagebreak()
 Die von der Ressource gebrauchte ``` vm_uuids``` Variable ist in einer anderen Datei enthalten:
 #htl3r.code-file(
   caption: "Terraform Snapshot Destroy-Provisioner VMs",
@@ -140,7 +139,7 @@ Die IPv4-Adressen der #htl3r.shortpl[vm] im Managementnetzwerk sind oft unklar, 
 #htl3r.code-file(
   caption: "Stage-03 Ansible-Playbook",
   filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
-  range: (0, 12),
+  range: (0, 11),
   skips: ((12, 0),),
   lang: "yml",
   text: read("../assets/scripts/setup_dc_primary.yml")
@@ -150,13 +149,12 @@ Der Grund, warum die ```ansible_ssh_common_args``` Variable solch einen komplexe
 === pyVmomi
 Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.short[api] zurückgegriffen. Hierzu wird pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im Web-#htl3r.short[gui] von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.shortpl[dpg]. Dies ist in keinem der vorher genannten Tools direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Datenverkehr zwischen Managed-#htl3r.shortpl[vm] möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu kommunizieren und #htl3r.short[dhcp]-Requests zu verschicken. Hierzu werden folgende Traffic-Filter-Regeln verwendet:
 #htl3r.fspace(
-  total-width: 100%,
+  // total-width: 100%,
   figure(
-    image("../assets/filtering_rules.jpg"),
+    image("../assets/filtering_rules.png"),
     caption: [Management Traffic-Filtering Regeln]
   )
 )
-#htl3r.todo("Obigen Screenshot mit whitemode erneut machen")
 
 Um nun diese Regeln zu definieren, muss zunächst eine Authentifizierung in vSphere stattfinden:
 #htl3r.code-file(
@@ -204,7 +202,7 @@ Solch eine Regel sieht folgendermaßen aus:
 Die gezeigte Regel erlaubt #htl3r.short[dhcp]-Requests von den Managed #htl3r.shortpl[vm] auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
 
 == Provisionierung mittels Bastion <prov-mit-bastion>
-Bei der Provisionierung eines großen Netzwerks kann es zu verschiedensten Problemen kommen. Ein großes Problem welches sich häufiger entpuppt ist Trust. Um diverse Dienste und Programme zu Konfigurieren braucht es einen Remote-Shell zugriff in beliebigen Form. Da im Rahmen dieser Diplomarbeit vor allem auf Packer, Terraform und Ansible gesetzt wird, macht es sinn #htl3r.short[ssh] für diesen Zweck einzusetzen, da jedes dieser Tools dies unterstützt.
+Bei der Provisionierung eines großen Netzwerks kann es zu verschiedensten Problemen kommen. Ein großes Problem welches sich häufiger entpuppt ist Trust. Um diverse Dienste und Programme zu Konfigurieren braucht es einen Remote-Shell zugriff in beliebiger Form. Da im Rahmen dieser Diplomarbeit vor allem auf Packer, Terraform und Ansible gesetzt wird, macht es sinn #htl3r.short[ssh] für diesen Zweck einzusetzen, da jedes dieser Tools dies unterstützt.
 
 #htl3r.short[ssh] erfordert eine Authentifizierung, demnach ist es wichtig, Passwörter oder auch Schlüsselpaare bei der Provisionierung, sowie im laufenden Betrieb, zu verwalten. Um diesen Prozess zu erleichtern gibt es eine zentrale Quelle des Vertrauens. Dies wird in Form einer besonderen #htl3r.short[vm] erzielt. Diese #htl3r.short[vm] besitzt einen besonderen Schlüssel, welcher ihr den Zugriff auf alle anderen #htl3r.shortpl[vm] gewährt. Diese #htl3r.short[vm] wird "Bastion" genannt, denn diese #htl3r.short[vm] darf unter keinen Umständen kompromittiert werden. Schafft es ein Angreifer die Bastion einzunehmen, so bekommt er Zugriff auf das gesamte Netzwerk, da jede #htl3r.short[vm] dem Schlüssel der Bastion vertraut. Um Angriffe auf die Bastion zu vermeiden, wird diese in keinem Produktiv-Netzwerk eingebunden und Internetzugriff wird untersagt. Es ist lediglich möglich über das Management-Netzwerk auf die Bastion zuzugreifen, da eine Schnittstelle für die #htl3r.short[iac]-Tools gebraucht wird. Der Zugriff in das Management-Netzwerk ist jedoch nur über einen #htl3r.short[vpn] möglich.
 
@@ -212,7 +210,7 @@ Bei der Provisionierung eines großen Netzwerks kann es zu verschiedensten Probl
 Wie in @terraform-prov bereits erklärt worden ist, wird in Stages provisioniert. Die Bastion wird hierbei innerhalb von Stage Null aufgesetzt. Damit der erstamlige #htl3r.short[ssh]-Zugriff auf die Bastion gelingt wird ein vordefinierten Passwort verwendet. Dieser Zugriff ist nötig um das Schlüsselpaar auf die Bastion zu kopieren.
 
 In weiterer Folge -- ebenfalls in Stage Null -- werden die Template-#htl3r.shortpl[vm] für alle anderen #htl3r.shortpl[vm], welche für das Produktivnetzwerk gebraucht werden, erstellt. Um den öffentlichen Schlüssel der Bastion auf die Template-#htl3r.shortpl[vm] zu kopieren wird unter Windows von einem Answer-File gebrauch gemacht und unter Linux, in diesem Fall Ubuntu-Server, von cloud-init. Packer ermöglicht es beim Provisionierungsvorgang temporäre virtuelle Floppy-Disks zu erstellen, welche die nötigen Dateien für den automatisierten Setup-Prozess und den öffentlichen Schlüssel der Bastion beinhalten. Die erstellten Template-#htl3r.shortpl[vm] können nun gekloned werden und über das Bastion-Management-Netzwerk weiter konfiguriert werden.
-#pagebreak(weak: true)
+
 Abstrakt betrachtet sieht dieser Provisionierungsvorgang wie folgt aus:
 #htl3r.fspace(
   total-width: 100%,

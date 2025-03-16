@@ -87,8 +87,100 @@ Als DNS-Server fungiert die Uplink-Firewall. Diese ermöglicht ebenso einen Inte
 
 Wie bereits beschrieben existiert ebenso ein Storage-Server, welcher von den ESXi-Instanzen erreichbar ist. Dies passiert allerdings nicht über das Management-Netzwerk, sondern über ein eigenes Storage #htl3r.short[vlan]. Dies hat den Grund, dass das Storage-Netzwerk eine sehr hohe Auslastung aufgrund von #htl3r.short[nfs] Lese- und Schreibzugriffen hat. Um dieser Auslastung gerecht zu werden ist der Storage-Server mit vier Gigabit-Ethernet Links angeschlossen. Diese vier physischen Links wurden mittels #htl3r.short[lacp] zu einem logischen Link zusammengefasst. Die ESXi-Instanzen haben jeweils einen dedizierten Gigabit-Ethernet Link für #htl3r.short[nfs]. So ist es möglich mit akzeptabler Geschwindigkeit auf das Speicher-Medium zuzugreifen.
 
-=== Konfiguration des vCenters
-#htl3r.info[Hier MUSS text stehen]
+=== Konfiguration des vCenters/vSphere
+
+Innerhalb des vCenters wurde einige Dienste und Strukturen konfiguriert, um das saubere Arbeiten von den #htl3r.short[iac]-Tools zu ermöglichen. Dies inkludiert: VMkernel Adapter, einen Datastore, #htl3r.short[drs], #htl3r.shortpl[dvs], eine Content Library und eine Ordnerstruktur für die #htl3r.shortpl[vm].
+
+==== Netzwerk konnektivität des Clusters <vmkernel_config>
+
+Damit sich dir Hosts innerhalb des vCenter-Clusters verbinden können braucht es dafür einen VMkernel Adapter, welcher diesen Managementzugriff ermöglicht und Teil von einer #htl3r.short[dpg] ist welche diesen - wie im Falle diese Diplomarbeit - mit einem #htl3r.short[vlan]-Tag verseht.
+
+Es werden zwei VMkernel Adapter verwendet, welche über den selben physischen Adapter mit dem Netzwerk verbunden sind. Diese Verbindung wird über einen #htl3r.short[dvs] geschaffen, welcher drei #htl3r.shortpl[dpg] hat:
+- *ManagementPG*: Zuständig für die Web-Management Platformen der ESXi-Hosts, vCenter und vSphere. Tagged Frames mit #htl3r.short[vlan] nummer 120.
+- *StoragePG*: Zuständig um auf den geteilten Datastore zuzugreifen, siehe @nfs_datastore. Tagged Frames mit #htl3r.short[vlan] nummer 80.
+- *InternetPG*: Ermöglicht es #htl3r.shortpl[vm] mit dem Internet über ein abgekapseltes Netzwerk zu verbinden. Wird vorallem bei der Provisionierung der #htl3r.shortpl[vm] verwendet um Software herunterzuladen. Tagged Frames mit #htl3r.short[vlan] nummer 800. Hat keinen VMkernel Adapter mit sich assoziiert.
+
+Die angesprochenen VMkernel Adapter existieren in identer Form auf allen ESXi-Hosts. VMkernel Adapter können verschiedene Dienste aktiviert haben, mit welchen es beeinflussen lässt wie diese Dienste über das Netzwerk kommunizieren. Die VMkernel Adapter sind wiefolgt belegt:
+- *vmk0*: Ist mit der _ManagementPG_ verbunden und hat den _Management_-Dienst aktiviert. Dies teilt vCenter/vSphere mit, dass sämtlicher Management-Traffic über diesen Adapter und somit über die _ManagementPG_ geschickt werden soll.
+- *vmk1*: Ist mi der _StoragePG_ verbunden und hat den _vMotion_-Dienst aktiviert. vMotion ermögllicht es #htl3r.shortpl[vm], während diese gestartet sind, auf andere ESXi-Hosts zu migrieren und dies mit minimalen ausfällen.
+
+Auch wenn vMotion nicht zwingend gebraucht wird, existiert der VMkernel Adapter aus performance Gründen, welche in @nfs_datastore beschrieben werden. Der andere VMkernel Adapter existiert aus gründen der Segmentierung und somit Sicherheit. Es ist möglich über einen VPN in das Management-Netzwerk zu gelangen und somit den Provisionierungsvorgang einzuleiten, wie in @provisionierung beschrieben.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/vmkernel_adapter.png"),
+    caption: [Abstrakter überblick der VMkernel Adapter]
+  )
+)
+
+==== Konfiguration des NFS-Datastores <nfs_datastore>
+
+Damit es allen ESXi-Hosts möglich ist auf die gleichen Dateien, wie zum Beispiel #htl3r.shortpl[vm], #htl3r.short[vm]-Templates und ISOs, zuzugreifen ist ein geteilter Datastore von nöten, welcher über das Netzwerk erreichbar ist. Die einfachste Lösung währe ein vSAN, welche mehrere physische Festppllatten über das Netzwerk zu einem Datastore zusammenfassen kann. Dies ist jedoch nur unter gewissen Hardwarekonfigurationen möglich und die Anforderungen sind zu hoch für den Rahmen der Diplomarbeit. Somit wurde sich für einen #htl3r.short[nfs]-Share entschieden, welcher von allen ESXi-Hosts über ein Storage-Netzwerk erreichbar ist. Dieses Storage-Netzwerk ist mittels #htl3r.short[vlan] realisiert und hat den #htl3r.short[vlan]-Tag 80. Damit alle ESXi-Hosts innerhalb des vCenters über dieses Netzwerk zugreifen, gibt es einen dedizierten VMkernel Adapter, siehe @vmkernel_config.
+
+Der NFS-Datastore hat insgesammt fünf physische Verbindungen mit dem Cluster-Switch. Eine für das Management-#htl3r.short[vlan] 120 und vier weitere, welche mittels LACP aggregiert sind und mit dem Storage-#htl3r.short[vlan] 80 verbunden sind. Es wurde ebenfalls die #htl3r.short[mtu]-Größe auf 9000 gestellt um maximalen Durchsatz zu erzielen. Diese #htl3r.short[mtu]-Größe wurde ebenfalls auf dem VMkernel Adapter und dem #htl3r.short[dvs] konfiguriert.
+So wird garantieren, dass alle ESXi-Hosts die volle Bandbreite ihrer Links, von einem Gigabit pro Sekunde, nutzen können.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/datastore_connection.png"),
+    caption: [Abstrakter überblick der NFS-Datastore anbindung]
+  )
+)
+
+Die einbindung des NFS-Shares als Datastore erfolgt über vSphere, hierbei muss lediglich die IP-Adresse, sowie Benutzername und Passwort des NFS-Shares eingegeben werden. Die Konfiguration des NFS-Shares ist simpel gehalten:
+
+#htl3r.code(caption: "NFS-Share Export-Konfiguration", description: none)[
+```
+# /etc/exports: the access control list for filesystems which may be exported
+#		to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+/storage *(rw,fsid=0,sync,all_squash,no_subtree_check)
+```
+]
+
+Das Dateisystem, welches auf `/storage` gemounted ist, ist ein #htl3r.short[lvm]. Dies hat den Vorteil, dass das Dateisystem jederzeit vergrößert werden kann und sogar auf mehreren physischen Festplatten verteilt liegen kann, ohne ein #htl3r.short[raid] zu verwenden.
+
+==== Konfiguration von DRS und Resource-Pool
+
+#htl3r.full[drs] ist eine Technologie von VMware welche #htl3r.shortpl[vm] automatisch auf ESXi-Hosts, welche dem selben Cluster zugewiesen sind, load-balanced. Sprich #htl3r.shortpl[vm] werden automatisch so auf alle ESXi-Hosts in einem Cluster verteilt, sodass alle die ungefähr die gleiche CPU, Arbeitspeicher und Netzwerkauslastung haben. Im Rahmen wird dieser Diplomarbeit wird #htl3r.short[drs] verwendet um #htl3r.longpl[vm] während des Provisioniervorgangs gleichmäßig auf die ESXi-Hosts zu verteilen.
+
+Desweiteren besteht die möglichkeit ein Resource-Pool anzulegen. Einem Resource-Pool sind gewisse CPU und Arbeitsspeicher Anteile zugewiesen, welche es nicht überschreiten kann. Ebenso können Resource-Pools gewisse Hardware-Resource für sich reservieren. Dies ermöglicht einem Nutzer mehrere Resource-Pools für unterschiedlichste Verwendungen anzulegen und gewisse Hardware-Anteile zu garantieren.
+
+Dies wird im Rahmen dieser Diplomarbeit verwendet um, wie in @provisionierung beschrieben, mittels #htl3r.short[drs] die #htl3r.shortpl[vm] auf alle ESXi-Hosts, welche dem Cluster angehören zu verteilen. Das Resource-Pool hilft zu garantieren, dass die vCenter-#htl3r.short[vm], welche nicht Teil des Resource-Pools ist, immer genug Ressourcen hat um zu Arbeiten.
+
+vSphere erstellt im Hintergrund einen #htl3r.short[drs]-Score, welcher die Verteilung der #htl3r.longpl[vm] bewertet. Man bedenke, dass im Rahmen dieser Diplomarbeit sehr unterschiedliche Hardware für die ESXi-Hosts verwendet wurde und #htl3r.short[drs] daher nicht optimal funktioniert:
+
+#htl3r.fspace(
+  figure(
+    image("../assets/drs_example.png"),
+    caption: [Beispiel für eine DRS-Score bewertung]
+  )
+)
+#pagebreak(weak: true)
+#htl3r.short[drs] selbst wird vollautomatisch betrieben, es besteht jedoch die möglichkeit, dass #htl3r.short[drs] nur vorschläge macht und dem Benutzer freie Wahl lässt diese umzusetzen. Die Konfiguration für #htl3r.short[drs] ist recht simpel, zunächst wählt man das Cluster aus welches Konfiguriert werden soll, danach sind die Einstellungen unter #htl3r.breadcrumbs(("Configure", "Services", "vSphere DRS", "Edit...")) zu finden:
+
+#htl3r.fspace(
+  figure(
+    image("../assets/drs_settings.png"),
+    caption: [Konfiguration von vSphere DRS]
+  )
+)
+
+Unter #htl3r.breadcrumbs(("Monitor", "vSphere DRS", "Recommendations")) ist es nun möglich die Vorschläge von #htl3r.short[drs] einzusehen und druchzuführen. Wurde `Fully Automated` unter `Automation Level` eingestellt, so gibt es keine Vorschläge.
+
+==== Content Library und Ordnerstruktur von VMs und DVS
+
+Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von Golden Image Pipelline verwendet, diese ist allerdings nicht optimal, jedoch passend für den Anwendungszweck innerhalb des Projektes.
+
+#htl3r.todo[Hier gehts weiter!!!]
 
 #htl3r.author("David Koch")
 == OT-Bereich

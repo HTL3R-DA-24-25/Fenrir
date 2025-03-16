@@ -32,8 +32,7 @@ Wenn kein Multi-#htl3r.short[vdom]-Mode verwendet wird, läuft alles auf der Fir
 
 Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei der Zellen-Firewall zwei dieser Arten gemeinsam eingesetzt werden:
 
-+ *Internet access VDOM*:
-  #linebreak()
++ *Internet access VDOM*: \
   In dieser Konfiguration ist der Internetzugang über eine einzelne #htl3r.short[vdom] -- beispielsweise die Root-VDOM in @internet-access-vdom -- bereitgestellt.
   #htl3r.fspace(
     total-width: 95%,
@@ -47,21 +46,18 @@ Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei d
   )
   Die Root-#htl3r.short[vdom] versorgt die #htl3r.shortpl[vdom] der Betriebszellen durch sogenannte #htl3r.short[vdom]-Links -- virtuelle Netzwerke innerhalb der FortiGate, die dazu dienen, #htl3r.shortpl[vdom] untereinander zu vernetzen. Im Falle der Zellen-Firewall ist die Root-#htl3r.short[vdom] nicht für den Internetzugang zuständig, sondern für die Verbindung mit dem restlichen Firmennetzwerk über die Übergangs-Firewall.
 
-+ *Administrative VDOM* (on a management network)
-  #linebreak()
++ *Administrative VDOM* (on a management network) \
   In dieser Konfiguration ist der Managementzugang auf die FortiGate über eine eigene #htl3r.short[vdom] bereitgestellt. Somit werden die Daten von den Geräten, die am Management-Interface hängen, von der Firewall nicht in andere Netzwerke geroutet (so lange kein #htl3r.short[vdom]-Link vorhanden ist, siehe @administrative-vdom).
   #htl3r.fspace(
     total-width: 95%,
     [
       #figure(
         image("../assets/administrative_vdom_official.png"),
-        caption: [Eine Beispieltopologie für die "Administrative VDOM"]
+        caption: [Eine Beispieltopologie für die "Administrative VDOM" @vdom-overview]
       )
       <administrative-vdom>
     ]
   )
-
-@vdom-overview
 
 Die Aspekte der "Internet access #htl3r.short[vdom]" finden sich in der Segmentierung der Betriebszellen-spezifischen Konfiguration mittels eigenen #htl3r.shortpl[vdom] für jede Zelle wider. Somit ist beispielsweise die Konfiguration der Policies für den Datenverkehr von Zelle Eins zum #htl3r.short[scada] vom Datenverkehr von Zelle Zwei zum #htl3r.short[scada] voneinander getrennt. Dies macht zwar die Konfiguration neuer Policies und deren Anwendung zwar umständlicher, es garantiert aber, dass sich der/die Systemadministrator*in immer dessen bewusst ist, im Rahmen welcher Zelle er/sie gerade handelt und somit weniger Konfigurationsfehler auftreten können.
 

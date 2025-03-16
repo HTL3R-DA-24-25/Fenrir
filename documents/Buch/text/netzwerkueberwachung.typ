@@ -2,6 +2,7 @@
 
 #htl3r.author("Bastian Uhlig")
 = Netzwerküberwachung <netzwerkueberwachung>
+#htl3r.info[Hier MUSS text hin]
 
 == Theoretische Netzwerküberwachung
 Ein wichtiger Teil der Sicherheit in einem Netzwerk ist die Überwachung dessen. Damit können  die Zuverlässigkeit und der derzeitige Zustand sofort erkannt werden. Es ist nämlich niemals möglich, sämtliche Angriffe abzuwehren, bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernen Mitteln überwacht wird, können Angriffe, die bereits in vollem Gange sind, entdeckt und (in weiterer Folge) unterbunden werden.
@@ -53,6 +54,3 @@ In Live-Systemen ist die Verwendung von Wireshark als Überwachungssystem somit 
     caption: [Der eingesetzte Hardware-Network-Tap, ein Gigamon G-TAP-ATX]
   )
 )
-
-=== Nozomi Guardian
-Siehe @nozomi-guardian.
