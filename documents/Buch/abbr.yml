@@ -560,3 +560,10 @@ ipsec:
   long:
     singular: Internet Protocol Security
   description: Ein Protokoll, welches es ermöglicht, Datenpakete zu verschlüsseln und zu authentifizieren.
+
+ntp:
+  short:
+    singular: NTP
+  long:
+    singular: Network Time Protocol
+  description: Ein Protokoll zur Synchronisation von Uhren in Computernetzwerken.

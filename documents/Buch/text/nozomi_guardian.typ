@@ -12,8 +12,23 @@ Dazu sind in der Guardian Phasen definiert, in welchen die Funktionsweise stets 
 - *Protecting:*
   In dieser Phase wird auf den Netzwerktraffic geachtet und aufgrund der Baseline entschieden, ob ein Paket unerwünscht ist. Sollte dies der Fall sein, wird ein Alarm ausgelöst.
 
-Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Assets bringt sie so viel wie möglich in Erfahrung. Sei dies von einer #htl3r.short[ip]-Adresse bis hin zu dem laufenden Betriebssystem oder Firmware-Version. Zu jedem Asset wird auch ein risk assessment erstellt, in welchem auf bekannte und erkannte Vulnerabilitäten eingegangen wird.
-#htl3r.todo[Bild vom Risk Assessment eines Assets]
+Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Assets bringt sie so viel wie möglich in Erfahrung. Sei dies von einer #htl3r.short[ip]-Adresse bis hin zu dem laufenden Betriebssystem oder Firmware-Version. Es werden offene Sessions und Verbindungen erkannt und auch, ob ein Asset ein gewisses Service anbietet, wie beispielsweise #htl3r.short[ntp].
+
+#htl3r.fspace(
+  figure(
+    image("../assets/nozomi_dc1_sessions.png", width: 95%),
+    caption: [Aktive Sessions des primary Domain Controllers]
+  )
+)
+
+Zu jedem Asset wird auch ein risk assessment erstellt, in welchem auf bekannte und erkannte Vulnerabilitäten eingegangen wird.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/nozomi_risk_assessment.png", width: 95%),
+    caption: [Aktive Sessions des primary Domain Controllers]
+  )
+)
 
 Durch die automatische Erkennung ist die Guardian vor allem in Netzwerken, in welchen der genaue Aufbau nicht bekannt ist, sehr nützlich. Sie kann Administratoren und Administratorinnen helfen, unbekannte Geräte zu entdecken, falls sich beispielsweise ein Angreifer vor Ort an das System anstecken will. Doch sie hilft auch, die Übersicht eines Netzwerks zu erlangen und zu halten, indem sie Kommunikationspartner auch grafisch anzeigen kann.
 #htl3r.todo[Bild von Netzwerkübersicht (Graph)]
