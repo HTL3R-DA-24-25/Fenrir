@@ -1,0 +1,16 @@
+name;path;scope;category;DL_Groups
+G_Sales;OU=Sales,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at;Global;Security;DL_Sales_R, DL_Sales_M, DL_Marketing_R
+G_Marketing;OU=Marketing,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at;Global;Security;DL_Sales_R, DL_Marketing_R, DL_Marketing_M
+G_Operations;OU=Operations,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at;Global;Security;DL_Infrastructure_R, DL_Operations_R, DL_Operations_M
+G_Infrastructure;OU=Infrastructure,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at;Global;Security;DL_Infrastructure_R, DL_Infrastructure_M, DL_Operations_R
+G_Management;OU=Management,OU=Accounts,DC=corp,DC=fenrir-ot,DC=at;Global;Security;DL_Infrastructure_R, DL_Sales_R, DL_Management_R, DL_Management_R, DL_Management_M, DL_Marketing_R
+DL_Sales_R;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Sales_M;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Marketing_R;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Marketing_M;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Operations_R;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Operations_M;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Infrastructure_R;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Infrastructure_M;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Management_R;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;
+DL_Management_M;DC=corp,DC=fenrir-ot,DC=at;DomainLocal;Security;

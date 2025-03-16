@@ -5,6 +5,62 @@
 
 #htl3r.author("Bastian Uhlig")
 == Uplink-Firewall
+Die Uplink-Firewall -- eine FortiGate 60E -- dient zum Schutz des gesamten Netzwerks vor unerwünschtem Datenverkehr aus dem Internet. Sie ist die erste Verteidigungslinie und schützt das Netzwerk vor Angriffen von außen. Die Firewall ist so konfiguriert, dass sie nur den nötigen Datenverkehr durchlässt und alle anderen Pakete verwirft.
+
+=== Grundkonfiguration
+Hier sind lediglich die grundlegenden Konfigurationen der Uplink-Firewall dargestellt. Die Konfigurationen der Policies und der Interfaces sind hierbei nicht enthalten.
+
+#htl3r.code-file(
+  caption: "Uplink-Firewall Grundkonfiguration",
+  filename: [Uplink-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((35, 39),),
+  text: read("../assets/scripts/Uplink-FW-Fenrir.conf")
+)
+
+=== Interfaces
+Bei der Konfiguration der Interfaces von der Uplink-Firewall ist zu beachten, dass auch das gesamte Management-Netzwerk über diese Firewall läuft. Dieses ist zwar komplett vom restlichen Netzwerk getrennt, jedoch sind sie trotzdem anzulegen. \
+Da die meisten Links in Richtung #htl3r.short[it] gehen, sind diese nur mit #htl3r.shortpl[vlan] getrennt. Alle #htl3r.shortpl[vlan] werden dann entweder auf einem Switch oder in vCenter terminiert und an die entsprechenden #htl3r.shortpl[vm] weitergeleitet. \
+Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisionierung (siehe @provisionierung) #htl3r.shortpl[vm] den Zugriff auf das Internet zu ermöglichen. Über das Management-Interface kann währenddessen auf Management-Ressourcen zugegriffen werden, wie zum Beispiel die esxis oder der vCenter-Server. 
+
+#htl3r.fspace(
+  total-width: 95%,
+  [
+    #figure(
+      image("../assets/Uplink-FW-Interfaces.png"),
+      caption: [Logische Darstellung der Interfaces der Uplink-Firewall]
+    )
+  ]
+)
+
+#htl3r.code-file(
+  caption: "Uplink-Firewall Interface-Konfiguration",
+  filename: [Uplink-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((58, 59),(62,63),(66, 68),(71,72),(74, 76),(79,80),(82, 84),(87,88),(90, 92),(95,96),(107,108)),
+  text: read("../assets/scripts/Uplink-FW-Fenrir.conf")
+)
+
+=== LDAP Server
+Zur Authentifizierung von Benutzern, welche den #htl3r.short[ras]-#htl3r.short[vpn] verwenden dürfen, wird mittels #htl3r.short[ldap] eine Verbindung zum #htl3r.short[ad] hergestellt. Dazu muss ein Account angegeben werden, welcher Leserechte hat, um die Benutzer zu überprüfen. 
+
+#htl3r.code-file(
+  caption: "Uplink-Firewall LDAP-Konfiguration",
+  filename: [Uplink-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((198, 207),),
+  text: read("../assets/scripts/Uplink-FW-Fenrir.conf")
+)
+
+=== Remote Access VPN
+Der Remote Access #htl3r.short[vpn] ermöglicht es Benutzern, sich von außerhalb des Netzwerks sicher mit dem Netzwerk zu verbinden. Dazu wird ein #htl3r.short[ipsec]-#htl3r.short[vpn] eingerichtet, welcher die Authentifizierung über den #htl3r.short[ldap]-Server durchführt. Benutzer bekommen Zugriff auf das #htl3r.short[it]-Netzwerk und können sich von dort aus weiter verbinden, falls dies notwendig ist.
+
+=== Policies
+Policies sind eins der wichtigsten Tools einer Firewall -- und damit auch der FortiGate. Mit ihnen wird der Datenverkehr reguliert und gesteuert. Standardmäßig lässt eine FortiGate-Firewall keinen Datenverkehr durch, es muss also alles explizit erlaubt werden. 
+
+Im Falle der Uplink-Firewall sind die Policies so konfiguriert, dass nur der nötige Datenverkehr durchgelassen wird. Das heißt, dass von außen nur Datenverkehr auf den Exchange-Server zugelassen wird, und auch da nur auf die Ports, die benötigt werden. \
+In die #htl3r.short[it]-SEC-Zone wird nur Datenverkehr zugelassen, der auch notwendig ist. Dies bedeutet alle für #htl3r.short[adds] notwendigen Ports und Protokolle, sowie Web-Access auf die Nozomi Guardian. \
+Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic in Richtung Jumpbox erlaubt.
 
 #htl3r.author("Julian Burger")
 == Übergangs-Firewall
