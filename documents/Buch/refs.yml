@@ -395,8 +395,66 @@ openplc-psm-guide:
 vps-vs-sps:
   type: article
   title: Unterschied VPS vs. SPS
-  autor: ElektrikerWissen.de
+  author: ElektrikerWissen.de
   url:
     value: https://www.elektrikerwissen.de/unterschied-vps-vs-sps/
     date: 2025-03-15
   date: 2024
+
+wannacry-image:
+  type: misc
+  title: Screenshot of Wana Decrypt0r 2.0
+  author: Kaspersky Global Research & Analysis Team
+  url:
+    value: https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2017/05/07175133/wannacry_05.png
+    date: 2025-03-16
+  date: 2017
+
+stuxnet-1:
+  type: article
+  title: Israel soll iranische Atomanlage nachgebaut haben
+  author: Holger Dambeck
+  url:
+    value: https://www.spiegel.de/netzwelt/netzpolitik/stuxnet-israel-soll-iranische-atomanlage-nachgebaut-haben-a-739764.html
+    date: 2025-03-16
+  date: 2011-01-16
+
+modbus-plus-extra:
+  type: article
+  title: Fundamentals of Modbus Plus
+  author: Eric J. Brown
+  url:
+    value: https://www.racoman.com/blog/industrial-protocols/fundamentals-of-modbus-plus?srsltid=AfmBOopS2aYlAoZmnejvMEAQH8aeXK0yu1zxsv_NX2dtap7GqbnPYCQc
+    date: 2025-03-16
+  date: 2024
+
+modbus-ietf:
+  type: misc
+  title: MODBUS Application Protocol
+  author:
+    - D. Dube
+    - J. Camerini
+  url:
+    value: https://datatracker.ietf.org/doc/html/draft-dube-modbus-applproto-00#page-2
+    date: 2025-03-16
+  date: 2002
+
+nis-2-massnahmen:
+  type: article
+  title: NIS-2-Richtlinie
+  author:
+    - Robert Lamprecht
+    - Karin Bruchbacher
+  url:
+    value: https://kpmg.com/at/de/home/insights/2022/11/nis-2-richtlinie.html#:~:text=Die%20NIS%2D2%2DRichtlinie%20soll,umgesetzten%20NIS%2DRichtlinie%20aus%202016.
+    date: 2025-03-16
+  date: 2022-11-29
+
+nis-2-wko:
+  type: misc
+  title: Cybersicherheits-Richtlinie NIS 2
+  author: Wirtschaftskammer Österreich
+  url:
+    value: https://www.wko.at/it-sicherheit/nis2-uebersicht
+    date: 2025-03-16
+  date: 2025-03-11

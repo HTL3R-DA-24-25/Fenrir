@@ -7,6 +7,22 @@ Der Aufbau einer realistischen Netzwerktopologie wie sie in einer echten Kläran
 
 In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuellen Geräten im Rahmen der Diplomarbeitstopologie genauer gezeigt und erklärt. Man bedenke, dass es nicht möglich ist die gesamte Topologie in einer einzigen Graphik im vollen Detail zu erfassen. Demnach wurd mit vereinzelten Abstraktionen gearbeitet.
 
+== Purdue-Modell <purdue>
+
+Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum OSI-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert.
+
+Level 0 bis 3 gehören zur #htl3r.short[ot], 4 bis 5 sind Teil der #htl3r.short[it].
+Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 3 und 4 wird diese als Ebene 3.5 gekennzeichnet.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/fenrir_purdue.svg", width: 95%),
+    caption: [Die Projekttopologie im Purdue-Modell]
+  )
+)
+
+Die Netzwerksegmentierung der in dieser Diplomarbeit aufgebauten Topologie wurde anhand des Purdue-Modells durchgeführt.
+
 == Logische Topologie <logische-topo>
 
 Durch die Limitationen an verfügbarer physischer Hardware ist die unten gezeigte logische Topologie physisch nicht direkt umsetzbar. Durch den Einsatz von Virtualisierung, welcher in @physische-topo genauer erklärt wird, lassen sich alle nötigen Geräte, für die sonst keine physische Hardware verfügbar wäre, trotzdem in das Netzwerk einbinden.
@@ -28,7 +44,7 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
 #htl3r.author("Julian Burger")
 == Physische Topologie <physische-topo>
 
-Logisch betrachtet scheint die Topologie zunächst recht simpel, jedoch kommen mehrere abstraktions Ebenen ins spiel, um die IT-Infrastruktur einer Kläranlage zu emulieren. So kommen zum Beispiel #htl3r.shortpl[vlan] zum Einsatz, um die einzelnen Netzwerke zu separieren.
+Logisch betrachtet scheint die Topologie zunächst recht simpel, jedoch kommen mehrere abstraktions Ebenen ins Spiel, um die IT-Infrastruktur einer Kläranlage zu emulieren. So kommen zum Beispiel #htl3r.shortpl[vlan] zum Einsatz, um die einzelnen Netzwerke zu separieren.
 
 Eigentlich physische Server- und Clientgeräte werden virtualisiert und mittels #htl3r.fullpl[dvs] mit #htl3r.short[vlan]-Tags versehen, um diese dann wiederrum zu einem physischen Switch zu trunked, welcher die #htl3r.shortpl[vlan] dann zu den physischen Firewalls nochmals weiter trunked. Dies geschieht für ein jedes Netzwerk in der Kläranlagen-Topologie. Besondere Netzwerke wie ein Management, Storage und Internet werden ähnlich, jedoch etwas abgewandelt realisiert, siehe @conf_vsphere.
 
@@ -69,17 +85,17 @@ Um einen groben Überblick über den physischen Aufbau des Netzwerks zu bekommen
       [Cluster Switch], [WS-C2960X-48TS-L], [cisco],
       [Uplink Firewall], [FortiGate 60E], [Fortinet],
       [Separation Firewall], [FortiGate 92D], [Fortinet],
-      [Rugged Firewall], [IDFK], [Fortinet],
-      [Zelle 1], [IDFK], [IDFK],
-      [Zelle 2], [IDFK], [IDFK],
-      [Zelle 3], [IDFK], [IDFK],
+      [Rugged Firewall], [FortiGateRugged 60F], [Fortinet],
+      [SPS Zelle Eins], [SIMATIC S7-1200], [Siemens],
+      [SPS Zelle Zwei], [Raspberry Pi 4 2GB], [IDFK],
+      [SPS Zelle Drei], [LOGO! 12/24V RCEo], [Siemens],
     ),
-    caption: [Verwendete Hardware],
+    caption: [Verwendete physische Hardware],
   )
 )
 
 #htl3r.author("Julian Burger")
-== Virtualisierungsplatform und Umgebung
+== Virtualisierungsplattform und Umgebung
 Innerhalb der Diplomarbeit werden alle IT-Geräte virtualisiert. Dies bringt meherere Vorteile mit sich, unter anderem schnelles und resourcensparendes Deployment, da #htl3r.shortpl[vm] mit exact den Ressourcen gestartet werden können, welche sie auch tatsächlich benötigen. Natürlich ist es ebenso von großer Wichtigkeit, dass die Virtualisierungsplatform gute Integrationen mit #htl3r.long[iac]-Tools bietet. Eine Platform, welche gute #htl3r.short[iac]-Tools integration und leichtes Management bietet, ist VMware-ESXi. VMware bietet ebenso einen Clusteringdienst an, namens vCenter. VMware-vCenter ermöglicht es mehrere ESXi-Instanzen in ein logisches Datacenter zusammenzufassen. Somit können die #htl3r.shortpl[vm] auf einem geteiltem Speichermedium abgespeichert werden und beliebig von den ESXi-Instanzen gestartet werden.
 
 #htl3r.fspace(
@@ -126,12 +142,12 @@ Innerhalb des vCenters wurde einige Dienste und Strukturen konfiguriert, um das 
 
 ==== Netzwerk konnektivität des Clusters <vmkernel_config>
 
-Damit sich dir Hosts innerhalb des vCenter-Clusters verbinden können braucht es dafür einen VMkernel Adapter, welcher diesen Managementzugriff ermöglicht und Teil von einer #htl3r.short[dpg] ist welche diesen - wie im Falle diese Diplomarbeit - mit einem #htl3r.short[vlan]-Tag verseht.
+Damit sich dir Hosts innerhalb des vCenter-Clusters verbinden können braucht es dafür einen VMkernel Adapter, welcher diesen Managementzugriff ermöglicht und Teil von einer #htl3r.short[dpg] ist welche diesen -- wie im Falle diese Diplomarbeit -- mit einem #htl3r.short[vlan]-Tag verseht.
 
 Es werden zwei VMkernel Adapter verwendet, welche über den selben physischen Adapter mit dem Netzwerk verbunden sind. Diese Verbindung wird über einen #htl3r.short[dvs] geschaffen, welcher drei #htl3r.shortpl[dpg] hat:
-- *ManagementPG*: Zuständig für die Web-Management Platformen der ESXi-Hosts, vCenter und vSphere. Tagged Frames mit #htl3r.short[vlan] nummer 120.
-- *StoragePG*: Zuständig um auf den geteilten Datastore zuzugreifen, siehe @nfs_datastore. Tagged Frames mit #htl3r.short[vlan] nummer 80.
-- *InternetPG*: Ermöglicht es #htl3r.shortpl[vm] mit dem Internet über ein abgekapseltes Netzwerk zu verbinden. Wird vorallem bei der Provisionierung der #htl3r.shortpl[vm] verwendet um Software herunterzuladen. Tagged Frames mit #htl3r.short[vlan] nummer 800. Hat keinen VMkernel Adapter mit sich assoziiert.
+- *ManagementPG*: Zuständig für die Web-Management Platformen der ESXi-Hosts, vCenter und vSphere. Tagged Frames mit #htl3r.short[vlan]-Nummer 120.
+- *StoragePG*: Zuständig um auf den geteilten Datastore zuzugreifen, siehe @nfs_datastore. Tagged Frames mit #htl3r.short[vlan]-Nummer 80.
+- *InternetPG*: Ermöglicht es #htl3r.shortpl[vm] mit dem Internet über ein abgekapseltes Netzwerk zu verbinden. Wird vorallem bei der Provisionierung der #htl3r.shortpl[vm] verwendet um Software herunterzuladen. Tagged Frames mit #htl3r.short[vlan]-Nummer 800. Hat keinen VMkernel Adapter mit sich assoziiert.
 
 Die angesprochenen VMkernel Adapter existieren in identer Form auf allen ESXi-Hosts. VMkernel Adapter können verschiedene Dienste aktiviert haben, mit welchen es beeinflussen lässt wie diese Dienste über das Netzwerk kommunizieren. Die VMkernel Adapter sind wiefolgt belegt:
 - *vmk0*: Ist mit der _ManagementPG_ verbunden und hat den _Management_-Dienst aktiviert. Dies teilt vCenter/vSphere mit, dass sämtlicher Management-Traffic über diesen Adapter und somit über die _ManagementPG_ geschickt werden soll.
@@ -149,9 +165,9 @@ Auch wenn vMotion nicht zwingend gebraucht wird, existiert der VMkernel Adapter 
 
 ==== Konfiguration des NFS-Datastores <nfs_datastore>
 
-Damit es allen ESXi-Hosts möglich ist auf die gleichen Dateien, wie zum Beispiel #htl3r.shortpl[vm], #htl3r.short[vm]-Templates und ISOs, zuzugreifen ist ein geteilter Datastore von nöten, welcher über das Netzwerk erreichbar ist. Die einfachste Lösung währe ein vSAN, welche mehrere physische Festppllatten über das Netzwerk zu einem Datastore zusammenfassen kann. Dies ist jedoch nur unter gewissen Hardwarekonfigurationen möglich und die Anforderungen sind zu hoch für den Rahmen der Diplomarbeit. Somit wurde sich für einen #htl3r.short[nfs]-Share entschieden, welcher von allen ESXi-Hosts über ein Storage-Netzwerk erreichbar ist. Dieses Storage-Netzwerk ist mittels #htl3r.short[vlan] realisiert und hat den #htl3r.short[vlan]-Tag 80. Damit alle ESXi-Hosts innerhalb des vCenters über dieses Netzwerk zugreifen, gibt es einen dedizierten VMkernel Adapter, siehe @vmkernel_config.
+Damit es allen ESXi-Hosts möglich ist auf die gleichen Dateien, wie zum Beispiel #htl3r.shortpl[vm], #htl3r.short[vm]-Templates und ISOs, zuzugreifen ist ein geteilter Datastore benötigt, welcher über das Netzwerk erreichbar ist. Die einfachste Lösung währe ein vSAN (Virtual Storage Area Network), welche mehrere physische Festplatten über das Netzwerk zu einem Datastore zusammenfassen kann. Dies ist jedoch nur unter gewissen Hardwarekonfigurationen möglich und die Anforderungen sind zu hoch für den Rahmen der Diplomarbeit. Somit wurde sich für einen #htl3r.short[nfs]-Share entschieden, welcher von allen ESXi-Hosts über ein Storage-Netzwerk erreichbar ist. Dieses Storage-Netzwerk ist mittels #htl3r.short[vlan] realisiert und hat den #htl3r.short[vlan]-Tag 80. Damit alle ESXi-Hosts innerhalb des vCenters über dieses Netzwerk zugreifen, gibt es einen dedizierten VMkernel Adapter, siehe @vmkernel_config.
 
-Der NFS-Datastore hat insgesammt fünf physische Verbindungen mit dem Cluster-Switch. Eine für das Management-#htl3r.short[vlan] 120 und vier weitere, welche mittels LACP aggregiert sind und mit dem Storage-#htl3r.short[vlan] 80 verbunden sind. Es wurde ebenfalls die #htl3r.short[mtu]-Größe auf 9000 gestellt um maximalen Durchsatz zu erzielen. Diese #htl3r.short[mtu]-Größe wurde ebenfalls auf dem VMkernel Adapter und dem #htl3r.short[dvs] konfiguriert.
+Der NFS-Datastore hat insgesammt fünf physische Verbindungen mit dem Cluster-Switch. Eine für das Management-#htl3r.short[vlan] 120 und vier weitere, welche mittels #htl3r.short[lacp] aggregiert sind und mit dem Storage-#htl3r.short[vlan] 80 verbunden sind. Es wurde ebenfalls die #htl3r.short[mtu]-Größe auf 9000 gestellt um maximalen Durchsatz zu erzielen. Diese #htl3r.short[mtu]-Größe wurde ebenfalls auf dem VMkernel Adapter und dem #htl3r.short[dvs] konfiguriert.
 So wird garantieren, dass alle ESXi-Hosts die volle Bandbreite ihrer Links, von einem Gigabit pro Sekunde, nutzen können.
 
 #htl3r.fspace(
@@ -211,7 +227,7 @@ Unter #htl3r.breadcrumbs(("Monitor", "vSphere DRS", "Recommendations")) ist es n
 
 ==== Content Library und Ordnerstruktur von VMs und DVS
 
-Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von Golden Image Pipelline verwendet, diese ist obwohl nicht optimal, allerdings passend für den Anwendungszweck innerhalb des Projektes.
+Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein Vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von #htl3r.full[gip] verwendet, diese ist obwohl nicht optimal, allerdings passend für den Anwendungszweck innerhalb des Projektes.
 
 Content Libraries unterscheiden zwischen zwei Arten von #htl3r.short[vm]-Templates. Zunächst sind da _OVF/OVA Templates_, welche einfach nur Dateien auf einem Datastore sind und Metadaten und Disks beinhalten. Diese stehen in kontrast zu normalen #htl3r.short[vm]-Templates, welche ebenso im vSphere-Inventar registriert sein müssen. Normale #htl3r.short[vm]-Templates sind OVF/OVA-Templates zu bevorzugen, da der Erstellungsprozess wesentlich kürzer ist und Linked-Clones möglich sind.
 
@@ -238,62 +254,44 @@ Ein ähnliches Konzept existiert auch bei den vSwitches. Hier liegt der "Managem
 #htl3r.author("David Koch")
 == OT-Bereich
 
-Der OT-Bereich besteht aus einem von uns selbst gebauten Modell einer Kläranlage. Diese setzt sich aus einer archimedischen Schraube, einem Rechen, Wassertanks, Filtern, einem Staudamm und Pumpen zusammen. Diese Gegenstände sind mit verbauter Aktorik und/oder Sensorik ausgestattet und dienen als Ansteuerungsziele mehrerer #htl3r.short[sps]. Diese werden nach Aufbau auch als Angriffsziele verwendet, wobei ein Angreifer beispielsweise die Pumpen komplett lahmlegen oder durch deren Manipulation einen Wasserschaden verursachen könnte.
-
-* BILD topo *
-
-* BILD Kläranlage *
+Der OT-Bereich besteht aus einem von uns selbst gebauten Modell einer Kläranlage. Diese setzt sich aus einer archimedischen Schraube, einem Rechen, Wassertanks, Filtern, Sensoren, einem Staudamm und Pumpen zusammen. Diese Gegenstände sind mit verbauter Aktorik und/oder Sensorik ausgestattet und dienen als Ansteuerungsziele mehrerer #htl3r.short[sps]. Diese werden nach Aufbau auch als Angriffsziele verwendet, wobei ein Angreifer beispielsweise die Pumpen komplett lahmlegen oder durch deren Manipulation einen Wasserschaden verursachen könnte.
 
 Die Details bezüglich des Aufbaus der Modell-Kläranlage und der dazugehörigen #htl3r.short[ot]-Gerätschaft siehe @aufbau-klaeranlage.
 
-#htl3r.author("David Koch")
-== Purdue-Modell <purdue>
-
-Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum OSI-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert.
-
-Level 0 bis 3 gehören zur #htl3r.short[ot], 4 bis 5 sind Teil der #htl3r.short[it].
-Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 3 und 4 wird diese als Ebene 3.5 gekennzeichnet.
-
-#htl3r.fspace(
-  figure(
-    image("../assets/fenrir_purdue.svg", width: 95%),
-    caption: [Die Projekttopologie im Purdue-Modell]
-  )
-)
-
 #pagebreak(weak: true)
 == Verknüpfung der physischen & virtuellen Netzwerke
-#htl3r.info[Hier MUSS text stehen]
+
+Um die physisch vorhandenen und virtualisierten Bestandteile der gesamten Topologie miteinander zu verknüpfen, braucht es gleich mehrere zusammenarbeitende Konzepte.
 
 === Modbus TCP als Kommunikationsprotokoll
 
 Neben Profinet, EtherCat und co. hat sich dieses Protokoll für die industrielle Kommunikation über Ethernet-Leitungen etabliert. @ethernet-bus-protocols-comp[comp]
 
+Modbus #htl3r.short[tcp] wird innerhalb dieser Diplomarbeit als Ethernet-fähiges Bus-Protokoll genutzt, um die #htl3r.shortpl[sps] der Modell-Kläranlage mit dem virtualisierten #htl3r.short[it]-Netzwerk über herkömmliche Ethernet-Leitungen zu verknüpfen.
+
 Die Einführung dieses offenen Protokolls bedeutete auch gleichzeitig den Einzug der auf Ethernet gestützten Kommunikation in der Automationstechnik, da hierdurch zahlreiche Vorteile für die Entwickler und Anwender erschlossen wurden. So wird durch den Zusammenschluss von Ethernet mit dem allgegenwärtigen Netzwerkstandard von Modbus #htl3r.short[tcp] und einer auf Modbus basierenden Datendarstellung ein offenes System geschaffen, das dies Dank der Möglichkeit des Austausches von Prozessdaten auch wirklich frei zugänglich macht. Zudem wird die Vormachtstellung dieses Protokolls auch durch die Möglichkeit gefördert, dass sich Geräte, die fähig sind den #htl3r.short[tcp]/IP-Standard zu unterstützen, implementieren lassen. Modbus #htl3r.short[tcp] definiert die am weitesten entwickelte Ausführung des offenen, herstellerneutralen Protokolls und sorgt somit für eine schnelle und effektive Kommunikation innerhalb der Teilnehmer einer Netzwerktopologie, die flexibel ablaufen kann. Zudem ist dieses Protokoll auch das einzige der industriellen Kommunikation, welches einen "Well known port", den Port 502, nützt und somit auch im Internet routingfähig ist. Somit können die Geräte eines Systems auch über das Internet per Fernzugriff gesteuert werden, was aber gleichzeitig viele Gefahren mit sich bringt. @modbustcp_intro[comp]
 // obiger absatz pure kopiererei von svon und somit aus undokumentierten quellen und so grrrr
 
-Schneider Automation hat der Internetstandardisierungs-Organisation #htl3r.short[ietf] darum gebeten, Modbus auf einem #htl3r.short[tcp]/#htl3r.short[ip]-Übertragungsmedium zu übertragen. Dabei wurde das Modbus-Modell und der #htl3r.short[tcp]/#htl3r.short[ip]-Stack nicht verändert, da nur eine Enkapsulierung von Modbus in #htl3r.short[tcp]-Packets stattfindet. Seit diesem Zeitpunkt wurde Modbus zu einem Überbegriff und besteht aus:
+Schneider Automation hat der Internetstandardisierungs-Organisation #htl3r.short[ietf] darum gebeten, Modbus auf einem #htl3r.short[tcp]/#htl3r.short[ip]-Übertragungsmedium zu übertragen @modbus-ietf[comp]. Dabei wurde das Modbus-Modell und der #htl3r.short[tcp]/#htl3r.short[ip]-Stack nicht verändert, da nur eine Enkapsulierung von Modbus in #htl3r.short[tcp]-Packets stattfindet @modbus-ietf[comp]. Seit diesem Zeitpunkt wurde Modbus zu einem Überbegriff und besteht nun aus:
 
 #[
 #set par(hanging-indent: 12pt)
-- *Modbus-#htl3r.short[rtu]:* Asynchrone Master/Slave-Kommunikation über RS-485, RS-422 oder RS-232 Serial-Leitungen
-- *Modbus-#htl3r.short[tcp]:* Ethernet bzw. #htl3r.short[tcp]/#htl3r.short[ip] basierte Client-Server Kommunikation
-- *Modbus-Plus:* Ist für AAAAAAAAAAAA Es ist hauptsächlich für Token-Passing Netzwerke gedacht.
+- *Modbus-#htl3r.short[rtu]:* Asynchrone Master/Slave-Kommunikation über RS-485, RS-422 oder RS-232 Serial-Leitungen @modbus-comp[comp].
+- *Modbus-#htl3r.short[tcp]:* Ethernet bzw. #htl3r.short[tcp]/#htl3r.short[ip] basierte Client-Server Kommunikation @modbus-comp[comp].
+- *Modbus-Plus:* Bietet eine Peer-to-Peer-Kommunikation über Serial-Leitungen. Ist hauptsächlich für stark vernetzte "Token-Passing" Netzwerke gedacht @modbus-plus-extra[comp].
 ]
-@modbus-comp[comp]
 
-Als Unterschied zwischen Modbus-#htl3r.short[rtu] und Modbus-#htl3r.short[tcp] zeigt sich am Meisten die Redundanz bzw. Fehlerüberprüfung der Datenübertragung und die Adressierung der Slaves.
+Als Unterschied zwischen Modbus-#htl3r.short[rtu] und Modbus-#htl3r.short[tcp] zeigt sich am Meisten die Redundanz bzw. Fehlerüberprüfung der Datenübertragung und die Adressierung der Slaves @modbus-ietf[comp].
 
 Modbus-#htl3r.short[rtu] sendet zusätzlich zu Daten und Befehlscode eine #htl3r.short[crc]-Prüfsumme und die Slave-Adresse. Bei Modbus-#htl3r.short[tcp] werden diese innerhalb des Payloads nicht mitgeschickt, da bei #htl3r.short[tcp] die Adressierung bereits im #htl3r.short[tcp]/#htl3r.short[ip]-Wrapping vorhanden ist (Destination Address) und die Redundanzfunktionen durch die #htl3r.short[tcp]/#htl3r.short[ip]-Konzepte wie eigenen Prüfsummen, Acknowledgements und Retransmissions. @tcpip-fortinet-doc[comp]
 
-Bei der Enkapsulierung von Modbus in #htl3r.short[tcp] werden nicht nur der Befehlscode und die zugehörigen Daten einfach als Payload verschickt, sondern auch ein MBAP (Modbus Application Header), welcher dem Server Möglichkeiten wie die eindeutige Interpretation der empfangenen Modbus-Parameter sowie Befehle bietet.
+Bei der Enkapsulierung von Modbus in #htl3r.short[tcp] werden nicht nur der Befehlscode und die zugehörigen Daten einfach als Payload verschickt, sondern auch ein MBAP (Modbus Application Header), welcher dem Server Möglichkeiten wie die eindeutige Interpretation der empfangenen Modbus-Parameter sowie Befehle bietet @modbus-ietf[comp].
 #htl3r.fspace(
   figure(
     image("../assets/modbus_encap_copy.svg"),
-    caption: [Visualisierung des Modbus TCP Headers]
+    caption: [Visualisierung des Modbus TCP Headers @modbus-tcp-encap]
   )
 )
-@modbus-tcp-encap
 
 #htl3r.todo("Anhand eines Beipsiels den Unterschied mit/ohne MBAP erklären")
 
@@ -303,5 +301,5 @@ Durch die Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Seriell
 === Cluster Switch Konfiguration
 #htl3r.todo[Darüber schreiben wie der Cluster Switch konfiguriert ist.]
 
-=== VLAN zuweisungen
+=== VLAN Zuweisungen
 #htl3r.todo[Bitte drüber schreiben wie die VMs in vSphere über den Switch per VLANs und so mit der echten Welt kommunizieren]

@@ -89,7 +89,7 @@ foreach ($ou in $ous) {
   )
 )
 
-=== Benutzergruppen
+=== Benutzergruppen <agdlp>
 #show table.cell.where(y: 0): set text(size: 8pt)
 #show table.cell.where(x: 0): set text(size: 8pt)
 #let J = table.cell(

@@ -39,7 +39,7 @@ Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei d
     [
       #figure(
         image("../assets/internet_access_vdom_official.png"),
-        caption: [Eine Beispieltopologie für die "Internet access VDOM"]
+        caption: [Eine Beispieltopologie für die "Internet access VDOM" @vdom-overview]
       )
       <internet-access-vdom>
     ]
@@ -63,7 +63,7 @@ Die Aspekte der "Internet access #htl3r.short[vdom]" finden sich in der Segmenti
 
 Die "Administrative #htl3r.short[vdom]" ist implementiert worden, um eine vom restlichen Netzwerk möglichst abgetrennte Verbindung zur Firewall bereitzustellen, über welche der Konfigurationszugriff gestattet ist.
 
-Zur Konfiguration dieser VDOMs ... TODO
+Zur Konfiguration dieser VDOMs muss zuerst mittels `config vdom` in den VDOM-Konfigurationsmodus gewechselt werden. Anschließend kann mit `edit <NAME>` eine neue VDOM erstellt werden bzw. eine bestehende bearbeitet werden.
 
 #htl3r.code-file(
   caption: "Die Grundkonfiguration der VDOM von Zelle Eins",
@@ -73,6 +73,8 @@ Zur Konfiguration dieser VDOMs ... TODO
   skips: ((77, 0), (104, 0),),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
+
+Wie in Quellcode 10.2 zu sehen ist müssen jegliche Konfigurationsschritte (z.B. die Erstellung von Adressobjekten), die normalerweise systemweit durchgeführt werden, pro VDOM einzeln durchgeführt werden. Dies ist zwar zuerst lästig, bei einer fertigen Konfiguration dient dies jedoch zur Vorbeugung von Flüchtigkeitsfehlern beim zukünftigen Umkonfigurieren.
 
 Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung von den Betriebszellen wäre die Verwendung von #htl3r.shortpl[vlan] mit folgendem Aufbau:
 

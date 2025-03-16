@@ -512,7 +512,7 @@ mtu:
     singular: MTU
   long:
     singular: Maximum transmission unit
-  description: Die maximale größe einer PDU einer OSI-Layer 3 übetragung, gleicht nicht der Größe eines Ethernet-Frames.
+  description: Die maximale Größe einer PDU einer OSI-Layer 3 Übetragung, gleicht nicht der Größe eines Ethernet-Frames.
 
 lvm:
   short:
@@ -525,9 +525,11 @@ raid:
   short:
     singular: RAID
   long:
-    singular: redundant array of independent disks
+    singular: Redundant Array of Independent Disks
 
 gip:
+  short:
+    singular: GIP 
   long:
     singular: Golden Image Pipeline
   description: Eine Golden Image Pipeline stellt VM-Templates zur verfügung, von welcher Virtuelle Maschinen erstellt werden.

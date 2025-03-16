@@ -17,7 +17,7 @@ Dass die Admin-Passwörter beim Provisionierungsvorgang auf allen Geräten gleic
 TODO
 
 #htl3r.author("David Koch")
-== Patch-Management
+== Patch-Management <patch>
 
 Eine der wichtigsten Methoden zur Absicherung einzelner Geräte ist das Patch-Management. Die Einspielung neuer Updates bzw. Firmware die vom Hersteller dazu konzipiert worden sind, um die Sicherheit des Gerätes gezielt zu erhöhen, ist von großer Wichtigkeit.
 
@@ -72,9 +72,34 @@ end
 
 Beim Betreiben von Industriebetrieben oder kritischer Infrastruktur ist es wichtig, die gesetzlich vorgelegten Spezifikationen einzuhalten. Diese gibt es auch für den digitalen Bereich, wobei die bekannteste und derzeit relevanteste Spezifikation bzw. Richtlinie die #htl3r.short[nis]-2 wäre.
 
-"Die #htl3r.short[nis]-2-Richtlinie soll die Resilienz und die Reaktion auf Sicherheitsvorfälle des öffentlichen und des privaten Sektors in der EU verbessern. Der bisherige Anwendungsbereich der #htl3r.short[nis]-Richtlinie nach Sektoren wird mit #htl3r.short[nis]-2 auf einen größeren Teil der Wirtschaft und des öffentlichen Sektors ausgeweitet, um eine umfassende Abdeckung jener Sektoren und Dienste zu gewährleisten, die im Binnenmarkt für grundlegende gesellschaftliche und wirtschaftliche Tätigkeiten von entscheidender Bedeutung sind. Betroffene Einrichtungen müssen daher geeignete Risikomanagementmaßnahmen für dise Sicherheit ihrer Netz- und Informationssysteme treffen und unterliegen Meldepflichten."
+"Die #htl3r.short[nis]-2-Richtlinie soll die Resilienz und die Reaktion auf Sicherheitsvorfälle des öffentlichen und des privaten Sektors in der EU verbessern. Der bisherige Anwendungsbereich der #htl3r.short[nis]-Richtlinie nach Sektoren wird mit #htl3r.short[nis]-2 auf einen größeren Teil der Wirtschaft und des öffentlichen Sektors ausgeweitet, um eine umfassende Abdeckung jener Sektoren und Dienste zu gewährleisten, die im Binnenmarkt für grundlegende gesellschaftliche und wirtschaftliche Tätigkeiten von entscheidender Bedeutung sind. Betroffene Einrichtungen müssen daher geeignete Risikomanagementmaßnahmen für dise Sicherheit ihrer Netz- und Informationssysteme treffen und unterliegen Meldepflichten." @nis-2-wko
 
-Für später:
-@nis2-richtlinie
+Die #htl3r.short[nis]-2-Richtlinie unterscheidet zwischen wesentlichen und wichtigen Einreichtungen, für die teilweise unterschiedliche Vorschriften gelten @nis-2-massnahmen. Eine Kläranlage fällt laut Anhang I der Richtlinie in den siebten Sektor "Abwasser": "Unternehmen, die kommunales Abwasser, häusliches Abwasser oder industrielles Abwasser im Sinne des Artikels 2 Nummern 1, 2 und 3 der Richtlinie 91/271/EWG des Rates (23) sammeln, entsorgen oder behandeln, jedoch unter Ausschluss der Unternehmen, für die das Sammeln, die Entsorgung oder die Behandlung solchen Abwassers ein nicht wesentlicher Teil ihrer allgemeinen Tätigkeit ist" @nis2-richtlinie
 
-TODO: NIS-2 Bußgelder wegen kritischer Infrastruktur auf staatlicher Ebene effektiv Ja/Nein
+#pagebreak(weak: true)
+Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgesehen:
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (2fr, 3fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + left),
+      table.header(
+        [*Maßnahme*], [*Im Rahmen der Diplomarbeit umgesetzt*],
+      ),
+      [Erstellung einer Risikoanalyse- \ und Informationssicherheitskonzepten], [Durch die Umsetzung eigener Angriffe ist eine partielle Risikoanalyse erstellt worden (siehe @angriffe-netzwerk).],
+      [Maßnahmen zur Bewältigung \ von Sicherheitsvorfällen], [???],
+      [Backup-Management und Wiederherstellung], [Es wurde kein Backup-Management umgesetzt. Es kann jedoch eine schnelle Wiederherstellung des virtualisierten Netzwerks mittels Provisionierung durchgeführt werden (siehe @provisionierung).],
+      [Konzepte für Zugriffskontrollen], [Wurde durch den Einsatz des AGDLP-Prinzips in der AD-Umgebung umgesetzt (siehe @agdlp).],
+      [Software-Updates], [Es wurde manuelles Patch-Management durchgeführt (siehe @patch).],
+      [Gerätekonfiguration], [AD-Geräte, Netzwerkgeräte sowie die SPSen wurden gehärtet.],
+      [Netzwerksegmentierung], [Durch den Einsatz von FortiGate-Firewalls umgesetzt (siehe @firewall-config).],
+      [Schulungen für Mitarbeiter/innen], [Da keine echten Mitarbeiter/innen vorhanden sind, wurden keine Schulungen organisiert.],
+      [Zero-Trust-Prinzip], [Wurde nicht umgesetzt.]
+    ),
+    caption: [NIS-2-Maßnahmen für wesentliche Einrichtungen und deren Umsetzungsgrad in der Diplomarbeitstopologie],
+  )
+)
+
