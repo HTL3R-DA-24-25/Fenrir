@@ -1,0 +1,25 @@
+- name: setup exchange
+  hosts: exchange
+  vars:
+    ansible_ssh_password: "{{ bastion_password }}"
+    ansible_ssh_common_args: >-
+      -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+      -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ForwardAgent=yes
+      {{ bastion_username }}@{{ bastion_host }} 'ssh-add && nc %h %p'"
+  vars_files:
+    - ../../../variables.yml
+  tasks:
+    - name: Run Exchange setup p1 script
+      script: ./extra/Exchange_part_1.ps1
+    - name: Reboot to apply hostname changes
+      reboot:
+    - name: Run Exchange setup p2 script
+      script: ./extra/Exchange_part_2.ps1
+    - name: Reboot to apply AD changes
+      reboot:
+    - name: Run Exchange setup p3 script
+      script: ./extra/Exchange_part_3.ps1
+    - name: Reboot to finish Exchange install
+      reboot:
+    - name: Run Exchange setup p4 script
+      script: ./extra/Exchange_part_4.ps1

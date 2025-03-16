@@ -65,7 +65,7 @@ foreach ($ou in $ous) {
 ```
 ]
 
-=== Benutzerkonten
+=== Benutzerkonten <benutzerkonten>
 #show table.cell.where(y: 0): set text(size: 8pt)
 #htl3r.fspace(
   total-width: 100%,
@@ -89,7 +89,32 @@ foreach ($ou in $ous) {
   )
 )
 
-=== Benutzergruppen
+Um die Benutzerkonten zu erstellen, gibt es eine CSV-Datei mit den Benutzerdaten, die von einem PowerShell-Skript verarbeitet wird. Die Tabelle oben, zeigt wie die CSV Datei aussieht. Statt den Überschriften oben wird in der CSV Datei SamAccountName, GivenName, Surname und Department verwendet. Die Benutzerkonten werden mit folgendem PowerShell-Skript erstellt:
+```powershell
+$users = Import-CSV -Path "D:\users.csv" -Delimiter ";"
+$Password = ConvertTo-SecureString "ganzgeheim123!" -AsPlainText -Force
+
+foreach ($user in $users) {
+    New-ADUser `
+        -Name "$($user.GivenName) $($user.Surname)" `
+        -GivenName $user.GivenName `
+        -Surname $user.Surname `
+        -SamAccountName $user.SamAccountName `
+        -UserPrincipalName "$($user.SamAccountName)@corp.fenrir-ot.at" `
+        -AccountPassword $Password `
+        -Enabled $true `
+        -ChangePasswordAtLogon $true `
+        -PasswordNeverExpires $true `
+        -Department $user.Department
+    $groupName = "G_" + $user.Department
+    Add-ADGroupMember -Identity $groupName -Members $user.SamAccountName
+}
+```
+
+Damit die Benutzer auch in die richtige Gruppe eingefügt werden, wird in der letzten Zeile des Skripts der Benutzer in die Global-Group eingefügt, die der Abteilung entspricht. Im Skript wurde ein Standardpasswort für alle Benutzer verwendet, welches beim ersten Anmelden geändert werden muss.
+
+
+=== Benutzergruppen <benutzergruppen>
 #show table.cell.where(y: 0): set text(size: 8pt)
 #show table.cell.where(x: 0): set text(size: 8pt)
 #let J = table.cell(
@@ -119,6 +144,28 @@ foreach ($ou in $ous) {
     caption: [Visualisierung der Mitgliedschaft von Global Groups in Domain Local Groups],
   )
 )
+
+Die Benutzergruppen werden in der AD-Umgebung der Firma "Fenrir" in Domain Local Groups und Global Groups unterteilt. Die Global Groups entsprechen den Abteilungen der Firma und die Domain Local Groups den Rollen, die die Benutzer auf den Network Shares auf dem Fileserver haben.
+
+Die Benutzergruppen sind einer CSV Datei erstellt, die folgendes Format hat:
+#htl3r.code-file(
+  caption: "CSV für die Gruppenerstellung",
+  filename: [ansible/playbooks/stages/stage_03/extra/groups_fenrir_ad.csv],
+  skips: ((4, 0),(9, 0)),
+  ranges: ((0, 3), (7, 8)),
+  lang: "csv",
+  text: read("../assets/scripts/groups_fenrir_ad.csv")
+)
+
+Es werden die Gruppenname, der Pfad, der Scope, die Kategorie und die Domain Local Groups, in die die Global Groups eingefügt werden, angegeben. Anhand der CSV Datei können die Gruppen mit folgendem PowerShell-Skript erstellt werden:
+#htl3r.code-file(
+  caption: "Powershell-Skript für die Gruppenerstellung",
+  filename: [ansible/playbooks/stages/stage_03/extra/DC1_part_3.ps1],
+  skips: ((1, 0), (56, 0)),
+  lang: "powershell",
+  text: read("../assets/scripts/Gruppen_erstellen.ps1")
+)
+Es werden zuerst die Domain Local Groups und dann die Global Groups erstellt. Anschließend werden die Global Groups in die Domain Local Groups eingefügt, die in der CSV Datei angegeben sind.
 
 #htl3r.author("Bastian Uhlig")
 == GPOs
@@ -184,7 +231,7 @@ Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten 
 
 #htl3r.author("Gabriel Vogler")
 == Exchange Server
-Der Exchange Server ist ein E-Mail Server der Firma Micosoft.
+Der Exchange Server ist ein E-Mail Server der Firma Microsoft.
 Dieser Server wird weltweit in einigen Firmen eingesetzt und bietet die Grundlage für jegliche Inter- und Intraunternehmenskommunikation.
 
 Damit der Exchange Server funktioniert, wird eine bestehenende #htl3r.short[ad] Struktur benötigt.
@@ -192,7 +239,125 @@ Damit der Exchange Server funktioniert, wird eine bestehenende #htl3r.short[ad] 
 
 
 === Aufsetzung des Exchange Servers
+Wie auch schon bei den Domain Controllern, wird der Exchange Server durch ein Ansible-Playbook aufgesetzt. Dieses Playbook besteht aus mehreren Parts, die jeweils für eine spezifische Aufgabe zuständig sind. Die Aufteilung ist notwendig, da der Exchange Server während der Installation mehrmals neu gestartet werden muss. Außerdem wird eine Exchange-Server ISO benötigt, die später verwendet wird un den Exchange Server zu installieren. Diese ist unter folgendem Link zu finden: \
+#link("https://www.microsoft.com/en-us/download/details.aspx?id=104131").
+#htl3r.code-file(
+  caption: "Ansible-Playbook für die Aufsetzung von Exchange",
+  filename: [ansible/playbooks/stages/stage_04/setup_exchange.yml],
+  lang: "yml",
+  text: read("../assets/scripts/setup_exchange.yml")
+)
 
-== File Server
+Im ersten Part des Playbooks wird das PowerShell-Skript `Exchange_part_1.ps1` ausgeführt. Dieses Skript ist für die Grundkonfiguration des Exchange Servers zuständig. Hierbei wird der Hostname, das Admin-Passwort und der Netzwerkadapter konfiguriert und es werden zahlreiche Windows Features installiert, die für den Exchange Server notwendig sind.
+
+#htl3r.code-file(
+  caption: "Part-1-Skript für die Aufsetzung von Exchange",
+  filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_1.ps1],
+  skips: ((26, 0),),
+  ranges: ((0, 25), (63, 63)),
+  lang: "powershell",
+  text: read("../assets/scripts/Exchange_part_1.ps1")
+)
+
+Im zweiten Part des Playbooks wird das PowerShell-Skript `Exchange_part_2.ps1` ausgeführt. Dieses Skript ist für den Beitritt des Exchange Servers in die #htl3r.short[ad] Domain zuständig.
+#htl3r.code-file(
+  caption: "Part-2-Skript für die Aufsetzung von Exchange",
+  filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_2.ps1],
+  lang: "powershell",
+  text: read("../assets/scripts/Exchange_part_2.ps1")
+)
+
+Im dritten Part des Playbooks wird das PowerShell-Skript `Exchange_part_3.ps1` ausgeführt. Es wird damit begonnen, ein Verzeichnis zu erstellen, in dem die Installationsdateien für den Exchange Server benötigte Software abgelegt werden. Im Anschluss wird die `vcredist_x64.exe` heruntergeladen und installiert. Diese enthält die Visual C++ Redistributable Packages, die für den Exchange Server benötigt werden. Danach wird das mit der ISO-Datei mitgelieferte UCMARedist (Unified Communications Managed API) installiert. Dieses ist in diesem Fall nicht unbedingt notwendig, da es dabei um die Einbindung von Skype for Business und anderen Voricemaildiensten geht, jedoch kann es nicht schaden es zu installieren, falls es in der Zukunft benötigt wird. Als letzes Paket wird das "IIS URL rewrite Module" heruntergeladen und im Anschluss installiert. IIS ist der Webserver von Microsoft und wird für den Exchange Server benötigt und das URL rewrite Module ist ein Modul, das die URL-Umschreibung für den IIS-Webserver ermöglicht, um die Webzugriffe auf den Exchange Server zu steuern.
+
+Da alle notwendigen Pakete installiert sind, wird von der ISO-Datei die Datei `Setup.exe` ausgeführt, um den Exchange Server zu installieren.
+
+#htl3r.code-file(
+  caption: "Part-3-Skript für die Aufsetzung von Exchange",
+  filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_3.ps1],
+  lang: "powershell",
+  text: read("../assets/scripts/Exchange_part_3.ps1")
+)
+
+Im vierten Part des Playbooks wird das PowerShell-Skript `Exchange_part_4.ps1` ausgeführt. In diesem Skript werden die Postfächer für alle Benutzer erstellt. Dafür wird eine CSV-Datei benötigt, die die Benutzerdaten enthält. Die CSV-Datei ist die gleiche, die auch für die Benutzererstellung in @benutzerkonten benutzt wurde..
+
+#htl3r.code-file(
+  caption: "Part-4-Skript für die Aufsetzung von Exchange",
+  filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_4.ps1],
+  lang: "powershell",
+  text: read("../assets/scripts/Exchange_part_4.ps1")
+)
+
+=== Test des Exchange Servers
+Nach der Installation kann der Exchange Server getestet werden. Dafür wird eine E-Mail vom Benuter gvogler an Benutzer dkoch gesendet. Um auf den Exchange Server zuzugreifen, wird in einem Webbrowser die URL `https://exchange.corp.fenrir-ot.at/owa` eingegeben. Dort wird sich mit dem Benutzernamen und dem Passwort angemeldet. Nach der Anmeldung kann eine E-Mail an den Benutzer dkoch gesendet werden:
+#htl3r.fspace(
+  figure(
+    image("../assets/Test-Email_senden.png"),
+    caption: [E-Mail senden auf dem Exchange Server]
+  )
+)
+Nach dem Senden der E-Mail wird der Empfang der E-Mail überprüft. Dafür wird sich mit dem Benutzer dkoch auf dem Webinterface des Exchange Servers angemeldet und die E-Mail überprüft:
+#htl3r.fspace(
+  figure(
+    image("../assets/Test-Email_empfangen.png"),
+    caption: [E-Mail empfangen]
+  )
+)
+Die E-Mail wurde erfolgreich empfangen und der Exchange Server funktioniert einwandfrei.
+
+== Fileserver
+Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der IT-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der IT-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domäne integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
 
 === Aufsetzung des File Servers
+Mithilfe eines Ansible-Playbooks wird der Fileserver aufgesetzt. Dabei wird das Playbook in mehreren Parts aufgeteilt, da der Fileserver während der Installation mehrmals neu gestartet werden muss.
+
+#htl3r.code-file(
+  caption: "Ansible-Playbook für die Aufsetzung von Fileserver",
+  filename: [ansible/playbooks/stages/stage_04/setup_fileserver.yml],
+  lang: "yml",
+  text: read("../assets/scripts/setup_fileserver.yml")
+)
+
+Im ersten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_1.ps1` ausgeführt. Hier wird die Grundkonfiguration des Fileservers durchgeführt. Es wird der Hostname, das Admin-Passwort und der Netzwerkadapter konfiguriert und es wird das für den Fileserver notwendige Feature `FS-FileServer` installiert.
+#htl3r.code-file(
+  caption: "Part-1-Skript für die Aufsetzung von Fileserver",
+  filename: [ansible/playbooks/stages/stage_04/extra/Fileserver_part_1.ps1],
+  skips: ((26, 0),),
+  ranges: ((0, 25), (63, 63)),
+  lang: "powershell",
+  text: read("../assets/scripts/Fileserver_part_1.ps1")
+)
+
+Im zweiten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_2.ps1` ausgeführt. Hier wird der Fileserver in die Active Directory-Domäne integriert.
+#htl3r.code-file(
+  caption: "Part-2-Skript für die Aufsetzung von Fileserver",
+  filename: [ansible/playbooks/stages/stage_04/extra/Fileserver_part_2.ps1],
+  lang: "powershell",
+  text: read("../assets/scripts/Fileserver_part_2.ps1")
+)
+
+Im dritten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_3.ps1` ausgeführt. Notwendig für dieses Skript ist die CSV Datei mit den Benutzern des #htl3r.short[ad] aus @benutzerkonten. Im Skript wird zunächst das Verzeichnis  `C:\Fenrir-Share` erstellt, in dem die Freigaben für die Benutzer und Abteilungen angelegt werden. Im nächsten Schritt, werden die Verzeichnisse für die Abteilungen erstellt und im Anschluss die Berechtigungen für die Domain Local Groups gesetzt. Danach werden die Verzeichnisse der einzelnen Benutzer in den Abteilungsverzeichnissen erstellt und die Berechtigungen für die Benutzer gesetzt. Abschließend wird das Verzeichnis `C:\Fenrir-Share` unter dem Namen `Fenrir-Share` freigegeben.
+#htl3r.code-file(
+  caption: "Part-3-Skript für die Aufsetzung von Fileserver",
+  filename: [ansible/playbooks/stages/stage_04/extra/Fileserver_part_3.ps1],
+  lang: "powershell",
+  text: read("../assets/scripts/Fileserver_part_3.ps1")
+)
+
+=== Test des File Servers
+Um den Fileserver zu testen, erstellt ein Benutzer zwei Dateien, eine liegt in seinem eigenen Verzeichnis und eine in dem seiner Abteilung. Der Benutzer `jburger` erstellt die Datei `test.txt` in seinem Verzeichnis und die Datei `test2.txt` im Verzeichnis der Abteilung `Infrastructure`. Der Benutzer `dkoch` sollte die Berechtigungen haben `test2.txt` zu lesen, `test.txt` jedoch nicht.  Um auf den Fileserver zuzugreifen, wird in einem Webbrowser die URL `\\fileserver.corp.fenrir-ot.at\Fenrir-Share` eingegeben. 
+
+Erfolgreicher Zugriff auf `test2.txt` im  Verzeichnis der Abteilung `Infrastructure`:
+#htl3r.fspace(
+  figure(
+    image("../assets/Test-Fileshare_Zugriff_erfolgreich.png", width: 80%),
+    caption: [Fileserver Test: Zugriff auf `test2.txt` im Verzeichnis der Abteilung `Infrastructure`]
+  )
+)
+
+Nicht erfolgreicher Zugriff auf `test.txt` im Verzeichnis des Benutzers `jburger`, da der Benutzer `dkoch` keine Berechtigung hat:
+#htl3r.fspace(
+  figure(
+    image("../assets/Test-Fileshare_Zugriff_nicht_erfolgreich.png", width: 80%),
+    caption: [Fileserver Test: Zugriff auf `test.txt` im Verzeichnis des Benutzers `jburger`]
+  )
+)
