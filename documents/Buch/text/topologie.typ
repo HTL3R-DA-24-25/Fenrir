@@ -5,9 +5,8 @@
 
 Der Aufbau einer realistischen Netzwerktopologie wie sie in einer echten Kläranlage zu finden wäre ist unabdingbar wenn es darum geht, die Gefahr von Cyberangriffen auf #htl3r.short[ot]-Systeme zu dokumentieren.
 
-In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuellen Geräten im Rahmen der Diplomarbeitstopologie genauer gezeigt und erklärt.
+In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuellen Geräten im Rahmen der Diplomarbeitstopologie genauer gezeigt und erklärt. Man bedenke, dass es nicht möglich ist die gesamte Topologie in einer einzigen Graphik im vollen Detail zu erfassen. Demnach wurd mit vereinzelten Abstraktionen gearbeitet.
 
-#htl3r.author("David Koch")
 == Logische Topologie <logische-topo>
 
 Durch die Limitationen an verfügbarer physischer Hardware ist die unten gezeigte logische Topologie physisch nicht direkt umsetzbar. Durch den Einsatz von Virtualisierung, welcher in @physische-topo genauer erklärt wird, lassen sich alle nötigen Geräte, für die sonst keine physische Hardware verfügbar wäre, trotzdem in das Netzwerk einbinden.
@@ -26,24 +25,58 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
 
 #htl3r.todo("Hier Tabelle oder so machen")
 
-#pagebreak(weak: true)
+#htl3r.author("Julian Burger")
 == Physische Topologie <physische-topo>
 
-#lorem(100)
+Logisch betrachtet scheint die Topologie zunächst recht simpel, jedoch kommen mehrere abstraktions Ebenen ins spiel, um die IT-Infrastruktur einer Kläranlage zu emulieren. So kommen zum Beispiel #htl3r.shortpl[vlan] zum Einsatz, um die einzelnen Netzwerke zu separieren.
+
+Eigentlich physische Server- und Clientgeräte werden virtualisiert und mittels #htl3r.fullpl[dvs] mit #htl3r.short[vlan]-Tags versehen, um diese dann wiederrum zu einem physischen Switch zu trunked, welcher die #htl3r.shortpl[vlan] dann zu den physischen Firewalls nochmals weiter trunked. Dies geschieht für ein jedes Netzwerk in der Kläranlagen-Topologie. Besondere Netzwerke wie ein Management, Storage und Internet werden ähnlich, jedoch etwas abgewandelt realisiert, siehe @conf_vsphere.
+
+Durch die getrunkten Netzwerke ist es möglich auf den Firewalls mit Sub-Interfaces zu arbeiten und anhand von diesen die gebrauchten Policies zu realisieren. Absicherung der Kläranlagen-Topologie spielt eine große Rolle im Rahmen dieser Diplomarbeit und wird nicht vernachlässigt, siehe @firewall-config.
+
+Die #htl3r.shortpl[vlan] können ebenfalls mittels #htl3r.short[span] an ein #htl3r.short[ids] geschickt werden, welches die Informationen verarbeitet und Alerts Rückmeldet, siehe @nozomi-guardian.
+
+Um einen groben Überblick über den physischen Aufbau des Netzwerks zu bekommen kann man sich an der nachstehenden Graphik orientieren. Es werden alle essentiellen Netzwerkkomponenten aufgeführt, für genauere informationen siehe vorherig aufgeführte Abschnitte.
 
 #htl3r.fspace(
-  total-width: 95%,
+  total-width: 100%,
   figure(
-    image("../assets/topology_physical.svg"),
+    image("../assets/fenrir_physical_topology.png"),
     caption: [Die Projekttopologie in physischer Darstellung]
   )
 )
-ACHTUNG: VERALTET
 
-* BILD schrank bzw schränke *
+#htl3r.todo[BILD schrank bzw schränke]
 
 === Verwendete Geräte in der physischen Topologie
-#htl3r.info[Hier MUSS text stehen]
+
+#htl3r.inline-todo[In der physischen Topologie kommen nur eine Handvoll von Geräten zum Einsatz.]
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (3fr, 5fr, 2fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + center, horizon + left),
+      table.header(
+        [*Name*], [*Model*], [*Herstelller*],
+      ),
+      [ESXi 1], [Precision 5820 Tower X-Series], [DELL],
+      [ESXi 2], [PRIMERGY TX1330 M1], [Fujitsu],
+      [ESXi 3], [PRIMERGY TX1330 M1], [Fujitsu],
+      [Shared Storage], [PRIMERGY TX1330 M1], [Fujitsu],
+      [Cluster Switch], [WS-C2960X-48TS-L], [cisco],
+      [Uplink Firewall], [FortiGate 60E], [Fortinet],
+      [Separation Firewall], [FortiGate 92D], [Fortinet],
+      [Rugged Firewall], [IDFK], [Fortinet],
+      [Zelle 1], [IDFK], [IDFK],
+      [Zelle 2], [IDFK], [IDFK],
+      [Zelle 3], [IDFK], [IDFK],
+    ),
+    caption: [Verwendete Hardware],
+  )
+)
 
 #htl3r.author("Julian Burger")
 == Virtualisierungsplatform und Umgebung
@@ -87,7 +120,7 @@ Als DNS-Server fungiert die Uplink-Firewall. Diese ermöglicht ebenso einen Inte
 
 Wie bereits beschrieben existiert ebenso ein Storage-Server, welcher von den ESXi-Instanzen erreichbar ist. Dies passiert allerdings nicht über das Management-Netzwerk, sondern über ein eigenes Storage #htl3r.short[vlan]. Dies hat den Grund, dass das Storage-Netzwerk eine sehr hohe Auslastung aufgrund von #htl3r.short[nfs] Lese- und Schreibzugriffen hat. Um dieser Auslastung gerecht zu werden ist der Storage-Server mit vier Gigabit-Ethernet Links angeschlossen. Diese vier physischen Links wurden mittels #htl3r.short[lacp] zu einem logischen Link zusammengefasst. Die ESXi-Instanzen haben jeweils einen dedizierten Gigabit-Ethernet Link für #htl3r.short[nfs]. So ist es möglich mit akzeptabler Geschwindigkeit auf das Speicher-Medium zuzugreifen.
 
-=== Konfiguration des vCenters/vSphere
+=== Konfiguration des vCenters/vSphere <conf_vsphere>
 
 Innerhalb des vCenters wurde einige Dienste und Strukturen konfiguriert, um das saubere Arbeiten von den #htl3r.short[iac]-Tools zu ermöglichen. Dies inkludiert: VMkernel Adapter, einen Datastore, #htl3r.short[drs], #htl3r.shortpl[dvs], eine Content Library und eine Ordnerstruktur für die #htl3r.shortpl[vm].
 
@@ -266,5 +299,9 @@ Bei der Enkapsulierung von Modbus in #htl3r.short[tcp] werden nicht nur der Befe
 
 Durch die Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40\% seiner ursprünglichen Daten-Durchsatzes. Jedoch wird dieser Verlust durch die zuvor erwähnten -- von #htl3r.short[tcp] mitgebrachten -- Vorteile ausgeglichen. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
 
-=== BURGER DU HIER MACHEN
-#htl3r.todo("Bitte drüber schreiben wie die VMs in vSphere über den Switch per VLANs und so mit der echten Welt kommunizieren")
+#htl3r.author("Julian Burger")
+=== Cluster Switch Konfiguration
+#htl3r.todo[Darüber schreiben wie der Cluster Switch konfiguriert ist.]
+
+=== VLAN zuweisungen
+#htl3r.todo[Bitte drüber schreiben wie die VMs in vSphere über den Switch per VLANs und so mit der echten Welt kommunizieren]

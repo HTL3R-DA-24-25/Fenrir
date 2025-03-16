@@ -24,6 +24,7 @@ dvs:
     plural: DVSs
   long:
     singular: Distributed Virtual Switch
+    plural: Distributed Virtual Switches
   description: Ein virtueller Switch welcher in einer vSphere-Umgebung mehreren Hosts zugewiesen sein kann. Dies ermöglicht es VMs auf mehrere Hosts zu verteilen und sie dennoch in dasselbe Netzwerk zu hängen, dieser virtuelle Switch dient zur Verwaltung der Uplinks auf den jeweiligen Hosts.
 
 dpg:
