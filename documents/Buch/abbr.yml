@@ -524,3 +524,8 @@ raid:
     singular: RAID
   long:
     singular: redundant array of independent disks
+
+gip:
+  long:
+    singular: Golden Image Pipeline
+  description: Eine Golden Image Pipeline stellt VM-Templates zur verfügung, von welcher Virtuelle Maschinen erstellt werden.

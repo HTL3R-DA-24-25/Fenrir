@@ -178,9 +178,29 @@ Unter #htl3r.breadcrumbs(("Monitor", "vSphere DRS", "Recommendations")) ist es n
 
 ==== Content Library und Ordnerstruktur von VMs und DVS
 
-Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von Golden Image Pipelline verwendet, diese ist allerdings nicht optimal, jedoch passend für den Anwendungszweck innerhalb des Projektes.
+Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von Golden Image Pipelline verwendet, diese ist obwohl nicht optimal, allerdings passend für den Anwendungszweck innerhalb des Projektes.
 
-#htl3r.todo[Hier gehts weiter!!!]
+Content Libraries unterscheiden zwischen zwei Arten von #htl3r.short[vm]-Templates. Zunächst sind da _OVF/OVA Templates_, welche einfach nur Dateien auf einem Datastore sind und Metadaten und Disks beinhalten. Diese stehen in kontrast zu normalen #htl3r.short[vm]-Templates, welche ebenso im vSphere-Inventar registriert sein müssen. Normale #htl3r.short[vm]-Templates sind OVF/OVA-Templates zu bevorzugen, da der Erstellungsprozess wesentlich kürzer ist und Linked-Clones möglich sind.
+
+Im Rahmen dieser Diplomarbeit werden alle verwendeten #htl3r.short[vm]-Templates mittels Packer erstellt, für genauere Informationen siehe @provisionierung, mit Ausnahme von der #htl3r.short[ot]-Workstations Template. Diese benötigt spezielle Software für die Programmierung und Verwaltung von #htl3r.shortpl[sps] und kann nur schwer automatisiert aufgesetzt werden.
+
+Wie schon angesprochen müssen normale #htl3r.short[vm]-Templates, welche in einer Content Library liegen, ebenso im vSphere-Inventar registriert sein. Dies geschieht innerhalb des Projektes mithilfe eines Ordners namens "Templates":
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/templates_inventory.png"),
+    caption: [Templates im Inventar]
+  ),
+  figure(
+    image("../assets/content_library.png"),
+    caption: [Content Library Inhalt]
+  )
+)
+
+Die eigentlichen #htl3r.shortpl[vm] sind dann in einem Ordner namens "Topology VMs" welcher mehrere Unterordner für die verwendeten Netzwerke besitzt. Einzig und allein die Bastion, siehe @prov-mit-bastion, liegt direkt innerhalb des "Topology VMs" Ordners.
+
+Ein ähnliches Konzept existiert auch bei den vSwitches. Hier liegt der "ManagementDVS" #htl3r.short[dvs] direkt auf der Datacenter-Node ohne Ordner gemeinsam mit den Standard-vSwitches, während der "FenrirDVS", welcher die #htl3r.shortpl[dpg] beinhaltet, welche verwendet werden um #htl3r.shortpl[vm] mit einem VLAN zu versehen, in einem Ordner namens "Topology Networks" liegt.
 
 #htl3r.author("David Koch")
 == OT-Bereich
