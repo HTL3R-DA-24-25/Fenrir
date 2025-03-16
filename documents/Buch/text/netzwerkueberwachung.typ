@@ -2,7 +2,7 @@
 
 #htl3r.author("Bastian Uhlig")
 = Netzwerküberwachung <netzwerkueberwachung>
-Ein wichtiger Teil der Sicherheit in einem Netzwerk ist die Überwachung dessen. Damit können  die Zuverlässigkeit und der derzeitige Zustand sofort erkannt werden. Es ist nämlich niemals möglich, sämtliche Angriffe abzuwehren, bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernen Mitteln überwacht wird, können Angriffe, die bereits in vollem Gange sind, entdeckt und (in weiterer Folge) unterbunden werden.
+Ein wichtiger Teil der Sicherheit in einem Netzwerk ist die Überwachung dessen. Damit können die Zuverlässigkeit und der derzeitige Zustand sofort erkannt werden. Es ist nämlich niemals möglich, sämtliche Angriffe abzuwehren, bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernen Mitteln überwacht wird, können Angriffe, die bereits in vollem Gange sind, entdeckt und (in weiterer Folge) unterbunden werden.
 
 Hierbei ist der Begriff einer Baseline wichtig. Eine Baseline beschreibt einen Status des Netzwerks, in welchem dieses im Normalzustand agiert.
 
@@ -10,9 +10,9 @@ Falls in dem Netzwerk nun Besonderheiten aufkommen, sei dies ein neuer Kommunika
 
 == Theoretische Netzwerküberwachung
 
-In der Theorie ist die Überwachung eines Netzwerkes einfach. Es wird einfach der gesamte Datenverkehr aufgezeichnet und analysiert. Sollte nun ein unerwünschtes Paket auftreten, wird ein Alarm ausgelöst. Dieses Paket kann dann analysiert werden, um herauszufinden, was es genau ist und woher es kommt. 
+In der Theorie ist die Überwachung eines Netzwerks einfach. Es wird einfach der gesamte Datenverkehr aufgezeichnet und analysiert. Sollte jetzt ein unerwünschtes Paket auftreten, wird ein Alarm ausgelöst. Dieses Paket kann dann analysiert werden, um herauszufinden, was es genau ist und woher es kommt. 
 
-Praktisch ist eine 100 prozentige Überwachung jedoch im Echtbetrieb nicht möglich. Es gibt einfach zu viele Daten, die über ein Netzwerk laufen. Es ist jedoch möglich, mittels verschiedener Tools, den Datenverkehr zu analysieren und Alarme auszulösen, sollte unerwünschter Datenverkehr auftreten. 
+Praktisch ist eine 100-prozentige Überwachung jedoch im Echtbetrieb nicht möglich. Es gibt einfach zu viele Daten, die über ein Netzwerk laufen. Es ist jedoch möglich, mittels verschiedener Tools den Datenverkehr zu analysieren und Alarme auszulösen, sollte unerwünschter Datenverkehr auftreten. 
 
 == Eingesetzte Netzwerküberwachungstools
 Tools zur Überwachung von Netzwerken gibt es tausende. Von dem selbst entwickeltem Packet Sniffer bis zu einem #htl3r.short[ids] auf Enterprise Level. Dabei gibt es kein Tool, welches "das Richtige" ist.
@@ -36,14 +36,14 @@ Mit einem Doppelklick können über jedes Paket genauere Informationen angezeigt
   total-width: 95%,
   figure(
     image("../assets/wireshark_protocol_details.png"),
-    caption: [WIP]
+    caption: [Detailanzeige über Paketinformationen in Wireshark]
   )
 )
 
 #htl3r.fspace(
   figure(
     image("../assets/wireshark_hex_tcp.png"),
-    caption: [WIP]
+    caption: [Hexadezimaldarstellung eines Pakets in Wireshark]
   )
 )
 

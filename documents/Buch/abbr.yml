@@ -531,3 +531,24 @@ gip:
   long:
     singular: Golden Image Pipeline
   description: Eine Golden Image Pipeline stellt VM-Templates zur verfügung, von welcher Virtuelle Maschinen erstellt werden.
+
+ldap: 
+  short:
+    singular: LDAP
+  long:
+    singular: Lightweight Directory Access Protocol
+  description: Ein Protokoll zur Abfrage und Änderung von Informationen in einem Verzeichnisdienst.
+
+ras:
+  short:
+    singular: RAS
+  long:
+    singular: Remote Access Service
+  description: Ein Dienst, der es ermöglicht, sich von einem entfernten Standort aus mit einem Netzwerk zu verbinden.
+
+ipsec:
+  short:
+    singular: IPsec
+  long:
+    singular: Internet Protocol Security
+  description: Ein Protokoll, welches es ermöglicht, Datenpakete zu verschlüsseln und zu authentifizieren.

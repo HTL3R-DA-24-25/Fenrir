@@ -5,6 +5,43 @@
 
 #htl3r.author("Bastian Uhlig")
 == Uplink-Firewall
+Die Uplink-Firewall -- eine FortiGate 60E -- dient zum Schutz des gesamten Netzwerks vor unerwünschtem Datenverkehr aus dem Internet. Sie ist die erste Verteidigungslinie und schützt das Netzwerk vor Angriffen von außen. Die Firewall ist so konfiguriert, dass sie nur den nötigen Datenverkehr durchlässt und alle anderen Pakete verwirft.
+
+=== Grundkonfiguration
+Hier sind legidlich die grundlegenden Konfigurationen der Uplink-Firewall dargestellt. Die Konfigurationen der Policies und der Interfaces sind hierbei nicht enthalten.
+
+#htl3r.code-file(
+  caption: "Uplink-Firewall Grundkonfiguration",
+  filename: [Uplink-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((35, 37),),
+  text: read("../assets/scripts/Uplink-FW-Fenrir.conf")
+)
+
+=== Interfaces
+Bei der Konfiguration der Interfaces von der Uplink-Firewall ist zu beachten, dass auch das gesamte Management-Netzwerk über diese Firewall läuft. Dieses ist zwar komplett vom restlichen Netzwerk getrennt, jedoch sind aus diesem Grund auch im Uplink Subinterfaces konfiguriert. \
+Alle Subinterfaces werden dann entweder auf einem Switch oder in VCenter terminiert und an die entsprechenden Maschinen weitergeleitet.
+#htl3r.code-file(
+  caption: "Uplink-Firewall Interface-Konfiguration",
+  filename: [Uplink-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((58, 59),(62,63),(66, 68),(71,72),(74, 76),(79,80),(82, 84),(87,88),(90, 92),(95,96),(107,108)),
+  text: read("../assets/scripts/Uplink-FW-Fenrir.conf")
+)
+
+=== LDAP Server
+Zur Authentifizierung von Benutzern, welche den #htl3r.short[ras]-#htl3r.short[vpn] verwenden dürfen, wird mittels #htl3r.short[ldap] eine Verbindung zum #htl3r.short[ad] hergestellt. Dazu muss ein Account angegeben werden, welcher Leserechte hat, um die Benutzer zu überprüfen. 
+
+#htl3r.code-file(
+  caption: "Uplink-Firewall LDAP-Konfiguration",
+  filename: [Uplink-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((198, 207),),
+  text: read("../assets/scripts/Uplink-FW-Fenrir.conf")
+)
+
+=== Remote Access VPN
+Der Remote Access #htl3r.short[vpn] ermöglicht es Benutzern, sich von außerhalb des Netzwerks sicher mit dem Netzwerk zu verbinden. Dazu wird ein #htl3r.short[ipsec]-#htl3r.short[vpn] eingerichtet, welcher die Authentifizierung über den #htl3r.short[ldap]-Server durchführt. Benutzer bekommen Zugriff in das #htl3r.short[it]-Netzwerk und können sich von dort aus weiter verbinden, falls dies notwendig ist.
 
 #htl3r.author("Julian Burger")
 == Übergangs-Firewall
