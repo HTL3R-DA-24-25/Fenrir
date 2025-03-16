@@ -672,11 +672,6 @@ Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps
 == Schaltschrank der Modell-Kläranlage
 
 Der Schaltschrank der Modell-Kläranlage ist ein AAAAAA mit zwei verbauten Hutschienen.
-<<<<<<< HEAD
-=======
-
-#htl3r.todo("dies das schrank")
->>>>>>> 0f35bcd (fuck ton of vmware shit)
 
 An der oberen Hutschiene hängen die Netzwerkkomponenten des #htl3r.short[ot]-Netzwerks. Dazu gehören die Zellen-Firewall als auch ein industrieller Switch von Phoenix Contact für das #htl3r.short[span]-Mirroring des Datenverkehrs zwischen Zellen- und Übergangs-Firewall an die Nozomi Guardian.
 

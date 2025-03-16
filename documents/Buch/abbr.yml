@@ -499,13 +499,12 @@ lacp:
   long:
     singular: Link Aggregation Control Protocol
 
-<<<<<<< HEAD
 gpio:
   short:
     singular: GPIO
-  long: 
+  long:
     singular: General Purpose Input/Output
-=======
+
 mtu:
   short:
     singular: MTU
@@ -525,4 +524,3 @@ raid:
     singular: RAID
   long:
     singular: redundant array of independent disks
->>>>>>> 0f35bcd (fuck ton of vmware shit)
