@@ -114,6 +114,12 @@ ad:
   long:
     singular: Active Directory
 
+adds:
+  short:
+    singular: ADDS
+  long:
+    singular: Active Directory Domain Services
+
 addc:
   short:
     singular: ADDC
