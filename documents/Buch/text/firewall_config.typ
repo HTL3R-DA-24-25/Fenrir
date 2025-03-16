@@ -114,7 +114,11 @@ Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext i
   )
 )
 
-#htl3r.todo("GRAFIK VERTIKAL MACHEN (d.h. nicht nur drehen)")
+=== Policies
+
+Eines der wichtigsten Werkzeuge, die eine FortiGate -- wie viele andere Firewalls auch -- bietet, sind Policies. Standardmäßig lässt eine FortiGate-Firewall keinerlei Datenverkehr durch, ein "implicit deny" wird verwendet. Es müssen durch den/die zuständige Netzwerkadministrator/in beim Einsatz einer FortiGate die nötigen Firewall-Policies erstellt werden, um den Datenverkehr auf das nötige Minimum einzuschränken, ohne dabei die Funktionalität des (bestehenden) Netzwerks zu beeinträchtigen.
+
+
 
 === Lizensierte Features
 

@@ -9,7 +9,7 @@ yaml:
     singular: YAML
   long:
     singular: YAML Ain't Markup Language
-  description: Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet. Wird oft zur konfiguration eingesetzt.
+  description: Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet. Wird oft zur Konfiguration eingesetzt.
 
 iac:
   short:

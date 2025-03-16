@@ -14,6 +14,8 @@ Zwar sind Kläranlagen nicht die beliebtesten #htl3r.short[ot]-Angriffsziele, Kr
   )
 )
 
+TODO TOWER
+
 #htl3r.author("David Koch")
 == Planung der Betriebszellen
 
@@ -26,6 +28,13 @@ Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage die
 == Zelle Eins (Grobfiltration)
 
 Die erste Betriebszelle dient der Grobfiltration des schmutzigen Wassers. Falls im Wasser gröbere Schmutzpartikel -- wie z.B. Kieselsteine -- enhalten sind, müssen sie aus dem Abwasser filtriert werden, bevor sie in den feineren Filter der zweiten Betriebszelle kommen, um diesen nicht zu beschädigen. Nach der ersten Zelle wird das Abwasser durch einen Höhenunterschied zwischen dem Auffangbecken und dem ersten Tank der Zelle Zwei mittels Schwerkraft abtransportiert.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/grobfiltration_block.png", width: 75%),
+    caption: [Schematische Darstellung der ersten Betriebszelle]
+  )
+)
 
 === Aufbau der ersten Betriebszelle
 
@@ -88,6 +97,13 @@ Das in @zelle-1-programm abgebildete Programm -- welches in der Kontaktplan-Prog
 
 Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
 
+#htl3r.fspace(
+  figure(
+    image("../assets/feinfiltration_block.png", width: 90%),
+    caption: [Schematische Darstellung der zweiten Betriebszelle]
+  )
+)
+
 === Aufbau der zweiten Betriebszelle
 
 Sie besteht aus zwei durchsichtigen Acryl-Wassertanks welche jeweils ca. 3L an Volumen aufweisen. Diese sind oben offen, werden jedoch von Deckeln abgedeckt. Diese Deckel wurden mittels 3D-Modellierung speziell angefertigt und zweimal gedruckt. In diesen Deckeln ist die für den Wassertank jeweils notwendige Sensorik verbaut. Diese besteht aus einem Füllstandssensor mit Schwimmer -- welcher als Widerstand agiert -- sowie einem DS18B20-Temperatursensor.
@@ -120,6 +136,7 @@ Um die analogen Widerstandswerte der Füllstandssensoren an die digitalen Pins d
 Der Raspberry Pi ist auch nicht direkt in der Lage, eine klassische Relay-Steuerung zu ersetzen. Die Pins liefern maximal 3,3V, wobei die meisten Aktoren und Sensoren in der Modell-Kläranlage 12V oder auch 24V brauchen. Somit muss ein externes Relaismodul verwendet werden, um die gewünschte Funktionalität zu erreichen. Für diesen Zweck werden zwei KY-019 Relaismodule von AZ-Delivery eingesetzt. Diese können jeweils mit 5V DC betrieben werden, wobei das Schaltsignal auch lediglich 3,3V sein kann @relais-datenblatt[comp]. Wenn das Schaltsignal auf "hoch" gesetzt wird, fließt auf der anderen Seite der Strom von einer 12V-Stromversorgung zur Pumpe. Somit werden insgesamt zwei Pins des Raspberry Pi verwendet, um jeweils das Relay für die Filterpumpe und die Übergangspumpe anzusteuern.
 
 #htl3r.fspace(
+  total-width: 40%,
   figure(
     image("../assets/extra_relay.jpg"),
     caption: [Das verwendete KY-019 Relaismodul]
@@ -156,6 +173,7 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
 )
 
 #htl3r.fspace(
+  total-width: 90%,
   [
     #figure(
       image("../assets/Zelle_2_Programm.png"),
@@ -184,9 +202,20 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
 
+#htl3r.todo("hier kurze einführung")
+
+#htl3r.fspace(
+  figure(
+    image("../assets/staudamm_block.png", width: 90%),
+    caption: [Schematische Darstellung der dritten Betriebszelle]
+  )
+)
+
 === Aufbau der dritten Betriebszelle
 
-Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Gravitation in das Wassereinlaufbecken fließen kann.
+Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden. 
+
+Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Schwerkraft in das Wassereinlaufbecken fließen kann.
 
 #htl3r.fspace(
   figure(
