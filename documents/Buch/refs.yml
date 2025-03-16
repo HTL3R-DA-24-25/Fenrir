@@ -321,8 +321,8 @@ ikarus-arc-sensor:
   url:
     value: https://www.ikarussecurity.com/industrial-cyber-security/ot-security-sensor-guardian-by-nozomi-networks/
     date: 2025-02-17
-<<<<<<< Updated upstream
   date: 2024
+  
 relais-datenblatt:
   type: reference
   title: KY-019 1-Relais Modul Datenblatt
@@ -400,6 +400,3 @@ vps-vs-sps:
     value: https://www.elektrikerwissen.de/unterschied-vps-vs-sps/
     date: 2025-03-15
   date: 2025
-=======
-  date: 2024
->>>>>>> Stashed changes
