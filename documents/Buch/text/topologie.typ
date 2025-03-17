@@ -87,7 +87,7 @@ Um einen groben Überblick über den physischen Aufbau des Netzwerks zu bekommen
       [Separation Firewall], [FortiGate 92D], [Fortinet],
       [Rugged Firewall], [FortiGateRugged 60F], [Fortinet],
       [SPS Zelle Eins], [SIMATIC S7-1200], [Siemens],
-      [SPS Zelle Zwei], [Raspberry Pi 4 2GB], [IDFK],
+      [SPS Zelle Zwei], [Raspberry Pi 4 2GB], [Raspberry Pi Foundation],
       [SPS Zelle Drei], [LOGO! 12/24V RCEo], [Siemens],
     ),
     caption: [Verwendete physische Hardware],
