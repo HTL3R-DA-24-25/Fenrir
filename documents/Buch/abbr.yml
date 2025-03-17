@@ -535,12 +535,12 @@ raid:
 
 gip:
   short:
-    singular: GIP 
+    singular: GIP
   long:
     singular: Golden Image Pipeline
   description: Eine Golden Image Pipeline stellt VM-Templates zur verfügung, von welcher Virtuelle Maschinen erstellt werden.
 
-ldap: 
+ldap:
   short:
     singular: LDAP
   long:
@@ -567,3 +567,12 @@ ntp:
   long:
     singular: Network Time Protocol
   description: Ein Protokoll zur Synchronisation von Uhren in Computernetzwerken.
+
+svi:
+  short:
+    singular: SVI
+    plural: SVIs
+  long:
+    singular: Switch Virtual Interface
+    plural: Switch Virtual Interfaces
+  description: Ein virtualles Interface auf einem Switch, welches genutzt wird um OSI-Layer 3 konfigurationen pro VLAN festzulegen. So wird auch inter VLAN routing direkt auf einem Switch möglich.

@@ -299,7 +299,20 @@ Durch die Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Seriell
 
 #htl3r.author("Julian Burger")
 === Cluster Switch Konfiguration
-#htl3r.todo[Darüber schreiben wie der Cluster Switch konfiguriert ist.]
+
+Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden, der Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine IP-Addresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die cryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen. Die Konfiguration für #htl3r.short[ssh] funktioniert in theorie, wird allerdings nicht verwendet.
+
+Auf dem Cluster Switch wurden vorallem #htl3r.shortpl[vlan] und #htl3r.short[span]-Session konfiguriert. Letztere senden den gesammten Traffic der Kläranlagen-Topologie an ein IDS, siehe @nozomi-guardian. Die #htl3r.shortpl[vlan] segmentieren die einzelnen Netzwerke der Topologie und werden ebenso für Management, Network Storage und Internet-Zugriff verwendet.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/ClusterSwitch.png"),
+    caption: [Interface Konfiguration des Cluster Switches]
+  )
+)
+
+==== Interface Konfiguration des Switches
 
 === VLAN Zuweisungen
 #htl3r.todo[Bitte drüber schreiben wie die VMs in vSphere über den Switch per VLANs und so mit der echten Welt kommunizieren]
