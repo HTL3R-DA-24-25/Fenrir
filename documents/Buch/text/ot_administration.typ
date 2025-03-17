@@ -113,16 +113,125 @@ Wenn es in der Betriebszelle zu einer Überflutung kommt, so wird dies im #htl3r
 == MES
 Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen die Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte, und dadurch können Optimierungen leichter durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden -- dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
 
-=== Next.js - shadcn
-Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich wären, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar zu machen.
+=== Entwicklung des MES
+Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich wären, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar und visuell ansprechbarer zu machen.
 
-=== Authentifizierung
-Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit gültig, um die Sicherheit zu gewährleisten. \
-Versucht ein Benutzer, auf eine Seite zuzugreifen, ohne angemeldet zu sein, oder sollte der vorgewiesene Token ungültig sein, so wird dieser von einer Middleware abgefangen und der Benutzer auf die Anmeldeseite weitergeleitet. Gleichfalls fängt die Middleware auch bereits angemeldete Benutzer davon ab, sich erneut anzumelden.
+==== Authentifizierung
+Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, um die Sicherheit zu gewährleisten. \
+#htl3r.code(caption: "Funktion zum Anmelden am MES", description: none)[
+```ts
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  const { username, password } = req.body;
+  const { USER, PASSWORD } = process.env;
+  const JWT_SECRET = process.env.JWT_SECRET;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+  if (!USER || !PASSWORD) {
+    return res.status(500).json({ error: 'USER and PASSWORD are not set' });
+  }
+  if (username !== USER) {
+    return res.status(401).json({ error: 'Invalid username or password' });
+  }
+  const isValidPassword = await bcrypt.compare(password, await bcrypt.hash(PASSWORD, 10));
+  if (!isValidPassword) {
+    return res.status(401).json({ error: 'Invalid username or password' });
+  }
+  if (!JWT_SECRET) {
+    return res.status(500).json({ error: 'JWT_SECRET is not set' });
+  }
+  const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '4h' });
+  res.setHeader('Set-Cookie', `token=${token}; Path=/; HttpOnly; SameSite=Strict`);
+  res.status(200).json({ message: "Set cookie" });
+}
+```
+]
 
-=== Funktionsweise
+Versucht ein Benutzer, auf eine Seite zuzugreifen, ohne angemeldet zu sein, oder sollte der vorgewiesene Token ungültig sein, so wird dieser von einer Middleware abgefangen und der Benutzer auf die Anmeldeseite weitergeleitet. Gleichfalls fängt die Middleware auch bereits angemeldete Benutzer davon ab, sich erneut anzumelden. Damit werden auch die #htl3r.short[api]-Endpunkte geschützt, sodass nur angemeldete Benutzer darauf zugreifen können.
+
+#htl3r.code(caption: "Middleware zum Überprüfen des Tokens und Weiterleitung", description: none)[
+```ts
+export default function handler(req: NextApiRequest, res: NextApiResponse) {}
+export const config = {
+    matcher: ["/login", "/dashboard", "/api/add_datapoint_timer", "/api/get_datapoint_timers", "/api/delete_datapoint_timer"],
+};
+export async function middleware(request: NextRequest) {
+    const { pathname }: { pathname: string } = request.nextUrl;
+    const token = request.cookies.get("token");
+    const response = await fetch(`${request.nextUrl.origin}/api/authenticate`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token?.value}` },
+    });
+    await response.json();
+    
+    if (response.ok && pathname === "/login") {
+        return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
+    } else if (!response.ok) {
+        if (pathname !== "/login") {
+            return NextResponse.redirect(new URL("/login", request.nextUrl));
+        }
+    }
+}
+```
+]
+
+==== Funktionsweise im Hintergrund
+Userinputs auf der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, sind also für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
+Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit durchzuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die folgenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
+
+#htl3r.code-file(
+  caption: "Funktionen, zur Erstellung und Löschung von Jobs",
+  filename: [datapoint_timers.ts],
+  lang: "ts",
+  ranges: ((12, 14),(16, 20),(26, 33)),
+  text: read("../assets/scripts/mes_datapoint_timers.ts")
+)
+
+Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via #htl3r.short[api]-calls, die vom Backend des #htl3r.short[mes] verwaltet werden, wie sie in @scadalts-api-docs beschrieben ist. Es ist stark zu empfehlen, diese #htl3r.short[api] vor der Verwendung mittels eines Tools wie Postman zu testen, um sich mit der Funktionsweise dieser vertraut zu machen. Dazu sind auf dem #htl3r.short[mes] mehrere Endpunkte definiert, welche die Kommunikation mit dem #htl3r.short[scada] ermöglichen.
+
+#htl3r.code-file(
+  caption: "API zum Setzen eines Datenpunktes", 
+  filename: [set_datapoint.ts],
+  lang: "ts",
+  ranges: ((6, 31),),
+  text: read("../assets/scripts/mes_set_datapoint.ts")
+)
+
+
+==== Cron Jobs <cron-jobs>
+Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden bei Hinzufügung von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus 2 Teilen. Der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das ein- oder ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
+
+#htl3r.code-file(
+  caption: "In einen Cron-Job ausgeführter Job",
+  filename: [datapoint_timers.ts],
+  lang: "ts",
+  ranges: ((53, 58), ),
+  text: read("../assets/scripts/mes_datapoint_timers.ts")
+)
+
+=== Funktionsweise für Enduser
 Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit im #htl3r.short[scada] überschrieben werden können. Das #htl3r.short[mes] ruft automatisch alle vorhandenen Datenpunkte vom #htl3r.short[scada] ab und stellt alle binären -- also alle, welche nur ein- und ausschalten sind -- auf dem Dashboard dar. Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
-Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via #htl3r.short[api]-calls, die vom Backend des #htl3r.short[mes] verwaltet werden, wie sie in @scadalts-api-docs beschrieben ist. Es ist stark zu empfehlen, diese #htl3r.short[api] vor der Verwendung mittels eines Tools wie Postman zu testen, um sich mit der Funktionsweise dieser vertraut zu machen.
+#htl3r.fspace(
+  figure(
+    image("../assets/MES-Dashboard.png", width: 100%),
+    caption: [Das Dashboard des MES]
+  )
+)
+
+Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für 4 Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. \
+
+#htl3r.fspace(
+  figure(
+    image("../assets/MES-Login.png", width: 100%),
+    caption: [Der Login-Screen des MES]
+  )
+)
 
 === Aufsetzen
 Da das #htl3r.short[mes] mittels Next.js geschrieben ist, kann das fertige System in einen Docker-Container gepackt werden. Dieser Container ist dann nur auf den Server zu spielen und mit Beigabe der .env Datei zu starten. Diese .env Datei enthält die Konfiguration des #htl3r.short[mes], wie beispielsweise die Anmeldedaten für die #htl3r.short[api] des #htl3r.short[scada] oder die Adresse des #htl3r.short[scada]-Servers.

@@ -7,13 +7,13 @@
 #htl3r.author("Gabriel Vogler")
 = Active Directory <active_directory>
 
-#htl3r.long[adds] ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Diese zentrale Verwaltung erlaubt die Authentifizierung und Zugriffssteuerung dieser Benutzer und Computer, wobei auch ausserhalb von AD-integrierten Windows-Geräten diese Authentifizierung eingesetzt werden kann. Dieser wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
+#htl3r.long[adds] ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Diese zentrale Verwaltung erlaubt die Authentifizierung und Zugriffssteuerung dieser Benutzer und Computer, wobei auch ausserhalb von #htl3r.short[ad]-integrierten Windows-Geräten diese Authentifizierung eingesetzt werden kann. Dieser wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
 
 == Domain und Forest
 Im Szenario des Firmennetzwerkes der Firma "Fenrir", wird im #htl3r.long[ad] auf eine Domain und einen Forest gesetzt, da es sich um ein kleines Unternehmen handelt und nur ein Standort vorhanden ist. Dadurch sind die Konfiguration und die Verwaltung des #htl3r.short[ids] einfacher und übersichtlicher. Dennoch bietet die #htl3r.short[ad]-Struktur genug Flexibilität und Erweiterungsmöglichkeiten, wie es in der realen Welt auch der Fall sein sollte, falls das Unternehmen wächst.
 
 == Logischer Aufbau
-Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von #htl3r.short[ou], Benutzerkonten und Benutzergruppen strukturiert. Die Benutzerkonten und Benutzergruppen werden in den #htl3r.short[ou]s organisiert, um eine bessere Übersicht und Struktur zu gewährleisten:
+Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von #htl3r.short[ou], Benutzerkonten und Benutzergruppen strukturiert. Die Benutzerkonten und Benutzergruppen werden in den #htl3r.shortpl[ou] organisiert, um eine bessere Übersicht und Struktur zu gewährleisten:
 
 === OU-Struktur
 
@@ -40,7 +40,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
   )
 )
 
-Um die oben dargestellte OU-Struktur in der AD-Umgebung umzusetzen, muss auf einem Domain Controller folgendes PowerShell-Skript ausgeführt werden:
+Um die oben dargestellte #htl3r.short[ou]-Struktur in der #htl3r.short[ad]-Umgebung umzusetzen, muss auf einem Domain Controller folgendes PowerShell-Skript ausgeführt werden:
 
 #htl3r.code(caption: "OU-Erstellung in PowerShell", description: none)[
 ```powershell
@@ -145,7 +145,7 @@ Damit die Benutzer auch in die richtige Gruppe eingefügt werden, wird in der le
   )
 )
 
-Die Benutzergruppen werden in der AD-Umgebung der Firma "Fenrir" in Domain Local Groups und Global Groups unterteilt. Die Global Groups entsprechen den Abteilungen der Firma und die Domain Local Groups den Rollen, die die Benutzer auf den Network Shares auf dem Fileserver haben.
+Die Benutzergruppen werden in der #htl3r.short[ad]-Umgebung der Firma "Fenrir" in Domain Local Groups und Global Groups unterteilt. Die Global Groups entsprechen den Abteilungen der Firma und die Domain Local Groups den Rollen, die die Benutzer auf den Network Shares auf dem Fileserver haben.
 
 Die Benutzergruppen sind einer CSV Datei erstellt, die folgendes Format hat:
 #htl3r.code-file(
@@ -187,7 +187,7 @@ Set-GPRegistryValue -Name $minPasswordLengthGpoName -Key "HKLM\Software\Microsof
 #htl3r.code(caption: "OU für den Desktop Hintergrund", description: none)[
 ```powershell
 $desktopWallpaperGpoName = "Desktop Wallpaper Policy"
-$wallpaperPath = "\\nfs\wallpapers\wallpaper.jpg"
+$wallpaperPath = "\\fileserver\wallpapers\wallpaper.jpg"
 New-GPO -Name $desktopWallpaperGpoName | Out-Null
 Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Control Panel\Desktop" -ValueName "WallPaper" -Type String -Value $wallpaperPath
 Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Control Panel\Desktop" -ValueName "TileWallpaper" -Type String -Value "0"
@@ -219,7 +219,7 @@ $gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers"
 #htl3r.code(caption: "OU für das Firmenlogo auf dem Anmeldebildschirm", description: none)[
 ```powershell
 $loginScreenGpoName = "Login Screen Policy"
-$loginScreenPath = "\\nfs\wallpapers\loginscreen.jpg"
+$loginScreenPath = "\\fileserver\wallpapers\loginscreen.jpg"
 New-GPO -Name $loginScreenGpoName | Out-Null
 Set-GPRegistryValue -Name $loginScreenGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" -ValueName "LockScreenImage" -Type String -Value "$loginScreenPath"
 $gpo = Get-GPO -Name $loginScreenGpoName
@@ -230,7 +230,7 @@ $gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers"
 #htl3r.code(caption: "OU für das Mounten des Firmenlaufwerks", description: none)[
 ```powershell
 $driveMountGpoName = "Drive Mount Policy"
-$sharePath = "\\nfs\share"
+$sharePath = "\\fileserver\fenrir-share"
 New-GPO -Name $driveMountGpoName | Out-Null
 $keyPath = "HKCU\Network\F:"
 Set-GPRegistryValue -Name $driveMountGpoName -Key $keyPath -ValueName "ConnectFlags" -Type DWord -Value 0
@@ -303,7 +303,7 @@ Der Aufsetzungsprozess wird im Playbook durch die sogenannten "Tasks" gesteuert.
 
 Nach der fertigen Ausführung vom Part-1-Skript ist ein Neustart des Domain Controllers notwendig. Dieser wird auch durch die im Ansible Playbook eingetragenen Tasks durchgeführt.
 
-Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten die Hochstufung und im dritten -- unter anderem -- die Konfiguration der OU-Struktur, Benutzer, Gruppen und #htl3r.shortpl[gpo] stattfindet.
+Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten die Hochstufung und im dritten -- unter anderem -- die Konfiguration der #htl3r.short[ou]-Struktur, Benutzer, Gruppen und #htl3r.shortpl[gpo] stattfindet.
 
 #htl3r.code-file(
   caption: "Part-2-Skript für die Aufsetzung von DC1",
