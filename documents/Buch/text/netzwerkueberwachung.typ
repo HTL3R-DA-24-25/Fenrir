@@ -57,3 +57,77 @@ In Live-Systemen ist die Verwendung von Wireshark als Überwachungssystem somit 
     caption: [Der eingesetzte Hardware-Network-Tap, ein Gigamon G-TAP-ATX]
   )
 )
+
+#htl3r.author("Gabriel Vogler")
+=== Grafana Monitoring
+Grafana ist ein mächtiges Open-Source-Tool zur Visualisierung von Daten. Es kann Daten aus verschiedensten Quellen, wie beispielsweise Prometheus, InfluxDB oder MySQL, visualisieren. Es wurde in Verbindung mit Prometheus eingesetzt, um die Domain Controller zu überwachen.
+
+==== Installation des Prometheus & Grafana Monitoring-Systems
+Die Installation von Prometheus und Grafana erfolgt auf einem Ubuntu-22.04-Server mittels Docker.
+Da Docker bereits in @provisionierung installiert wurde, kann die Installation von Prometheus und Grafana direkt erfolgen. Die ganze Installation erfolgt mittels einem Shell-Skript, damit das in @provisionierung umgesetzte Automatisierungskonzept weitergeführt wird.
+
+Im ersten Schritt werden Netzwerk und Hostname für den Server konfiguriert. Für die Netzwerkkonfiguration wird Netplan verwendet, um die IP-Adresse des Servers zu setzen. Es gibt dabei zwei Netzwerkadapter, wobei der erste für das Management-Netzwerk und der zweite für das SEC Netzwerk verwendet wird. Wichtig zu beachten sind die Einstellungen die auf dem Netzwerkinterface des Managementnetzwerks getroffen werden. Diese werden benötigt um die in @provisionierung beschriebene Durchführung zu ermöglichen.
+#htl3r.code-file(
+  caption: "Netwerk- und Hostname-Konfiguration von Grafana",
+  filename: [/terraform/stage_06/scripts/grafana.sh],
+  ranges: ((7, 32),),
+  lang: "bash",
+  text: read("../assets/scripts/grafana.sh")
+)
+
+Im Anschluss wird das notwendige docker-compose File erstellt, welches die Konfiguration für Prometheus und Grafana beinhaltet. In diesem File wird die Version von Prometheus und Grafana festgelegt, sowie die Ports für die Web-Oberflächen definiert. Jegliche konfigurationen für die beiden Tools werden im Verzeichnis `/grafana-prometheus` abgelegt, welches zuvor erstellt wurde.
+
+#htl3r.code-file(
+  caption: "Docker-Compose-File für Prometheus und Grafana",
+  filename: [/terraform/stage_06/scripts/grafana.sh],
+  ranges: ((34, 70),),
+  lang: "bash",
+  text: read("../assets/scripts/grafana.sh")
+)
+
+==== Automatisches einspielen von Dashboards in Grafana
+Damit die Aufsetzung voll automatisiert erfolgen kann, werden die Dashboards in Grafana automatisch importiert. Dafür wird eine Konfigurationsdatei erstellt, welche die Dashboards in Grafana importiert. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus/provisioning/dashboards` abgelegt.
+Damit das Dashboard vollständig importiert werden kann, muss außerdem eine Datenquelle für das Dashboard definiert werden. Diese wird in das Verzeichnis `/grafana-prometheus/provisioning/datasources` abgelegt.
+
+#htl3r.code-file(
+  caption: "Konfigurationsdateien erstellen für das Importieren von Dashboards in Grafana",
+  filename: [/terraform/stage_06/scripts/grafana.sh],
+  ranges: ((72, 97),),
+  lang: "bash",
+  text: read("../assets/scripts/grafana.sh")
+)
+
+Jetzt werden alle Dashboards, die in das Verzeichnis `/grafana-prometheus/dashboards` abgelegt wurden, automatisch in Grafana importiert. Die Datenquelle für die Dashboards wird ebenfalls automatisch erstellt.
+
+==== Konfiguration von Prometheus
+Die `prometheus.yml` Konfigurationsdatei wird erstellt, um Prometheus zu konfigurieren, damit es die Daten von den Domain Controllern sammeln kann. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus` abgelegt und über das Docker-Compose-File eingebunden.
+
+#htl3r.code-file(
+  caption: "Konfigurationsdatei für Prometheus",
+  filename: [/terraform/stage_06/scripts/grafana.sh],
+  ranges: ((99, 112),),
+  lang: "bash",
+  text: read("../assets/scripts/grafana.sh")
+)
+
+==== Installieren des Node Exporters auf den Domain Controllern
+Der Node Exporter wird auf den Domain Controllern installiert, um die Metriken der Domain Controller an Prometheus zu senden. Dafür wird mit einem Powershell-Skript zunächst der Node Exporter heruntergeladen und anschließend installiert. Zusätzlich muss eine Firewall-Regel erstellt werden, um den Zugriff auf den Node Exporter zu ermöglichen.
+
+#htl3r.code-file(
+  caption: "Powershell-Skript zum Installieren des Node Exporters auf den Domain Controllern",
+  filename: [/terraform/stage_03/scripts/extra/DC1_part_4.ps1],
+  ranges: ((1, 22),),
+  lang: "powershell",
+  text: read("../assets/scripts/Grafana_Windows_Exporter.ps1")
+)
+
+==== Dashboard für die Überwachung der Domain Controller
+Das Dashboard für die Überwachung der Domain Controller wird in Grafana importiert. Es zeigt die wichtigsten Metriken der Domain Controller an, wie beispielsweise die CPU-Auslastung, den Arbeitsspeicher und die Netzwerkauslastung. Das Dashboard basiert auf dem #link("https://grafana.com/grafana/dashboards/14694-windows-exporter-dashboard/")["Windows Exporter Dashboard"], welches von Grafana Labs installiert werden kann. Es wurden jedoch einige Anpassungen vorgenommen, um eine bessere Übersicht über die wichtigsten Werte zu erhalten. Da Zeit im Active Directory eine wichtige Rolle spielt, wurde auch eine Anzeige für die aktuelle Zeit, sowie die Zeitzone auf den Domain-Controllern hinzugefügt. In der linken oberen Ecke des Dashboards, kann man zwischen den einzelnen Domain Controllern wechseln, um die Metriken der einzelnen Server zu vergleichen.
+
+#htl3r.fspace(
+  total-width: 95%,
+  figure(
+    image("../assets/Grafana_Monitoring_Dashboard.png"),
+    caption: [Dashboard für die Überwachung der Domain Controller in Grafana]
+  )
+)

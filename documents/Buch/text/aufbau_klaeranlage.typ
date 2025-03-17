@@ -332,7 +332,7 @@ Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwend
 
 #pagebreak(weak: true)
 == 3D-Modelle
-#htl3r.info[Hier MUSS text stehen]
+Damit einige Dinge in der Anlage so umgesetzt werden konnten, wie sie geplant waren, mussten einige Teile selbst modelliert und gedruckt werden, da es keine passenden Teile auf dem Markt gab. Im Folgenden werden die 3D-Modelle der Teile vorgestellt, die für die Anlage gedruckt wurden. Gerade die Förderschnecke und die Halterung des Schneckenmotors sind essentiell für die Funktionsweise der Anlage.
 
 === Förderschnecke <schnegge>
 Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
@@ -682,7 +682,7 @@ Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps
 #htl3r.author("Gabriel Vogler")
 == Schaltschrank der Modell-Kläranlage
 
-Der Schaltschrank der Modell-Kläranlage ist ein AAAAAA mit zwei verbauten Hutschienen.
+Der Schaltschrank der Modell-Kläranlage ist ein 19 Zoll Netzwerkschrank der Firma Schrack. Darin sind  zwei Hutschienen verbaut.
 
 An der oberen Hutschiene hängen die Netzwerkkomponenten des #htl3r.short[ot]-Netzwerks. Dazu gehören die Zellen-Firewall als auch ein industrieller Switch von Phoenix Contact für das #htl3r.short[span]-Mirroring des Datenverkehrs zwischen Zellen- und Übergangs-Firewall an die Nozomi Guardian.
 
