@@ -585,3 +585,10 @@ gpo:
     singular: Group Policy Object
     plural: Group Policy Objects
   description: Eine Gruppenrichtlinie ist eine Sammlung von Einstellungen, die auf Computern in einer Active Directory-Domäne angewendet werden.
+
+vlsm:
+  short:
+    singular: VLSM
+  long:
+    singular: Variable Length Subnet Masking
+  description: Eine Methodik um Subnetze in mehere kleinere Subnetze zu unterteilen, oder aber auch mehrere kleinere Subnetze in ein größeres zu Gruppieren.
