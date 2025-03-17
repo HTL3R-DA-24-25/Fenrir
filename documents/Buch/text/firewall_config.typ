@@ -67,6 +67,21 @@ Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic in Richtung Jumpbox erl
 
 Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und #htl3r.short[ot]-Geräte indem sie den Zugriff nur indirekt erlaubt. Auf die #htl3r.short[ot]-Geräte selbst haben nur die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] Zugriff. Die #htl3r.short[ot]-Workstations sind von den #htl3r.short[it]-Workstations über #htl3r.short[rdp] erreichbar, doch selbst dieser Verbindung ist nur möglich wenn die #htl3r.short[it]-Workstations mit einem OpenVPN-Server über OpenVPN verbunden sind. Dieser Zugriff wird jedoch vom #htl3r.short[ad] eingeschränkt, siehe @active_directory. Die Übergangs-Firewall selbst ist so Konfiguriert, dass nur eine bestimmte Art von Traffic-Flow erlaubt ist.
 
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/separation_firewall_traffic_flow.png"),
+    caption: [Übergangs-Firewall erlaubter Traffic-Flow]
+  )
+)
+
+Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an der Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle verwenden, welche schwer bis garnicht mittels FortiGate regulierbar sind.
+#htl3r.todo[David macht hier noch nen gedankenstrich]
+
+=== Jumpbox zugriffs Policy
+=== OT-Workstation zugriffs Policy
+=== SPS zugriffs Policy
+
 #htl3r.author("David Koch")
 == Zellen-Firewall
 
