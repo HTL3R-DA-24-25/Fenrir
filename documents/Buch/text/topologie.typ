@@ -66,7 +66,7 @@ Um einen groben Überblick über den physischen Aufbau des Netzwerks zu bekommen
 
 === Verwendete Geräte in der physischen Topologie
 
-#htl3r.inline-todo[In der physischen Topologie kommen nur eine Handvoll von Geräten zum Einsatz.]
+In der physischen Topologie kommen -- mit der Ausnahme der Aktorik und Sensorik der Modell-Kläranlage -- nur eine Handvoll von Geräten zum Einsatz.
 
 #htl3r.fspace(
   total-width: 100%,
