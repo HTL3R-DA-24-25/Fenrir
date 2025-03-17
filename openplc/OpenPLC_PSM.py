@@ -213,7 +213,7 @@ def update_inputs():
     psm.set_var("IW0", temperature1)
     temperature2 = int(sensors[1].get_temperature())
     psm.set_var("IW1", temperature2)
-    write_to_esp32(ESP_I2C_address, "haiii")
+    write_to_esp32(ESP_I2C_address, "hello")
     time.sleep(0.05) # dunno if this is the best place to put it
     data = read_from_esp32(ESP_I2C_address, 32)
     psm.set_var("IW2", data[0])

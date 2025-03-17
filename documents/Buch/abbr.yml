@@ -518,7 +518,7 @@ mtu:
     singular: MTU
   long:
     singular: Maximum transmission unit
-  description: Die maximale größe einer PDU einer OSI-Layer 3 übetragung, gleicht nicht der Größe eines Ethernet-Frames.
+  description: Die maximale Größe einer PDU einer OSI-Layer 3 Übetragung, gleicht nicht der Größe eines Ethernet-Frames.
 
 lvm:
   short:
@@ -531,14 +531,16 @@ raid:
   short:
     singular: RAID
   long:
-    singular: redundant array of independent disks
+    singular: Redundant Array of Independent Disks
 
 gip:
+  short:
+    singular: GIP
   long:
     singular: Golden Image Pipeline
   description: Eine Golden Image Pipeline stellt VM-Templates zur verfügung, von welcher Virtuelle Maschinen erstellt werden.
 
-ldap: 
+ldap:
   short:
     singular: LDAP
   long:
@@ -558,3 +560,28 @@ ipsec:
   long:
     singular: Internet Protocol Security
   description: Ein Protokoll, welches es ermöglicht, Datenpakete zu verschlüsseln und zu authentifizieren.
+
+ntp:
+  short:
+    singular: NTP
+  long:
+    singular: Network Time Protocol
+  description: Ein Protokoll zur Synchronisation von Uhren in Computernetzwerken.
+
+svi:
+  short:
+    singular: SVI
+    plural: SVIs
+  long:
+    singular: Switch Virtual Interface
+    plural: Switch Virtual Interfaces
+  description: Ein virtualles Interface auf einem Switch, welches genutzt wird um OSI-Layer 3 konfigurationen pro VLAN festzulegen. So wird auch inter VLAN routing direkt auf einem Switch möglich.
+
+gpo:
+  short:
+    singular: GPO
+    plural: GPOs
+  long:
+    singular: Group Policy Object
+    plural: Group Policy Objects
+  description: Eine Gruppenrichtlinie ist eine Sammlung von Einstellungen, die auf Computern in einer Active Directory-Domäne angewendet werden.

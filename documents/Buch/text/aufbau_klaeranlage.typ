@@ -8,13 +8,19 @@ Um die Absicherung eines Produktionsbetriebs oder eines Stücks kritischer Infra
 Zwar sind Kläranlagen nicht die beliebtesten #htl3r.short[ot]-Angriffsziele, Kraftwerke wären hierbei das beliebteste Ziel von Cyberangriffen auf kritische Infrastruktur @knowbe4-cyber-attacks-crit-infra[comp], jedoch gab es mit der Häufung an staatlich motivierten Cyberangriffen auch manche von pro-russischen Hacktivisten auf Kläranlagen im amerikanischen als auch europäischen Raum. @cisa-wastewater[comp]
 
 #htl3r.fspace(
+  total-width: 90%,
   figure(
     image("../assets/klaeranlage_blockschaltbild.png"),
     caption: [Die drei Betriebszellen der Modell-Kläranlage]
   )
 )
 
-TODO TOWER
+#htl3r.fspace(
+  figure(
+    image("../assets/klaeranlage_blocks.png", width: 65%),
+    caption: [Schematische Darstellung aller Betriebszellen und deren Verbindungen untereinander]
+  )
+)
 
 #htl3r.author("David Koch")
 == Planung der Betriebszellen
@@ -25,9 +31,8 @@ Die Gerätschaft einer Betriebszelle soll nur innerhalb dieser kommunizieren kö
 Unter anderem lässt sich durch eine physische Segmentierung der Kläranlage diese leicht ab- und wieder aufbauen. Wären alle Betriebszellen auf einer einzelnen Platte untergebracht, wäre diese circa 160x45cm groß und somit sehr unhandlich zu transportieren.
 
 == Zelle Eins (Grobfiltration)
-#htl3r.info[Hier MUSS text stehen]
 
-Die erste Betriebszelle dient der Grobfiltration des schmutzigen Wassers. Falls im Wasser gröbere Schmutzpartikel -- wie z.B. Kieselsteine -- enhalten sind, müssen sie aus dem Abwasser filtriert werden, bevor sie in den feineren Filter der zweiten Betriebszelle kommen, um diesen nicht zu beschädigen. Nach der ersten Zelle wird das Abwasser durch einen Höhenunterschied zwischen dem Auffangbecken und dem ersten Tank der Zelle Zwei mittels Schwerkraft abtransportiert.
+Die erste Betriebszelle dient der Grobfiltration des schmutzigen Wassers. Falls im Wasser gröbere Schmutzpartikel -- wie z.B. Kieselsteine -- enthalten sind, müssen sie aus dem Abwasser filtriert werden, bevor sie in den feineren Filter der zweiten Betriebszelle kommen, um diesen nicht zu beschädigen. Nach der ersten Zelle wird das Abwasser durch einen Höhenunterschied zwischen dem Auffangbecken und dem ersten Tank der Zelle Zwei mittels Schwerkraft abtransportiert.
 
 #htl3r.fspace(
   figure(
@@ -94,7 +99,6 @@ Das in @zelle-1-programm abgebildete Programm -- welches in der Kontaktplan-Prog
 
 #pagebreak(weak: true)
 == Zelle Zwei (Feinfiltration)
-#htl3r.info[Hier MUSS text stehen]
 
 Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
 
@@ -202,7 +206,6 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
 
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
-#htl3r.info[Hier MUSS text stehen]
 
 #htl3r.todo("hier kurze einführung")
 
@@ -271,6 +274,7 @@ Für die Steuerung der Betriebszelle "Staudamm" ist ein Programm zuständig, wel
 )
 
 #htl3r.fspace(
+  total-width: 90%,
   [
     #figure(
       image("../assets/Zelle_3_Programm.png"),

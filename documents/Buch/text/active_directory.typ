@@ -5,9 +5,9 @@
 #let llist(..items) = box(align(left, list(..items.pos().map(item => list.item([#item])))))
 
 #htl3r.author("Gabriel Vogler")
-= Active Directory
+= Active Directory <active_directory>
 
-Active Directory Domain Services ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Diese zentrale Verwaltung erlaubt die Authentifizierung und Zugriffssteuerung dieser Benutzer und Computer, wobei auch ausserhalb von AD-integrierten Windows-Geräten diese Authentifizierung eingesetzt werden kann. Dieser wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
+#htl3r.long[adds] ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Diese zentrale Verwaltung erlaubt die Authentifizierung und Zugriffssteuerung dieser Benutzer und Computer, wobei auch ausserhalb von AD-integrierten Windows-Geräten diese Authentifizierung eingesetzt werden kann. Dieser wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
 
 == Domain und Forest
 Im Szenario des Firmennetzwerkes der Firma "Fenrir", wird im #htl3r.long[ad] auf eine Domain und einen Forest gesetzt, da es sich um ein kleines Unternehmen handelt und nur ein Standort vorhanden ist. Dadurch sind die Konfiguration und die Verwaltung des #htl3r.short[ids] einfacher und übersichtlicher. Dennoch bietet die #htl3r.short[ad]-Struktur genug Flexibilität und Erweiterungsmöglichkeiten, wie es in der realen Welt auch der Fall sein sollte, falls das Unternehmen wächst.
@@ -169,7 +169,90 @@ Es werden zuerst die Domain Local Groups und dann die Global Groups erstellt. An
 
 #htl3r.author("Bastian Uhlig")
 == GPOs
-fdfdfd
+#htl3r.fullpl[gpo] sind Richtlinien, die in einer #htl3r.long[ad]-Domäne definiert werden und die Konfiguration von Benutzern und Computern in einem Netzwerk steuern. Mit #htl3r.short[gpo] können Administratoren Einstellungen für Benutzer und Computer festlegen, wie z.B. Sicherheitseinstellungen, Softwareinstallationen, Netzwerkeinstellungen und vieles mehr. In der Firma "Fenrir" werden #htl3r.shortpl[gpo] verwendet, um die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne zu steuern. \ 
+Effektiv setzen #htl3r.shortpl[gpo] Registy-Einträge, weshalb man in den Skriptausschnitten auch die Pfade dieser zu sehen bekommt.
+
+=== GPOs in der Firma "Fenrir"
+In der Firma "Fenrir" sind einige relativ grundlegende #htl3r.shortpl[gpo] definiert, die die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne steuern. Alle #htl3r.shortpl[gpo] werden wie auch der Rest vom #htl3r.long[ad] mittels PowerShell-Skripten erstellt:
+
+- *Minimum Password Length:* Diese #htl3r.shortpl[gpo] legt die Mindestlänge des Passworts für Benutzer in der #htl3r.long[ad]-Domäne fest. In der Firma "Fenrir" wurde die Mindestlänge auf 8 Zeichen festgelegt.
+#htl3r.code(caption: "OU für minimale Passwortlänge", description: none)[
+```powershell
+$minPasswordLengthGpoName = "Minimum Password Length Policy"
+New-GPO -Name $minPasswordLengthGpoName | Out-Null
+Set-GPRegistryValue -Name $minPasswordLengthGpoName -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Network" -ValueName "MinPwdLen" -Type DWORD -Value 8
+```
+]
+- *Desktop Wallpaper:* Diese #htl3r.shortpl[gpo] legt das Hintergrundbild für die Desktops der Benutzer in der #htl3r.long[ad]-Domäne fest. In der Firma "Fenrir" wurde das Hintergrundbild auf das Firmenlogo festgelegt.
+#htl3r.code(caption: "OU für den Desktop Hintergrund", description: none)[
+```powershell
+$desktopWallpaperGpoName = "Desktop Wallpaper Policy"
+$wallpaperPath = "\\nfs\wallpapers\wallpaper.jpg"
+New-GPO -Name $desktopWallpaperGpoName | Out-Null
+Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Control Panel\Desktop" -ValueName "WallPaper" -Type String -Value $wallpaperPath
+Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Control Panel\Desktop" -ValueName "TileWallpaper" -Type String -Value "0"
+Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Control Panel\Desktop" -ValueName "WallpaperStyle" -Type String -Value "10"
+Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System" -ValueName "NoChangingWallPaper" -Type DWord -Value 1
+```
+]
+- *Default Browser Homepage:* Diese #htl3r.shortpl[gpo] legt die Startseite von Internet Explorer auf die Firmenwebsite fest.
+#htl3r.code(caption: "OU für die Standard-Startseite des Browsers", description: none)[
+```powershell
+$defaultBrowserHomepageGpoName = "Default Browser Homepage Policy"
+$homepageUrl = "https://www.fenrir-ot.at" 
+New-GPO -Name $defaultBrowserHomepageGpoName | Out-Null
+Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Microsoft\Internet Explorer\Main" -ValueName "Start Page" -Type String -Value $homepageUrl
+Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Microsoft\Internet Explorer\Main" -ValueName "Default_Page_URL" -Type String -Value $homepageUrl
+```
+]
+- *Hiding Last User:* Diese #htl3r.shortpl[gpo] versteckt den letzten angemeldeten Benutzer auf dem Anmeldebildschirm, sodass jeder User bei neuen Anmeldungen seinen Benutzernamen eingeben muss.
+#htl3r.code(caption: "OU für das Verstecken des letzten Benutzers", description: none)[
+```powershell
+$hidingLastUserGpoName = "Hiding Last User Policy"
+New-GPO -Name $hidingLastUserGpoName | Out-Null
+Set-GPRegistryValue -Name $hidingLastUserGpoName -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" -ValueName "dontdisplaylastusername" -Type DWORD -Value 1
+$gpo = Get-GPO -Name $hidingLastUserGpoName
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+```
+]	
+- *Login Screen:* Diese #htl3r.shortpl[gpo] legt das Firmenlogo auf dem Anmeldebildschirm fest, also der Bildschirm, den man auf bei Passwort und Benutzernameneingabe sieht.
+#htl3r.code(caption: "OU für das Firmenlogo auf dem Anmeldebildschirm", description: none)[
+```powershell
+$loginScreenGpoName = "Login Screen Policy"
+$loginScreenPath = "\\nfs\wallpapers\loginscreen.jpg"
+New-GPO -Name $loginScreenGpoName | Out-Null
+Set-GPRegistryValue -Name $loginScreenGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" -ValueName "LockScreenImage" -Type String -Value "$loginScreenPath"
+$gpo = Get-GPO -Name $loginScreenGpoName
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+```
+]
+- *Drive Mount:* Diese #htl3r.shortpl[gpo] legt fest, dass bei der Anmeldung der Benutzer automatisch das Firmeninterne Netzlaufwerk gemountet bekommt.
+#htl3r.code(caption: "OU für das Mounten des Firmenlaufwerks", description: none)[
+```powershell
+$driveMountGpoName = "Drive Mount Policy"
+$sharePath = "\\nfs\share"
+New-GPO -Name $driveMountGpoName | Out-Null
+$keyPath = "HKCU\Network\F:"
+Set-GPRegistryValue -Name $driveMountGpoName -Key $keyPath -ValueName "ConnectFlags" -Type DWord -Value 0
+Set-GPRegistryValue -Name $driveMountGpoName -Key $keyPath -ValueName "ConnectionType" -Type DWord -Value 1
+Set-GPRegistryValue -Name $driveMountGpoName -Key $keyPath -ValueName "DeferFlags" -Type DWord -Value 1
+Set-GPRegistryValue -Name $driveMountGpoName -Key $keyPath -ValueName "ProviderName" -Type String -Value "Microsoft Windows Network"
+Set-GPRegistryValue -Name $driveMountGpoName -Key $keyPath -ValueName "RemotePath" -Type String -Value "$sharePath"
+Set-GPRegistryValue -Name $driveMountGpoName -Key $keyPath -ValueName "UserName" -Type String -Value ""
+```
+]
+- *Firewall:* Diese #htl3r.shortpl[gpo] erzwingt die Aktivierung von allen 3 Windows-Firewalls (Domain, Private, Public).
+#htl3r.code(caption: "OU für die Aktivierung der Windows-Firewall", description: none)[
+```powershell
+$firewallGpoName = "Firewall Policy"
+New-GPO -Name $firewallGpoName | Out-Null
+Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" -ValueName "EnableFirewall" -Type DWord -Value 1
+Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -ValueName "EnableFirewall" -Type DWord -Value 1
+Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" -ValueName "EnableFirewall" -Type DWord -Value 1
+$gpo = Get-GPO -Name $firewallGpoName
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+```
+]
 
 #htl3r.author("David Koch")
 == Domain Controller
@@ -220,7 +303,7 @@ Der Aufsetzungsprozess wird im Playbook durch die sogenannten "Tasks" gesteuert.
 
 Nach der fertigen Ausführung vom Part-1-Skript ist ein Neustart des Domain Controllers notwendig. Dieser wird auch durch die im Ansible Playbook eingetragenen Tasks durchgeführt.
 
-Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten die Hochstufung und im dritten -- unter anderem -- die Konfiguration der OU-Struktur, Benutzer, Gruppen und GPOs stattfindet.
+Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten die Hochstufung und im dritten -- unter anderem -- die Konfiguration der OU-Struktur, Benutzer, Gruppen und #htl3r.shortpl[gpo] stattfindet.
 
 #htl3r.code-file(
   caption: "Part-2-Skript für die Aufsetzung von DC1",
@@ -344,7 +427,7 @@ Im dritten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_3.ps1`
 )
 
 === Test des File Servers
-Um den Fileserver zu testen, erstellt ein Benutzer zwei Dateien, eine liegt in seinem eigenen Verzeichnis und eine in dem seiner Abteilung. Der Benutzer `jburger` erstellt die Datei `test.txt` in seinem Verzeichnis und die Datei `test2.txt` im Verzeichnis der Abteilung `Infrastructure`. Der Benutzer `dkoch` sollte die Berechtigungen haben `test2.txt` zu lesen, `test.txt` jedoch nicht.  Um auf den Fileserver zuzugreifen, wird in einem Webbrowser die URL `\\fileserver.corp.fenrir-ot.at\Fenrir-Share` eingegeben. 
+Um den Fileserver zu testen, erstellt ein Benutzer zwei Dateien, eine liegt in seinem eigenen Verzeichnis und eine in dem seiner Abteilung. Der Benutzer `jburger` erstellt die Datei `test.txt` in seinem Verzeichnis und die Datei `test2.txt` im Verzeichnis der Abteilung `Infrastructure`. Der Benutzer `dkoch` sollte die Berechtigungen haben `test2.txt` zu lesen, `test.txt` jedoch nicht.  Um auf den Fileserver zuzugreifen, wird in einem Webbrowser die URL `\\fileserver.corp.fenrir-ot.at\Fenrir-Share` eingegeben.
 
 Erfolgreicher Zugriff auf `test2.txt` im  Verzeichnis der Abteilung `Infrastructure`:
 #htl3r.fspace(
