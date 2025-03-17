@@ -576,3 +576,12 @@ svi:
     singular: Switch Virtual Interface
     plural: Switch Virtual Interfaces
   description: Ein virtualles Interface auf einem Switch, welches genutzt wird um OSI-Layer 3 konfigurationen pro VLAN festzulegen. So wird auch inter VLAN routing direkt auf einem Switch möglich.
+
+gpo:
+  short:
+    singular: GPO
+    plural: GPOs
+  long:
+    singular: Group Policy Object
+    plural: Group Policy Objects
+  description: Eine Gruppenrichtlinie ist eine Sammlung von Einstellungen, die auf Computern in einer Active Directory-Domäne angewendet werden.
