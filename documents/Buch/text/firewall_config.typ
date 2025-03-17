@@ -25,7 +25,6 @@ Da die meisten Links in Richtung #htl3r.short[it] gehen, sind diese nur mit #htl
 Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisionierung (siehe @provisionierung) #htl3r.shortpl[vm] den Zugriff auf das Internet zu ermöglichen. Über das Management-Interface kann währenddessen auf Management-Ressourcen zugegriffen werden, wie zum Beispiel die esxis oder der vCenter-Server.
 
 #htl3r.fspace(
-  total-width: 95%,
   [
     #figure(
       image("../assets/Uplink-FW-Interfaces.png"),
@@ -95,12 +94,11 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
   total-width: 80%,
   figure(
     image("../assets/separation_firewall_traffic_flow.png"),
-    caption: [Übergangs-Firewall erlaubter Traffic-Flow]
+    caption: [Der von der Übergangs-Firewall erlaubte Traffic-Flow]
   )
 )
 
-Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an der Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle verwenden, welche schwer bis garnicht mittels FortiGate regulierbar sind.
-#htl3r.todo[David macht hier noch nen gedankenstrich]
+Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an der Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis garnicht mittels FortiGate regulierbar sind. 
 
 === Jumpbox Policy
 
@@ -143,9 +141,9 @@ Die Zellen-Firewall -- eine FortiGateRugged60F -- dient dem Schutz des empfindli
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
 
-=== Multi-VDOM-Mode
+=== Multi-VDOM-Mode zur Mikrosegmentierung der Zellen <vdoms>
 
-Eine #htl3r.short[vdom] (kurz für "Virtual Domain") ist eine von anderen #htl3r.shortpl[vdom] unabhängige administrative Einheit innerhalb einer FortiGate-Firewall.
+Eine #htl3r.short[vdom] (kurz für "#htl3r.long[vdom]") ist eine von anderen #htl3r.shortpl[vdom] unabhängige administrative Einheit innerhalb einer FortiGate-Firewall.
 
 Wenn kein Multi-#htl3r.short[vdom]-Mode verwendet wird, läuft alles auf der Firewall über die Root-#htl3r.short[vdom] und alle vorgenommenen Konfigurationen sind global auf dem Gerät vorhanden. Die Root-#htl3r.short[vdom] kann somit nicht gelöscht werden. @vdom-overview[comp]
 
@@ -182,7 +180,7 @@ Die Aspekte der "Internet access #htl3r.short[vdom]" finden sich in der Segmenti
 
 Die "Administrative #htl3r.short[vdom]" ist implementiert worden, um eine vom restlichen Netzwerk möglichst abgetrennte Verbindung zur Firewall bereitzustellen, über welche der Konfigurationszugriff gestattet ist.
 
-Zur Konfiguration dieser VDOMs muss zuerst mittels `config vdom` in den VDOM-Konfigurationsmodus gewechselt werden. Anschließend kann mit `edit <NAME>` eine neue VDOM erstellt werden bzw. eine bestehende bearbeitet werden.
+Zur Konfiguration dieser #htl3r.shortpl[vdom] muss zuerst mittels `config vdom` in den #htl3r.short[vdom]-Konfigurationsmodus gewechselt werden. Anschließend kann mit `edit <NAME>` eine neue #htl3r.short[vdom] erstellt werden bzw. eine bestehende bearbeitet werden.
 
 #htl3r.code-file(
   caption: "Die Grundkonfiguration der VDOM von Zelle Eins",
@@ -206,9 +204,7 @@ Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung vo
     ]
   )
 
-Hierbei werden alle #htl3r.shortpl[sps] an einen gemeinsamen #htl3r.short[ot]-Switch angebunden, welcher ähnlich zur Zellen-Firewall direkt im Schaltschrank hängt. Dieser weißt den einzelnen Interfaces, die zu den #htl3r.shortpl[sps] führen, eigene #htl3r.shortpl[vlan] zu, um die Verbindungen in mehrere Netzwerk aufzuspalten.
-
-Die Firewall erhält über eine Trunk-Verbindung vom Switch alle Daten aus den einzelnen #htl3r.shortpl[vlan] und leitet diese je nach ihrer Herkunft anders weiter, als wären sie aus verschiedenen Netzwerken gekommen, wobei nie die dritte #htl3r.short[osi]-Schicht verwendet worden ist. Diese Methode wird "Router on a Stick" genannt.
+Hierbei werden alle #htl3r.shortpl[sps] an einen gemeinsamen #htl3r.short[ot]-Switch angebunden, welcher ähnlich zur Zellen-Firewall direkt im Schaltschrank hängt. Dieser weißt den einzelnen Interfaces, die zu den #htl3r.shortpl[sps] führen, eigene #htl3r.shortpl[vlan] zu, um die Verbindungen in mehrere Netzwerk aufzuspalten. Die Firewall erhält über eine Trunk-Verbindung vom Switch alle Daten aus den einzelnen #htl3r.shortpl[vlan] und leitet diese je nach ihrer Herkunft anders weiter, als wären sie aus verschiedenen Netzwerken gekommen, wobei nie die dritte #htl3r.short[osi]-Schicht verwendet worden ist. Diese Methode wird "Router on a Stick" genannt.
 
 Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext ist die, dass für die Verbindung und nötige Absicherung zwischen der Zellen-Firewall und der Übergangs-Firewall nicht direkt das #htl3r.short[wan]-Interface genutzt werden kann. Ein Interface kann immer jeweils nur einer #htl3r.short[vdom] zugewiesen sein. Somit können aber keine Policies erstellt werden, die beispielsweise Datenverkehr aus den einzelnen Betriebszellen (also vom Interface `internal1` z.B., das der #htl3r.short[vdom] `VDOM-CELL-1` zugewiesen ist) in Richtung der Übergangs-Firewall erlauben, da das #htl3r.short[wan]-Interface Teil der Root-#htl3r.short[vdom] ist. Alle Interfaces, die in einer Policy genutzt werden, müssen in der gleichen #htl3r.short[vdom] wie die Policy selbst sein. Um dieses Problem zu lösen, müssen innerhalb der Zellen-Firewall zwischen den #htl3r.shortpl[vdom] sogenannte #htl3r.short[vdom]-Links erstellt werden (wie in @internet-access-vdom).
 
@@ -231,13 +227,47 @@ Eine der Tücken bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontext i
   )
 )
 
-=== Policies
+=== Policies der Zellen-Firewall
 
 Eines der wichtigsten Werkzeuge, die eine FortiGate -- wie viele andere Firewalls auch -- bietet, sind Policies. Standardmäßig lässt eine FortiGate-Firewall keinerlei Datenverkehr durch, ein "implicit deny" wird verwendet. Es müssen durch den/die zuständige Netzwerkadministrator/in beim Einsatz einer FortiGate die nötigen Firewall-Policies erstellt werden, um den Datenverkehr auf das nötige Minimum einzuschränken, ohne dabei die Funktionalität des (bestehenden) Netzwerks zu beeinträchtigen.
 
+Durch den Einsatz von den bereits in @vdoms beschriebenen #htl3r.longpl[vdom] und deren #htl3r.short[vdom]-Links können nicht direkt Policies für den nötigen Datenverkehr zwischen dem #htl3r.short[scada] und den #htl3r.shortpl[sps] erstellt werden. Es müssen stattdessen Policies für den Datenverkehr, der über die einzelnen #htl3r.short[vdom]-Links gehen soll, erstellt werden.
 
+Zuerst muss in der Root-#htl3r.short[vdom] pro Zelle eine Policy erstellt werden, die den #htl3r.short[icmp] und Modbus #htl3r.short[tcp] Datenverkehr vom Interface "wan1" -- die Anbindung an die Übergangs-Firewall -- zum internen #htl3r.short[vdom]-Link der jeweiligen Zelle erlaubt. Anschließend wird in der jeweiligen Zellen-#htl3r.short[vdom] die zweite Policy erstellt, die vom internen #htl3r.short[vdom]-Link den Datenverkehr wieder auf das physische Interface ("internal1", "internal2" oder "internal3") zu der Zelle erlaubt. Was nicht vergessen werden darf, ist, dass die #htl3r.shortpl[vdom] ebenfalls statische Routen brauchen, denn durch die Trennung der Netzwerke mittels #htl3r.short[vdom]-Links sind diese nicht mehr "directly connected" zueinander.
 
-=== Lizensierte Features
+#htl3r.code-file(
+  caption: "Root-VDOM-Policy für den VDOM-Link der dritten Betriebszelle",
+  filename: [Zellen-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((309, 327),),
+  skips: ((328, 0),),
+  text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
+)
+
+#pagebreak(weak: true)
+Die Policy für den Datenverkehr zwischen der VDOM von Zelle Drei und der Root-VDOM sieht dann wiefolgt aus:
+
+#htl3r.code-file(
+  caption: "Policy innerhalb der Zelle-Drei-VDOM für Kommunikation von der Root-VDOM zur Zelle",
+  filename: [Zellen-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((400, 425),),
+  text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
+)
+
+#pagebreak(weak: true)
+Die Root-VDOM braucht für alle drei Zellen-VDOM-Links jeweils eine statische Route, hier wird die Route zur dritten Betriebszelle gezeigt:
+
+#htl3r.code-file(
+  caption: "Statische Route in der Root-VDOM für das Netzwerk von Zelle Drei",
+  filename: [Zellen-FW-Fenrir.conf],
+  lang: "fortios",
+  ranges: ((343, 347),),
+  skips: ((342, 0),),
+  text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
+)
+
+=== Lizensierte Features für OT-Security
 
 Mit einer FortiGate-Firewall lassen sich nicht nur Policies schreiben, um den Datenverkehr zu regulieren. Es können die auch Daten laufend in Form eines #htl3r.short[ips] analysiert und anhand des Inhalts blockiert bzw. erlaubt werden.
 
