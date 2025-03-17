@@ -21,7 +21,7 @@ Hier sind lediglich die grundlegenden Konfigurationen der Uplink-Firewall darges
 === Interfaces
 Bei der Konfiguration der Interfaces von der Uplink-Firewall ist zu beachten, dass auch das gesamte Management-Netzwerk über diese Firewall läuft. Dieses ist zwar komplett vom restlichen Netzwerk getrennt, jedoch sind sie trotzdem anzulegen. \
 Da die meisten Links in Richtung #htl3r.short[it] gehen, sind diese nur mit #htl3r.shortpl[vlan] getrennt. Alle #htl3r.shortpl[vlan] werden dann entweder auf einem Switch oder in vCenter terminiert und an die entsprechenden #htl3r.shortpl[vm] weitergeleitet. \
-Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisionierung (siehe @provisionierung) #htl3r.shortpl[vm] den Zugriff auf das Internet zu ermöglichen. Über das Management-Interface kann währenddessen auf Management-Ressourcen zugegriffen werden, wie zum Beispiel die esxis oder der vCenter-Server. 
+Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisionierung (siehe @provisionierung) #htl3r.shortpl[vm] den Zugriff auf das Internet zu ermöglichen. Über das Management-Interface kann währenddessen auf Management-Ressourcen zugegriffen werden, wie zum Beispiel die esxis oder der vCenter-Server.
 
 #htl3r.fspace(
   total-width: 95%,
@@ -42,7 +42,7 @@ Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisio
 )
 
 === LDAP Server
-Zur Authentifizierung von Benutzern, welche den #htl3r.short[ras]-#htl3r.short[vpn] verwenden dürfen, wird mittels #htl3r.short[ldap] eine Verbindung zum #htl3r.short[ad] hergestellt. Dazu muss ein Account angegeben werden, welcher Leserechte hat, um die Benutzer zu überprüfen. 
+Zur Authentifizierung von Benutzern, welche den #htl3r.short[ras]-#htl3r.short[vpn] verwenden dürfen, wird mittels #htl3r.short[ldap] eine Verbindung zum #htl3r.short[ad] hergestellt. Dazu muss ein Account angegeben werden, welcher Leserechte hat, um die Benutzer zu überprüfen.
 
 #htl3r.code-file(
   caption: "Uplink-Firewall LDAP-Konfiguration",
@@ -56,7 +56,7 @@ Zur Authentifizierung von Benutzern, welche den #htl3r.short[ras]-#htl3r.short[v
 Der Remote Access #htl3r.short[vpn] ermöglicht es Benutzern, sich von außerhalb des Netzwerks sicher mit dem Netzwerk zu verbinden. Dazu wird ein #htl3r.short[ipsec]-#htl3r.short[vpn] eingerichtet, welcher die Authentifizierung über den #htl3r.short[ldap]-Server durchführt. Benutzer bekommen Zugriff auf das #htl3r.short[it]-Netzwerk und können sich von dort aus weiter verbinden, falls dies notwendig ist.
 
 === Policies
-Policies sind eins der wichtigsten Tools einer Firewall -- und damit auch der FortiGate. Mit ihnen wird der Datenverkehr reguliert und gesteuert. Standardmäßig lässt eine FortiGate-Firewall keinen Datenverkehr durch, es muss also alles explizit erlaubt werden. 
+Policies sind eins der wichtigsten Tools einer Firewall -- und damit auch der FortiGate. Mit ihnen wird der Datenverkehr reguliert und gesteuert. Standardmäßig lässt eine FortiGate-Firewall keinen Datenverkehr durch, es muss also alles explizit erlaubt werden.
 
 Im Falle der Uplink-Firewall sind die Policies so konfiguriert, dass nur der nötige Datenverkehr durchgelassen wird. Das heißt, dass von außen nur Datenverkehr auf den Exchange-Server zugelassen wird, und auch da nur auf die Ports, die benötigt werden. \
 In die #htl3r.short[it]-SEC-Zone wird nur Datenverkehr zugelassen, der auch notwendig ist. Dies bedeutet alle für #htl3r.short[adds] notwendigen Ports und Protokolle, sowie Web-Access auf die Nozomi Guardian. \
@@ -64,6 +64,8 @@ Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic in Richtung Jumpbox erl
 
 #htl3r.author("Julian Burger")
 == Übergangs-Firewall
+
+Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und #htl3r.short[ot]-Geräte indem sie den Zugriff nur indirekt erlaubt. Auf die #htl3r.short[ot]-Geräte selbst haben nur die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] Zugriff. Die #htl3r.short[ot]-Workstations sind von den #htl3r.short[it]-Workstations über #htl3r.short[rdp] erreichbar, doch selbst dieser Verbindung ist nur möglich wenn die #htl3r.short[it]-Workstations mit einem OpenVPN-Server über OpenVPN verbunden sind. Dieser Zugriff wird jedoch vom #htl3r.short[ad] eingeschränkt, siehe @active_directory. Die Übergangs-Firewall selbst ist so Konfiguriert, dass nur eine bestimmte Art von Traffic-Flow erlaubt ist.
 
 #htl3r.author("David Koch")
 == Zellen-Firewall

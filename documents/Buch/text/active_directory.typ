@@ -5,7 +5,7 @@
 #let llist(..items) = box(align(left, list(..items.pos().map(item => list.item([#item])))))
 
 #htl3r.author("Gabriel Vogler")
-= Active Directory
+= Active Directory <active_directory>
 
 Active Directory Domain Services ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Diese zentrale Verwaltung erlaubt die Authentifizierung und Zugriffssteuerung dieser Benutzer und Computer, wobei auch ausserhalb von AD-integrierten Windows-Geräten diese Authentifizierung eingesetzt werden kann. Dieser wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
 
@@ -344,7 +344,7 @@ Im dritten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_3.ps1`
 )
 
 === Test des File Servers
-Um den Fileserver zu testen, erstellt ein Benutzer zwei Dateien, eine liegt in seinem eigenen Verzeichnis und eine in dem seiner Abteilung. Der Benutzer `jburger` erstellt die Datei `test.txt` in seinem Verzeichnis und die Datei `test2.txt` im Verzeichnis der Abteilung `Infrastructure`. Der Benutzer `dkoch` sollte die Berechtigungen haben `test2.txt` zu lesen, `test.txt` jedoch nicht.  Um auf den Fileserver zuzugreifen, wird in einem Webbrowser die URL `\\fileserver.corp.fenrir-ot.at\Fenrir-Share` eingegeben. 
+Um den Fileserver zu testen, erstellt ein Benutzer zwei Dateien, eine liegt in seinem eigenen Verzeichnis und eine in dem seiner Abteilung. Der Benutzer `jburger` erstellt die Datei `test.txt` in seinem Verzeichnis und die Datei `test2.txt` im Verzeichnis der Abteilung `Infrastructure`. Der Benutzer `dkoch` sollte die Berechtigungen haben `test2.txt` zu lesen, `test.txt` jedoch nicht.  Um auf den Fileserver zuzugreifen, wird in einem Webbrowser die URL `\\fileserver.corp.fenrir-ot.at\Fenrir-Share` eingegeben.
 
 Erfolgreicher Zugriff auf `test2.txt` im  Verzeichnis der Abteilung `Infrastructure`:
 #htl3r.fspace(
