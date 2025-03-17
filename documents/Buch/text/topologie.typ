@@ -107,7 +107,7 @@ Innerhalb der Diplomarbeit werden alle IT-Geräte virtualisiert. Dies bringt meh
 
 Dies ermöglicht ebenso eine gewisse Ausfallsicherheit, da #htl3r.shortpl[vm] unabhängig von den ESXi-Instanzen sind und im Falle eines Ausfalls von einer Instanz auf eine andere Übertragen werden können. Hier gibt es bei VMware Lösungen wie vMotion, welche solche Live-Migrationen durchführen können. Im Rahmen dieser Diplomarbeit kommt dies jedoch nicht zum Einsatz. Es wird lediglich #htl3r.long[drs] verwendet um die #htl3r.shortpl[vm] auf die ESXi-Instanzen aufzuteilen.
 
-=== vCenter Umgebung
+=== vCenter Umgebung <vcenter_env>
 Der vCenter-Dienst läuft als #htl3r.short[vm] auf ESXi 1 und kommuniziert mit den restlichen ESXi-Instanzen über ein Management-Netzwerk. Dieses Mangement-Netzwerk ist als #htl3r.short[vlan] realisiert. Die #htl3r.short[vlan]-ID des Netzwerks ist 120 und als Subnetz wird 10.40.20.0/24 verwendet. Da vCenter eine #htl3r.short[sso]-Domäne erstellt, welche eine #htl3r.short[dns]-Domäne benötigt, existiert innerhalb des Management-Netzwerkes die #htl3r.short[dns]-Domäne fenrir.local mit folgenden #htl3r.short[dns]-Einträgen:
 
 #htl3r.fspace(

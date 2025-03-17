@@ -43,7 +43,24 @@ Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisio
 )
 
 === DHCP Konfiguration <uplink_fw_dhcp>
-#htl3r.todo[Bitte DHCP-Konfiguration abdecken!]
+Auf der Uplink-Firewall liegen mehrere #htl3r.short[dhcp]-Server für drei unterschiedliche Interfaces. 
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (1fr, 2fr, 1fr, 1fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + left, horizon + left, horizon + left),
+      table.header(
+        [*Interface*], [*Adresspool*], [*Gateway*], [*DNS-Server*],
+      ),
+      [inet], [10.10.0.100 - 10.10.0.200], [10.10.0.254], [1.1.1.1],
+      [mgmt], [10.40.20.210 - 10.40.20.230], [10.40.20.254], [10.40.20.254],
+      [itnet], [10.32.0.10 - 	10.32.255.240], [10.32.255.254], [192.168.31.1, 192.168.31.2],
+    ),
+    caption: [Interfaces mit DHCP-Servern auf der Uplink-Firewall],
+  )
+)
 
 === LDAP Server
 

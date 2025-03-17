@@ -30,14 +30,19 @@ Zu jedem Asset wird auch ein risk assessment erstellt, in welchem auf bekannte u
   )
 )
 
-Durch die automatische Erkennung ist die Guardian vor allem in Netzwerken, in welchen der genaue Aufbau nicht bekannt ist, sehr nützlich. Sie kann Administratoren und Administratorinnen helfen, unbekannte Geräte zu entdecken, falls sich beispielsweise ein Angreifer vor Ort an das System anstecken will. Doch sie hilft auch, die Übersicht eines Netzwerks zu erlangen und zu halten, indem sie Kommunikationspartner auch grafisch anzeigen kann.
-#htl3r.todo[Bild von Netzwerkübersicht (Graph)]
+Durch die automatische Erkennung ist die Guardian vor allem in Netzwerken, in welchen der genaue Aufbau nicht bekannt ist, sehr nützlich. Sie kann Administratoren und Administratorinnen helfen, unbekannte Geräte zu entdecken, falls sich beispielsweise ein Angreifer vor Ort an das System anstecken will. Doch sie hilft auch, die Übersicht eines Netzwerks zu erlangen und zu halten, indem sie Kommunikationspartner auch grafisch anzeigen kann. In dieser Übersicht ist auch zu sehen, über welche Protokolle die Kommunikation stattfindet.
+#htl3r.fspace(
+  figure(
+    image("../assets/nozomi_graph.png", width: 95%),
+    caption: [Graph der Kommunikation zwischen den AD-Geräten]
+  )
+)
 
 == Arc Sensor
 Der Arc Sensor ist eine Komponente der Guardian, welche ein Endpoint-Schutzsystem darstellt und speziell für #htl3r.short[ot]-Netzwerke entwickelt wurde. Er fungiert als hostbasierter Sensor zur erkennung von kompromittierten Endpunkten und kann auf allen gängigen Betriebssystemen installiert werden.  @takeponint-arc-sensor[comp] Er erfasst Daten wie installierte Software, Treiber und ähnliches @ikarus-arc-sensor[comp].
 
 == Abwehr von üblichen OT-Angriffen
-Durch die verschiedenen Funktionen der Guardian ist sie ein ideales #htl3r.short[ids] für #htl3r.short[ot]-Netzwerke.
+Durch die verschiedenen Funktionen der Guardian ist sie ein ideales #htl3r.short[ids] für #htl3r.short[ot]-Netzwerke. Sie hilft, schnell Angriffe zu erkennen und zu stoppen. Vorallem in der Welt der #htl3r.short[ot] ist die Guardian ein sehr nützliches Tool, da sie auf solch Umgebungen spezialisiert ist.
 
 === Zero Threat Visibility
 Einer der häufigsten Angriffe auf #htl3r.short[ot]-Netzwerke fungiert über sogenannte "Zero Threat Visibilty". 73 % aller Organisationen geben an, mindestens 20 % ihrer Assets nicht zu kennen. Genau hier springt die Guardian mit ihrer automatischen Asset-Erkennung und ihrem risk assessment ein.
