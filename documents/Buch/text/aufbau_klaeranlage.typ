@@ -372,7 +372,7 @@ Für beide Tanks der Zelle Zwei wurden idente Deckel entworfen und gedruckt. Die
 
 #pagebreak(weak: true)
 
-== Zelle Zwei Elektronikbox
+=== Zelle Zwei Elektronikbox
 Die Elektronikbox, die den Raspberry Pi 4 und den ESP32, sowie die notwendige Verkabelung befindet sich in einer 3D-gedruckten Box. Diese Box wurde so konzipiert, dass der Raspberry Pi 4 und der ESP32 in der Box Platz finden und die Kabel ordentlich verlegt werden können. Die Box hat an der rechten Seite eine runde Öffnung für die Kabel, die in die Box hinein- und herausgehen. Auf der Vorderseite gibt es ein Loch für den RJ45 Anschluss des Raspberry Pi 4, damit dieser mit dem Netzwerk verbunden werden kann. Der Deckel hat ein weißes Fenrir Logo, welches mithilfe eines SVG Bildes in den Deckel modelliert werden konnte. Anschließend wurde mithilfe des #htl3r.short[ams] das Logo mitsamt des Deckels gedruckt. Beim Deckel wurde darauf geachtet, dass dieser in die Box gesteckt werden kann und nicht abfällt. Dafür wurde am Deckel eine Erhöhung gedruckt, die in die Box hineinragt und somit den Deckel festhält. Diese Erhöhung wurde vom Rand der Box 0.1 mm nach innen versetzt, damit der Deckel nicht zu fest sitzt und dennoch nicht abfällt.
 #htl3r.fspace(
   figure(
@@ -439,12 +439,15 @@ Je nach #htl3r.short[sps]-Modell bzw. Hersteller wird jeweils eine eigene Entwic
 
 #htl3r.author("Gabriel Vogler")
 ==== OT-Workstation
-Aufgrund der Netzwerksegmentierung, kann man aus dem IT-Netz aus, nicht direkt die #htl3r.shortpl[sps] programmieren. Dafür wurde eine OT-Workstation eingerichtet, auf die man sich mit #htl3r.short[rdp] über den Jump-Server verbinden kann. Die OT-Workstation gibt es in zwei Formen. Einerseits als #htl3r.long[vm] auf dem VCenter und andererseits als physische Maschine. Die physische Maschine ist ein Lenovo Thinkpad T440. Auf beiden Arten der OT-Workstations ist die identete Konfiguration vorhanden.
+Aufgrund der später in @firewall-config umgesetzten Netzwerksegmentierung wird man aus dem #htl3r.short[it]-Netz nicht direkt die #htl3r.shortpl[sps] programmieren bzw. erreichen können. Dafür wurde eine #htl3r.short[ot]-Workstation eingerichtet, auf die man sich dann mit #htl3r.short[rdp] über den Jump-Server verbinden kann. Die #htl3r.short[ot]-Workstation gibt es in zwei Formen. Einerseits als #htl3r.long[vm] auf dem vCenter und andererseits als physische Maschine. Die physische Maschine ist ein Lenovo Thinkpad T440. Auf beiden Ausführungen der #htl3r.short[ot]-Workstation ist die idente Konfiguration vorhanden.
 
-Es ist Windows 10 installiert mit allen notwendigen Programmen, die für die Programmierung der #htl3r.shortpl[sps] benötigt werden. Dazu zählen das Siemens TIA Portal für die Programmierung der Siemens SIMATIC-#htl3r.short[sps], der OpenPLC-Editor für die OpenPLC-Runtime, welche am Raspberry Pi läuft und das Siemens LOGO! Soft Comfort, welches für die Programmierung der Siemens LOGO!-#htl3r.short[sps] benötigt wird.
+#htl3r.todo("BILD VON OT-LAPTOP HIER EINFÜGEN")
+
+Als Betriebssystem ist Windows 10 installiert, mit allen notwendigen Programmen, die für die Programmierung der #htl3r.shortpl[sps] benötigt werden. Dazu zählen das Siemens TIA Portal für die Programmierung der Siemens SIMATIC-#htl3r.short[sps], der OpenPLC-Editor für die OpenPLC-Runtime welche am Raspberry Pi läuft und das Siemens LOGO! Soft Comfort, welches für die Programmierung der Siemens LOGO!-#htl3r.short[sps] benötigt wird.
+
 Die Installation des OpenPLC-Editors ist ziemlich einfach gehalten. Man muss lediglich die .exe-Datei von der OpenPLC-Website herunterladen und installieren. Im Vergleich ist die Installation des Siemens TIA Portals etwas komplizierter. Es gibt eine .exe-Datei und drei .iso-Dateien, dabei ist zu beachten, dass alle Dateien in einem Ordner liegen müssen. Anschließend wird die .exe-Datei ausgeführt und das TIA Portal installiert. Dies kann einige Zeit in Anspruch nehmen, da das TIA Portal sehr groß ist. Für die Installation des Siemens LOGO! Soft Comforts gibt es eine .exe-Datei, die einfach ausgeführt werden muss. Die Installation dauert nicht so lange wie die des TIA Portals, da das LOGO! Soft Comfort deutlich kleiner ist. Beim TIA Portal und beim LOGO! Soft Comfort gab es öfters Probleme mit der Installation, was dazu führte, dass sie mehrmals installiert werden mussten. Außerdem ist es zweimal, einmal beim TIA Portal und einmal beim LOGO! Soft Comfort, vorgekommen, dass die Installation das Betriebssystem beschädigt hat und Windows 10 neu installiert werden musste.
 
-Sowohl die physische Maschine als auch die #htl3r.short[vm] haben ihre Vor- und Nachteile. Die physische Maschine ist unabhängig vom VCenter und kann direkt Vorort benutzt werden, auch wenn das VCenter nicht erreichbar ist. Die #htl3r.short[vm] hingegen ist leichter zu verwalten und kann mehrfach ausgerollt werden, sodass mehrere Personen gleichzeitig an der Programmierung arbeiten können. Ein weiterer Vorteil der #htl3r.short[vm] ist, dass sie die Fernwartung der #htl3r.shortpl[sps] ermöglicht. 
+Sowohl die physische Maschine als auch die #htl3r.short[vm] haben ihre Vor- und Nachteile. Die physische Maschine ist unabhängig vom vCenter und kann direkt Vorort benutzt werden, auch wenn das VCenter nicht erreichbar ist. Die #htl3r.short[vm] hingegen ist leichter zu verwalten und kann mehrfach ausgerollt werden, sodass mehrere Personen gleichzeitig an der Programmierung arbeiten können. Ein weiterer Vorteil der #htl3r.short[vm] ist, dass sie die Fernwartung der #htl3r.shortpl[sps] ermöglicht. 
 
 #htl3r.author("David Koch")
 ==== Siemens TIA Portal
@@ -460,6 +463,10 @@ Wichtig zu beachten ist, dass STEP 7 als einzige im Rahmen dieser Diplomarbeit v
 ==== OpenPLC-Editor
 
 Die Bereits im @steuerung-zwei erwähnte Software-#htl3r.short[sps]-Runtime -- die "OpenPLC-Runtime" -- kann mithilfe des OpenPLC-Editors mittels grafischer Oberfläche mit Funktionsbausteinen oder auch mittels eingebautem Texteditor programmiert werden, je nach gewünschter #htl3r.short[sps]-Programmierart (siehe @sps-langs).
+
+==== OpenPLC-Webdashboard
+
+TODO
 
 #htl3r.author("Gabriel Vogler")
 ==== Siemens LOGO! Soft Comfort
@@ -677,7 +684,7 @@ Nun kann die #htl3r.short[sps]-Hardwareadresse `%IW2` in einem #htl3r.short[sps]
 #htl3r.fspace(
   [
     #figure(
-      image("../assets/openplc_vars.png", width: 115%),
+      image("../assets/openplc/openplc_vars.png", width: 115%),
       caption: [Alle Variablen der OpenPLC-SPS]
     )
     <openplc-vars>
@@ -688,7 +695,7 @@ Im Screenshot von @openplc-vars sind alle Variablen der OpenPLC-#htl3r.short[sps
 
 #htl3r.fspace(
   figure(
-    image("../assets/openplc_tank_comp.png", width: 50%),
+    image("../assets/openplc/openplc_tank_comp.png", width: 50%),
     caption: [Einsatz der PSM-gemappten Hardwareadresse `%IW2` als `TANK_1_LEVEL` in der SPS-Logik]
   )
 )

@@ -15,8 +15,9 @@ Dazu sind in der Guardian Phasen definiert, in welchen die Funktionsweise stets 
 Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Assets bringt sie so viel wie möglich in Erfahrung. Sei dies von einer #htl3r.short[ip]-Adresse bis hin zu dem laufenden Betriebssystem oder Firmware-Version. Es werden offene Sessions und Verbindungen erkannt und auch, ob ein Asset ein gewisses Service anbietet, wie beispielsweise #htl3r.short[ntp].
 
 #htl3r.fspace(
+  total-width: 100%,
   figure(
-    image("../assets/nozomi_dc1_sessions.png", width: 95%),
+    image("../assets/nozomi_dc1_sessions.png"),
     caption: [Aktive Sessions des primary Domain Controllers]
   )
 )
@@ -24,8 +25,9 @@ Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Ass
 Zu jedem Asset wird auch ein risk assessment erstellt, in welchem auf bekannte und erkannte Vulnerabilitäten eingegangen wird.
 
 #htl3r.fspace(
+  total-width: 100%,
   figure(
-    image("../assets/nozomi_risk_assessment.png", width: 95%),
+    image("../assets/nozomi_risk_assessment.png"),
     caption: [Aktive Sessions des primary Domain Controllers]
   )
 )

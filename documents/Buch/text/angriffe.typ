@@ -53,12 +53,11 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
       "Remote Services", [Die für routinemäßige Systemadministration erlaubten Kommunikationsschnittstellen wie #htl3r.short[rdp] oder #htl3r.short[ssh] werden vom Angreifer ausgenutzt, um sich weiter im Netzwerk auszubreiten.], "Mittel", "Mittel",
       "Valid Accounts", "Die durch z.B. Phishing erhaltenen Anmeldeinformationen erlauben dem Angreifer, sich als legitimer Benutzer auszugeben.", "Hoch", "Schwer"
     ),
-    caption: [Bekannte #htl3r.longpl[lmp]],
+    caption: [Bekannte Lateral Movement Paths @lmp-list-1, @lmp-list-2],
   )
 )
-@lmp-list-1
-@lmp-list-2
 
+#pagebreak(weak: true)
 Die obigen Techniken sind natürlich miteinander kombinierbar, z.B. #htl3r.short[lotl] und Remote Services. Es ist ebenfalls zu beachten, dass die Bewertung der Wahrscheinlichkeit und Erkennbarkeit in der obigen Tabelle von einer bestehenden Absicherung des Netzwerks und vorhandenen #htl3r.short[ids]-Geräten ausgeht.
 
 #htl3r.fspace(
@@ -106,6 +105,8 @@ Wenn bei einem Cyberangriff auf #htl3r.short[ot]-Infrastruktur der Profit und so
 TODO
 
 === Keylogging-Trojaner auf Endgeräten
+
+TODO
 
 #htl3r.author("Gabriel Vogler")
 === Ticketing-Angriffe
@@ -179,7 +180,7 @@ Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.s
 
 Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-#htl3r.shortpl[sps] manipuliert. Der Angriff hat auf einem sogenannten "Zero-Day-Exploit" beruht, einer Schwachstelle, die dem Hersteller -- in diesem Fall Siemens -- noch nicht bekannt war. Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
 
-...
+... TODO
 
 === SCADA
 
@@ -222,15 +223,33 @@ Durch die flüchtige Implementierung bzw. eine mangelnde Härtung der OpenPLC-#h
 
 Da der Angreifer bereits in der #htl3r.short[lotl]-Phase herausgefunden hat, dass eine OpenPLC-#htl3r.short[sps] im Einsatz ist und die Default-Anmeldedaten -- Benutzername sowie Passwort sind "openplc" -- im Internet auffindbar sind, hat er nun einen uneingeschränkten Admin-Zugriff auf die #htl3r.short[sps] der "Feinfiltration" und kann sie nach Belieben umprogrammieren.
 
-* BILD LOGIN *
+#htl3r.fspace(
+  figure(
+    image("../assets/openplc/openplc_login.png", width: 70%),
+    caption: [OpenPLC-Webdashboard-Login mit den Default-Admin-Credentials]
+  )
+)
 
 === SPS-Steuerung wird manipuliert
 
 Mit dem uneingeschränkten Zugriff auf das OpenPLC-Webdashboard kann der Angreifer sein eigenes Programm hochladen. Bevor dies getan wird, ist es aus Angreifersicht sinnvoll, die Default-Anmeldedaten umzuändern. Wenn im Zuge des Angriffs ein sichtbarer Schaden verursacht wird und das Management der Kläranlage anfängt zu ermitteln, ist ein aufgrund von falschen Anmeldedaten unzugängliches Webdashboard -- als einzige Schnittstelle zur Umprogrammierung -- verheerend.
 
-* BILD PROGRAMMUPLOAD *
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/openplc/openplc_programs.png"),
+    caption: [Das bösartige Programm `MALICIOUS_PROGRAM.st` wird hochgeladen]
+  )
+)
 
-* BILD USER CHANGE *
+Nach dem erfolgreichen Hochladen des bösartigen Programms ändert der Angreifer auch das Admin-Passwort im Webdashboard unter #htl3r.breadcrumbs(("Users", "OpenPLC User", "Edit User")):
+
+#htl3r.fspace(
+  figure(
+    image("../assets/openplc/openplc_change_user.png"),
+    caption: [OpenPLC-Webdashboard-Login mit den Default-Admin-Credentials]
+  )
+)
 
 === GAU tritt ein
 
