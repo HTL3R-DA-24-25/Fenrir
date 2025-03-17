@@ -302,7 +302,9 @@ Durch die Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Seriell
 
 Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden, der Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine IP-Addresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die cryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen. Die Konfiguration für #htl3r.short[ssh] funktioniert in theorie, wird allerdings nicht verwendet.
 
-Auf dem Cluster Switch wurden vorallem #htl3r.shortpl[vlan] und #htl3r.short[span]-Session konfiguriert. Letztere senden den gesammten Traffic der Kläranlagen-Topologie an ein IDS, siehe @nozomi-guardian. Die #htl3r.shortpl[vlan] segmentieren die einzelnen Netzwerke der Topologie und werden ebenso für Management, Network Storage und Internet-Zugriff verwendet.
+==== Interface konfiguration
+
+Auf dem Cluster Switch wurden vorallem #htl3r.shortpl[vlan] und #htl3r.short[span]-Session konfiguriert. Letztere senden den gesammten Traffic der Kläranlagen-Topologie an ein #htl3r.short[ids], siehe @nozomi-guardian. Die #htl3r.shortpl[vlan] segmentieren die einzelnen Netzwerke der Topologie und werden ebenso für Management, Network Storage und Internet-Zugriff verwendet.
 
 #htl3r.fspace(
   total-width: 100%,
@@ -312,7 +314,40 @@ Auf dem Cluster Switch wurden vorallem #htl3r.shortpl[vlan] und #htl3r.short[spa
   )
 )
 
-==== Interface Konfiguration des Switches
+Das Konzept hinter der Interface aufteilung ist, dass jeweils zwölf Interfaces zu einem Block gruppiert werden, Interfaces eines Blocks haben einen gemeinsamen Zweck und praktisch, bis auf ein paar ausnahmen, die gleiche Konfiguration. Das letzte Interface pro Block ist jeweils eine #htl3r.short[span]-Session zum #htl3r.short[ids]. Die #htl3r.short[span]-Session pro Block überliefert jeweils immer den Traffic aller #htl3r.shortpl[vlan] innerhalb des Blocks, mit ausnahme des Storage-#htl3r.shortpl[vlan], welches, aufgrund der hohen Auslastung, das #htl3r.short[ids] verlangsamen würde. Die Daten, welche über das Storage-#htl3r.short[vlan] geschickt werden sind von geringer Interesse. Demnach ist das letzte Interface des Switches auch nicht aktiv in Verwendung sonder nur reserviert.
 
-=== VLAN Zuweisungen
-#htl3r.todo[Bitte drüber schreiben wie die VMs in vSphere über den Switch per VLANs und so mit der echten Welt kommunizieren]
+Das Storage-#htl3r.short[vlan] ist dafür zuständig alle ESXi-Hosts der physischen Topologie, siehe @physische-topo, an einen #htl3r.short[nfs]-Share anzubinden. Der Server welcher diesen #htl3r.short[nfs]-Share hosted, ist mit vier Links an den Switch angebunden und es wird LACP, zur Lastaufteilung zwischen diesen, verwendet. Ebenso ist die #htl3r.short[mtu]-Größe auf dem switch auf 9000 gestellt, um maximalen Durchsatz zu erzielen.
+
+#htl3r.code(caption: [Storage Channel-Group des Cluster Switches], description: [Storage LACP])[
+```
+system mtu jumbo 9000
+
+interface range gig 1/0/37 - 40
+  channel-group 1 mode active
+  no shutdown
+
+interface port-channel 1
+  switchport mode access
+  switchport access vlan 80
+  no shutdown
+```
+]
+
+==== SPAN-Sessions des Cluster Switches
+
+Die Konfiguration der #htl3r.short[span]-Sessions ist simpel und leicht verständlich. Die #htl3r.shortpl[vlan] der Kläranlagen-Topologie erstrecken sich von 330 bis 336, mit der Ausnahme von 335, welches unbelegt ist. Historisch war gedacht, dass das #htl3r.short[ids], siehe @nozomi-guardian, als #htl3r.short[vm] realisiert wird und daher ebenfalls ein extra #htl3r.short[vlan] für die Managementoberfläche benötigt. Da nun eine Hardware-Appliance verwendet wird, dieses nicht mehr benötigt.
+
+#htl3r.code(caption: [SPAN-Sessions des Cluster Switches], description: [SPAN-Session Konfiguration])[
+```
+default interface gig 1/0/24
+default interface gig 1/0/36
+no monitor session 1
+monitor session 1 source vlan 120 , 800 both
+monitor session 1 destination interface gig 1/0/24 encapsulation replicate ingress dot1q vlan 1
+no monitor session 2
+monitor session 2 source vlan 330 - 334 , 336 both
+monitor session 2 destination interface gig 1/0/36 encapsulation replicate ingress dot1q vlan 1
+```
+]
+
+Es ist bei der Konfiguration von #htl3r.short[span]-Session 2 zu sehen, dass #htl3r.short[vlan] 335 ausgelassen wird. Ebenso wird bei #htl3r.short[span]-Session 1 #htl3r.short[vlan] 80 ausgelassen, welches das Storage-#htl3r.short[vlan] ist.
