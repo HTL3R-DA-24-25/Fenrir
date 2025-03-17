@@ -4,7 +4,7 @@
 = Firewall-Konfiguration <firewall-config>
 
 #htl3r.author("Bastian Uhlig")
-== Uplink-Firewall
+== Uplink-Firewall <uplink_fw>
 Die Uplink-Firewall -- eine FortiGate 60E -- dient zum Schutz des gesamten Netzwerks vor unerwünschtem Datenverkehr aus dem Internet. Sie ist die erste Verteidigungslinie und schützt das Netzwerk vor Angriffen von außen. Die Firewall ist so konfiguriert, dass sie nur den nötigen Datenverkehr durchlässt und alle anderen Pakete verwirft.
 
 === Grundkonfiguration
@@ -19,6 +19,7 @@ Hier sind lediglich die grundlegenden Konfigurationen der Uplink-Firewall darges
 )
 
 === Interfaces
+
 Bei der Konfiguration der Interfaces von der Uplink-Firewall ist zu beachten, dass auch das gesamte Management-Netzwerk über diese Firewall läuft. Dieses ist zwar komplett vom restlichen Netzwerk getrennt, jedoch sind sie trotzdem anzulegen. \
 Da die meisten Links in Richtung #htl3r.short[it] gehen, sind diese nur mit #htl3r.shortpl[vlan] getrennt. Alle #htl3r.shortpl[vlan] werden dann entweder auf einem Switch oder in vCenter terminiert und an die entsprechenden #htl3r.shortpl[vm] weitergeleitet. \
 Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisionierung (siehe @provisionierung) #htl3r.shortpl[vm] den Zugriff auf das Internet zu ermöglichen. Über das Management-Interface kann währenddessen auf Management-Ressourcen zugegriffen werden, wie zum Beispiel die esxis oder der vCenter-Server.
@@ -41,7 +42,11 @@ Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisio
   text: read("../assets/scripts/Uplink-FW-Fenrir.conf")
 )
 
+=== DHCP Konfiguration <uplink_fw_dhcp>
+#htl3r.todo[Bitte DHCP-Konfiguration abdecken!]
+
 === LDAP Server
+
 Zur Authentifizierung von Benutzern, welche den #htl3r.short[ras]-#htl3r.short[vpn] verwenden dürfen, wird mittels #htl3r.short[ldap] eine Verbindung zum #htl3r.short[ad] hergestellt. Dazu muss ein Account angegeben werden, welcher Leserechte hat, um die Benutzer zu überprüfen.
 
 #htl3r.code-file(
@@ -53,9 +58,11 @@ Zur Authentifizierung von Benutzern, welche den #htl3r.short[ras]-#htl3r.short[v
 )
 
 === Remote Access VPN
+
 Der Remote Access #htl3r.short[vpn] ermöglicht es Benutzern, sich von außerhalb des Netzwerks sicher mit dem Netzwerk zu verbinden. Dazu wird ein #htl3r.short[ipsec]-#htl3r.short[vpn] eingerichtet, welcher die Authentifizierung über den #htl3r.short[ldap]-Server durchführt. Benutzer bekommen Zugriff auf das #htl3r.short[it]-Netzwerk und können sich von dort aus weiter verbinden, falls dies notwendig ist.
 
 === Policies
+
 Policies sind eins der wichtigsten Tools einer Firewall -- und damit auch der FortiGate. Mit ihnen wird der Datenverkehr reguliert und gesteuert. Standardmäßig lässt eine FortiGate-Firewall keinen Datenverkehr durch, es muss also alles explizit erlaubt werden.
 
 Im Falle der Uplink-Firewall sind die Policies so konfiguriert, dass nur der nötige Datenverkehr durchgelassen wird. Das heißt, dass von außen nur Datenverkehr auf den Exchange-Server zugelassen wird, und auch da nur auf die Ports, die benötigt werden. \
@@ -68,7 +75,7 @@ Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic in Richtung Jumpbox erl
 Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und #htl3r.short[ot]-Geräte indem sie den Zugriff nur indirekt erlaubt. Auf die #htl3r.short[ot]-Geräte selbst haben nur die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] Zugriff. Die #htl3r.short[ot]-Workstations sind von den #htl3r.short[it]-Workstations über #htl3r.short[rdp] erreichbar, doch selbst dieser Verbindung ist nur möglich wenn die #htl3r.short[it]-Workstations mit einem OpenVPN-Server über OpenVPN verbunden sind. Dieser Zugriff wird jedoch vom #htl3r.short[ad] eingeschränkt, siehe @active_directory. Die Übergangs-Firewall selbst ist so Konfiguriert, dass nur eine bestimmte Art von Traffic-Flow erlaubt ist.
 
 #htl3r.fspace(
-  total-width: 100%,
+  total-width: 80%,
   figure(
     image("../assets/separation_firewall_traffic_flow.png"),
     caption: [Übergangs-Firewall erlaubter Traffic-Flow]
@@ -78,9 +85,31 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
 Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an der Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle verwenden, welche schwer bis garnicht mittels FortiGate regulierbar sind.
 #htl3r.todo[David macht hier noch nen gedankenstrich]
 
-=== Jumpbox zugriffs Policy
-=== OT-Workstation zugriffs Policy
-=== SPS zugriffs Policy
+=== Jumpbox Policy
+
+Wie bereits erwähnt darf die Jumpbox nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN verbindungen gibt es zwei Adress-Objekte `Jumpbox` und `IT_Workstations`:
+
+#htl3r.code(caption: [Übergangs-Firewall Jumbox Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
+```fortios
+config firewall address
+  edit "Jumpbox"
+    set subnet 192.168.33.50 255.255.255.0
+    set comment "OpenVPN Jumpbox"
+  next
+  edit "IT_Workstations"
+    set type iprange
+    set start-ip 10.32.0.10
+    set end-ip 10.32.255.240
+    set comment "IT-Workstation DHCP-Range"
+  next
+end
+```
+]
+
+Der IP-Adress-Bereich welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp.
+
+=== OT-Workstation Policy
+=== SPS Policy
 
 #htl3r.author("David Koch")
 == Zellen-Firewall
