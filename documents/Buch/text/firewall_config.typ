@@ -104,7 +104,7 @@ Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den T
 
 === Jumpbox Policy
 
-Wie bereits erwähnt darf die Jumpbox nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN verbindungen gibt es zwei Adress-Objekte `Jumpbox` und `IT_Workstations`:
+Wie bereits erwähnt darf die Jumpbox nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN verbindungen gibt es zwei Adress-Objekte `Jumpbox` und `IT_Workstations`.
 
 #htl3r.code(caption: [Übergangs-Firewall Jumbox Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -123,9 +123,61 @@ end
 ```
 ]
 
-Der IP-Adress-Bereich welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp.
+Der IP-Adress-Bereich welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp. Diese Adress-Objekte werden dann in der Policy verwendet um den Zugriff einzuschränken.
+
+#htl3r.code(caption: [Übergangs-Firewall Jumbox Policy], description: [Seperation-FW-Fenrir.conf])[
+```fortios
+config firewall service custom
+  edit "OPENVPN"
+    set category "Remote Access"
+    set udp-portrange 1194
+  next
+end
+
+config firewall policy
+  edit 1
+    set name "IT-Workstations to Jumpbox"
+    set srcintf "wan1"
+    set dstintf "vmnet-otdmz"
+    set srcaddr "IT_Workstations"
+    set dstaddr "Jumpbox"
+    set action accept
+    set schedule "always"
+    set service "OPENVPN"
+    set logtraffic all
+    set status enable
+  next
+end
+
+config router static
+  edit 1
+    set gateway 172.16.10.2
+    set device "wan1"
+    set dstaddr "IT_Workstations"
+  next
+end
+```
+]
+
+Man beachte, dass für OpenVPN ein eigener Service auf der FortiGate angelegt wurde. Dies ist notwendig, da es standardmäßig keinen Service und damit Port-Mapping hierfür gibt. Für die Policy jedoch ist es essenziell, dass sie weiß, welche Art von Traffic sie durchlassen darf. Desweiteren ist ein statischer Routeneintrag notwendig, damit die Firewall den Traffic vom #htl3r.short[it]-Netzwerk routen kann.
 
 === OT-Workstation Policy
+
+Die Konfiguration für den #htl3r.short[rdp]-Zugriff auf die #htl3r.short[ot]-Workstations von der Jumpbox aus gleicht der zuvor angeführten Konfiguration. Es wird jedoch ein neues Adress-Objekt für die #htl3r.short[ot]-Workstations angelegt.
+
+#htl3r.code(caption: [Übergangs-Firewall RDP Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
+```fortios
+config firewall address
+  edit "OT_Workstations"
+    set type iprange
+    set start-ip 10.34.0.200
+    set end-ip 10.34.255.200
+    set comment "OT-Workstation DHCP-Range"
+  next
+end
+```
+]
+
 === SPS Policy
 
 #htl3r.author("David Koch")
