@@ -372,7 +372,7 @@ Für beide Tanks der Zelle Zwei wurden idente Deckel entworfen und gedruckt. Die
 
 #pagebreak(weak: true)
 
-== Zelle Zwei Elektronikbox
+=== Zelle Zwei Elektronikbox
 Die Elektronikbox, die den Raspberry Pi 4 und den ESP32, sowie die notwendige Verkabelung befindet sich in einer 3D-gedruckten Box. Diese Box wurde so konzipiert, dass der Raspberry Pi 4 und der ESP32 in der Box Platz finden und die Kabel ordentlich verlegt werden können. Die Box hat an der rechten Seite eine runde Öffnung für die Kabel, die in die Box hinein- und herausgehen. Auf der Vorderseite gibt es ein Loch für den RJ45 Anschluss des Raspberry Pi 4, damit dieser mit dem Netzwerk verbunden werden kann. Der Deckel hat ein weißes Fenrir Logo, welches mithilfe eines SVG Bildes in den Deckel modelliert werden konnte. Anschließend wurde mithilfe des #htl3r.short[ams] das Logo mitsamt des Deckels gedruckt. Beim Deckel wurde darauf geachtet, dass dieser in die Box gesteckt werden kann und nicht abfällt. Dafür wurde am Deckel eine Erhöhung gedruckt, die in die Box hineinragt und somit den Deckel festhält. Diese Erhöhung wurde vom Rand der Box 0.1 mm nach innen versetzt, damit der Deckel nicht zu fest sitzt und dennoch nicht abfällt.
 #htl3r.fspace(
   figure(
