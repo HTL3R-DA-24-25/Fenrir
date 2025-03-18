@@ -87,7 +87,7 @@ Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic in Richtung Jumpbox erl
 #htl3r.author("Julian Burger")
 == Übergangs-Firewall Konfiguration <separation_firewall>
 
-Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und #htl3r.short[ot]-Geräte indem sie den Zugriff nur indirekt erlaubt. Auf die #htl3r.short[ot]-Geräte selbst haben nur die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] Zugriff. Die #htl3r.short[ot]-Workstations sind von den #htl3r.short[it]-Workstations über #htl3r.short[rdp] erreichbar, doch selbst dieser Verbindung ist nur möglich wenn die #htl3r.short[it]-Workstations mit einem OpenVPN-Server über OpenVPN verbunden sind. Dieser Zugriff wird jedoch vom #htl3r.short[ad] eingeschränkt, siehe @active_directory. Die Übergangs-Firewall selbst ist so Konfiguriert, dass nur eine bestimmte Art von Traffic-Flow erlaubt ist.
+Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und #htl3r.short[ot]-Geräte, indem sie den Zugriff nur indirekt erlaubt. Auf die #htl3r.short[ot]-Geräte selbst haben nur die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] Zugriff. Die #htl3r.short[ot]-Workstations sind von den #htl3r.short[it]-Workstations über #htl3r.short[rdp] erreichbar, doch selbst diese Verbindung ist nur möglich, wenn die #htl3r.short[it]-Workstations mit einem OpenVPN-Server über OpenVPN verbunden sind. Dieser Zugriff wird jedoch vom #htl3r.short[ad] eingeschränkt, siehe @active_directory. Die Übergangs-Firewall selbst ist so konfiguriert, dass nur eine bestimmte Art von Traffic-Flow erlaubt ist.
 
 #htl3r.fspace(
   total-width: 80%,
@@ -97,7 +97,7 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
   )
 )
 
-Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an der Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis garnicht mittels FortiGate regulierbar sind. 
+Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN-Zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
 
 === Grundkonfiguration
 
@@ -145,11 +145,11 @@ end
 ```
 ]
 
-Da die Grundkonfiguration mehrere Seiten in anspruch nehmen würde, wurde die Konfiguration von ein paar Interfaces nicht inkludiert.
+Da die Grundkonfiguration mehrere Seiten in Anspruch nehmen würde, wurde die Konfiguration von ein paar Interfaces nicht inkludiert.
 
 === OT-Net DHCP-Konfiguration
 
-Innerhalb des #htl3r.short[ot]-Net Netzwerkes werden IP-Adressen an #htl3r.short[ot]-Workstations mittels #htl3r.short[dhcp] verteilt. Der #htl3r.short[dhcp]-Server ist dabei mithilfe der Übergangs-Firewall realisiert. Das Interface auf dem der #htl3r.short[dhcp]-Server läuft ist das #htl3r.short[vlan]-Subinterface des #htl3r.short[ot]-Net Netzwerkes.
+Innerhalb des #htl3r.short[ot]-Net Netzwerkes werden IP-Adressen an #htl3r.short[ot]-Workstations mittels #htl3r.short[dhcp] verteilt. Der #htl3r.short[dhcp]-Server ist dabei mithilfe der Übergangs-Firewall realisiert. Das Interface, auf dem der #htl3r.short[dhcp]-Server läuft, ist das #htl3r.short[vlan]-Subinterface des #htl3r.short[ot]-Net Netzwerkes.
 
 #htl3r.code(caption: [Übergangs-Firewall OT-NET DHCP-Konfiguration], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -174,7 +174,7 @@ end
 
 === Jumpbox Policy
 
-Wie bereits erwähnt darf die Jumpbox nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN verbindungen gibt es zwei Adress-Objekte `Jumpbox` und `IT_Workstations`.
+Wie bereits beschrieben, darf die Jumpbox nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic, welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN-Verbindungen gibt es zwei Adress-Objekte `Jumpbox` und `IT_Workstations`.
 
 #htl3r.code(caption: [Übergangs-Firewall Jumbox Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -194,7 +194,7 @@ end
 ```
 ]
 
-Der IP-Adress-Bereich welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp. Diese Adress-Objekte werden dann in der Policy verwendet um den Zugriff einzuschränken.
+Der IP-Adress-Bereich, welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp. Diese Adress-Objekte werden dann in der Policy verwendet, um den Zugriff einzuschränken.
 
 #htl3r.code(caption: [Übergangs-Firewall Jumbox Policy], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -230,7 +230,7 @@ end
 ```
 ]
 
-Man beachte, dass für OpenVPN ein eigener Service auf der FortiGate angelegt wurde. Dies ist notwendig, da es standardmäßig keinen Service und damit Port-Mapping hierfür gibt. Für die Policy jedoch ist es essenziell, dass sie weiß, welche Art von Traffic sie durchlassen darf. Desweiteren ist ein statischer Routeneintrag notwendig, damit die Firewall den Traffic vom #htl3r.short[it]-Netzwerk routen kann.
+Man beachte, dass für OpenVPN ein eigener Service auf der FortiGate angelegt wurde. Dies ist notwendig, da es standardmäßig keinen Service und damit Port-Mapping hierfür gibt. Für die Policy jedoch ist es essenziell, dass sie weiß, welche Art von Traffic sie durchlassen darf. Des Weiteren ist ein statischer Routeneintrag notwendig, damit die Firewall den Traffic vom #htl3r.short[it]-Netzwerk weiterleiten kann.
 
 === OT-Workstation Policy
 
@@ -272,7 +272,7 @@ end
 
 === SPS Policy
 
-Die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] benötigen ebenso Zugriff auf die drei #htl3r.shortpl[sps] hierzu existiert pro #htl3r.short[sps] ein Adress-Objekt. Diese drei Adress-Objekte werden dann in eine gemeinsame Adress-Gruppe hinzugefügt. Dies erleichtert das definieren der Policy und das setzen der statischen Route.
+Die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] benötigen ebenso Zugriff auf die drei #htl3r.shortpl[sps] hierzu existiert pro #htl3r.short[sps] ein Adress-Objekt. Diese drei Adress-Objekte werden dann in eine gemeinsame Adress-Gruppe hinzugefügt. Dies erleichtert das Definieren der Policy und das Setzen der statischen Route.
 
 #htl3r.code(caption: [Übergangs-Firewall SPS Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -310,7 +310,7 @@ end
 ```
 ]
 
-Um diese definierten IP-Adressen zu erreichen wird eine statische Route definiert, welche den Traffic über die Zellen-Firewall weiterleitet. Dazu wird die Adress-Gruppe `PLC_Group` verwendet. Die andere definierte Adress-Gruppe `PLC_Accessor` definiert alle Geräte, welche auf die #htl3r.shortpl[sps] zugreifen dürfen.
+Um diese definierten IP-Adressen zu erreichen, wird eine statische Route definiert, welche den Traffic über die Zellen-Firewall weiterleitet. Dazu wird die Adress-Gruppe `PLC_Group` verwendet. Die andere definierte Adress-Gruppe `PLC_Accessor` definiert alle Geräte, welche auf die #htl3r.shortpl[sps] zugreifen dürfen.
 
 #htl3r.code(caption: [Übergangs-Firewall SPS-Routen], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -324,7 +324,7 @@ end
 ```
 ]
 
-Final ist die Policy für den Zugriff auf die #htl3r.shortpl[sps] definiert. Diese weicht wiedermals nur leicht von den anderen Policies ab. Allerdings wird als Service alles erlaubt. Dies ist, obwohl nicht komplett sicher, die Beste möglichkeit die Funktion der diversen #htl3r.short[sps]-Programmierprogramme zu garantieren, siehe @separation_firewall.
+Final ist die Policy für den Zugriff auf die #htl3r.shortpl[sps] definiert. Diese weicht wiedermal nur leicht von den anderen Policies ab. Allerdings wird als Service alles erlaubt. Dies ist, obwohl nicht komplett sicher, die beste Möglichkeit, die Funktion der diversen #htl3r.short[sps]-Programmierprogramme zu garantieren, siehe @separation_firewall.
 
 #htl3r.code(caption: [Übergangs-Firewall SPS-Policy], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -345,7 +345,7 @@ end
 ```
 ]
 
-So wird mit insgesamt drei simplem Policies der in diesem Abschnitt definierte Traffic-Flow über die Übergangs-Firewall realisiert. Die Adress-Gruppen sind jederzeit erweiterbar und die Konfiguration ist leicht zu verifizieren.
+So wird mit insgesamt drei simplen Policies der in diesem Abschnitt definierte Traffic-Flow über die Übergangs-Firewall realisiert. Die Adress-Gruppen sind jederzeit erweiterbar und die Konfiguration ist leicht zu verifizieren.
 
 #htl3r.author("David Koch")
 == Zellen-Firewall
