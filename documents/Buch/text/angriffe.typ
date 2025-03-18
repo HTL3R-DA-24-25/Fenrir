@@ -27,9 +27,7 @@ Im Falle eines Angriffs auf ein Bussystem und somit auf das gesamte #htl3r.short
 #htl3r.todo("BILD FIREWALL")
 
 === Stuxnet <stuxnet>
-Stuxnet ist ein Computerwurm, der im Juni 2010 entdeckt und zuerst unter dem Namen RootkitTmphider beschrieben wurde. Das Schadprogramm wurde speziell entwickelt zum Angriff auf ein System zur Überwachung und Steuerung (#htl3r.short[scada]-System), das speicherprogrammierbare Steuerungen des Herstellers Siemens vom Typ Simatic S7 verwendet. Dabei wurde in die Steuerung von Frequenzumrichtern in Teheran, der Hautpstadt Irans, eingegriffen. Frequenzumrichter dienen beispielsweise dazu, die Geschwindigkeit von Motoren zu steuern. Solche Steuerungen werden vielfach eingesetzt, etwa in Industrieanlagen wie Wasserwerken, Klimatechnik oder Pipelines.
-
-Da bis Ende September 2010 der Iran den größten Anteil der infizierten Computer besaß und es zu außergewöhnlichen Störungen im iranischen Atomprogramm kam, lag es nah, dass Stuxnet hauptsächlich entstand, um als Schadsoftware die Leittechnik (Zentrifugen) der Urananreicherungsanlage in Natanz oder des Kernkraftwerks Buschehr zu stören @ndu-stuxnet.
+Der 2010 entdeckte Stuxnet-Computerwurm ist ein Schadprogramm, dass speziell entwickelt wurde zum Angriff auf ein #htl3r.short[scada]-System, das #htl3r.shortpl[sps] des Herstellers Siemens vom Typ Simatic S7 verwendet @stuxnet-1[comp]. Da bis Ende September 2010 der Iran den größten Anteil der infizierten Computer besaß und es zu außergewöhnlichen Störungen im iranischen Atomprogramm kam, lag es nah, dass Stuxnet hauptsächlich entstand, um als Schadsoftware die Leittechnik (Zentrifugen) der Urananreicherungsanlage in Natanz oder des Kernkraftwerks Buschehr zu stören @ndu-stuxnet.
 
 Stuxnet gilt aufgrund seiner Komplexität und des Ziels, Steuerungssysteme von Industrieanlagen zu sabotieren, als bisher einzigartig @spiegel-10-jahre-stuxnet[comp]. Das heißt aber nicht, dass in der Zukunft nicht noch weitere Netzwerkwürmer auf das Internet losgelassen werden, deren Hauptziel es sein wird, #htl3r.short[ot]-Netzwerke lahmzulegen.
 
@@ -55,12 +53,11 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
       "Remote Services", [Die für routinemäßige Systemadministration erlaubten Kommunikationsschnittstellen wie #htl3r.short[rdp] oder #htl3r.short[ssh] werden vom Angreifer ausgenutzt, um sich weiter im Netzwerk auszubreiten.], "Mittel", "Mittel",
       "Valid Accounts", "Die durch z.B. Phishing erhaltenen Anmeldeinformationen erlauben dem Angreifer, sich als legitimer Benutzer auszugeben.", "Hoch", "Schwer"
     ),
-    caption: [Bekannte #htl3r.longpl[lmp]],
+    caption: [Bekannte Lateral Movement Paths @lmp-list-1, @lmp-list-2],
   )
 )
-@lmp-list-1
-@lmp-list-2
 
+#pagebreak(weak: true)
 Die obigen Techniken sind natürlich miteinander kombinierbar, z.B. #htl3r.short[lotl] und Remote Services. Es ist ebenfalls zu beachten, dass die Bewertung der Wahrscheinlichkeit und Erkennbarkeit in der obigen Tabelle von einer bestehenden Absicherung des Netzwerks und vorhandenen #htl3r.short[ids]-Geräten ausgeht.
 
 #htl3r.fspace(
@@ -83,8 +80,6 @@ Zur Entdeckung von möglicher Lateral-Movement-Aktivität im Netzwerk können fo
 Zur Verhinderung von Lateral Movement können unter anderem Netzwerksegmentierung, Patchmanagement zur Behebung von bekannten Sicherheitslücken als auch Zugriffskontrolle auf bestimmte Daten, Geräte oder Netzwerkabschnitte implementiert werden.
 @lateral-movement-def[comp]
 
-#htl3r.todo("BILD VON ANGREIFER IN NETZWERK MIT LMPS, DIESMAL MIT FIREWALLS UND SO VLLT")
-
 Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenrir"-Topologie wird in @netzwerkueberwachung, @firewall-config und @weitere-absicherung genauer beschrieben.
 
 == Angriffe auf das IT-Netzwerk
@@ -98,7 +93,20 @@ Nur selten passieren Angriffe, die als Endergebnisse beispielsweise die Störung
 
 === Ransomware auf Endgeräten
 
+Wenn bei einem Cyberangriff auf #htl3r.short[ot]-Infrastruktur der Profit und sonst kein strategisches Ziel im Vordergrund steht, ist ein Ransomware-Angriff der wahrscheinlichste. TODO
+
+#htl3r.fspace(
+  figure(
+    image("../assets/wannacry.png"),
+    caption: [Das berüchtigte Wannacry-Decryptor-Popup @wannacry-image]
+  )
+)
+
+TODO
+
 === Keylogging-Trojaner auf Endgeräten
+
+TODO
 
 #htl3r.author("Gabriel Vogler")
 === Ticketing-Angriffe
@@ -148,7 +156,7 @@ Die CVE-Beschreibung von #htl3r.short[cve]-2019-10936 lautet: "Affected devices 
 
 Was mit "specially crafted #htl3r.short[udp] packets" gemeint ist, ist nicht näher beschrieben. In den meisten #htl3r.short[dos]-Angriffen handelt es sich bei diesen Packets meist um Buffer-Underflow- bzw. Buffer-Overflow-Payloads. Bei einem Underflow werden in den einzelnen Packets zu wenige Nutzdaten übermittelt, bei einem Overflow werden zu viele Nutzdaten übermittelt. Insgesamt werden diese Packets dann in sehr großen Mengen an das anzugreifende Gerät geschickt, um den #htl3r.short[dos]-Zustand auszulösen.
 
-#htl3r.code(caption: "Das UDP-Packet für den DoS-Angriff auf die S7-1200", description: none)[
+#htl3r.code(caption: "Erstellung und Versendung des UDP-Packets für den DoS-Angriff auf die S7-1200", description: none)[
 ```python
 from scapy.layers.inet import IP, UDP
 from scapy.sendrecv import send
@@ -163,18 +171,16 @@ while True:
 ```
 ]
 
-In Quellcode 7.1 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte UDP-Packet zu erstellen und anschließend an die SPS zu schicken.
+In Quellcode 7.1 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte #htl3r.short[udp]-Packet zu erstellen und anschließend an die #htl3r.short[sps] zu schicken.
 
 #htl3r.author("David Koch")
 === Manipulation einer SPS
 
 Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine #htl3r.short[sps] oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
 
-Der im obigen @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register ...
+Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-#htl3r.shortpl[sps] manipuliert. Der Angriff hat auf einem sogenannten "Zero-Day-Exploit" beruht, einer Schwachstelle, die dem Hersteller -- in diesem Fall Siemens -- noch nicht bekannt war. Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
 
-Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
-
-...
+... TODO
 
 === SCADA
 
@@ -184,23 +190,69 @@ Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] ode
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
 1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
-2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste
+2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste.
 3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des #htl3r.short[ot]-Engineers um tiefer in die Anlage einzudringen.
-4. #htl3r.short[lotl], Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
-5. Angreifer entdeckt Default Credentials auf OpenPLC.
+4. #htl3r.long[lotl]: Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
+5. Angreifer entdeckt die Default Credentials auf der OpenPLC-#htl3r.short[sps].
 6. Steuerung der zweiten Betriebszelle wird umprogrammiert.
 7. Anlage kommt zum Stehen, nachhaltiger Schaden wurde angerichtet.
 
 === Phishing-Mail
 
+Der Angriff beginnt -- wie viele andere Angriffe in der Realität auch -- mit einer Phishing-Mail. Zuerst wird eine E-Mail an eine Person geschickt, die regelmäßig mit externen Personen kontakt hat und es somit nicht unbedingt auffällt, wenn mit einer gefälschten Identität eine Phishing-Mail empfagen wird.
+
+#htl3r.todo("mit gabi seinem exchange setup hier emails verschicken")
+
 === Spear-Phishing
+
+Nachdem das E-Mail-Konto des Buchhaltungsmitarbeiters übernommen worden ist, wird dessen gestohlene Identität dazu ausgenutzt, eine weitere Phishing-Mail zu verschicken. Diesmal ist in dieser jedoch ein maliziöser Dateianhang enthalten, um nicht nur das Konto zu übernehmen, sondern das Gerät, auf dem die E-Mail geöffnet wird, mit einem Virus zu infizieren.
+
+TODO
 
 === RDP Lateral Movement
 
+TODO
+
 === Living of the Land
 
-=== Default Credentials auf SPS
+TODO
+
+=== Default Credentials auf der SPS
+
+Durch die flüchtige Implementierung bzw. eine mangelnde Härtung der OpenPLC-#htl3r.short[sps] wurden die Default-Anmeldedaten für das Webdashboard nicht geändert. Diese sind unabhängig von jeglichen Systembenutzern und müssen im Webdashboard unter "Users" manuell geändert werden.
+
+Da der Angreifer bereits in der #htl3r.short[lotl]-Phase herausgefunden hat, dass eine OpenPLC-#htl3r.short[sps] im Einsatz ist und die Default-Anmeldedaten -- Benutzername sowie Passwort sind "openplc" -- im Internet auffindbar sind, hat er nun einen uneingeschränkten Admin-Zugriff auf die #htl3r.short[sps] der "Feinfiltration" und kann sie nach Belieben umprogrammieren.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/openplc/openplc_login.png", width: 70%),
+    caption: [OpenPLC-Webdashboard-Login mit den Default-Admin-Credentials]
+  )
+)
 
 === SPS-Steuerung wird manipuliert
 
+Mit dem uneingeschränkten Zugriff auf das OpenPLC-Webdashboard kann der Angreifer sein eigenes Programm hochladen. Bevor dies getan wird, ist es aus Angreifersicht sinnvoll, die Default-Anmeldedaten umzuändern. Wenn im Zuge des Angriffs ein sichtbarer Schaden verursacht wird und das Management der Kläranlage anfängt zu ermitteln, ist ein aufgrund von falschen Anmeldedaten unzugängliches Webdashboard -- als einzige Schnittstelle zur Umprogrammierung -- verheerend.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/openplc/openplc_programs.png"),
+    caption: [Das bösartige Programm `MALICIOUS_PROGRAM.st` wird hochgeladen]
+  )
+)
+
+Nach dem erfolgreichen Hochladen des bösartigen Programms ändert der Angreifer auch das Admin-Passwort im Webdashboard unter #htl3r.breadcrumbs(("Users", "OpenPLC User", "Edit User")):
+
+#htl3r.fspace(
+  figure(
+    image("../assets/openplc/openplc_change_user.png"),
+    caption: [OpenPLC-Webdashboard-Login mit den Default-Admin-Credentials]
+  )
+)
+
 === GAU tritt ein
+
+Das Netzwerk wurde aufgrund von fehlender Segmentierung infiltriert, das Lateral Movement des Angreifers wurde wegen fehlender Netzwerküberwachung nicht entdeckt. Eine für die Steuerung des Klärprozesses unabdingbare SPS wurde umprogrammiert und unzugänglich gemacht. 
+
+Damit durch die manipulierte Steuerung keine weiteren Flutungen zustande kommen, muss die gesamte Anlage gestoppt werden -- der größte anzunehmende Unfall (#htl3r.short[gau]) tritt ein. Damit die Kläranlage wieder klären kann, muss die #htl3r.short[sps] für die Feinfiltration zurückgesetzt werden und das gesamte Netzwerk gesäubert werden, ob durch Virenscans oder sicherheitshalber einem Ersetzen der Geräte.

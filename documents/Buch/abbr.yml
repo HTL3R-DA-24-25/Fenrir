@@ -9,7 +9,7 @@ yaml:
     singular: YAML
   long:
     singular: YAML Ain't Markup Language
-  description: Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet. Wird oft zur konfiguration eingesetzt.
+  description: Eine menschlichlesbare strukturierte Textdatei, welche Daten beinhaltet. Wird oft zur Konfiguration eingesetzt.
 
 iac:
   short:
@@ -24,6 +24,7 @@ dvs:
     plural: DVSs
   long:
     singular: Distributed Virtual Switch
+    plural: Distributed Virtual Switches
   description: Ein virtueller Switch welcher in einer vSphere-Umgebung mehreren Hosts zugewiesen sein kann. Dies ermöglicht es VMs auf mehrere Hosts zu verteilen und sie dennoch in dasselbe Netzwerk zu hängen, dieser virtuelle Switch dient zur Verwaltung der Uplinks auf den jeweiligen Hosts.
 
 dpg:
@@ -64,18 +65,21 @@ vm:
   long:
     singular: Virtuelle Maschine
     plural: Virtuelle Maschines
+  description: Eine softwarebasierte Nachbildung eines physischen Computers.
 
 it:
   short:
     singular: IT
   long:
     singular: Informational Technology
+  description: Ein Überbegriff für die Technologien zur Verarbeitung, Speicherung, Übertragung und Verwaltung von Informationen.
 
 ot:
   short:
     singular: OT
   long:
     singular: Operational Technology
+  description: Ein Überbegriff für die Technologien zur Überwachung, Steuerung und Automatisierung industrieller Prozesse und physischer Systeme, insbesondere in Bereichen wie Fertigung, Energie und Infrastruktur.
 
 wan:
   short:
@@ -84,6 +88,7 @@ wan:
   long:
     singular: Wide Area Network
     plural: Wide Area Networks
+  description: Ein Netzwerk, das sich über große geografische Entfernungen erstreckt und mehrere lokale Netzwerke (LANs) miteinander verbindet.
 
 lan:
   short:
@@ -92,6 +97,7 @@ lan:
   long:
     singular: Local Area Network
     plural: Local Area Networks
+  description: Ein Netzwerk, das auf ein begrenztes geografisches Gebiet wie ein Gebäude beschränkt ist und Geräte wie Computer und Server miteinander verbindet.
 
 vlan:
   short:
@@ -100,12 +106,19 @@ vlan:
   long:
     singular: Virtual Local Area Network
     plural: Virtual Local Area Networks
+  description: Eine logische Unterteilung eines physischen Netzwerks, die es ermöglicht, Geräte in separaten, virtuellen Netzwerken zu gruppieren, um den Datenverkehr zu isolieren.
 
 ad:
   short:
     singular: AD
   long:
     singular: Active Directory
+
+adds:
+  short:
+    singular: ADDS
+  long:
+    singular: Active Directory Domain Services
 
 addc:
   short:
@@ -146,6 +159,7 @@ crc:
     singular: CRC
   long:
     singular: Cyclic Redundancy Check
+  description: Ein Verfahren zur Erkennung von Fehlern in übertragenen oder gespeicherten Daten, bei dem ein Prüfwert basierend auf einer polynomiellen Division berechnet und verglichen wird.
 
 psm:
   short:
@@ -163,8 +177,10 @@ dmz:
 scada:
   short:
     singular: SCADA
+    plural: SCADAs
   long:
     singular: Supervisory Control and Data Acquisition
+  description: Ein System zur Überwachung und Steuerung von Prozessen in industriellen Anlagen in Echtzeit.
 
 uart:
   short:
@@ -210,6 +226,7 @@ mes:
     singular: MES
   long:
     singular: Manufacturing Execution System
+  description: Eine Software zur Steuerung und Optimierung von Produktionsprozessen.
 
 vdom:
   short:
@@ -217,6 +234,7 @@ vdom:
     plural: VDOMs
   long:
     singular: Virtual Domain
+    plural: Virtual Domains
   description: Dient zur Unterteilung einer FortiGate-Firewall in zwei oder mehrere virtuelle Einheiten welche unabhängig voneinander agieren.
 
 lmp:
@@ -281,6 +299,7 @@ ietf:
     singular: IETF
   long:
     singular: Internet Engineering Task Force
+  description: Eine internationale Freiwilligenvereinigung von Netzwerktechnikexperten*innen, die sich mit der Entwicklung und Förderung von offenen Internetstandards und Protokollen beschäftigt,
 
 tcp:
   short:
@@ -301,6 +320,7 @@ icp:
   long:
     singular: Incident Response Playbook
     plural: Incident Response Playbooks
+  description: Eine Sammlung von Checklisten und Handlungsanweisungen, die es Incident-Response-Teams ermöglicht, effizient und strukturiert auf Sicherheitsvorfälle zu reagieren.
 
 dos:
   short:
@@ -313,18 +333,21 @@ rdp:
     singular: RDP
   long:
     singular: Remote Desktop Protocol
+  description: Ein Netzwerkprotokoll zur Steuerung und Bedienung der grafischen Benutzeroberfläche eines entfernten Computers.
 
 dpi:
   short:
     singular: DPI
   long:
     singular: Deep Packet Inspection
+  description: Die detaillierte Analyse von Datenverkehr in einem Netzwerk, bei der nicht nur der Header, sondern auch die Inhalte der Datenpakete untersucht werden.
 
 http:
   short:
     singular: HTTP
   long:
     singular: Hypertext Transfer Protocol
+  description: Ein Netzwerkprotokoll zum Austausch von Daten, insbesondere von Webseiten.
 
 nis:
   short:
@@ -380,14 +403,14 @@ usb:
     singular: USB
   long:
     singular: Universal Serial Bus
+  description: Ein Standard zur Verbindung, Datenübertragung und Stromversorgung zwischen Computern und externen Geräten wie Speichermedien und Peripheriegeräten.
 
 cve:
   short:
     singular: CVE
-    plural: CVEs
   long:
-    singular: Critical Vulnerability Exploit
-    plural: Critical Vulnerability Exploits
+    singular: Common Vulnerabilities and Exposures
+  description: Eine Liste mit öffentliche bekannten Sicherheitsschwachstellen in Computersystemen.
 
 snmp:
   short:
@@ -409,13 +432,57 @@ sql:
     singular: SQL
   long:
     singular: Structured Query Language
+  description: Eine standardisierte Datenbanksprache zur Verwaltung von Daten in relationalen Datenbanken.
+
+awl:
+  short:
+    singular: AWL
+  long:
+    singular: Anweisungsliste
+
+st:
+  short:
+    singular: ST
+  long:
+    singular: Strukturierter Text
+
+kop:
+  short:
+    singular: KOP
+  long:
+    singular: Kontaktplan
+
+fup:
+  short:
+    singular: FUP
+  long:
+    singular: Funktionsplan
+
+as:
+  short:
+    singular: AS
+  long:
+    singular: Ablaufsprache
+
+ascii:
+  short:
+    singular: ASCII
+  long:
+    singular: American Standard Code for Information Interchange
+  description: Eine 7-Bit-Zeichenkodierung, die das lateinische Alphabet in Groß- und Kleinschreibung, die zehn Ziffern sowie einige Satzzeichen und Sonderzeichen enthält.
+
+span:
+  short:
+    singular: SPAN
+  long:
+    singular: Switch Port Analyzer
 
 drs:
   short:
     singular: DRS
   long:
     singular: Distributed Resource Scheduling
-  description: Eine Technologie von VMware welche das Loadbalancing von Virtuellen Maschinen auf mehrere ESXi-Instanzen ermöglicht.
+  description: Eine Technologie von VMware, welche das Loadbalancing von Virtuellen Maschinen auf mehrere ESXi-Instanzen ermöglicht.
 
 sso:
   short:
@@ -440,3 +507,96 @@ lacp:
     singular: LACP
   long:
     singular: Link Aggregation Control Protocol
+
+gpio:
+  short:
+    singular: GPIO
+  long:
+    singular: General Purpose Input/Output
+
+mtu:
+  short:
+    singular: MTU
+  long:
+    singular: Maximum transmission unit
+  description: Die maximale Größe einer PDU einer OSI-Layer 3 Übetragung, gleicht nicht der Größe eines Ethernet-Frames.
+
+lvm:
+  short:
+    singular: LVM
+  long:
+    singular: Logical Volume Manager
+  description: Logical Volume Manager ist ein Framework unter Linux, welches es ermöglicht mehrere logische Volumes in ein Dateisystem zu aggregieren.
+
+raid:
+  short:
+    singular: RAID
+  long:
+    singular: Redundant Array of Independent Disks
+
+gip:
+  short:
+    singular: GIP
+  long:
+    singular: Golden Image Pipeline
+  description: Eine Golden Image Pipeline stellt VM-Templates zur verfügung, von welcher Virtuelle Maschinen erstellt werden.
+
+ldap:
+  short:
+    singular: LDAP
+  long:
+    singular: Lightweight Directory Access Protocol
+  description: Ein Protokoll zur Abfrage und Änderung von Informationen in einem Verzeichnisdienst.
+
+ras:
+  short:
+    singular: RAS
+  long:
+    singular: Remote Access Service
+  description: Ein Dienst, der es ermöglicht, sich von einem entfernten Standort aus mit einem Netzwerk zu verbinden.
+
+ipsec:
+  short:
+    singular: IPsec
+  long:
+    singular: Internet Protocol Security
+  description: Ein Protokoll, welches es ermöglicht, Datenpakete zu verschlüsseln und zu authentifizieren.
+
+ntp:
+  short:
+    singular: NTP
+  long:
+    singular: Network Time Protocol
+  description: Ein Protokoll zur Synchronisation von Uhren in Computernetzwerken.
+
+svi:
+  short:
+    singular: SVI
+    plural: SVIs
+  long:
+    singular: Switch Virtual Interface
+    plural: Switch Virtual Interfaces
+  description: Ein virtualles Interface auf einem Switch, welches genutzt wird um OSI-Layer 3 konfigurationen pro VLAN festzulegen. So wird auch inter VLAN routing direkt auf einem Switch möglich.
+
+gpo:
+  short:
+    singular: GPO
+    plural: GPOs
+  long:
+    singular: Group Policy Object
+    plural: Group Policy Objects
+  description: Eine Gruppenrichtlinie ist eine Sammlung von Einstellungen, die auf Computern in einer Active Directory-Domäne angewendet werden.
+
+icmp:
+  short:
+    singular: ICMP
+  long:
+    singular: Internet Control Message Protocol
+  description: Ein Netzwerkprotokoll, was primär zur Diagnose von Problemen in der Netzwerkkommunikation verwendet wird. Es wird vor allem verwendet, um festzustellen, ob Daten ihr Ziel erreichen können oder nicht.
+
+vlsm:
+  short:
+    singular: VLSM
+  long:
+    singular: Variable Length Subnet Masking
+  description: Eine Methodik um Subnetze in mehere kleinere Subnetze zu unterteilen, oder aber auch mehrere kleinere Subnetze in ein größeres zu gruppieren.

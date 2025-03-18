@@ -19,7 +19,7 @@ Gemeinsam mit der Diplomarbeit "Atropos" wäre der Ansatz bei der Virtualisierun
 
 Das Diplomarbeitsteam möchte sich ebenfalls bei Stefan Tomp der vorjährigen Diplomarbeit "Yggdrassil" für seine Unterstützung im Bereich der Virtualiserung mit der UCS und seiner wiederholten Hilfe bei technischen Fragen bedanken.
 
-Des weiteren hat die tatkräftige Unterstützung externer Firmenpartner und deren Vertretern die Umsetzung und generelle Industrienähe der Diplomarbeit erlaubt.
+Des Weiteren hat die tatkräftige Unterstützung externer Firmenpartner und deren Vertreter die Umsetzung und generelle Industrienähe der Diplomarbeit ermöglicht.
 Ein recht herzlicher Dank gebührt den folgenden Firmenpartnern:
 - *CSA* im Namen von Herbert Dirnberger für die Bereitstellung von Server-Hardware als auch #htl3r.short[ot]-Gerätschaft.
 - *easyname* für die Bereitstellung einer Domäne und eines Webservers für das Hosting der Diplomarbeitswebsite.
