@@ -62,7 +62,14 @@ Um einen groben Überblick über den physischen Aufbau des Netzwerks zu bekommen
   )
 )
 
-#htl3r.todo[BILD schrank bzw schränke]
+Die Geräte der physischen Topologie sind -- mit Ausnahme der OT-Gerätschaft -- in einem Server-Rack auf Rädern untergebracht:
+
+#htl3r.fspace(
+  figure(
+    image("../assets/rack.jpg", width: 52%),
+    caption: [Das rollende Serverrack der Diplomarbeit "Fenrir"]
+  )
+)
 
 === Verwendete Geräte in der physischen Topologie
 
