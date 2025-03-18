@@ -42,12 +42,20 @@ Stattdessen werden reale Datenquellen angegeben, welche typischerweise Modbus-IP
 
 Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint sind, die von der #htl3r.short[sps] ausgegeben werden. Datenpunkte beziehen sich immer auf eine Register range, Datentyp und einem Offset. Es können pro Datenquelle beliebig viele Datenpunkte konfiguriert werden, diese müssen jedoch mit der Konfiguration der Register auf der gegenüberliegenden #htl3r.short[sps] übereinstimmen, um die Binärwerte richtig auslesen zu können.
 
+#htl3r.fspace(
+  figure(
+    image("../assets/scada_datasource.png", width: 100%),
+    caption: [Anlegen einer Datasource in Scada-LTS]
+  )
+)
+
 Sinnvoll zu konfigurieren ist auch ein grafisches Interface, da dies einen schnellen Überblick über ein System bringt. Vor allem, wenn dies mit interaktiven Bildern kombiniert wird, ist die Überwachung um einiges angenehmer. Hierbei sollte für jede Betriebszelle ein eigenes grafisches Interface erstellt werden, um eine optische Trennung zu ermöglichen.
 
 Eine weitere Art der Übersicht ist durch Watchlists gegeben. Diese können sich als einfache Listen vorgestellt werden, wobei die derzeitigen Werte von konfigurierten Datapoints angezeigt werden. Im generellen Einsatz ist dies nur begrenzt sinnvoll, da ein grafisches  Interface eine benutzerfreundlichere Übersicht gibt, jedoch können Watchlists verwendet werden, um genauere Informationen zu geben.
 
 ==== Automatische Konfiguration von SCADA-LTS
 Im Falle einer automatischen Aufsetzung von Scada-LTS ist es am sinnvollsten, das System erst manuell zu konfigurieren, um danach via der Export-Funktion die Konfiguration als .zip-Datei abzuspeichern. Mittels einiger Befehle kann diese .zip-Datei dann automatisch eingefügt werden.
+#htl3r.code(caption: "Skript zum Import eines Projektes in Scada-LTS", description: none)[
 ```bash
 curl -d "username=admin&password=admin&submit=Login" -c cookies http://localhost/Scada-LTS/login.htm
 
@@ -57,6 +65,7 @@ curl 'http://localhost/Scada-LTS/dwr/call/plaincall/EmportDwr.loadProject.dwr' -
 
 rm cookies
 ```
+]
 Zur Authentifizierung wird dabei eine Datei "cookies" gespeichert, um den Login mit den Default-Anmeldedaten admin:admin zu ermöglichen. Dieses Konto sollte logischerweise nach der Konfiguration -- am besten direkt mit dem Import der .zip-Datei -- deaktiviert werden, bzw. die Logindaten geändert werden.
 
 === Administration der Modell-Kläranlage
