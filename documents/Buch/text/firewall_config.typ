@@ -85,7 +85,7 @@ In die #htl3r.short[it]-SEC-Zone wird nur Datenverkehr zugelassen, der auch notw
 Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic in Richtung Jumpbox erlaubt.
 
 #htl3r.author("Julian Burger")
-== Übergangs-Firewall <separation_firewall>
+== Übergangs-Firewall Konfiguration <separation_firewall>
 
 Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und #htl3r.short[ot]-Geräte indem sie den Zugriff nur indirekt erlaubt. Auf die #htl3r.short[ot]-Geräte selbst haben nur die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] Zugriff. Die #htl3r.short[ot]-Workstations sind von den #htl3r.short[it]-Workstations über #htl3r.short[rdp] erreichbar, doch selbst dieser Verbindung ist nur möglich wenn die #htl3r.short[it]-Workstations mit einem OpenVPN-Server über OpenVPN verbunden sind. Dieser Zugriff wird jedoch vom #htl3r.short[ad] eingeschränkt, siehe @active_directory. Die Übergangs-Firewall selbst ist so Konfiguriert, dass nur eine bestimmte Art von Traffic-Flow erlaubt ist.
 
@@ -98,6 +98,79 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
 )
 
 Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an der Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis garnicht mittels FortiGate regulierbar sind. 
+
+=== Grundkonfiguration
+
+Die Grundkonfiguration der Übergangs-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen IP-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
+
+#htl3r.code(caption: [Übergangs-Firewall Grundkonfiguration], description: [Seperation-FW-Fenrir.conf])[
+```fortios
+config system global
+  set admintimeout 30
+  set hostname "Seperation-FW-Fenrir"
+  set timezone 26
+end
+
+config sys interface
+  edit wan1
+    set mode static
+    set description "To Uplink Firewall"
+    set vdom "root"
+    set ip 172.16.10.1 255.255.255.252
+    set allowaccess ping
+    set type physical
+    set snmp-index 1
+  next
+  ...
+  edit "mgmt"
+    set description "Management VLAN"
+    set vdom "root"
+    set mode static
+    set vlanid 120
+    set ip 10.40.20.253/24
+    set interface internal1
+    set allowaccess ping http https ssh fgfm
+  next
+  edit "vmnet-otnet"
+    set description "VMNET OT-NET"
+    set vdom "root"
+    set mode static
+    set vlanid 334
+    set ip 10.34.255.254/16
+    set interface internal2
+    set allowaccess ping
+  next
+  ...
+end
+```
+]
+
+Da die Grundkonfiguration mehrere Seiten in anspruch nehmen würde, wurde die Konfiguration von ein paar Interfaces nicht inkludiert.
+
+=== OT-Net DHCP-Konfiguration
+
+Innerhalb des #htl3r.short[ot]-Net Netzwerkes werden IP-Adressen an #htl3r.short[ot]-Workstations mittels #htl3r.short[dhcp] verteilt. Der #htl3r.short[dhcp]-Server ist dabei mithilfe der Übergangs-Firewall realisiert. Das Interface auf dem der #htl3r.short[dhcp]-Server läuft ist das #htl3r.short[vlan]-Subinterface des #htl3r.short[ot]-Net Netzwerkes.
+
+#htl3r.code(caption: [Übergangs-Firewall OT-NET DHCP-Konfiguration], description: [Seperation-FW-Fenrir.conf])[
+```fortios
+config sys dhcp server
+  edit 1
+    set status enable
+    set lease-time 86400
+    set vci-match disable
+    set interface "vmnet-otnet"
+    set default-gateway 10.34.255.254
+    set netmask 255.255.0.0
+    config ip-range
+      edit 1
+        set start-ip 10.34.0.200
+        set end-ip 10.34.255.200
+      next
+    end
+  next
+end
+```
+]
 
 === Jumpbox Policy
 
