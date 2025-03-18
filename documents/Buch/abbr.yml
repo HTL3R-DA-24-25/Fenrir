@@ -599,4 +599,13 @@ vlsm:
     singular: VLSM
   long:
     singular: Variable Length Subnet Masking
-  description: Eine Methodik um Subnetze in mehere kleinere Subnetze zu unterteilen, oder aber auch mehrere kleinere Subnetze in ein größeres zu gruppieren.
+  description: Eine Methodik, um Subnetze in mehrere kleinere Subnetze zu unterteilen, oder aber auch mehrere kleinere Subnetze in ein größeres zu gruppieren.
+
+pdu:
+  short:
+    singular: PDU
+    plural: PDUs
+  long:
+    singular: Protocol Data Unit
+    plural: Protocol Data Units
+  description: Eine Dateneinheit, die zwischen Netzwerkeinheiten übertragen wird.

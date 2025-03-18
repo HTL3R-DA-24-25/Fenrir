@@ -89,7 +89,7 @@ In der physischen Topologie kommen -- mit der Ausnahme der Aktorik und Sensorik 
       [ESXi 2], [PRIMERGY TX1330 M1], [Fujitsu],
       [ESXi 3], [PRIMERGY TX1330 M1], [Fujitsu],
       [Shared Storage], [PRIMERGY TX1330 M1], [Fujitsu],
-      [Cluster Switch], [WS-C2960X-48TS-L], [cisco],
+      [Cluster Switch], [WS-C2960X-48TS-L], [Cisco],
       [Uplink Firewall], [FortiGate 60E], [Fortinet],
       [Separation Firewall], [FortiGate 92D], [Fortinet],
       [Rugged Firewall], [FortiGateRugged 60F], [Fortinet],
@@ -103,7 +103,7 @@ In der physischen Topologie kommen -- mit der Ausnahme der Aktorik und Sensorik 
 
 #htl3r.author("Julian Burger")
 == Virtualisierungsplattform und Umgebung
-Innerhalb der Diplomarbeit werden alle IT-Geräte virtualisiert. Dies bringt meherere Vorteile mit sich, unter anderem schnelles und resourcensparendes Deployment, da #htl3r.shortpl[vm] mit exact den Ressourcen gestartet werden können, welche sie auch tatsächlich benötigen. Natürlich ist es ebenso von großer Wichtigkeit, dass die Virtualisierungsplatform gute Integrationen mit #htl3r.long[iac]-Tools bietet. Eine Platform, welche gute #htl3r.short[iac]-Tools integration und leichtes Management bietet, ist VMware-ESXi. VMware bietet ebenso einen Clusteringdienst an, namens vCenter. VMware-vCenter ermöglicht es mehrere ESXi-Instanzen in ein logisches Datacenter zusammenzufassen. Somit können die #htl3r.shortpl[vm] auf einem geteiltem Speichermedium abgespeichert werden und beliebig von den ESXi-Instanzen gestartet werden.
+Innerhalb der Diplomarbeit werden alle #htl3r.short[it]-Geräte virtualisiert. Dies bringt meherere Vorteile mit sich, unter anderem schnelles und ressourcensparendes Deployment, da #htl3r.shortpl[vm] mit exakt den Ressourcen gestartet werden können, welche sie auch tatsächlich benötigen. Natürlich ist es ebenso von großer Wichtigkeit, dass die Virtualisierungsplatform gute Integrationen mit #htl3r.long[iac]-Tools bietet. Eine Platform, welche gute #htl3r.short[iac]-Tools integration und leichtes Management bietet, ist VMware-ESXi. VMware bietet ebenso einen Clusteringdienst an, namens vCenter. VMware-vCenter ermöglicht es mehrere ESXi-Instanzen in ein logisches Datacenter zusammenzufassen. Somit können die #htl3r.shortpl[vm] auf einem geteiltem Speichermedium abgespeichert werden und beliebig von den ESXi-Instanzen gestartet werden.
 
 #htl3r.fspace(
   figure(
@@ -261,7 +261,7 @@ Ein ähnliches Konzept existiert auch bei den vSwitches. Hier liegt der "Managem
 #htl3r.author("David Koch")
 == OT-Bereich
 
-Der OT-Bereich besteht aus einem von uns selbst gebauten Modell einer Kläranlage. Diese setzt sich aus einer archimedischen Schraube, einem Rechen, Wassertanks, Filtern, Sensoren, einem Staudamm und Pumpen zusammen. Diese Gegenstände sind mit verbauter Aktorik und/oder Sensorik ausgestattet und dienen als Ansteuerungsziele mehrerer #htl3r.short[sps]. Diese werden nach Aufbau auch als Angriffsziele verwendet, wobei ein Angreifer beispielsweise die Pumpen komplett lahmlegen oder durch deren Manipulation einen Wasserschaden verursachen könnte.
+Der #htl3r.short[ot]-Bereich besteht aus einem von uns selbst gebauten Modell einer Kläranlage. Diese setzt sich aus einer archimedischen Schraube, einem Rechen, Wassertanks, Filtern, Sensoren, einem Staudamm und Pumpen zusammen. Diese Gegenstände sind mit verbauter Aktorik und/oder Sensorik ausgestattet und dienen als Ansteuerungsziele mehrerer #htl3r.short[sps]. Diese werden nach Aufbau auch als Angriffsziele verwendet, wobei ein Angreifer beispielsweise die Pumpen komplett lahmlegen oder durch deren Manipulation einen Wasserschaden verursachen könnte.
 
 Die Details bezüglich des Aufbaus der Modell-Kläranlage und der dazugehörigen #htl3r.short[ot]-Gerätschaft siehe @aufbau-klaeranlage.
 
@@ -283,14 +283,14 @@ Schneider Automation hat der Internetstandardisierungs-Organisation #htl3r.short
 
 #[
 #set par(hanging-indent: 12pt)
-- *Modbus-#htl3r.short[rtu]:* Asynchrone Master/Slave-Kommunikation über RS-485, RS-422 oder RS-232 Serial-Leitungen @modbus-comp[comp].
-- *Modbus-#htl3r.short[tcp]:* Ethernet bzw. #htl3r.short[tcp]/#htl3r.short[ip] basierte Client-Server Kommunikation @modbus-comp[comp].
-- *Modbus-Plus:* Bietet eine Peer-to-Peer-Kommunikation über Serial-Leitungen. Ist hauptsächlich für stark vernetzte "Token-Passing" Netzwerke gedacht @modbus-plus-extra[comp].
+- *Modbus #htl3r.short[rtu]:* Asynchrone Master/Slave-Kommunikation über RS-485, RS-422 oder RS-232 Serial-Leitungen @modbus-comp[comp].
+- *Modbus #htl3r.short[tcp]:* Ethernet bzw. #htl3r.short[tcp]/#htl3r.short[ip] basierte Client-Server Kommunikation @modbus-comp[comp].
+- *Modbus Plus:* Bietet eine Peer-to-Peer-Kommunikation über Serial-Leitungen. Ist hauptsächlich für stark vernetzte "Token-Passing" Netzwerke gedacht @modbus-plus-extra[comp].
 ]
 
-Als Unterschied zwischen Modbus-#htl3r.short[rtu] und Modbus-#htl3r.short[tcp] zeigt sich am Meisten die Redundanz bzw. Fehlerüberprüfung der Datenübertragung und die Adressierung der Slaves @modbus-ietf[comp].
+Als Unterschied zwischen Modbus #htl3r.short[rtu] und Modbus #htl3r.short[tcp] zeigt sich am Meisten die Redundanz bzw. Fehlerüberprüfung der Datenübertragung und die Adressierung der Slaves @modbus-ietf[comp].
 
-Modbus-#htl3r.short[rtu] sendet zusätzlich zu Daten und Befehlscode eine #htl3r.short[crc]-Prüfsumme und die Slave-Adresse. Bei Modbus-#htl3r.short[tcp] werden diese innerhalb des Payloads nicht mitgeschickt, da bei #htl3r.short[tcp] die Adressierung bereits im #htl3r.short[tcp]/#htl3r.short[ip]-Wrapping vorhanden ist (Destination Address) und die Redundanzfunktionen durch die #htl3r.short[tcp]/#htl3r.short[ip]-Konzepte wie eigenen Prüfsummen, Acknowledgements und Retransmissions. @tcpip-fortinet-doc[comp]
+Modbus #htl3r.short[rtu] sendet zusätzlich zu Daten und Befehlscode eine #htl3r.short[crc]-Prüfsumme und die Slave-Adresse. Bei Modbus #htl3r.short[tcp] werden diese innerhalb des Payloads nicht mitgeschickt, da bei #htl3r.short[tcp] die Adressierung bereits im #htl3r.short[tcp]/#htl3r.short[ip]-Wrapping vorhanden ist (Destination Address) und die Redundanzfunktionen durch die #htl3r.short[tcp]/#htl3r.short[ip]-Konzepte wie eigenen Prüfsummen, Acknowledgements und Retransmissions. @tcpip-fortinet-doc[comp]
 
 Bei der Enkapsulierung von Modbus in #htl3r.short[tcp] werden nicht nur der Befehlscode und die zugehörigen Daten einfach als Payload verschickt, sondern auch ein MBAP (Modbus Application Header), welcher dem Server Möglichkeiten wie die eindeutige Interpretation der empfangenen Modbus-Parameter sowie Befehle bietet @modbus-ietf[comp].
 #htl3r.fspace(
@@ -300,16 +300,62 @@ Bei der Enkapsulierung von Modbus in #htl3r.short[tcp] werden nicht nur der Befe
   )
 )
 
-#htl3r.todo("Anhand eines Beipsiels den Unterschied mit/ohne MBAP erklären")
+Um den Unterschied zwischen Modbus #htl3r.short[rtu] und der Enkapsulierung der #htl3r.short[pdu] in Modbus #htl3r.short[tcp] besser zu visualisieren, kann z.B. folgender Modbus #htl3r.short[rtu] Frame genutzt werden: \ *`11 03 006B 0003 7687`*
 
-Durch die Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40\% seiner ursprünglichen Daten-Durchsatzes. Jedoch wird dieser Verlust durch die zuvor erwähnten -- von #htl3r.short[tcp] mitgebrachten -- Vorteile ausgeglichen. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
+Dieser Frame ist dafür konzipiert, die drei analogen "Holding"-Register im Adressbereich 40108 bis 40110 des Slave-Geräts mit der ID 17 auszulesen.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (0.3fr, 1fr, 1fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + center, horizon + left),
+      table.header(
+        [*Daten*], [*Parameter*], [*Beschreibung*],
+      ),
+      [*`11`*], [Slave ID], [Die Adresse des Slave-Geräts (17 = 11 hex)],
+      [*`03`*], [Function Code], [Funktionscode für das Auslesen eines analogen "Holding"-Registers],
+      [*`006B`*], table.cell(rowspan: 2, "Data"), [Kennzeichnet die Adresse des ersten auszulesenden Registers (40108-40001 = 107 = 6B hex)],
+      [*`0003`*], [Die Anzahl der zu lesenden Register (3 Register, d.h. Adressen 40108 bis 40110)],
+      [*`7687`*], [#htl3r.short[crc]], [#htl3r.short[crc]-Prüfsumme],
+    ),
+    caption: [Details des beispielhaften Modbus RTU Frames],
+  )
+)
+
+Wenn dieser Frame nun als Teil von Modbus #htl3r.short[tcp] enkapsuliert werden soll, ändert sich seine Datenstruktur auf die folgende: \ *`0001 0000 0006 11 03 006B 0003`*
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (0.3fr, 1fr, 1fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + center, horizon + left),
+      table.header(
+        [*Daten*], [*Parameter*], [*Beschreibung*],
+      ),
+      [*`0001`*], [Transaction identifier], [Dient zur Identifizierung der Übertragungsreinfolge bei mehreren Transaktionen],
+      [*`0000`*], [Protocol identifier], [Der "protocol identifier" für Modbus TCP ist immer 0],
+      [*`0006`*], [Length], [Die Länge der restlichen #htl3r.short[pdu] in Bytes (Slave ID bis Data, insgesamt 6 Bytes)],
+      [*`11`*], [Slave ID], [Die Adresse des Slave-Geräts (17 = 11 hex)],
+      [*`03`*], [Function Code], [Funktionscode für das Auslesen eines analogen "Holding"-Registers],
+      [*`006B`*], table.cell(rowspan: 2, "Data"), [Kennzeichnet die Adresse des ersten auszulesenden Registers (40108-40001 = 107 = 6B hex)],
+      [*`0003`*], [Die Anzahl der zu lesenden Register (3 Register, d.h. Adressen 40108 bis 40110)],
+    ),
+    caption: [Details der beispielhaften Modbus TCP PDU],
+  )
+)
+
+Es darf bei der Enkapsulierung nicht vergessen werden, dass die #htl3r.short[pdu] lediglich das Datenfeld des gesamten #htl3r.short[tcp]/IP-Packets belegt. Durch diese Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40\% seiner ursprünglichen Daten-Durchsatzes. Jedoch wird dieser Verlust durch die zuvor erwähnten -- von #htl3r.short[tcp] mitgebrachten -- Vorteile ausgeglichen. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
 
 #htl3r.author("Julian Burger")
 === Cluster Switch Konfiguration
 
-Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden, der Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine IP-Addresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die cryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen. Die Konfiguration für #htl3r.short[ssh] funktioniert in theorie, wird allerdings nicht verwendet.
+Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden, der Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine IP-Adresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die kryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen. Die Konfiguration für #htl3r.short[ssh] funktioniert in Theorie, wird allerdings nicht verwendet.
 
-==== Interface konfiguration
+==== Interfacekonfiguration
 
 Auf dem Cluster Switch wurden vorallem #htl3r.shortpl[vlan] und #htl3r.short[span]-Session konfiguriert. Letztere senden den gesammten Traffic der Kläranlagen-Topologie an ein #htl3r.short[ids], siehe @nozomi-guardian. Die #htl3r.shortpl[vlan] segmentieren die einzelnen Netzwerke der Topologie und werden ebenso für Management, Network Storage und Internet-Zugriff verwendet.
 
