@@ -51,7 +51,7 @@ Für Details zur Modellierung der archimedischen Schraube und der Halterung des 
 
 #htl3r.fspace(
   figure(
-    image("../assets/zelle_1.png"),
+    image("../assets/zelle_1.jpg"),
     caption: [Der Aufbau der 1. Betriebszelle]
   )
 )
@@ -62,6 +62,7 @@ Die in dieser Zelle verwendete #htl3r.short[sps] ist eine Siemens SIMATIC S7-120
 
 Europaweit hat sich die Siemens SIMATIC als die gängiste #htl3r.short[sps]-Marke durchgesetzt @siemens-marktanteil[comp]. Bereits im Jahre 1958 wurde die erste SIMATIC, eine verbindungsprogrammierte Steuerung (kurz VPS), auf den Markt gebracht @simatic-history[comp].
 
+#pagebreak(weak: true)
 Die S7-1200 hat folgende Eingänge und Ausgänge:
 - 8 digitale Eingänge 24V DC
 - 6 digitale Ausgänge 24V/0,5A DC
@@ -118,7 +119,7 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
 
 #htl3r.fspace(
   figure(
-    image("../assets/zelle_2.png"),
+    image("../assets/zelle_2.jpg"),
     caption: [Der Aufbau der 2. Betriebszelle]
   )
 )
@@ -203,6 +204,8 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
     caption: [Schaltplan der 2. Betriebszelle]
   )
 )
+
+#htl3r.todo("im schaltplan die übergangspumpe ergänzen")
 
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
@@ -486,6 +489,8 @@ Die für das #htl3r.short[psm] notwendigen Funktionen sind:
 - `update_outputs()` setzt die #htl3r.short[gpio]-Pins laut Output-Hardwareadressen.
 - Die Main-Funktion für die Initialisierung der Hardware per `hardware_init()` und die periodische Ausführung von `update_inputs()` und `update_outputs()` (mit einem Intervall von 100ms).
 
+Bei der Initiliasierung wird das PSM gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen GPIO-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
+
 #htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
 ```python
 def hardware_init():
@@ -498,7 +503,9 @@ def hardware_init():
 ```
 ]
 
-#htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
+TODO Beschreibung
+
+#htl3r.code(caption: "Erfassung und Setzung der Input-Werte im PSM", description: none)[
 ```python
 def update_inputs():
     global sensors
@@ -514,7 +521,9 @@ def update_inputs():
 ```
 ]
 
-#htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
+TODO Beschreibung
+
+#htl3r.code(caption: "Setzung der GPIO-Pins anhand der Output-Werte im PSM", description: none)[
 ```python
 def update_outputs():
     filter_pump_active = psm.get_var("QX0")
@@ -531,7 +540,9 @@ def update_outputs():
 ```
 ]
 
-#htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
+Um beim Start des #htl3r.short[sps]-Programms die Hardware zu initialisieren und die Update-Funktionen in einer Dauerschleife vereint aufzurufen, wird die folgende Main-Methode verwendet:
+
+#htl3r.code(caption: "Main-Methode des PSM", description: none)[
 ```python
 if __name__ == "__main__":
     hardware_init()
