@@ -104,4 +104,5 @@ Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgese
 )
 
 #htl3r.author("Julian Burger")
-= Jumpbox für IT/OT Kommunikation
+== Jumpbox für IT/OT Kommunikation
+#htl3r.todo[Beschreibeung der Kommunikation zwischen IT und OT über die Jumpbox, mittels OpenVPN und RDP.]
