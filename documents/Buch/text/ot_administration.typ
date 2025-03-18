@@ -181,7 +181,60 @@ export async function middleware(request: NextRequest) {
 ```
 ]
 
-==== Funktionsweise im Hintergrund
+==== Funktionsweise im Frontend
+Während sich der Benutzer auf der Website befindet, findet eine permanente Kommunikation mit dem Backend statt, um Daten aktuell zu halten. Alle vorhandenen Datenpunkte werden dabei in einem eigenen Typen gespeichert, um eine einfache Verwaltung zu ermöglichen. die ersteren Variablen kommen dabei vom #htl3r.short[scada], die letzteren sind Einstellungen, die nur im #htl3r.short[mes] vorgenommen werden können, da sie sich auf dieses beziehen. \
+#htl3r.code(caption: "Middleware zum Überprüfen des Tokens und Weiterleitung", description: none)[
+```ts
+export type Datapoint = {
+    id: number;
+    xid: string;
+    name: string;
+    extendName: string;
+    dataType: "NUMERIC" | "STRING" | "BINARY";
+    enabled: boolean;
+    description: string;
+    type: number;
+    typeId: number;
+    dataSourceName: string;
+    // MES Settings, not from the SCADA
+    date?: Date; 
+    startTime?: string; 
+    endTime?: string; 
+    active: boolean;
+};
+```
+]
+Die #htl3r.short[mes] spezifischen Variablen dürfen dabei nicht überschrieben werden, sollten die vom #htl3r.short[scada] stammendenden Daten aktualisiert werden. 
+#htl3r.code(caption: "Codeabschnitt zum Aktualisieren der Datenpunkte", description: none)[
+```ts
+const updatedData = data.map((datapoint: Datapoint) => {
+          const existingDatapoint = prevDatapoints.find(xid => xid.xid === datapoint.xid);
+          return {
+            ...datapoint,
+            date: existingDatapoint?.date,
+            startTime: existingDatapoint?.startTime,
+            endTime: existingDatapoint?.endTime,
+            active: existingDatapoint?.active ?? datapoint.active ?? false
+          };
+        });
+```
+]
+All die Datenpunkte werden schlussendlich in einer Tabelle dargestellt, in welche Benutzer Daten sowie Uhrzeiten auswählen können, um Jobs zu erstellen. \
+
+Die 2. Tabelle zeigt alle derzeitig geplanten Jobs an, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht, womit die Tabelle fast ausschließlich zum Einsehen gemacht ist. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
+Um auch die Namen der Datenpunkte anzeigen zu können, werden diese mit den Datenpunkten vom #htl3r.short[scada] abgeglichen, da im #htl3r.short[mes] nur die xid gespeichert wird. 
+#htl3r.code(caption: "Codeabschnitt zum Abgleichen der Datenpunktnamen", description: none)[
+```ts
+const updatedData = data.map((timerItem: { xid: string; }) => ({
+        ...timerItem,
+        name: currentDatapoints.find(item => item.xid === timerItem.xid)?.name
+      }));
+```
+]
+Soll nun ein Datenpunkt gelöscht werden, so wird mittels eines #htl3r.short[api]-calls an das Backend ein Request gesendet, welcher den Datenpunkt löscht. Hierbei wird über eine #htl3r.short[mes]-interne ID gearbeitet, da die xid nicht eindeutig ist. Dies ist der Fall, da ein Datenpunkt, welcher von einer xid beschrieben wird, gleichzeitig mehrere aktive Jobs haben kann. \
+
+
+==== Funktionsweise im Backend
 Userinputs auf der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, sind also für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
 Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit durchzuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die folgenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
 
@@ -224,7 +277,7 @@ Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann
   )
 )
 
-Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für 4 Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. \
+Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für 4 Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. Weiters erhält der Client auch den Token zur Anmeldung am #htl3r.short[scada], damit dieser nicht im Backend verwaltet werden muss. \
 
 #htl3r.fspace(
   figure(
