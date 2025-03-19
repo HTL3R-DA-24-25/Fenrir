@@ -39,7 +39,71 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
 
 === Alle Geräte in der logischen Topologie
 
-#htl3r.todo("Hier Tabelle oder so machen")
+#htl3r.fspace(
+  total-width: 100%,
+  [
+    #figure(
+    table(
+      columns: (4fr, 3fr, 4fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + center, horizon + left),
+      table.header(
+        [*Name*], [*Netzwerksegment*], [*IP-Adresse(n)*],
+      ),
+      [Exchange], [IT-DMZ], [192.168.30.100/24],
+      [ADDC-Primary], table.cell(rowspan: 3, "IT-SEC"), [192.168.31.1/24],
+      [ADDC-Secondary], [192.168.31.2/24],
+      [Nozomi Guardian], [192.168.31.50/24],
+      [IT Workstations], [IT-Net], [#htl3r.short[dhcp]],
+      [Jumpbox], table.cell(rowspan: 3, "OT-DMZ"), [192.168.33.50/24],
+      [File Server], [192.168.33.100/24],
+      [Jumpbox], [192.168.33.50/24],
+      [SCADA], table.cell(rowspan: 3, "OT-NET"), [10.34.0.50/16],
+      [MES], [10.34.0.100/16],
+      [OT Workstations], [#htl3r.short[dhcp]],
+      [SPS Zelle Eins], table.cell(rowspan: 3, "Kläranlage"), [10.79.84.1/30],
+      [SPS Zelle Zwei], [10.79.84.5/30],
+      [SPS Zelle Drei], [10.79.84.9/30],
+    ),
+    caption: [Alle Geräte die in der logischen Topologie vorhanden sind],
+  )
+  <logisch-geraete>
+  ]
+)
+
+#pagebreak(weak: true)
+Die in @logisch-geraete aufgelisteten Netzwerksegmente werden durch drei physische FortiGate-Firewalls miteinander verbunden. Für nähere Details zu den Hardwaremodellen siehe @physisch-geraete. Die Konfiguration der Firewalls ist in @firewall-config dokumentiert.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (3.8fr, 3fr, 3fr, 4fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + center, horizon + center, horizon + left),
+      table.header(
+        [*Name*], [*Interface*], [*Netzwerksegment \ / Gerät*], [*IP-Adresse(n)*],
+      ),
+      table.cell(rowspan: 5, "Uplink Firewall"), 
+      [wan1], [Internet], [#htl3r.short[dhcp]],
+      [wan2], [Seperation Firewall], [172.16.10.2/30], 
+      [internal2 \ (VLAN 332)], [IT-Net], [10.32.255.254/16],
+      [internal2 \ (VLAN 330)], [IT-DMZ], [192.168.30.254/24], 
+      [internal2 \ (VLAN 331)], [IT-SEC], [192.168.31.254/24], 
+      table.cell(rowspan: 4, "Seperation Firewall"), 
+      [wan1], [Uplink Firewall], [172.16.10.1/30], 
+      [wan2], [Zellen Firewall], [172.16.10.6/30], 
+      [internal2 \ (VLAN 334)], [OT-Net], [10.34.255.254/16], 
+      [internal2 \ (VLAN 333)], [OT-DMZ], [192.168.33.254/24],
+      table.cell(rowspan: 4, "Zellen Firewall"),
+      [wan1], [Seperation Firewall], [172.16.10.5/30], 
+      [internal1], [SPS Zelle Eins], [10.79.84.2/30], 
+      [internal2], [SPS Zelle Zwei], [10.79.84.6/30], 
+      [internal3], [SPS Zelle Drei], [10.79.84.10/30],
+    ),
+    caption: [Die eingesetzten Firewalls und deren Verbindungen],
+  )
+)
 
 #htl3r.author("Julian Burger")
 == Physische Topologie <physische-topo>
@@ -77,7 +141,8 @@ In der physischen Topologie kommen -- mit der Ausnahme der Aktorik und Sensorik 
 
 #htl3r.fspace(
   total-width: 100%,
-  figure(
+  [
+    #figure(
     table(
       columns: (3fr, 5fr, 2fr),
       inset: 10pt,
@@ -99,6 +164,8 @@ In der physischen Topologie kommen -- mit der Ausnahme der Aktorik und Sensorik 
     ),
     caption: [Verwendete physische Hardware],
   )
+  <physisch-geraete>
+  ]
 )
 
 #htl3r.author("Julian Burger")

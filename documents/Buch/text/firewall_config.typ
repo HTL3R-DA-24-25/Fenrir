@@ -101,7 +101,7 @@ Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den T
 
 === Grundkonfiguration
 
-Die Grundkonfiguration der Übergangs-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen IP-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
+Die Grundkonfiguration der Übergangs-Firewall bzw. Seperation-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen IP-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
 
 #htl3r.code(caption: [Übergangs-Firewall Grundkonfiguration], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
