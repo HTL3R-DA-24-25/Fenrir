@@ -469,7 +469,9 @@ Die Bereits im @steuerung-zwei erwähnte Software-#htl3r.short[sps]-Runtime -- d
 
 ==== OpenPLC-Webdashboard
 
-TODO
+Der OpenPLC-Editor kann nicht direkt ein Programm auf die Runtime hochladen. Um dies zu tun, muss das OpenPLC-Webdashboard (der Runtime) geöffnet werden, wo, unter anderem, Programme hochgeladen und gestartet werden können, das #htl3r.short[psm] programmiert und Monitoring durchgeführt werden kann.
+
+Weil das Webdashboard als einziges Tool in der OpenPLC-Suite diese Funktionen bietet, kann es nicht gestoppt bzw. deaktiviert werden, ohne dabei die gesamte Runtime zu stoppen. Dies bietet im Vergleich zu anderen #htl3r.shortpl[sps] eine große Angriffsfläche. Es somit auch besonders wichtig, das Passwort vom Default-Admin "openplc" zu ändern (siehe @openplc-manipulation).
 
 #htl3r.author("Gabriel Vogler")
 ==== Siemens LOGO! Soft Comfort

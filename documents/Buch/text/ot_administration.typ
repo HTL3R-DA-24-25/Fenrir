@@ -118,6 +118,14 @@ Wenn es in der Betriebszelle zu einer Überflutung kommt, so wird dies im #htl3r
   )
 )
 
+#htl3r.author("David Koch")
+=== Konfiguration der Modbus TCP Kommunikation auf den SPSen
+
+Damit das #htl3r.short[scada] auf die #htl3r.shortpl[sps] zugreifen und deren Werte auslesen kann, müssen diese Kommunikation über Modbus #htl3r.short[tcp] zulassen. Bei der OpenPLC-#htl3r.short[sps] ist dies standardmäßig gegeben, bei der Siemens LOGO! und der S7-1200 nicht. 
+
+TODO
+
+#htl3r.author("Bastian Uhlig")
 #pagebreak(weak: true)
 == MES
 Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen die Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte, und dadurch können Optimierungen leichter durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden -- dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
@@ -230,7 +238,7 @@ const updatedData = data.map((datapoint: Datapoint) => {
 ]
 All die Datenpunkte werden schlussendlich in einer Tabelle dargestellt, in welche Benutzer Daten sowie Uhrzeiten auswählen können, um Jobs zu erstellen. \
 
-Die 2. Tabelle zeigt alle derzeitig geplanten Jobs an, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht, womit die Tabelle fast ausschließlich zum Einsehen gemacht ist. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
+Die zweite Tabelle zeigt alle derzeitig geplanten Jobs an, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht, womit die Tabelle fast ausschließlich zum Einsehen gemacht ist. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
 Um auch die Namen der Datenpunkte anzeigen zu können, werden diese mit den Datenpunkten vom #htl3r.short[scada] abgeglichen, da im #htl3r.short[mes] nur die xid gespeichert wird. 
 #htl3r.code(caption: "Codeabschnitt zum Abgleichen der Datenpunktnamen", description: none)[
 ```ts
@@ -267,7 +275,7 @@ Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via
 
 
 ==== Cron Jobs <cron-jobs>
-Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden bei Hinzufügung von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus 2 Teilen. Der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das ein- oder ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
+Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden bei Hinzufügung von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus zwei Teilen. Der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das ein- oder ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
 
 #htl3r.code-file(
   caption: "In einen Cron-Job ausgeführter Job",

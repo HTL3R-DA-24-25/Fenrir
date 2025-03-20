@@ -99,7 +99,7 @@ Wenn bei einem Cyberangriff auf #htl3r.short[ot]-Infrastruktur der Profit und so
   figure(
     image("../assets/wannacry.png"),
     caption: [Das berüchtigte Wannacry-Decryptor-Popup @wannacry-image]
-  )
+  ),
 )
 
 TODO
@@ -230,7 +230,7 @@ Da der Angreifer bereits in der #htl3r.short[lotl]-Phase herausgefunden hat, das
   )
 )
 
-=== SPS-Steuerung wird manipuliert
+=== SPS-Steuerung wird manipuliert <openplc-manipulation>
 
 Mit dem uneingeschränkten Zugriff auf das OpenPLC-Webdashboard kann der Angreifer sein eigenes Programm hochladen. Bevor dies getan wird, ist es aus Angreifersicht sinnvoll, die Default-Anmeldedaten umzuändern. Wenn im Zuge des Angriffs ein sichtbarer Schaden verursacht wird und das Management der Kläranlage anfängt zu ermitteln, ist ein aufgrund von falschen Anmeldedaten unzugängliches Webdashboard -- als einzige Schnittstelle zur Umprogrammierung -- verheerend.
 

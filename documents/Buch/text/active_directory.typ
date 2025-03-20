@@ -388,7 +388,7 @@ Nach dem Senden der E-Mail wird der Empfang der E-Mail überprüft. Dafür wird 
 Die E-Mail wurde erfolgreich empfangen und der Exchange Server funktioniert einwandfrei.
 
 == Fileserver
-Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der IT-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der IT-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domäne integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
+Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der #htl3r.short[it]-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der #htl3r.short[it]-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domäne integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
 
 === Aufsetzung des File Servers
 Mithilfe eines Ansible-Playbooks wird der Fileserver aufgesetzt. Dabei wird das Playbook in mehreren Parts aufgeteilt, da der Fileserver während der Installation mehrmals neu gestartet werden muss.
@@ -437,7 +437,7 @@ Erfolgreicher Zugriff auf `test2.txt` im  Verzeichnis der Abteilung `Infrastruct
   )
 )
 
-Nicht erfolgreicher Zugriff auf `test.txt` im Verzeichnis des Benutzers `jburger`, da der Benutzer `dkoch` keine Berechtigung hat:
+Ein unerfolgreicher Zugriff auf `test.txt` im Verzeichnis des Benutzers `jburger`, da der Benutzer `dkoch` keine Berechtigung hat:
 #htl3r.fspace(
   figure(
     image("../assets/Test-Fileshare_Zugriff_nicht_erfolgreich.png", width: 80%),

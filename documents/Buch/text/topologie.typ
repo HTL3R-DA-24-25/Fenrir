@@ -225,7 +225,7 @@ Es werden zwei VMkernel Adapter verwendet, welche über den selben physischen Ad
 
 Die angesprochenen VMkernel Adapter existieren in identer Form auf allen ESXi-Hosts. VMkernel Adapter können verschiedene Dienste aktiviert haben, mit welchen es beeinflussen lässt wie diese Dienste über das Netzwerk kommunizieren. Die VMkernel Adapter sind wiefolgt belegt:
 - *vmk0*: Ist mit der _ManagementPG_ verbunden und hat den _Management_-Dienst aktiviert. Dies teilt vCenter/vSphere mit, dass sämtlicher Management-Traffic über diesen Adapter und somit über die _ManagementPG_ geschickt werden soll.
-- *vmk1*: Ist mi der _StoragePG_ verbunden und hat den _vMotion_-Dienst aktiviert. vMotion ermögllicht es #htl3r.shortpl[vm], während diese gestartet sind, auf andere ESXi-Hosts zu migrieren und dies mit minimalen ausfällen.
+- *vmk1*: Ist mit der _StoragePG_ verbunden und hat den _vMotion_-Dienst aktiviert. vMotion ermöglicht es #htl3r.shortpl[vm], während diese gestartet sind, auf andere ESXi-Hosts zu migrieren mit minimalen Ausfällen.
 
 Auch wenn vMotion nicht zwingend gebraucht wird, existiert der VMkernel Adapter aus performance Gründen, welche in @nfs_datastore beschrieben werden. Der andere VMkernel Adapter existiert aus gründen der Segmentierung und somit Sicherheit. Es ist möglich über einen VPN in das Management-Netzwerk zu gelangen und somit den Provisionierungsvorgang einzuleiten, wie in @provisionierung beschrieben.
 
@@ -241,7 +241,7 @@ Auch wenn vMotion nicht zwingend gebraucht wird, existiert der VMkernel Adapter 
 
 Damit es allen ESXi-Hosts möglich ist auf die gleichen Dateien, wie zum Beispiel #htl3r.shortpl[vm], #htl3r.short[vm]-Templates und ISOs, zuzugreifen ist ein geteilter Datastore benötigt, welcher über das Netzwerk erreichbar ist. Die einfachste Lösung währe ein vSAN (Virtual Storage Area Network), welche mehrere physische Festplatten über das Netzwerk zu einem Datastore zusammenfassen kann. Dies ist jedoch nur unter gewissen Hardwarekonfigurationen möglich und die Anforderungen sind zu hoch für den Rahmen der Diplomarbeit. Somit wurde sich für einen #htl3r.short[nfs]-Share entschieden, welcher von allen ESXi-Hosts über ein Storage-Netzwerk erreichbar ist. Dieses Storage-Netzwerk ist mittels #htl3r.short[vlan] realisiert und hat den #htl3r.short[vlan]-Tag 80. Damit alle ESXi-Hosts innerhalb des vCenters über dieses Netzwerk zugreifen, gibt es einen dedizierten VMkernel Adapter, siehe @vmkernel_config.
 
-Der NFS-Datastore hat insgesammt fünf physische Verbindungen mit dem Cluster-Switch. Eine für das Management-#htl3r.short[vlan] 120 und vier weitere, welche mittels #htl3r.short[lacp] aggregiert sind und mit dem Storage-#htl3r.short[vlan] 80 verbunden sind. Es wurde ebenfalls die #htl3r.short[mtu]-Größe auf 9000 gestellt um maximalen Durchsatz zu erzielen. Diese #htl3r.short[mtu]-Größe wurde ebenfalls auf dem VMkernel Adapter und dem #htl3r.short[dvs] konfiguriert.
+Der #htl3r.short[nfs]-Datastore hat insgesammt fünf physische Verbindungen mit dem Cluster Switch. Eine für das Management-#htl3r.short[vlan] 120 und vier weitere, welche mittels #htl3r.short[lacp] aggregiert sind und mit dem Storage-#htl3r.short[vlan] 80 verbunden sind. Es wurde ebenfalls die #htl3r.short[mtu]-Größe auf 9000 gestellt um maximalen Durchsatz zu erzielen. Diese #htl3r.short[mtu]-Größe wurde ebenfalls auf dem VMkernel Adapter und dem #htl3r.short[dvs] konfiguriert.
 So wird garantieren, dass alle ESXi-Hosts die volle Bandbreite ihrer Links, von einem Gigabit pro Sekunde, nutzen können.
 
 #htl3r.fspace(
@@ -251,7 +251,7 @@ So wird garantieren, dass alle ESXi-Hosts die volle Bandbreite ihrer Links, von 
   )
 )
 
-Die einbindung des NFS-Shares als Datastore erfolgt über vSphere, hierbei muss lediglich die IP-Adresse, sowie Benutzername und Passwort des NFS-Shares eingegeben werden. Die Konfiguration des NFS-Shares ist simpel gehalten:
+Die Einbindung des #htl3r.short[nfs]-Shares als Datastore erfolgt über vSphere, hierbei muss lediglich die IP-Adresse, sowie Benutzername und Passwort des #htl3r.short[nfs]-Shares eingegeben werden. Die Konfiguration des #htl3r.short[nfs]-Shares ist simpel gehalten:
 
 #htl3r.code(caption: "NFS-Share Export-Konfiguration", description: none)[
 ```
@@ -275,7 +275,7 @@ Das Dateisystem, welches auf `/storage` gemounted ist, ist ein #htl3r.short[lvm]
 
 #htl3r.full[drs] ist eine Technologie von VMware welche #htl3r.shortpl[vm] automatisch auf ESXi-Hosts, welche dem selben Cluster zugewiesen sind, load-balanced. Sprich #htl3r.shortpl[vm] werden automatisch so auf alle ESXi-Hosts in einem Cluster verteilt, sodass alle die ungefähr die gleiche CPU, Arbeitspeicher und Netzwerkauslastung haben. Im Rahmen wird dieser Diplomarbeit wird #htl3r.short[drs] verwendet um #htl3r.longpl[vm] während des Provisioniervorgangs gleichmäßig auf die ESXi-Hosts zu verteilen.
 
-Desweiteren besteht die möglichkeit ein Resource-Pool anzulegen. Einem Resource-Pool sind gewisse CPU und Arbeitsspeicher Anteile zugewiesen, welche es nicht überschreiten kann. Ebenso können Resource-Pools gewisse Hardware-Resource für sich reservieren. Dies ermöglicht einem Nutzer mehrere Resource-Pools für unterschiedlichste Verwendungen anzulegen und gewisse Hardware-Anteile zu garantieren.
+Desweiteren besteht die Möglichkeit ein Resource-Pool anzulegen. Einem Resource-Pool können gewisse Anteile der CPU und des Arbeitsspeichers zugewiesen werden, welche es nicht überschreiten kann. Ebenso können Resource-Pools gewisse Hardware-Resourcen für sich reservieren. Dies ermöglicht einem Nutzer mehrere Resource-Pools für unterschiedlichste Verwendungen anzulegen und gewisse Hardware-Anteile zu garantieren.
 
 Dies wird im Rahmen dieser Diplomarbeit verwendet um, wie in @provisionierung beschrieben, mittels #htl3r.short[drs] die #htl3r.shortpl[vm] auf alle ESXi-Hosts, welche dem Cluster angehören zu verteilen. Das Resource-Pool hilft zu garantieren, dass die vCenter-#htl3r.short[vm], welche nicht Teil des Resource-Pools ist, immer genug Ressourcen hat um zu Arbeiten.
 
@@ -301,9 +301,9 @@ Unter #htl3r.breadcrumbs(("Monitor", "vSphere DRS", "Recommendations")) ist es n
 
 ==== Content Library und Ordnerstruktur von VMs und DVS
 
-Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein Vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von #htl3r.full[gip] verwendet, diese ist obwohl nicht optimal, allerdings passend für den Anwendungszweck innerhalb des Projektes.
+Eine Content Library in VMware vSphere ist ein zentraler Ort #htl3r.short[vm]-Templates und andere Dateien abzulegen. #htl3r.short[vm]-Templates welche in einer Content Library liegen sind versioniert und können nach beliben aktualisiert werden. Hierzu gibt es eine "Check-Out" und "Check-In" funktion, mit welcher #htl3r.short[vm]-Templates zu normalen #htl3r.shortpl[vm] konvertiert werden, Änderungen getätigt werden können und letzendlich diese wieder zu #htl3r.short[vm]-Templates zurückkonvertiert werden können. Solch ein Vorgang ist besonders nützlich für _Golden Image Pipelines_. Im Rahmen dieser Diplomarbeit wird eine Art von #htl3r.full[gip] verwendet, diese ist zwar nicht optimal, allerdings passend für den Anwendungszweck innerhalb des Projektes.
 
-Content Libraries unterscheiden zwischen zwei Arten von #htl3r.short[vm]-Templates. Zunächst sind da _OVF/OVA Templates_, welche einfach nur Dateien auf einem Datastore sind und Metadaten und Disks beinhalten. Diese stehen in kontrast zu normalen #htl3r.short[vm]-Templates, welche ebenso im vSphere-Inventar registriert sein müssen. Normale #htl3r.short[vm]-Templates sind OVF/OVA-Templates zu bevorzugen, da der Erstellungsprozess wesentlich kürzer ist und Linked-Clones möglich sind.
+Content Libraries unterscheiden zwischen zwei Arten von #htl3r.short[vm]-Templates. Zunächst sind da _OVF/OVA Templates_, welche einfach nur Dateien auf einem Datastore sind und Metadaten und Disks beinhalten. Diese stehen in Kontrast zu normalen #htl3r.short[vm]-Templates, welche ebenso im vSphere-Inventar registriert sein müssen. Normale #htl3r.short[vm]-Templates sind OVF/OVA-Templates zu bevorzugen, da der Erstellungsprozess wesentlich kürzer ist und Linked-Clones möglich sind.
 
 Im Rahmen dieser Diplomarbeit werden alle verwendeten #htl3r.short[vm]-Templates mittels Packer erstellt, für genauere Informationen siehe @provisionierung, mit Ausnahme von der #htl3r.short[ot]-Workstations Template. Diese benötigt spezielle Software für die Programmierung und Verwaltung von #htl3r.shortpl[sps] und kann nur schwer automatisiert aufgesetzt werden.
 
@@ -420,7 +420,7 @@ Es darf bei der Enkapsulierung nicht vergessen werden, dass die #htl3r.short[pdu
 #htl3r.author("Julian Burger")
 === Cluster Switch Konfiguration
 
-Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden, der Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine IP-Adresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die kryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen. Die Konfiguration für #htl3r.short[ssh] funktioniert in Theorie, wird allerdings nicht verwendet.
+Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden: dem Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine IP-Adresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die kryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen. Die Konfiguration für #htl3r.short[ssh] funktioniert in Theorie, wird allerdings nicht verwendet.
 
 ==== Interfacekonfiguration
 
