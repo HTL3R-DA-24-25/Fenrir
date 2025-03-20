@@ -9,12 +9,39 @@ Eine Lösung wäre, Firewalls von unterschiedlichen Herstellern zu nutzen, um da
 
 #htl3r.author("Gabriel Vogler")
 == Active Directory Härtung
+Das #htl3r.long[ad] ist ein zentraler Bestandteil des Netzwerks. Es ist für die Verwatung von Benutzerkonten, Gruppenrichtlinien und Zugriffsberechtigungen zuständig. Ein Angriff auf das #htl3r.short[ad] kann schwerwiegende Folgen haben. Daher ist es wichtig, das #htl3r.long[ad] abzusichern. Dies wird durch die Segmentierung des Netzwerks und die Härtung des #htl3r.short[ad] erreicht. Gehärtet werden einerseits die #htl3r.short[ad]-Server selbst und andererseits die Benutzerkonten.
 
+=== Credential Guard
+Credential Guard ist eine Funktion von Windows Systemen die es ermöglicht, die Anmeldeinformationen von Benutzern zu schützen. Diese werden in einem abgekapseleten Bereich gepeichert. Dieser Bereich ist eine Art virtuelle Maschine, die neben dem eigentlichen Betriebssystem läuft. #htl3r.long[vbs] ist eine Voraussetzung für Credential Guard und ermöglicht die Isolation von Prozessen. Durch Credential Guard wird es Angreifern erschwert, an die Anmeldeinformationen von Benutzern zu gelangen. Dies kann Pass-the-Hash-Angriffe verhindern. Crendtial Guard wird mittels Gruppenrichtlinie aktiviert. Die Registry-Einträge für Credential Guard selbst, Secure Boot und Virtualization Based Security werden in der Gruppenrichtlinie gesetzt.
+
+#htl3r.code-file(
+  caption: "Aktivierung von Credential Guard mittels Gruppenrichtlinie",
+  filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
+  skips: ((3, 0), (31, 0)),
+  ranges: ((4, 30),),
+  lang: "powershell",
+  text: read("../assets/scripts/AD_Hardening.ps1")
+)
+
+=== Protected Users
+Protected Users ist ein Benutzergruppe, die es ermöglicht, die Anmeldeinformationen von Benutzern zu schützen. Benutzer, die Mitglied der Gruppe Protected Users sind, können keine Legacy Protokolle verwenden. Dazu zählt z.B. NTLM. Da NTLM ein veraltetes Protokoll ist, das anfällig für Angriffe ist, ist es wichtig, dieses zu deaktivieren. Aufpassen muss man jedoch, dass Benutzer, die Anwendungen verwenden, die NTLM benötigen, weiterhin funktionieren. Ein Problem könnte bei #htl3r.short[rdp] auftreten, da dort NTLM verwendet wird. Vorallem die Administratoren sollten in der Gruppe Protected Users sein, da mit diesen im Falle eines Angriffs am meisten Schaden angerichtet werden kann. Alle Benutzer die nicht der Abteilung Operations oder Infrastructure angehören, sollten in der Gruppe Protected Users sein, da diese kein #htl3r.short[rdp] benötigen.
+
+#htl3r.code-file(
+  caption: "Hinzufügen von Benutzern zur Gruppe Protected Users",
+  filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
+  skips: ((32, 0),(44,0)),
+  ranges: ((33, 43),),
+  lang: "powershell",
+  text: read("../assets/scripts/AD_Hardening.ps1")
+)
+
+=== Windows Security Baseline
 === LAPS
+Dass die Admin-Passwörter beim in @provisionierung beschriebenen Provisionierungsvorgang auf allen Geräten gleich gesetzt werden ist klarerweise ein Sicherheitsrisiko. Wenn ein Angreifer eines der Passwörter herausfindet, kann er sich auf allen anderen Geräten ebenfalls mit diesem Passwort anmelden -- Es kommt zu Lateral Movement.
 
-Dass die Admin-Passwörter beim Provisionierungsvorgang auf allen Geräten gleich gesetzt werden ist klarerweise ein Sicherheitsrisiko. Wenn ein Angreifer eines der Passwörter herausfindet, kann er sich auf allen anderen Geräten ebenfalls mit diesem Passwort anmelden -- Es kommt zu Lateral Movement.
+Local Administrator Password Solution ist ein Tool von Microsoft, welches es ermöglicht, zentral über das #htl3r.short[ad] die lokalen Administrator-Passwörter von Windows-Computern zu verwalten. Zufällige Passwörter werden generiert und in einem Active Directory-Objekt gespeichert. Die Computer rufen die Passwörter ab und speichern sie lokal. Dadurch wird einerseits sichergestellt, dass alle lokalen Administrator-Passwörter auf den Computern unterschiedlich sind und andererseits, dass sie regelmäßig geändert werden. Dies erhöht die Sicherheit, da ein Angreifer, der ein Passwort herausfindet, nicht auf alle Computer zugreifen kann.
 
-TODO
+LAPS wurde in der Topologie auf den Servern im #htl3r.short[it]-Netzwerk installiert und konfiguriert.
 
 #htl3r.author("David Koch")
 == Patch-Management <patch>

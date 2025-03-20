@@ -609,3 +609,10 @@ pdu:
     singular: Protocol Data Unit
     plural: Protocol Data Units
   description: Eine Dateneinheit, die zwischen Netzwerkeinheiten übertragen wird.
+
+vbs:
+  short:
+    singular: VBS
+  long:
+    singular: Virtualization Based Security
+  description: Eine Sicherheitsfunktion von Windows, welche es ermöglicht einen sicheren Bereich im Betriebssystem zu erstellen, welcher von anderen Bereichen isoliert via Hypervisor (Hyper-V) betrieben wird.
