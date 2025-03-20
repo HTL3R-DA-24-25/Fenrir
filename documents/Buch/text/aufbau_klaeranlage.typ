@@ -503,7 +503,7 @@ def hardware_init():
 ```
 ]
 
-TODO Beschreibung
+In der `update_inputs()` Funktion werden sie Messwerte der Temperatursensoren und der Füllstandssensoren ausgelesen und in den Input-Variablen `%IW0` bis `%IW4` gespeichert. Die Werte des DS18B20-Temperatursensors lassen sich durch die Python-Bibliothek `w1thermsensor` ganz einfach mittels `.get_temperature()` auslesen. Da die Werte der Füllstandssensoren zuerst vom ESP32 verarbeitet werden müssen und erst danach per #htl3r.short[i2c] an OpenPLC geschickt werden fällt das Auslesen dieser etwas komplexer aus. Es wird zuerst eine Hello-Nachricht an den ESP32 geschickt, welcher auf diese mit den derzeitigen Messwerten antwortet. Da die Antwort nicht sofort stattfindet, ist eine 50ms Verzögerung zwischen der Hello-Nachricht und dem Auslesen der #htl3r.short[i2c]-Werte nötig. In @diy-i2c wird der nötige Programmcode für die #htl3r.short[i2c]-Kommunikation genauer erklärt.
 
 #htl3r.code(caption: "Erfassung und Setzung der Input-Werte im PSM", description: none)[
 ```python
@@ -513,7 +513,7 @@ def update_inputs():
     psm.set_var("IW0", temperature1)
     temperature2 = int(sensors[1].get_temperature())
     psm.set_var("IW1", temperature2)
-    write_to_esp32(ESP_I2C_address, "haiii")
+    write_to_esp32(ESP_I2C_address, "hello")
     time.sleep(0.05)
     data = read_from_esp32(ESP_I2C_address, 32)
     psm.set_var("IW2", data[0])
@@ -521,7 +521,7 @@ def update_inputs():
 ```
 ]
 
-TODO Beschreibung
+In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0` und `%QX1` ausgelesen und jeweils auf die GPIO-Pins 13 und 15 gemappt. Erst bei der Setzung der GPIO-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
 
 #htl3r.code(caption: "Setzung der GPIO-Pins anhand der Output-Werte im PSM", description: none)[
 ```python
