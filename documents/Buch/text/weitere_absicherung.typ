@@ -23,7 +23,9 @@ Credential Guard ist eine Funktion von Windows Systemen die es ermöglicht, die 
   text: read("../assets/scripts/AD_Hardening.ps1")
 )
 
-=== Protected Users
+Credential Guard kann aufgrund des fehlenden Secure Boot nicht in der Topologie aktiviert werden. Die Konfiguration und die Gruppenrichtlinie sind jedoch vorbereitet und können bei Bedarf aktiviert werden.
+
+=== Protected Users <protected-users>
 Protected Users ist ein Benutzergruppe, die es ermöglicht, die Anmeldeinformationen von Benutzern zu schützen. Benutzer, die Mitglied der Gruppe Protected Users sind, können keine Legacy Protokolle verwenden. Dazu zählt z.B. NTLM. Da NTLM ein veraltetes Protokoll ist, das anfällig für Angriffe ist, ist es wichtig, dieses zu deaktivieren. Aufpassen muss man jedoch, dass Benutzer, die Anwendungen verwenden, die NTLM benötigen, weiterhin funktionieren. Ein Problem könnte bei #htl3r.short[rdp] auftreten, da dort NTLM verwendet wird. Vorallem die Administratoren sollten in der Gruppe Protected Users sein, da mit diesen im Falle eines Angriffs am meisten Schaden angerichtet werden kann. Alle Benutzer die nicht der Abteilung Operations oder Infrastructure angehören, sollten in der Gruppe Protected Users sein, da diese kein #htl3r.short[rdp] benötigen.
 
 #htl3r.code-file(
@@ -35,13 +37,82 @@ Protected Users ist ein Benutzergruppe, die es ermöglicht, die Anmeldeinformati
   text: read("../assets/scripts/AD_Hardening.ps1")
 )
 
-=== Windows Security Baseline
 === LAPS
 Dass die Admin-Passwörter beim in @provisionierung beschriebenen Provisionierungsvorgang auf allen Geräten gleich gesetzt werden ist klarerweise ein Sicherheitsrisiko. Wenn ein Angreifer eines der Passwörter herausfindet, kann er sich auf allen anderen Geräten ebenfalls mit diesem Passwort anmelden -- Es kommt zu Lateral Movement.
 
 Local Administrator Password Solution ist ein Tool von Microsoft, welches es ermöglicht, zentral über das #htl3r.short[ad] die lokalen Administrator-Passwörter von Windows-Computern zu verwalten. Zufällige Passwörter werden generiert und in einem Active Directory-Objekt gespeichert. Die Computer rufen die Passwörter ab und speichern sie lokal. Dadurch wird einerseits sichergestellt, dass alle lokalen Administrator-Passwörter auf den Computern unterschiedlich sind und andererseits, dass sie regelmäßig geändert werden. Dies erhöht die Sicherheit, da ein Angreifer, der ein Passwort herausfindet, nicht auf alle Computer zugreifen kann.
 
-LAPS wurde in der Topologie auf den Servern im #htl3r.short[it]-Netzwerk installiert und konfiguriert.
+LAPS wurde in der Topologie auf den Servern im #htl3r.short[it]-Netzwerk installiert und konfiguriert. Auf den Clients wurde LAPS nicht aktiviert. Dies resultiert daraus, dass auf den Windows Server 2022 Systemen LAPS nachinstalliert wird, was mittlerweile die Legacy Version ist. Die Clients sind Windows 11 Systeme, welche allerdings LAPS mitgeliefert bekommen, genauso wie Windows Server 2025. Dabei handelt es sich jedoch um die aktuelle Version von LAPS. Die beiden Versionen sind nicht kompatibel zueinander, weshalb LAPS auf den Clients nicht installiert wurde.
+
+Installiert wurde LAPS auf den Domain Controllern mittels des PowerShell-Skripts:
+#htl3r.code-file(
+  caption: "Installation von LAPS mittels PowerShell",
+  filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
+  skips: ((45, 0), (48, 0)),
+  ranges: ((46, 47),),
+  lang: "powershell",
+  text: read("../assets/scripts/AD_Hardening.ps1")
+)
+
+Damit die Server wissen, dass sie über LAPS gesteuert werden, musste eine Gruppenrichtlinie erstellt werden. Diese legt die Parameter von LAPS fest. Dabei werden die Häufigkeit der Änderung des Passworts, die Passwortlänge und die Komplexität des Passworts angegeben. Die GPO wurde mit folgendem PowerShell-Skript erstellt:
+#htl3r.code-file(
+  caption: "Erstellung der Gruppenrichtlinie für LAPS mittels PowerShell",
+  filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
+  skips: ((47, 0), (69, 0)),
+  ranges: ((48, 68),),
+  lang: "powershell",
+  text: read("../assets/scripts/AD_Hardening.ps1")
+)
+
+Auf den Servern wurde LAPS auch installiert, jedoch ist es nicht notwendig, die Managementtools wie beim Domain Controller zu installieren. Dies pasiert mit folgendem PowerShell-Befehl:
+#htl3r.code(caption: "Installation von LAPS auf den Servern", description: none)[
+```powershell
+D:\LAPS\x64\LAPS.x64.msi /quiet
+```
+]
+
+Nach dem LAPS installiert und konfiguriert wurde, können die neuen Passwörter abgerufen werden. Dies geschieht mit folgendem PowerShell-Befehl:
+#htl3r.code(caption: "Abrufen von LAPS-Passwort", description: none)[
+```powershell
+Get-AdmPwdPassword -ComputerName "Exchange"
+```
+]
+#htl3r.todo["LAPS Bild einfügen"]
+
+
+=== Windows Security Baseline
+Die Windows Security Baseline ist eine Sammlung von Microsoft bereitgestelllten Gruppenrichtlinien zur Absicherung von Windows Systemen. In der Topologie wurde die Windows Security Baseline für Windows Server 2022 verwendet. \
+Diese umfasst folgende GPOs:
+- MSFT Internet Explorer 11 - Computer
+- MSFT Internet Explorer 11 - User
+- MSFT Windows Server 2022 - Defender Antivirus
+- MSFT Windows Server 2022 - Domain Controller
+- MSFT Windows Server 2022 - Domain Controller Virtualization Based Security
+- MSFT Windows Server 2022 - Domain Security
+- MSFT Windows Server 2022 - Member Server
+- MSFT Windows Server 2022 - Member Server Credential Guard
+
+Die beiden GPOs "MSFT Windows Server 2022 - Domain Controller Virtualization Based Security" und "MSFT Windows Server 2022 - Member Server Credential Guard" wurden in der Topologie nicht aktiviert, da die Voraussetzungen, wie in @protected-users beschrieben, nicht erfüllt sind.
+
+Die "MSFT Internet Explorer 11 - Computer" wurde auf alle Computer angewendet, die "MSFT Internet Explorer 11 - User" auf alle Benutzer. Beide GPOs legen Sicherheitseinstellungen für den Internet Explorer fest, wie zum Beispiel das Erzwingen einer bestimmten Version von #htl3r.short[tls].
+
+GPOs, die "Domain" im Namen haben, wurden auf die Domain-Controller angewendet. Diese legen Sicherheitseinstellungen für die Domäne fest, wie zum Beispiel der Aktivierung von AES-Verschlüsselung für Kerberos. 
+
+Die GPOs für die Member-Server wurden auf die Server angewendet, die keine Domain-Controller sind. Diese legen Sicherheitseinstellungen, wie zum Beispiel das Deaktivieren eines #htl3r.short[rdp]-Zugriffs für die Standard Administratoren fest.
+
+Die GPO "MSFT Windows Server 2022 - Defender Antivirus" wurde allen Servern zugewiesen. Dieser legt Einstellungen für den Windows Defender fest, wie zum Beispiel das Aktivieren von Echtzeitschutz.
+
+Importiert wurden die GPOs mittels der PowerShell:
+#htl3r.code-file(
+  caption: "Importieren der Windows Security Baseline mittels PowerShell",
+  filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
+  skips: ((68, 0),),
+  ranges: ((69, 73),),
+  lang: "powershell",
+  text: read("../assets/scripts/AD_Hardening.ps1")
+)
+
+Dabei wird zuerst das ZIP-Arhiv heruntergeladen und entpackt. Anschließend werden die GPOs mithilfe des Skripts `Baseline-ADImport.psq1` importiert.
 
 #htl3r.author("David Koch")
 == Patch-Management <patch>

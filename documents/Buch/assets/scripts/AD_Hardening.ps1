@@ -30,7 +30,7 @@ $DCOU = "OU=Domain Controllers,DC=corp,DC=fenrir-ot,DC=at"
 New-GPLink -Name $GPOName -Target $DCOU -LinkEnabled Yes -Enforced Yes
 
 ## Protected Users
-$users = @("dkoch", "jbloggs", "jdoe", "jwinkler", "mhuber", "mmuster")
+$users = @("dkoch", "jbloggs", "jdoe", "jwinkler", "mhuber", "mmuster", "Administrator")
 
 foreach ($user in $users) {
     try {
@@ -48,9 +48,10 @@ D:\LAPS.x64.msi ADDLOCAL=Management.UI,Management.PS,Management.ADMX /quiet /nor
 Import-Module -Name AdmPwd.PS
 Update-AdmPwdADSchema
 
-New-ADOrganizationalUnit -Name "Host-Computers" -Path "DC=corp,DC=fenrir-ot,DC=at"
-$TargetOU = "OU=Host-Computers,DC=corp,DC=fenrir-ot,DC=at"
-Get-ADComputer -Filter 'Name -like "*Client*"' | Move-ADObject -TargetPath $TargetOU
+New-ADOrganizationalUnit -Name "LAPS-Server" -Path "DC=corp,DC=fenrir-ot,DC=at"
+$TargetOU = "OU=LAPS-Server,DC=corp,DC=fenrir-ot,DC=at"
+Get-ADComputer -Filter 'Name -like "*Exchange*"' | Move-ADObject -TargetPath $TargetOU
+Get-ADComputer -Filter 'Name -like "*File*"' | Move-ADObject -TargetPath $TargetOU
 
 Set-AdmPwdComputerSelfPermission -OrgUnit $TargetOU
 

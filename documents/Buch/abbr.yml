@@ -616,3 +616,10 @@ vbs:
   long:
     singular: Virtualization Based Security
   description: Eine Sicherheitsfunktion von Windows, welche es ermöglicht einen sicheren Bereich im Betriebssystem zu erstellen, welcher von anderen Bereichen isoliert via Hypervisor (Hyper-V) betrieben wird.
+
+tls:
+  short:
+    singular: TLS
+  long:
+    singular: Transport Layer Security
+  description: Ein Protokoll, welches für die Verschlüsselung von Datenübertragungen verwendet wird.
