@@ -203,4 +203,9 @@ Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgese
 
 #htl3r.author("Julian Burger")
 == Jumpbox für IT/OT Kommunikation
-#htl3r.todo[Beschreibeung der Kommunikation zwischen IT und OT über die Jumpbox, mittels OpenVPN und RDP.]
+
+Um einen abgesicherten und nur eingeschränkten Zugriff auf die #htl3r.short[ot]-Infrastruktur zu ermöglichen muss jegliche Kommunikation über eine sogenannte Jumpbox verlaufen. Die Firewall-Policies dafür wurden bereits in @separation_firewall beschrieben. In diesem Kapitel wird primär auf die OpenVPN und #htl3r.full[rdp] Verbindungen eingegangen.
+
+=== OpenVPN auf der Jumpbox
+
+Wie schon erwähnt wurde die Jumpbox, welche als Übergang von der #htl3r.short[it] in die #htl3r.short[ot] dient, mit einem OpenVPN-Server realisiert. Es wurde OpenVPN über Wireguard, IPSec oder ähnlichem bevorzugt, da OpenVPN mehrere Client-Verbindungen mit der selben Konfiguration ermöglicht. So kann der Zugriff auf die Client-Konfiguration mittels #htl3r.short[ad]-Richtlinien abgesichert werden und es muss nicht für eine eigene Konfiguration pro Benutzer gesorgt werden. Die Vertraulichkeit ist somit ebenfalls leichter gewährt, da die Zertifikate ebenfalls über #htl3r.long[ad] verwaltet werden können. Für genaure Informationen über die Konfiguration des #htl3r.short[ad]s, siehe @active_directory.
