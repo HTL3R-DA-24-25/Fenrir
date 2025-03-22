@@ -623,3 +623,17 @@ tls:
   long:
     singular: Transport Layer Security
   description: Ein Protokoll, welches für die Verschlüsselung von Datenübertragungen verwendet wird.
+
+ca:
+  short:
+    singular: CA
+  long:
+    singular: Certificate Authority
+  description: Ein digitales Zertifikat, welches andere digitale Zertifikate austellen kann.
+
+pki:
+  short:
+    singular: PKI
+  long:
+    singular: Public Key Infrastructure
+  description: Eine ansammlung an Diensten, Richtlinien, Hardware und Software, welche digitale Zertifikate erstellen, verwalten, verteilen, benutzen, speichern und zurückziehen kann.

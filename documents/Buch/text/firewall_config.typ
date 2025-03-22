@@ -1,7 +1,25 @@
 #import "@preview/htl3r-da:1.0.0" as htl3r
 
-#htl3r.author("Bastian Uhlig")
+#htl3r.author("Julian Burger")
 = Firewall-Konfiguration <firewall-config>
+
+Als Firewalls wurden exclusiv FortiGates, Produkte der Firma Fortinet, verwendet. Diese sind mittels Kommandozeile, oder aber auch Web-Oberfläche, konfigurierbar. Die Konfiguration auf der Kommandozeile erfolgt über eine Fortinet eigene Konfigurationsspprache. Diese ist in diverse Sub-Konfigurations-Menüs unterteilt, welche es jeweils erlauben die, für das ausgewählte Sub-Konfigurations-Menü, eigenen Objekte zu erstellen, bearbeiten, oder zu entfernen.
+
+Insgesammt existieren innerhalb der Kläranlagen-Infrastruktur drei physische FortiGate-Firewalls. Diese unterteilen jeweils die verschiedenen Ebenen nach dem Purdue-Modell.
+
+#htl3r.fspace(
+  total-width: 100%,
+  [
+    #figure(
+      image("../assets/firewall_intro_purdue.png"),
+      caption: [Übersicht der Firewall Purdue-Ebenen Aufteilung]
+    ) <firewall_intro_purdue>
+  ]
+)
+
+In @firewall_intro_purdue ist die Aufteilung von Ebene zu Firewall dargestellt. Für genauere Informationen über das Purdue-Modell der Kläranlagen-Infrastruktur siehe @purdue.
+
+Dieser Abschnitt beschäftigt sich hauptsächlich mit der Konfiguration der Firewall-Policies, sowie diverse andere Dienste, welche auf den Firewalls konfiguriert wurden. Die Verbindung zwischen den Firewalls und den #htl3r.shortpl[vm], welche in einer vCenter-Umgebung laufen, wird in @physische-topo und @vcenter_env beschrieben.
 
 #htl3r.author("Bastian Uhlig")
 == Uplink-Firewall <uplink_fw>
