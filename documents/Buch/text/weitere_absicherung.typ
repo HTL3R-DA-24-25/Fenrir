@@ -8,7 +8,7 @@ Bei der Absicherung eines Netzwerks kann man sich nicht auf ein Gerät beziehung
 Eine Lösung wäre, Firewalls von unterschiedlichen Herstellern zu nutzen, um das Problem von Zero-Day-Exploits teilweise unterbinden zu können. Was aber auch wichtig für ein sicheres Netzwerk notwendig ist sind nicht nur Firewalls, sondern auch z.B. die Härtung von Endgeräten, inklusive Patch-Management.
 
 #htl3r.author("Gabriel Vogler")
-== Active Directory Härtung
+== Active Directory Härtung <ad_hardening>
 Das #htl3r.long[ad] ist ein zentraler Bestandteil des Netzwerks. Es ist für die Verwatung von Benutzerkonten, Gruppenrichtlinien und Zugriffsberechtigungen zuständig. Ein Angriff auf das #htl3r.short[ad] kann schwerwiegende Folgen haben. Daher ist es wichtig, das #htl3r.long[ad] abzusichern. Dies wird durch die Segmentierung des Netzwerks und die Härtung der #htl3r.short[ad]-Geräte erreicht. Gehärtet werden einerseits die #htl3r.short[ad]-Server selbst und andererseits die Benutzerkonten (inklusive die Authentifizierung mit diesen).
 
 === Credential Guard
