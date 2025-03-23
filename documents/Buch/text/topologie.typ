@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Topologie
@@ -84,21 +84,21 @@ Die in @logisch-geraete aufgelisteten Netzwerksegmente werden durch drei physisc
       table.header(
         [*Name*], [*Interface*], [*Netzwerksegment \ / Gerät*], [*IP-Adresse(n)*],
       ),
-      table.cell(rowspan: 5, "Uplink Firewall"), 
+      table.cell(rowspan: 5, "Uplink Firewall"),
       [wan1], [Internet], [#htl3r.short[dhcp]],
-      [wan2], [Seperation Firewall], [172.16.10.2/30], 
+      [wan2], [Seperation Firewall], [172.16.10.2/30],
       [internal2 \ (VLAN 332)], [IT-Net], [10.32.255.254/16],
-      [internal2 \ (VLAN 330)], [IT-DMZ], [192.168.30.254/24], 
-      [internal2 \ (VLAN 331)], [IT-SEC], [192.168.31.254/24], 
-      table.cell(rowspan: 4, "Seperation Firewall"), 
-      [wan1], [Uplink Firewall], [172.16.10.1/30], 
-      [wan2], [Zellen Firewall], [172.16.10.6/30], 
-      [internal2 \ (VLAN 334)], [OT-Net], [10.34.255.254/16], 
+      [internal2 \ (VLAN 330)], [IT-DMZ], [192.168.30.254/24],
+      [internal2 \ (VLAN 331)], [IT-SEC], [192.168.31.254/24],
+      table.cell(rowspan: 4, "Seperation Firewall"),
+      [wan1], [Uplink Firewall], [172.16.10.1/30],
+      [wan2], [Zellen Firewall], [172.16.10.6/30],
+      [internal2 \ (VLAN 334)], [OT-Net], [10.34.255.254/16],
       [internal2 \ (VLAN 333)], [OT-DMZ], [192.168.33.254/24],
       table.cell(rowspan: 4, "Zellen Firewall"),
-      [wan1], [Seperation Firewall], [172.16.10.5/30], 
-      [internal1], [SPS Zelle Eins], [10.79.84.2/30], 
-      [internal2], [SPS Zelle Zwei], [10.79.84.6/30], 
+      [wan1], [Seperation Firewall], [172.16.10.5/30],
+      [internal1], [SPS Zelle Eins], [10.79.84.2/30],
+      [internal2], [SPS Zelle Zwei], [10.79.84.6/30],
       [internal3], [SPS Zelle Drei], [10.79.84.10/30],
     ),
     caption: [Die eingesetzten Firewalls und deren Verbindungen],

@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Aufbau der Modell-Kläranlage <aufbau-klaeranlage>
@@ -450,7 +450,7 @@ Als Betriebssystem ist Windows 10 installiert, mit allen notwendigen Programmen,
 
 Die Installation des OpenPLC-Editors ist ziemlich einfach gehalten. Man muss lediglich die .exe-Datei von der OpenPLC-Website herunterladen und installieren. Im Vergleich ist die Installation des Siemens TIA Portals etwas komplizierter. Es gibt eine .exe-Datei und drei .iso-Dateien, dabei ist zu beachten, dass alle Dateien in einem Ordner liegen müssen. Anschließend wird die .exe-Datei ausgeführt und das TIA Portal installiert. Dies kann einige Zeit in Anspruch nehmen, da das TIA Portal sehr groß ist. Für die Installation des Siemens LOGO! Soft Comforts gibt es eine .exe-Datei, die einfach ausgeführt werden muss. Die Installation dauert nicht so lange wie die des TIA Portals, da das LOGO! Soft Comfort deutlich kleiner ist. Beim TIA Portal und beim LOGO! Soft Comfort gab es öfters Probleme mit der Installation, was dazu führte, dass sie mehrmals installiert werden mussten. Außerdem ist es zweimal, einmal beim TIA Portal und einmal beim LOGO! Soft Comfort, vorgekommen, dass die Installation das Betriebssystem beschädigt hat und Windows 10 neu installiert werden musste.
 
-Sowohl die physische Maschine als auch die #htl3r.short[vm] haben ihre Vor- und Nachteile. Die physische Maschine ist unabhängig vom vCenter und kann direkt Vorort benutzt werden, auch wenn das VCenter nicht erreichbar ist. Die #htl3r.short[vm] hingegen ist leichter zu verwalten und kann mehrfach ausgerollt werden, sodass mehrere Personen gleichzeitig an der Programmierung arbeiten können. Ein weiterer Vorteil der #htl3r.short[vm] ist, dass sie die Fernwartung der #htl3r.shortpl[sps] ermöglicht. 
+Sowohl die physische Maschine als auch die #htl3r.short[vm] haben ihre Vor- und Nachteile. Die physische Maschine ist unabhängig vom vCenter und kann direkt Vorort benutzt werden, auch wenn das VCenter nicht erreichbar ist. Die #htl3r.short[vm] hingegen ist leichter zu verwalten und kann mehrfach ausgerollt werden, sodass mehrere Personen gleichzeitig an der Programmierung arbeiten können. Ein weiterer Vorteil der #htl3r.short[vm] ist, dass sie die Fernwartung der #htl3r.shortpl[sps] ermöglicht.
 
 #htl3r.author("David Koch")
 ==== Siemens TIA Portal

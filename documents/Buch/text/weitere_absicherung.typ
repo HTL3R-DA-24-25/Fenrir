@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Weitere Absicherung des Netzwerks <weitere-absicherung>
@@ -96,7 +96,7 @@ Die beiden #htl3r.shortpl[gpo] "MSFT Windows Server 2022 - Domain Controller Vir
 
 Die "MSFT Internet Explorer 11 - Computer" wurde auf alle Computer angewendet, die "MSFT Internet Explorer 11 - User" auf alle Benutzer. Beide #htl3r.shortpl[gpo] legen Sicherheitseinstellungen für den Internet Explorer fest, wie zum Beispiel das Erzwingen einer bestimmten Version von #htl3r.short[tls].
 
-#htl3r.shortpl[gpo], die "Domain" im Namen haben, wurden auf die Domain-Controller angewendet. Diese legen Sicherheitseinstellungen für die Domäne fest, wie zum Beispiel der Aktivierung von AES-Verschlüsselung für Kerberos. 
+#htl3r.shortpl[gpo], die "Domain" im Namen haben, wurden auf die Domain-Controller angewendet. Diese legen Sicherheitseinstellungen für die Domäne fest, wie zum Beispiel der Aktivierung von AES-Verschlüsselung für Kerberos.
 
 Die #htl3r.shortpl[gpo] für die Member-Server wurden auf die Server angewendet, die keine Domain-Controller sind. Diese legen Sicherheitseinstellungen, wie zum Beispiel das Deaktivieren eines #htl3r.short[rdp]-Zugriffs für die Standard Administratoren fest.
 
