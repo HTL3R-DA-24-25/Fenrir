@@ -4,7 +4,7 @@
 = Netzwerküberwachung <netzwerkueberwachung>
 Ein wichtiger Teil der Sicherheit in einem Netzwerk ist die Überwachung dessen. Damit können die Zuverlässigkeit und der derzeitige Zustand sofort erkannt werden. Es ist nämlich niemals möglich, sämtliche Angriffe abzuwehren, bevor sie überhaupt stattfinden. Wenn ein Netzwerk jedoch mit modernen Mitteln überwacht wird, können Angriffe, die bereits in vollem Gange sind, entdeckt und (in weiterer Folge) unterbunden werden.
 
-Hierbei ist der Begriff einer Baseline wichtig. Eine Baseline beschreibt einen Status des Netzwerks, in welchem dieses im Normalzustand agiert.
+Hierbei ist der Begriff einer "Baseline" wichtig. Eine Baseline beschreibt einen Status des Netzwerks, in welchem dieses im Normalzustand agiert.
 
 Falls in dem Netzwerk nun Besonderheiten aufkommen, sei dies ein neuer Kommunikationsteilnehmer oder ein bereits existierendes Gerät, so wird dies unter besondere Beobachtung gesetzt oder sogar sofort Alarm geschlagen.
 
@@ -15,7 +15,7 @@ In der Theorie ist die Überwachung eines Netzwerks einfach. Es wird einfach der
 Praktisch ist eine 100-prozentige Überwachung jedoch im Echtbetrieb nicht möglich. Es gibt einfach zu viele Daten, die über ein Netzwerk laufen. Es ist jedoch möglich, mittels verschiedener Tools den Datenverkehr zu analysieren und Alarme auszulösen, sollte unerwünschter Datenverkehr auftreten. 
 
 == Eingesetzte Netzwerküberwachungstools
-Tools zur Überwachung von Netzwerken gibt es tausende. Von dem selbst entwickeltem Packet Sniffer bis zu einem #htl3r.short[ids] auf Enterprise Level. Dabei gibt es kein Tool, welches "das Richtige" ist.
+Tools zur Überwachung von Netzwerken gibt es tausende. Von dem selbst entwickeltem Packet Sniffer bis zu einem #htl3r.short[ids] auf Enterprise Level. Dabei gibt es kein Tool, welches "das richtige" ist.
 
 === Wireshark
 Wireshark ist ein Packet-Sniffer. Das heißt, es liest einfach allen Datenverkehr, der auf einem gewissen Interface eines Computers läuft, und gibt diesen aus. Es gibt auch eine Version von Wireshark für die Kommandozeile, diese heißt "tshark".

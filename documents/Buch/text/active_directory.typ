@@ -170,10 +170,10 @@ Es werden zuerst die Domain Local Groups und dann die Global Groups erstellt. An
 #htl3r.author("Bastian Uhlig")
 == GPOs
 #htl3r.fullpl[gpo] sind Richtlinien, die in einer #htl3r.long[ad]-Domäne definiert werden und die Konfiguration von Benutzern und Computern in einem Netzwerk steuern. Mit #htl3r.short[gpo] können Administratoren Einstellungen für Benutzer und Computer festlegen, wie z.B. Sicherheitseinstellungen, Softwareinstallationen, Netzwerkeinstellungen und vieles mehr. In der Firma "Fenrir" werden #htl3r.shortpl[gpo] verwendet, um die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne zu steuern. \ 
-Effektiv setzen #htl3r.shortpl[gpo] Registy-Einträge, weshalb man in den Skriptausschnitten auch die Pfade dieser zu sehen bekommt.
+Effektiv setzen #htl3r.shortpl[gpo] Registy-Einträge, weshalb man in den Skriptausschnitten auch die Pfade dieser sieht.
 
 === GPOs in der Firma "Fenrir"
-In der Firma "Fenrir" sind einige relativ grundlegende #htl3r.shortpl[gpo] definiert, die die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne steuern. Alle #htl3r.shortpl[gpo] werden wie auch der Rest vom #htl3r.long[ad] mittels PowerShell-Skripten erstellt:
+In der Firma "Fenrir" sind einige relativ grundlegende #htl3r.shortpl[gpo] definiert, die die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne steuern. Alle #htl3r.shortpl[gpo] werden - wie auch der Rest vom #htl3r.long[ad] - mittels PowerShell-Skripten erstellt:
 
 - *Minimum Password Length:* Diese #htl3r.shortpl[gpo] legt die Mindestlänge des Passworts für Benutzer in der #htl3r.long[ad]-Domäne fest. In der Firma "Fenrir" wurde die Mindestlänge auf 8 Zeichen festgelegt.
 #htl3r.code(caption: "OU für minimale Passwortlänge", description: none)[
@@ -205,7 +205,7 @@ Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Mic
 Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Microsoft\Internet Explorer\Main" -ValueName "Default_Page_URL" -Type String -Value $homepageUrl
 ```
 ]
-- *Hiding Last User:* Diese #htl3r.shortpl[gpo] versteckt den letzten angemeldeten Benutzer auf dem Anmeldebildschirm, sodass jeder User bei neuen Anmeldungen seinen Benutzernamen eingeben muss.
+- *Hiding Last User:* Diese #htl3r.shortpl[gpo] blendet den letzten angemeldeten Benutzer auf dem Anmeldebildschirm aus, sodass jeder User bei neuen Anmeldungen seinen Benutzernamen eingeben muss.
 #htl3r.code(caption: "OU für das Verstecken des letzten Benutzers", description: none)[
 ```powershell
 $hidingLastUserGpoName = "Hiding Last User Policy"
@@ -215,7 +215,7 @@ $gpo = Get-GPO -Name $hidingLastUserGpoName
 $gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
 ```
 ]	
-- *Login Screen:* Diese #htl3r.shortpl[gpo] legt das Firmenlogo auf dem Anmeldebildschirm fest, also der Bildschirm, den man auf bei Passwort und Benutzernameneingabe sieht.
+- *Login Screen:* Diese #htl3r.shortpl[gpo] legt das Firmenlogo auf dem Anmeldebildschirm fest, also der Bildschirm, den man bei Passwort- und Benutzernameneingabe sieht.
 #htl3r.code(caption: "OU für das Firmenlogo auf dem Anmeldebildschirm", description: none)[
 ```powershell
 $loginScreenGpoName = "Login Screen Policy"
