@@ -8,7 +8,18 @@
       {{ bastion_username }}@{{ bastion_host }} 'ssh-add && nc %h %p'"
   vars_files:
     - ../../../variables.yml
-    - ../../../secrets.yml
   tasks:
-    - name: test
-      ansible.windows.win_ping:
+    - name: Run DC1 setup p1 script
+      script: ./extra/DC1_part_1.ps1
+    - name: Reboot to apply hostname changes
+      win_reboot:
+    - name: Run DC1 setup p2 script
+      script: ./extra/DC1_part_2.ps1
+    - name: Reboot to apply AD changes
+      win_reboot:
+    - name: Copy AD-Groups CSV for use in p3 script
+      copy:
+        src: ./extra/groups_fenrir_ad.csv
+        dest: C:\groups_fenrir_ad.csv
+    - name: Run DC1 setup p3 script
+      script: ./extra/DC1_part_3.ps1

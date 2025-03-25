@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:0.1.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #show: htl3r.diplomarbeit.with(
   title: "Fenrir",
@@ -53,5 +53,3 @@
 #include "text/firewall_config.typ"
 
 #include "text/weitere_absicherung.typ"
-
-#include "text/angriffe_gesichert.typ"

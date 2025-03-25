@@ -204,6 +204,7 @@ def hardware_init():
     sensors = W1ThermSensor.get_available_sensors([Sensor.DS18B20])
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(15, GPIO.OUT, initial=GPIO.LOW)
 
 
 def update_inputs():
@@ -212,7 +213,7 @@ def update_inputs():
     psm.set_var("IW0", temperature1)
     temperature2 = int(sensors[1].get_temperature())
     psm.set_var("IW1", temperature2)
-    write_to_esp32(ESP_I2C_address, "haiii")
+    write_to_esp32(ESP_I2C_address, "hello")
     time.sleep(0.05) # dunno if this is the best place to put it
     data = read_from_esp32(ESP_I2C_address, 32)
     psm.set_var("IW2", data[0])
@@ -220,11 +221,17 @@ def update_inputs():
 
 
 def update_outputs():
-    pump_active = psm.get_var("QX0")
-    if pump_active == 1:
+    filter_pump_active = psm.get_var("QX0")
+    if filter_pump_active == 1:
         GPIO.output(13, GPIO.HIGH)
     else:
         GPIO.output(13, GPIO.LOW)
+
+    prog_pump_active = psm.get_var("QX1")
+    if prog_pump_active == 1:
+        GPIO.output(15, GPIO.HIGH)
+    else:
+        GPIO.output(15, GPIO.LOW)
 
 
 if __name__ == "__main__":

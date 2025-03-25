@@ -1,0 +1,21 @@
+- name: setup fileshare
+  hosts: fileshare
+  vars:
+    ansible_ssh_password: "{{ bastion_password }}"
+    ansible_ssh_common_args: >-
+      -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+      -o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ForwardAgent=yes
+      {{ bastion_username }}@{{ bastion_host }} 'ssh-add && nc %h %p'"
+  vars_files:
+    - ../../../variables.yml
+  tasks:
+    - name: Run Fileshare setup p1 script
+      script: ./extra/Fileshare_part_1.ps1
+    - name: Reboot to apply hostname changes
+      reboot:
+    - name: Run Fileshare setup p2 script
+      script: ./extra/Fileshare_part_2.ps1
+    - name: Reboot to apply AD changes
+      reboot:
+    - name: Run Fileshare setup p3 script
+      script: ./extra/Fileshare_part_3.ps1

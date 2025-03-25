@@ -21,7 +21,7 @@ ci-docs:
 lateral-movement-def:
   type: misc
   title: Lateral Movement Definition
-  author: Fortinet Inc.
+  author: Fortinet, Inc.
   url:
     value: https://www.fortinet.com/resources/cyberglossary/lateral-movement
     date: 2024-12-19
@@ -48,8 +48,8 @@ lmp-list-2:
 i2c-manual:
   type: reference
   title: AN10216-01 (I²C Manual)
-  author: 
-    - Irazabal, Jean-Marc 
+  author:
+    - Irazabal, Jean-Marc
     - Blozis, Steve
   url:
     value: https://www.nxp.com/docs/en/application-note/AN10216.pdf
@@ -79,7 +79,7 @@ esp32-meets-rpi:
     given-name: Marc
     name: Engrie
   url:
-    value: https://data.engrie.be/ESP32/ESP32_-_Part_12_-_ESP32_meets_Raspberry_Pi.pdf
+    value: https://wp.engrie.be/wp-content/uploads/2025/03/ESP32_-_Part_12_-_ESP32_meets_Raspberry_Pi.pdf
     date: 2024-12-13
   date: 2021-01-14
 
@@ -106,7 +106,7 @@ cyberattacks-crit-infra:
 fw-rugged-feats:
   type: misc
   title: Sichere Betriebstechnologie
-  author: Fortinet Inc.
+  author: Fortinet, Inc.
   url:
     value: https://www.fortinet.com/de/solutions/enterprise-midsize-business/ot-security
     date: 2024-12-19
@@ -116,7 +116,7 @@ fw-rugged-feats:
 siemens-marktanteil:
   type: blog
   title: Welche SPS wird in der Industrie am häufigsten eingesetzt? Die wichtigsten SPS erklärt
-  author: KWOCO Automation Co., Ltd. 
+  author: KWOCO Automation Co., Ltd.
   url:
     value: https://kwoco-plc.com/de/most-used-plc-in-industry/
     date: 2024-12-23
@@ -179,7 +179,7 @@ spiegel-10-jahre-stuxnet:
 vdom-overview:
   type: misc
   title: VDOM overview
-  author: Fortinet Inc.
+  author: Fortinet, Inc.
   url:
     value: https://docs.fortinet.com/document/fortigate/7.6.1/administration-guide/597696/vdom-overview
     date: 2025-01-05
@@ -188,7 +188,7 @@ vdom-overview:
 nis2-richtlinie:
   type: legislation
   note: directive
-  title: NIS2 Richtlinie 
+  title: NIS-2 Richtlinie
   organization: EU
   serial-number: "2022/2555"
   url:
@@ -214,5 +214,247 @@ knowbe4-cyber-attacks-crit-infra:
     date: 2025-01-18
   date: 2024
 
+symestic-mes:
+  type: article
+  title: Was ist ein MES?
+  author: Symestic GmbH
+  url:
+    value: https://www.symestic.com/de-de/blog/mes-manufacturing-execution-system
+    date: 2025-02-02
+  date: 2024
 
+scadalts-api-docs:
+  type: misc
+  title: Scada-LTS REST API Documentation
+  author: SoftQ
+  url:
+    value: https://github.com/SCADA-LTS/Scada-LTS/tree/develop/doc/RESTAPI
+    date: 2025-02-02
+  date: 2024-01-08
 
+scadafence-ot-angriffe:
+  type: article
+  title: Most Common OT Security Threats Solutions
+  author: SCADAfence
+  url:
+    value: https://blog.scadafence.com/most-common-ot-security-threats-solutions
+    date: 2025-02-02
+  date: 2022
+
+fw-ips-modbus-decoder:
+  type: misc
+  title: IPS Modbus TCP decoder
+  author: Fortinet, Inc.
+  url:
+    value: https://docs.fortinet.com/index.php/document/fortigate/7.6.2/administration-guide/635285/ips-modbus-tcp-decoder
+    date: 2025-02-01
+  date: 2025
+
+siemens-sps-dos-cve:
+  type: misc
+  title: CVE-2019-10936 Detail
+  author: Siemens AG
+  publisher: National Institute of Standards and Technology (USA)
+  url:
+    value: https://nvd.nist.gov/vuln/detail/CVE-2019-10936
+    date: 2025-02-01
+  date: 2019-10-10
+
+fortigate-subscriptions:
+  type: misc
+  title: FortiGate Subscriptions and FortiGuard Bundles
+  author: Fortinet, Inc.
+  url:
+    value: https://www.fortinet.com/content/dam/fortinet/assets/data-sheets/og-fortiguard.pdf
+    date: 2025-02-03
+  date: 2024
+
+ethernet-bus-protocols-comp:
+  type: article
+  title: "EtherNet/IP, EtherCAT, Profinet and Modbus TCP: which protocol is right for you?"
+  author: Jeremy Pollard
+  url:
+    value: https://www.controldesign.com/connections/data-acquisition-monitoring/article/55249378/ethernet-ip-ethercat-profinet-and-modbus-tcp-which-protocol-is-right-for-you
+    date: 2025-02-17
+  date: 2024-12-12
+
+modbus-comp:
+  type: misc
+  title: What is the difference between Modbus, Modbus Plus, and ModbusTCP/IP?
+  author: Prosoft Technology
+  url:
+    value: https://www.prosoft-technology.com/knowledge-base/Protocols/What-is-the-difference-between-Modbus-Modbus-Plus-and-ModbusTCPIP
+    date: 2025-02-17
+  date: 2016-10-14
+
+tcpip-fortinet-doc:
+  type: misc
+  title: What Is Transmission Control Protocol TCP/IP?
+  author: Fortinet Inc.
+  url:
+    value: https://www.fortinet.com/resources/cyberglossary/tcp-ip
+    date: 2025-02-17
+  date: 2025
+
+modbustcp_intro:
+  type: reference
+  title: Introduction to Modbus TCP/IP
+  author: Acromag Inc.
+  url:
+    value: https://www.prosoft-technology.com/kb/assets/intro_modbustcp.pdf
+    date: 2025-02-17
+  date: 2005
+
+takeponint-arc-sensor:
+  type: article
+  title: "Product Update: Nozomi Arc Embedded"
+  author: Jonathon Gordon
+  url:
+    value: https://takepoint.co/product-update/product-update-nozomi-arc-embedded/
+    date: 2025-02-17
+  date: 2024-07-23
+
+ikarus-arc-sensor:
+  type: article
+  title: OT Security Sensor Guardian by Nozomi Networks
+  author: Ikarus Security Software GmbH
+  url:
+    value: https://www.ikarussecurity.com/industrial-cyber-security/ot-security-sensor-guardian-by-nozomi-networks/
+    date: 2025-02-17
+  date: 2024
+  
+relais-datenblatt:
+  type: reference
+  title: KY-019 1-Relais Modul Datenblatt
+  author: AZ-Delivery
+  date: 2025-02-07
+
+kontaktplan-image:
+  type: misc
+  title: Einfacher Kontaktplan
+  author: MatthiasDD
+  url:
+    value: https://commons.wikimedia.org/wiki/File:Kontaktplan.svg
+    date: 2025-03-15
+  date: 2007-12-30
+
+kontaktplan-sps-image:
+  type: misc
+  title: Einfacher Kontaktplan als SPS-Programm
+  author: MatthiasDD
+  url:
+    value: https://commons.wikimedia.org/wiki/File:Kontaktplan_Software.svg
+    date: 2025-03-15
+  date: 2007-12-30
+
+sps-programmierung-1:
+  type: reference
+  title: Grundwissen SPS-Technik 
+  author: TH Mittelhessen
+  url:
+    value: https://homepages.thm.de/~mlth53/wp-content/uploads/2010/04/sps
+    date: 2025-03-15
+  date: 2010
+
+sps-programmierung-2:
+  type: reference
+  title: Handbuch für SPS Programmierung mit CoDeSys 2.3
+  author: Smart Software Solutions GmbH
+  url:
+    value: https://www.wago.com/wagoweb/documentation/759/ger_manu/333/m07590333_00000000_1de.pdf
+    date: 2025-03-15
+  date: 2010-10-28
+
+tia-portal-ref:
+  type: misc
+  title: Totally Integrated Automation Portal – Always ready for tomorrow
+  author: Siemens AG
+  url:
+    value: https://www.siemens.com/de/de/produkte/automatisierung/industrie-software/automatisierungs-software/tia-portal.html
+    date: 2025-03-15
+  date: 2025
+
+s7-put-get:
+  type: reference
+  title: S7-Kommunikation mit PUT / GET
+  author: Siemens AG
+  url:
+    value: https://cache.industry.siemens.com/dl/files/115/82212115/att_1034353/v3/82212115_S7_communication_Sequencer_TIA_Portal_de.pdf
+    date: 2025-03-15
+  date: 2020
+
+openplc-psm-guide:
+  type: misc
+  title: OpenPLC guide for Home Automation Card
+  author: Alexandru Burcea
+  url:
+    value: https://github.com/SequentMicrosystems/ioplus-rpi/blob/master/OpenPLC.md
+    date: 2025-03-15
+  date: 2021-11-01
+
+vps-vs-sps:
+  type: article
+  title: Unterschied VPS vs. SPS
+  author: ElektrikerWissen.de
+  url:
+    value: https://www.elektrikerwissen.de/unterschied-vps-vs-sps/
+    date: 2025-03-15
+  date: 2024
+
+wannacry-image:
+  type: misc
+  title: Screenshot of Wana Decrypt0r 2.0
+  author: Kaspersky Global Research & Analysis Team
+  url:
+    value: https://media.kasperskycontenthub.com/wp-content/uploads/sites/43/2017/05/07175133/wannacry_05.png
+    date: 2025-03-16
+  date: 2017
+
+stuxnet-1:
+  type: article
+  title: Israel soll iranische Atomanlage nachgebaut haben
+  author: Holger Dambeck
+  url:
+    value: https://www.spiegel.de/netzwelt/netzpolitik/stuxnet-israel-soll-iranische-atomanlage-nachgebaut-haben-a-739764.html
+    date: 2025-03-16
+  date: 2011-01-16
+
+modbus-plus-extra:
+  type: article
+  title: Fundamentals of Modbus Plus
+  author: Eric J. Brown
+  url:
+    value: https://www.racoman.com/blog/industrial-protocols/fundamentals-of-modbus-plus?srsltid=AfmBOopS2aYlAoZmnejvMEAQH8aeXK0yu1zxsv_NX2dtap7GqbnPYCQc
+    date: 2025-03-16
+  date: 2024
+
+modbus-ietf:
+  type: misc
+  title: MODBUS Application Protocol
+  author:
+    - D. Dube
+    - J. Camerini
+  url:
+    value: https://datatracker.ietf.org/doc/html/draft-dube-modbus-applproto-00#page-2
+    date: 2025-03-16
+  date: 2002
+
+nis-2-massnahmen:
+  type: article
+  title: NIS-2-Richtlinie
+  author:
+    - Robert Lamprecht
+    - Karin Bruchbacher
+  url:
+    value: https://kpmg.com/at/de/home/insights/2022/11/nis-2-richtlinie.html#:~:text=Die%20NIS%2D2%2DRichtlinie%20soll,umgesetzten%20NIS%2DRichtlinie%20aus%202016.
+    date: 2025-03-16
+  date: 2022-11-29
+
+nis-2-wko:
+  type: misc
+  title: Cybersicherheits-Richtlinie NIS 2
+  author: Wirtschaftskammer Österreich
+  url:
+    value: https://www.wko.at/it-sicherheit/nis2-uebersicht
+    date: 2025-03-16
+  date: 2025-03-11
