@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 #import "@preview/treet:0.1.1": *
 
 
@@ -141,7 +141,8 @@ Damit die Benutzer auch in die richtige Gruppe eingefügt werden, wird in der le
       [DL_Marketing_R],       N, N, J, J, J,
       [DL_Marketing_M],       N, N, N, N, J
     ),
-    caption: [Visualisierung der Mitgliedschaft von Global Groups in Domain Local Groups],
+    caption: [Visualisierung der Mitglieds
+    chaft von Global Groups in Domain Local Groups],
   )
 )
 
@@ -199,7 +200,7 @@ Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Software\Microsoft
 #htl3r.code(caption: "OU für die Standard-Startseite des Browsers", description: none)[
 ```powershell
 $defaultBrowserHomepageGpoName = "Default Browser Homepage Policy"
-$homepageUrl = "https://www.fenrir-ot.at" 
+$homepageUrl = "https://www.fenrir-ot.at"
 New-GPO -Name $defaultBrowserHomepageGpoName | Out-Null
 Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Microsoft\Internet Explorer\Main" -ValueName "Start Page" -Type String -Value $homepageUrl
 Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Microsoft\Internet Explorer\Main" -ValueName "Default_Page_URL" -Type String -Value $homepageUrl
@@ -212,10 +213,11 @@ $hidingLastUserGpoName = "Hiding Last User Policy"
 New-GPO -Name $hidingLastUserGpoName | Out-Null
 Set-GPRegistryValue -Name $hidingLastUserGpoName -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" -ValueName "dontdisplaylastusername" -Type DWORD -Value 1
 $gpo = Get-GPO -Name $hidingLastUserGpoName
-$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group
 ```
 ]	
 - *Login Screen:* Diese #htl3r.shortpl[gpo] legt das Firmenlogo auf dem Anmeldebildschirm fest, also der Bildschirm, den man bei Passwort- und Benutzernameneingabe sieht.
+
 #htl3r.code(caption: "OU für das Firmenlogo auf dem Anmeldebildschirm", description: none)[
 ```powershell
 $loginScreenGpoName = "Login Screen Policy"
@@ -223,7 +225,7 @@ $loginScreenPath = "\\fileserver\wallpapers\loginscreen.jpg"
 New-GPO -Name $loginScreenGpoName | Out-Null
 Set-GPRegistryValue -Name $loginScreenGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" -ValueName "LockScreenImage" -Type String -Value "$loginScreenPath"
 $gpo = Get-GPO -Name $loginScreenGpoName
-$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group
 ```
 ]
 - *Drive Mount:* Diese #htl3r.shortpl[gpo] legt fest, dass bei der Anmeldung der Benutzer automatisch das Firmeninterne Netzlaufwerk gemountet bekommt.
@@ -250,7 +252,7 @@ Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsof
 Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -ValueName "EnableFirewall" -Type DWord -Value 1
 Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" -ValueName "EnableFirewall" -Type DWord -Value 1
 $gpo = Get-GPO -Name $firewallGpoName
-$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group
 ```
 ]
 
@@ -388,7 +390,7 @@ Nach dem Senden der E-Mail wird der Empfang der E-Mail überprüft. Dafür wird 
 Die E-Mail wurde erfolgreich empfangen und der Exchange Server funktioniert einwandfrei.
 
 == Fileserver
-Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der IT-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der IT-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domäne integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
+Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der #htl3r.short[it]-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der #htl3r.short[it]-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domäne integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
 
 === Aufsetzung des File Servers
 Mithilfe eines Ansible-Playbooks wird der Fileserver aufgesetzt. Dabei wird das Playbook in mehreren Parts aufgeteilt, da der Fileserver während der Installation mehrmals neu gestartet werden muss.
@@ -437,7 +439,7 @@ Erfolgreicher Zugriff auf `test2.txt` im  Verzeichnis der Abteilung `Infrastruct
   )
 )
 
-Nicht erfolgreicher Zugriff auf `test.txt` im Verzeichnis des Benutzers `jburger`, da der Benutzer `dkoch` keine Berechtigung hat:
+Ein unerfolgreicher Zugriff auf `test.txt` im Verzeichnis des Benutzers `jburger`, da der Benutzer `dkoch` keine Berechtigung hat:
 #htl3r.fspace(
   figure(
     image("../assets/Test-Fileshare_Zugriff_nicht_erfolgreich.png", width: 80%),

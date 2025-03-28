@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Angriffe auf das Netzwerk <angriffe-netzwerk>
@@ -9,7 +9,7 @@
 Um die Sicherheit der in den obigen Abschnitten erstellten Topologie,  herkömmlicher Firmennetzwerke mit #htl3r.short[ot]-Abschnitten oder die Netzwerke von echter kritischer Infrastruktur zu gewährleisten braucht es ein theoretisches Verständnis von den möglichen Angriffsvektoren als auch die dazugehörige Absicherung, um gegen die bekannten Angriffsvektoren vorzugehen und somit Angriffen vorzubeugen.
 
 === Sicherheitsmängel bei Bus-Systemen
-Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche TCP/IP-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das Triple-A-System sind der Bus-Welt fremd.
+Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche #htl3r.short[tcp]/IP-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das Triple-A-System sind der Bus-Welt fremd.
 
 #htl3r.fspace(
   total-width: 95%,
@@ -53,7 +53,7 @@ Bei der Durchführung von Lateral Movement gibt es einige bekannte Techniken, so
       "Remote Services", [Die für routinemäßige Systemadministration erlaubten Kommunikationsschnittstellen wie #htl3r.short[rdp] oder #htl3r.short[ssh] werden vom Angreifer ausgenutzt, um sich weiter im Netzwerk auszubreiten.], "Mittel", "Mittel",
       "Valid Accounts", "Die durch z.B. Phishing erhaltenen Anmeldeinformationen erlauben dem Angreifer, sich als legitimer Benutzer auszugeben.", "Hoch", "Schwer"
     ),
-    caption: [Bekannte Lateral Movement Paths @lmp-list-1, @lmp-list-2],
+    caption: [Bekannte Lateral Movement Paths @lmp-list-1[comp], @lmp-list-2[comp]],
   )
 )
 
@@ -99,7 +99,7 @@ Wenn bei einem Cyberangriff auf #htl3r.short[ot]-Infrastruktur der Profit und so
   figure(
     image("../assets/wannacry.png"),
     caption: [Das berüchtigte Wannacry-Decryptor-Popup @wannacry-image]
-  )
+  ),
 )
 
 TODO
@@ -109,9 +109,76 @@ TODO
 TODO
 
 #htl3r.author("Gabriel Vogler")
-=== Ticketing-Angriffe
+=== Golden-Ticket Angriff
+Wenn ein Administrator vergisst, sich aus einem System auszuloggen, kann ein Angreifer ein Golden Ticket erstellen und dieses exportieren. Wenn der Angreifer ein Ticket hat, kann er sich als Administrator des #htl3r.long[ad] ausgeben und hat somit Zugriff auf alle Ressourcen des #htl3r.short[ad]. Ausgeführt kann diese Attacke mit dem Tool "Mimikatz" werden.
 
-gabi hier kerberoasting und so machen jaja
+Es wird gestartet auf dem System mit dem angemeldeten Administrator. 
+Im ersten Schritt wird Mimikatz gestartet und der NTLM-Hash von "krbtgt" ausgelesen. krbtgt ist der Benutzer, der die Tickets für das #htl3r.short[ad] signiert.
+Das wurde mit folgendem Befehl realisiert:
+#htl3r.code(caption: "Auslesen des NTLM-Hashes von krbtgt", description: none)[
+```
+lsadump::dcsync /domain:corp.fenrir-ot.at /user:krbtgt
+```
+]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/mimikatz_ptt/01_krbtgt_Hash_auslesen.png"),
+    caption: [Auslesen des NTLM-Hashes von krbtgt mit Mimikatz]
+  )
+)
+
+Ab jetzt wird von einem beliebigen Client gearbeitet. Angemeldeter Benutzer ist `dkoch`. Jetzt wird vom #htl3r.short[sid] der Domain ausgelesen. Dazu wird ein Teil der #htl3r.short[sid] des Benutzers genommen und der letzte Teil abgeschnitten. Das wird mit folgendem Befehl realisiert:
+#htl3r.code(caption: "Auslesen vom SID der Domain", description: none)[
+```
+whoami /user
+```
+]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/mimikatz_ptt/02_SID_auslesen.png"),
+    caption: [Auslesen vom #htl3r.short[sid] der Domain]
+  )
+)
+
+Mit dem #htl3r.short[sid] wird jetzt ein Golden Ticket erstellt. Dazu wird der NTLM-Hash von krbtgt, der #htl3r.short[fqdn] der Domain und der Benutzername des Benutzers benötigt. Außerdem wird noch die ID des Administrators angegeben. Die ist Standardmäßig 500. Das wird mit folgendem Befehl realisiert:
+#htl3r.code(caption: "Erstellen des Golden Tickets", description: none)[
+```
+kerberos::golden /user:<USER> /domain:<FQDN> /sid:<SID> /krbtgt:<NTLM-HASH> /id:500
+```
+]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/mimikatz_ptt/03_golden_ticket_erstellen.png"),
+    caption: [Erstellen des Golden Tickets]
+  )
+)
+
+Das Ticket wird unter `ticket.kirbi` gespeichert. Das Ticket kann nun jederzeit verwendet werden, um sich als Administrator auszugeben. Das Ticket wird mit Mimikatz geladen und man kann anschließend eine Shell starten mit den Rechten des Administrators. 
+#htl3r.code(caption: "Laden des Golden Tickets und Starten einer Shell", description: none)[
+```
+kerberos::ptt ticket.kirbi
+misc::cmd
+```
+]
+
+In der Shell kann dann Versucht werden, auf das C Laufwerk eines anderen Systems zuzugreifen. Dazu wird folgender Befehl ausgeführt:
+#htl3r.code(caption: "Zugriff auf das C Laufwerk eines DCs", description: none)[
+```cmd
+pushd \\dc01.corp.fenrir-ot.at\c$
+```
+]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/mimikatz_ptt/04_shell.png"),
+    caption: [Zugriff auf das C Laufwerk eines DCs]
+  )
+)
+
+Jetzt hat der Angreifer vollen Zugriff auf das C Laufwerk des Domain Controllers und somit auf das Zentrum des #htl3r.short[ad]. Das Golden Ticket hat auch eine Gültigkeit von standardmäßig 10 Jahren. Um Angriffe wie diesen zu vermeiden wird in @ad_hardening das #htl3r.long[ad] gehärtet.
 
 #htl3r.author("David Koch")
 == Angriffe auf das OT-Netzwerk
@@ -120,11 +187,16 @@ gabi hier kerberoasting und so machen jaja
 
 Bevor man die digitale Absicherung des #htl3r.short[ot]-Netzwerks in Betracht zieht, sollte die physische Sicherheit der #htl3r.short[ot]-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer #htl3r.short[sps] durch ihre serielle Schnittstelle passiert -- ist vom Schlimmsten auszugehen.
 
-#htl3r.todo["Hier ein Bild, z.B. Durchtrennung Kabel"]
+#htl3r.fspace(
+  figure(
+    image("../assets/physische_manipulation.jpg"),
+    caption: [Durchtrennung eines Datenkabels der LOGO! SPS]
+  )
+)
 
 Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physischen Sicherheit bewusst, somit werden in den meisten industriellen Anlagen bereits Überwachungssysteme wie #htl3r.short[cctv] als auch Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen eingesetzt.
 
-Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstelle zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken, das heißt, dass keine physische Absicherung stattfindet.
+Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstellen zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken, das heißt, dass keine physische Absicherung stattfindet.
 
 #htl3r.author("David Koch")
 === Netzwerkaufklärung <recon>
@@ -230,7 +302,7 @@ Da der Angreifer bereits in der #htl3r.short[lotl]-Phase herausgefunden hat, das
   )
 )
 
-=== SPS-Steuerung wird manipuliert
+=== SPS-Steuerung wird manipuliert <openplc-manipulation>
 
 Mit dem uneingeschränkten Zugriff auf das OpenPLC-Webdashboard kann der Angreifer sein eigenes Programm hochladen. Bevor dies getan wird, ist es aus Angreifersicht sinnvoll, die Default-Anmeldedaten umzuändern. Wenn im Zuge des Angriffs ein sichtbarer Schaden verursacht wird und das Management der Kläranlage anfängt zu ermitteln, ist ein aufgrund von falschen Anmeldedaten unzugängliches Webdashboard -- als einzige Schnittstelle zur Umprogrammierung -- verheerend.
 
@@ -253,6 +325,6 @@ Nach dem erfolgreichen Hochladen des bösartigen Programms ändert der Angreifer
 
 === GAU tritt ein
 
-Das Netzwerk wurde aufgrund von fehlender Segmentierung infiltriert, das Lateral Movement des Angreifers wurde wegen fehlender Netzwerküberwachung nicht entdeckt. Eine für die Steuerung des Klärprozesses unabdingbare SPS wurde umprogrammiert und unzugänglich gemacht. 
+Das Netzwerk wurde aufgrund von fehlender Segmentierung infiltriert, das Lateral Movement des Angreifers wurde wegen fehlender Netzwerküberwachung nicht entdeckt. Eine für die Steuerung des Klärprozesses unabdingbare SPS wurde umprogrammiert und unzugänglich gemacht.
 
 Damit durch die manipulierte Steuerung keine weiteren Flutungen zustande kommen, muss die gesamte Anlage gestoppt werden -- der größte anzunehmende Unfall (#htl3r.short[gau]) tritt ein. Damit die Kläranlage wieder klären kann, muss die #htl3r.short[sps] für die Feinfiltration zurückgesetzt werden und das gesamte Netzwerk gesäubert werden, ob durch Virenscans oder sicherheitshalber einem Ersetzen der Geräte.

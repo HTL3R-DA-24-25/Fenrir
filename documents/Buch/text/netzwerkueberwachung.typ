@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("Bastian Uhlig")
 = Netzwerküberwachung <netzwerkueberwachung>
@@ -10,9 +10,9 @@ Falls in dem Netzwerk nun Besonderheiten aufkommen, sei dies ein neuer Kommunika
 
 == Theoretische Netzwerküberwachung
 
-In der Theorie ist die Überwachung eines Netzwerks einfach. Es wird einfach der gesamte Datenverkehr aufgezeichnet und analysiert. Sollte jetzt ein unerwünschtes Paket auftreten, wird ein Alarm ausgelöst. Dieses Paket kann dann analysiert werden, um herauszufinden, was es genau ist und woher es kommt. 
+In der Theorie ist die Überwachung eines Netzwerks einfach. Es wird einfach der gesamte Datenverkehr aufgezeichnet und analysiert. Sollte jetzt ein unerwünschtes Paket auftreten, wird ein Alarm ausgelöst. Dieses Paket kann dann analysiert werden, um herauszufinden, was es genau ist und woher es kommt.
 
-Praktisch ist eine 100-prozentige Überwachung jedoch im Echtbetrieb nicht möglich. Es gibt einfach zu viele Daten, die über ein Netzwerk laufen. Es ist jedoch möglich, mittels verschiedener Tools den Datenverkehr zu analysieren und Alarme auszulösen, sollte unerwünschter Datenverkehr auftreten. 
+Praktisch ist eine 100-prozentige Überwachung jedoch im Echtbetrieb nicht möglich. Es gibt einfach zu viele Daten, die über ein Netzwerk laufen. Es ist jedoch möglich, mittels verschiedener Tools den Datenverkehr zu analysieren und Alarme auszulösen, sollte unerwünschter Datenverkehr auftreten.
 
 == Eingesetzte Netzwerküberwachungstools
 Tools zur Überwachung von Netzwerken gibt es tausende. Von dem selbst entwickeltem Packet Sniffer bis zu einem #htl3r.short[ids] auf Enterprise Level. Dabei gibt es kein Tool, welches "das richtige" ist.

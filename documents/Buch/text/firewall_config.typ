@@ -1,7 +1,25 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
-#htl3r.author("Bastian Uhlig")
+#htl3r.author("Julian Burger")
 = Firewall-Konfiguration <firewall-config>
+
+Als Firewalls wurden exclusiv FortiGates, Produkte der Firma Fortinet, verwendet. Diese sind mittels Kommandozeile, oder aber auch Web-Oberfläche, konfigurierbar. Die Konfiguration auf der Kommandozeile erfolgt über eine Fortinet eigene Konfigurationsspprache. Diese ist in diverse Sub-Konfigurations-Menüs unterteilt, welche es jeweils erlauben die, für das ausgewählte Sub-Konfigurations-Menü, eigenen Objekte zu erstellen, bearbeiten, oder zu entfernen.
+
+Insgesammt existieren innerhalb der Kläranlagen-Infrastruktur drei physische FortiGate-Firewalls. Diese unterteilen jeweils die verschiedenen Ebenen nach dem Purdue-Modell.
+
+#htl3r.fspace(
+  total-width: 100%,
+  [
+    #figure(
+      image("../assets/firewall_intro_purdue.png"),
+      caption: [Übersicht der Firewall Purdue-Ebenen Aufteilung]
+    ) <firewall_intro_purdue>
+  ]
+)
+
+In @firewall_intro_purdue ist die Aufteilung von Ebene zu Firewall dargestellt. Für genauere Informationen über das Purdue-Modell der Kläranlagen-Infrastruktur siehe @purdue.
+
+Dieser Abschnitt beschäftigt sich hauptsächlich mit der Konfiguration der Firewall-Policies, sowie diverse andere Dienste, welche auf den Firewalls konfiguriert wurden. Die Verbindung zwischen den Firewalls und den #htl3r.shortpl[vm], welche in einer vCenter-Umgebung laufen, wird in @physische-topo und @vcenter_env beschrieben.
 
 #htl3r.author("Bastian Uhlig")
 == Uplink-Firewall <uplink_fw>
@@ -21,7 +39,7 @@ Hier sind lediglich die grundlegenden Konfigurationen der Uplink-Firewall darges
 === Interfaces
 Bei der Konfiguration der Interfaces von der Uplink-Firewall ist zu beachten, dass auch das gesamte Management-Netzwerk über diese Firewall läuft. Dieses ist zwar komplett vom restlichen Netzwerk getrennt, jedoch sind sie trotzdem anzulegen. \
 Da die meisten Links in Richtung #htl3r.short[it] gehen, sind diese nur mit #htl3r.shortpl[vlan] getrennt. Alle #htl3r.shortpl[vlan] werden dann entweder auf einem Switch oder in vCenter terminiert und an die entsprechenden #htl3r.shortpl[vm] weitergeleitet. \
-Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisionierung (siehe @provisionierung) #htl3r.shortpl[vm] den Zugriff auf das Internet zu ermöglichen. Über das Management-Interface kann währenddessen auf Management-Ressourcen zugegriffen werden, wie zum Beispiel die esxis oder der vCenter-Server.
+Das INET-Interface ist dabei nur dazu da, um während der automatischen Provisionierung (siehe @provisionierung) #htl3r.shortpl[vm] den Zugriff auf das Internet zu ermöglichen. Über das Management-Interface kann währenddessen auf Management-Ressourcen zugegriffen werden, wie zum Beispiel die ESXis oder der vCenter-Server.
 
 #htl3r.fspace(
   [
@@ -101,7 +119,7 @@ Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den T
 
 === Grundkonfiguration
 
-Die Grundkonfiguration der Übergangs-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen IP-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
+Die Grundkonfiguration der Übergangs-Firewall bzw. Seperation-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen IP-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
 
 #htl3r.code(caption: [Übergangs-Firewall Grundkonfiguration], description: [Seperation-FW-Fenrir.conf])[
 ```fortios

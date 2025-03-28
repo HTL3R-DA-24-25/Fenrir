@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("David Koch")
 = Aufbau der Modell-Kläranlage <aufbau-klaeranlage>
@@ -51,7 +51,7 @@ Für Details zur Modellierung der archimedischen Schraube und der Halterung des 
 
 #htl3r.fspace(
   figure(
-    image("../assets/zelle_1.png"),
+    image("../assets/zelle_1.jpg"),
     caption: [Der Aufbau der 1. Betriebszelle]
   )
 )
@@ -62,6 +62,7 @@ Die in dieser Zelle verwendete #htl3r.short[sps] ist eine Siemens SIMATIC S7-120
 
 Europaweit hat sich die Siemens SIMATIC als die gängiste #htl3r.short[sps]-Marke durchgesetzt @siemens-marktanteil[comp]. Bereits im Jahre 1958 wurde die erste SIMATIC, eine verbindungsprogrammierte Steuerung (kurz VPS), auf den Markt gebracht @simatic-history[comp].
 
+#pagebreak(weak: true)
 Die S7-1200 hat folgende Eingänge und Ausgänge:
 - 8 digitale Eingänge 24V DC
 - 6 digitale Ausgänge 24V/0,5A DC
@@ -118,7 +119,7 @@ Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filte
 
 #htl3r.fspace(
   figure(
-    image("../assets/zelle_2.png"),
+    image("../assets/zelle_2.jpg"),
     caption: [Der Aufbau der 2. Betriebszelle]
   )
 )
@@ -203,6 +204,8 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
     caption: [Schaltplan der 2. Betriebszelle]
   )
 )
+
+#htl3r.todo("im schaltplan die übergangspumpe ergänzen")
 
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
@@ -441,13 +444,18 @@ Je nach #htl3r.short[sps]-Modell bzw. Hersteller wird jeweils eine eigene Entwic
 ==== OT-Workstation
 Aufgrund der später in @firewall-config umgesetzten Netzwerksegmentierung wird man aus dem #htl3r.short[it]-Netz nicht direkt die #htl3r.shortpl[sps] programmieren bzw. erreichen können. Dafür wurde eine #htl3r.short[ot]-Workstation eingerichtet, auf die man sich dann mit #htl3r.short[rdp] über den Jump-Server verbinden kann. Die #htl3r.short[ot]-Workstation gibt es in zwei Formen. Einerseits als #htl3r.long[vm] auf dem vCenter und andererseits als physische Maschine. Die physische Maschine ist ein Lenovo Thinkpad T440. Auf beiden Ausführungen der #htl3r.short[ot]-Workstation ist die idente Konfiguration vorhanden.
 
-#htl3r.todo("BILD VON OT-LAPTOP HIER EINFÜGEN")
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-laptop.png"),
+    caption: [Der Laptop zur OT-Administration]
+  )
+)
 
 Als Betriebssystem ist Windows 10 installiert, mit allen notwendigen Programmen, die für die Programmierung der #htl3r.shortpl[sps] benötigt werden. Dazu zählen das Siemens TIA Portal für die Programmierung der Siemens SIMATIC-#htl3r.short[sps], der OpenPLC-Editor für die OpenPLC-Runtime welche am Raspberry Pi läuft und das Siemens LOGO! Soft Comfort, welches für die Programmierung der Siemens LOGO!-#htl3r.short[sps] benötigt wird.
 
 Die Installation des OpenPLC-Editors ist ziemlich einfach gehalten. Man muss lediglich die .exe-Datei von der OpenPLC-Website herunterladen und installieren. Im Vergleich ist die Installation des Siemens TIA Portals etwas komplizierter. Es gibt eine .exe-Datei und drei .iso-Dateien, dabei ist zu beachten, dass alle Dateien in einem Ordner liegen müssen. Anschließend wird die .exe-Datei ausgeführt und das TIA Portal installiert. Dies kann einige Zeit in Anspruch nehmen, da das TIA Portal sehr groß ist. Für die Installation des Siemens LOGO! Soft Comforts gibt es eine .exe-Datei, die einfach ausgeführt werden muss. Die Installation dauert nicht so lange wie die des TIA Portals, da das LOGO! Soft Comfort deutlich kleiner ist. Beim TIA Portal und beim LOGO! Soft Comfort gab es öfters Probleme mit der Installation, was dazu führte, dass sie mehrmals installiert werden mussten. Außerdem ist es zweimal, einmal beim TIA Portal und einmal beim LOGO! Soft Comfort, vorgekommen, dass die Installation das Betriebssystem beschädigt hat und Windows 10 neu installiert werden musste.
 
-Sowohl die physische Maschine als auch die #htl3r.short[vm] haben ihre Vor- und Nachteile. Die physische Maschine ist unabhängig vom vCenter und kann direkt Vorort benutzt werden, auch wenn das VCenter nicht erreichbar ist. Die #htl3r.short[vm] hingegen ist leichter zu verwalten und kann mehrfach ausgerollt werden, sodass mehrere Personen gleichzeitig an der Programmierung arbeiten können. Ein weiterer Vorteil der #htl3r.short[vm] ist, dass sie die Fernwartung der #htl3r.shortpl[sps] ermöglicht. 
+Sowohl die physische Maschine als auch die #htl3r.short[vm] haben ihre Vor- und Nachteile. Die physische Maschine ist unabhängig vom vCenter und kann direkt Vorort benutzt werden, auch wenn das VCenter nicht erreichbar ist. Die #htl3r.short[vm] hingegen ist leichter zu verwalten und kann mehrfach ausgerollt werden, sodass mehrere Personen gleichzeitig an der Programmierung arbeiten können. Ein weiterer Vorteil der #htl3r.short[vm] ist, dass sie die Fernwartung der #htl3r.shortpl[sps] ermöglicht.
 
 #htl3r.author("David Koch")
 ==== Siemens TIA Portal
@@ -466,7 +474,9 @@ Die Bereits im @steuerung-zwei erwähnte Software-#htl3r.short[sps]-Runtime -- d
 
 ==== OpenPLC-Webdashboard
 
-TODO
+Der OpenPLC-Editor kann nicht direkt ein Programm auf die Runtime hochladen. Um dies zu tun, muss das OpenPLC-Webdashboard (der Runtime) geöffnet werden, wo, unter anderem, Programme hochgeladen und gestartet werden können, das #htl3r.short[psm] programmiert und Monitoring durchgeführt werden kann.
+
+Weil das Webdashboard als einziges Tool in der OpenPLC-Suite diese Funktionen bietet, kann es nicht gestoppt bzw. deaktiviert werden, ohne dabei die gesamte Runtime zu stoppen. Dies bietet im Vergleich zu anderen #htl3r.shortpl[sps] eine große Angriffsfläche. Es somit auch besonders wichtig, das Passwort vom Default-Admin "openplc" zu ändern (siehe @openplc-manipulation).
 
 #htl3r.author("Gabriel Vogler")
 ==== Siemens LOGO! Soft Comfort
@@ -486,6 +496,8 @@ Die für das #htl3r.short[psm] notwendigen Funktionen sind:
 - `update_outputs()` setzt die #htl3r.short[gpio]-Pins laut Output-Hardwareadressen.
 - Die Main-Funktion für die Initialisierung der Hardware per `hardware_init()` und die periodische Ausführung von `update_inputs()` und `update_outputs()` (mit einem Intervall von 100ms).
 
+Bei der Initiliasierung wird das PSM gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen GPIO-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
+
 #htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
 ```python
 def hardware_init():
@@ -498,7 +510,9 @@ def hardware_init():
 ```
 ]
 
-#htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
+In der `update_inputs()` Funktion werden sie Messwerte der Temperatursensoren und der Füllstandssensoren ausgelesen und in den Input-Variablen `%IW0` bis `%IW4` gespeichert. Die Werte des DS18B20-Temperatursensors lassen sich durch die Python-Bibliothek `w1thermsensor` ganz einfach mittels `.get_temperature()` auslesen. Da die Werte der Füllstandssensoren zuerst vom ESP32 verarbeitet werden müssen und erst danach per #htl3r.short[i2c] an OpenPLC geschickt werden fällt das Auslesen dieser etwas komplexer aus. Es wird zuerst eine Hello-Nachricht an den ESP32 geschickt, welcher auf diese mit den derzeitigen Messwerten antwortet. Da die Antwort nicht sofort stattfindet, ist eine 50ms Verzögerung zwischen der Hello-Nachricht und dem Auslesen der #htl3r.short[i2c]-Werte nötig. In @diy-i2c wird der nötige Programmcode für die #htl3r.short[i2c]-Kommunikation genauer erklärt.
+
+#htl3r.code(caption: "Erfassung und Setzung der Input-Werte im PSM", description: none)[
 ```python
 def update_inputs():
     global sensors
@@ -506,7 +520,7 @@ def update_inputs():
     psm.set_var("IW0", temperature1)
     temperature2 = int(sensors[1].get_temperature())
     psm.set_var("IW1", temperature2)
-    write_to_esp32(ESP_I2C_address, "haiii")
+    write_to_esp32(ESP_I2C_address, "hello")
     time.sleep(0.05)
     data = read_from_esp32(ESP_I2C_address, 32)
     psm.set_var("IW2", data[0])
@@ -514,7 +528,9 @@ def update_inputs():
 ```
 ]
 
-#htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
+In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0` und `%QX1` ausgelesen und jeweils auf die GPIO-Pins 13 und 15 gemappt. Erst bei der Setzung der GPIO-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
+
+#htl3r.code(caption: "Setzung der GPIO-Pins anhand der Output-Werte im PSM", description: none)[
 ```python
 def update_outputs():
     filter_pump_active = psm.get_var("QX0")
@@ -531,7 +547,9 @@ def update_outputs():
 ```
 ]
 
-#htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
+Um beim Start des #htl3r.short[sps]-Programms die Hardware zu initialisieren und die Update-Funktionen in einer Dauerschleife vereint aufzurufen, wird die folgende Main-Methode verwendet:
+
+#htl3r.code(caption: "Main-Methode des PSM", description: none)[
 ```python
 if __name__ == "__main__":
     hardware_init()

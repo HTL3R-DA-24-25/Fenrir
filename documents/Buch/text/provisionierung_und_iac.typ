@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("Julian Burger")
 = Provisionierung und IaC <provisionierung>
@@ -279,4 +279,19 @@ Das erste Argument von besonderem Interesse ist `ForwardAgent=yes`. Dadurch wird
 Dieser Prozess vom Hinzufügen der Schlüssel der Bastion zum lokalen #htl3r.short[ssh]-Agent ist nicht ideal. Im Rahmen dieser Diplomarbeit wurde diese Lösung gewählt, da eine ähnliche Verbindung wie bei Terraform und Packer angestrebt wurde. Es wird empfohlen -- sollte lediglich Ansible verwendet werden -- dass die Schlüssel lokal verwaltet werden und nicht auf der Bastion liegen. Somit kann die Bastion einfach als Jump-Host verwendet werden und die Konfiguration fällt wesentlich simpler aus. Dies ist eine wichtige Lernerfahrung, jedoch funktioniert der beschriebene Ansatz ebenso und wird deshalb weiterhin verwendet.
 
 === SSH-Proxy
-#htl3r.todo[Beschreibung des Unterschiedes zu SSH-Agent-Forwarding.]
+
+Als alternative zu #htl3r.short[ssh]-Agent forwarding steht eine #htl3r.short[ssh] proxying, oder auch #htl3r.short[ssh] tunneling genannt. Eine #htl3r.short[ssh]-Proxy kann ebenfalls Resourcen in einem geschützten Netzwerk verfügbar machen, indem ein Tunnel aufgebaut wird, durch den dann weitere #htl3r.short[ssh]-Verbindungen aufgemacht werden können. Es werden meistens mehrere Schlüsselpaare verwenden um auf die Resourcen zuzugreifen. Das Hauptschlüsselpaar, ist jedoch das Paar, welches verwendet wird, um den Tunnel aufzubauen. Der Server, welcher den SSH-Server für den Tunnel hosted, wird Bastion genannt. Selbstverständliich ist es nicht absolut von nöten Schlüsselpaare für den Verbindungsaufbau mit der Bastion zu nutzen, es ist jedoch stark zu empfehlen.
+
+#htl3r.fspace(
+  total-width: 100%,
+  [
+    #figure(
+      image("../assets/bastion_workflow_proxy.png"),
+      caption: [Abstrakte SSH-Proxy übersicht]
+    ) <bastion_proxy>
+  ]
+)
+
+Wie in @bastion_proxy zu erkennen ist, liegen im kontrast zum #htl3r.short[ssh]-Agent forwarding, beide Schlüsselpaare auf der #htl3r.short[iac]-Workstation. Das erste Schlüsselpaar (Schlüssel A) wird verwendet, um den Tunnel zur Bastion aufzubauen. Das zweite Schlüsselpaar (Schlüssel B) wird im Anschluss verwendet um eine #htl3r.short[ssh]-Verbindung zur #htl3r.short[vm] aufzubauen. Man beachte, dass in keinem Moment, auch nur eines der beiden Schlüsselpaar, auf der Bastion liegt.
+
+Es gilt jedoch zu beachten, dass die Schlüsselpaare, welche in diesem Falle auf der #htl3r.short[iac]-Workstation liegen, sicher verwaltet werden müssen. Hierzu können verschiedene Key-Store-Dienste verwendet werden, dies fällt jedoch außerhalb des Rahmens dieser Diplomarbeit und wird somit hier nicht näher dokumentiert.
