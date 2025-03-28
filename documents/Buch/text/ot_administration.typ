@@ -121,9 +121,43 @@ Wenn es in der Betriebszelle zu einer Überflutung kommt, so wird dies im #htl3r
 #htl3r.author("David Koch")
 === Konfiguration der Modbus TCP Kommunikation auf den SPSen
 
-Damit das #htl3r.short[scada] auf die #htl3r.shortpl[sps] zugreifen und deren Werte auslesen kann, müssen diese Kommunikation über Modbus #htl3r.short[tcp] zulassen. Bei der OpenPLC-#htl3r.short[sps] ist dies standardmäßig gegeben, bei der Siemens LOGO! und der S7-1200 nicht. 
+Damit das #htl3r.short[scada]-System auf die #htl3r.shortpl[sps] zugreifen und deren Werte auslesen kann, müssen die #htl3r.shortpl[sps] Kommunikation über Modbus #htl3r.short[tcp] zulassen. Bei der OpenPLC-#htl3r.short[sps] zum Beispiel ist diese Kommunikationsschnittstelle standardmäßig aktiviert, bei der Siemens LOGO! und der S7-1200 nicht.
 
-TODO
+Um auf der LOGO! die Modbus TCP Kommunikation zu aktivieren, muss in den Einstellungen unter #htl3r.breadcrumbs(("Offline Settings", "General", "Ethernet connections")) die Checkbox für "Allow Modbus access" aktiviert werden. Danach muss noch unterhalb dieser Checkbox der konkrete Modbus-Server, also das #htl3r.short[scada]-System, konfiguriert werden.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-work/logo_modbus_checkbox.png"),
+    caption: [Die aktivierte Modbus-Schnittstelle auf der LOGO! SPS]
+  )
+)
+
+Bei der Konfiguration des Modbus-Servers muss lediglich der Port und die IP-Adresse eingetragen werden. Es kann auch ausgewählt werden, dass unabhängig von der IP-Adresse alle Anfragen akzeptiert werden, dies sollte jedoch sicherheitstechnisch nicht verwendet werden.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-work/logo_modbus_server.png", width: 70%),
+    caption: [SCADA-System als Modbus-Server auf der LOGO! SPS]
+  )
+)
+
+Im Gegenteil zur LOGO! und OpenPLC ist die nötige Konfiguration für eine Modbus-Kommunikation auf der S7-1200 um einiges komplizierter gestaltet. Parallel zum Programm der ersten Zelle muss ein weiteres Programm laufen, welches nur aus einem Modbus-Server-Funktionsbaustein besteht. Der `MB_SERVER` Funktionsbaustein ist unter #htl3r.breadcrumbs(("Communication", "Others", "MODBUS TCP")) zu finden.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-work/modbus_fup.png"),
+    caption: [Der `MB_SERVER` Funktionsbaustein]
+  )
+)
+
+Der Funktionsbaustein bietet drei Eingabe- und vier Ausgabe-Variablen, wobei auf beiden Seiten jeweils nur zwei verwendet werden. Die Eingabe-Variable `MB_HOLD_REG` ist der Speicherbereich für die "Holding Register" des Modbus-Servers. Der Modbus-Client kann auf diese Register lesend und schreibend zugreifen. Die Größe des Arrays bestimmt, wie viele Register zur Verfügung stehen. Die Variable `CONNECT` dient zur Angabe der Verbindungseinstellungen. Zu den Verbindungseinstellungen gehören, unter anderem, TODO
+
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-work/modbus_config_db.png"),
+    caption: [Inhalt des "ModbusConfigDB"-Datenbausteins]
+  )
+)
 
 #htl3r.author("Bastian Uhlig")
 #pagebreak(weak: true)

@@ -187,11 +187,16 @@ Jetzt hat der Angreifer vollen Zugriff auf das C Laufwerk des Domain Controllers
 
 Bevor man die digitale Absicherung des #htl3r.short[ot]-Netzwerks in Betracht zieht, sollte die physische Sicherheit der #htl3r.short[ot]-Umgebung bereits gewährleistet sein. Wenn eine unauthorisierte Person beispielsweise in eine Fabrik einbrechen und dort die Steuerungstechnik manipulieren sollte -- egal ob das durch die Trennung eines Kabels oder der gezielten Umprogrammierung einer #htl3r.short[sps] durch ihre serielle Schnittstelle passiert -- ist vom Schlimmsten auszugehen.
 
-#htl3r.todo["Hier ein Bild, z.B. Durchtrennung Kabel"]
+#htl3r.fspace(
+  figure(
+    image("../assets/physische_manipulation.jpg"),
+    caption: [Durchtrennung eines Datenkabels der LOGO! SPS]
+  )
+)
 
 Die Menschheit ist sich schon seit langer Zeit über die Wichtigkeit der physischen Sicherheit bewusst, somit werden in den meisten industriellen Anlagen bereits Überwachungssysteme wie #htl3r.short[cctv] als auch Perimeterschutz durch Stacheldrahtzäune und Alarmanlagen eingesetzt.
 
-Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstelle zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken, das heißt, dass keine physische Absicherung stattfindet.
+Die Diplomarbeit fokussiert sich jedoch auf die Absicherung der Schnittstellen zwischen #htl3r.short[it]- und #htl3r.short[ot]-Netzwerken, das heißt, dass keine physische Absicherung stattfindet.
 
 #htl3r.author("David Koch")
 === Netzwerkaufklärung <recon>

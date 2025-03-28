@@ -444,7 +444,12 @@ Je nach #htl3r.short[sps]-Modell bzw. Hersteller wird jeweils eine eigene Entwic
 ==== OT-Workstation
 Aufgrund der später in @firewall-config umgesetzten Netzwerksegmentierung wird man aus dem #htl3r.short[it]-Netz nicht direkt die #htl3r.shortpl[sps] programmieren bzw. erreichen können. Dafür wurde eine #htl3r.short[ot]-Workstation eingerichtet, auf die man sich dann mit #htl3r.short[rdp] über den Jump-Server verbinden kann. Die #htl3r.short[ot]-Workstation gibt es in zwei Formen. Einerseits als #htl3r.long[vm] auf dem vCenter und andererseits als physische Maschine. Die physische Maschine ist ein Lenovo Thinkpad T440. Auf beiden Ausführungen der #htl3r.short[ot]-Workstation ist die idente Konfiguration vorhanden.
 
-#htl3r.todo("BILD VON OT-LAPTOP HIER EINFÜGEN")
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-laptop.png"),
+    caption: [Der Laptop zur OT-Administration]
+  )
+)
 
 Als Betriebssystem ist Windows 10 installiert, mit allen notwendigen Programmen, die für die Programmierung der #htl3r.shortpl[sps] benötigt werden. Dazu zählen das Siemens TIA Portal für die Programmierung der Siemens SIMATIC-#htl3r.short[sps], der OpenPLC-Editor für die OpenPLC-Runtime welche am Raspberry Pi läuft und das Siemens LOGO! Soft Comfort, welches für die Programmierung der Siemens LOGO!-#htl3r.short[sps] benötigt wird.
 
