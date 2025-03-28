@@ -117,7 +117,7 @@ provider "vsphere" {
 ]
 Die realen Zugangsdaten stehen in einer externen Datei, welche nicht Teil des Git-Repositorys ist.
 
-=== Ansible
+=== Ansible <ansible>
 Ansible ist das dritte #htl3r.short[iac] Tool, welches zur Provisionierung verwendet wird. Es ermöglicht, Maschinen mittels Ansible-Playbooks zu konfigurieren. Diese Playbooks beinhalten mehrere Tasks, welche ausgeführt werden. Diese Tasks können sehr komplex, jedoch auch sehr simpel sein. Ansible wird in der Topologie hauptsächlich für das Ausführen von Bash- und PowerShell-Skripten verwendet, da oftmals ein Neustart nach der Ausführung eines Befehls notwendig ist. Dies ist vor allem auf Windows-Servern ein bekanntes Problem. Terraform kann mit solchen Neustarts nicht umgehen, Ansible jedoch schon.
 
 Die IPv4-Adressen der #htl3r.shortpl[vm] im Managementnetzwerk sind oft unklar, denn sie werden über #htl3r.short[dhcp] bezogen. Demnach wird die IPv4-Adresse mittels Terraform ausgelesen und als Argument einem Bash-Skript weiter gegeben. Dieses Bash-Skript erstellt nun ein Ansible-Inventory und führt das dazugehörige Ansible-Playbook aus. Die genaue Funktion des Managementnetzwerks ist in @prov-mit-bastion beschrieben. Der Ablauf von einem Ansible-Aufruf sieht wie folgt aus:

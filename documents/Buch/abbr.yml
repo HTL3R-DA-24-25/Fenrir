@@ -120,12 +120,14 @@ adds:
   long:
     singular: Active Directory Domain Services
 
-addc:
+dc:
   short:
-    singular: ADDC
-    plural: ADDCs
+    singular: DC
+    plural: DCs
   long:
-    singular: Active Directory Domain Controller
+    singular: Domain Controller
+    plural: Domain Controller
+  description: Ein Server, der die Authentifizierung und Autorisierung von Benutzern und Computern in einem Windows-Domänennetzwerk verwaltet und die Active-Directory-Umgebung bereitstellt.
 
 i2c:
   short:
@@ -651,3 +653,10 @@ sid:
   long:
     singular: Security Identifier
   description: Eine eindeutige Kennung, welche einem Benutzer oder einer Gruppe in einem Windows-System zugeordnet wird.
+
+csv:
+  short:
+    singular: CSV
+  long:
+    singular: Comma-Separated Values
+  description: Ein einfaches, textbasiertes Datenformat, bei dem Werte durch Trennzeichen getrennt sind, um strukturierte Daten tabellarisch darzustellen.

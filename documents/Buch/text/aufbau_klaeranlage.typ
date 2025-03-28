@@ -45,7 +45,7 @@ Die erste Betriebszelle dient der Grobfiltration des schmutzigen Wassers. Falls 
 
 Als erster Schritt zur erfolgreichen Abwasserfiltration braucht es einen Weg, grobe Schmutzpartikel wie zum Beispiel Kieselsteine filtrieren zu können. Einen feinen Wasserfilter würden solche großen Partikel verstopfen oder sogar zerstören. Somit erfolgt die erste Filtration mit einem gröberen Metallgitter als Rechen.
 
-Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter befördert, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochbeförderte Wasser durch das Rechengitter fallen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher eine Öffnung für die Leitung in die zweite Zelle birgt.
+Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter befördert, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochbeförderte Wasser durch das Rechengitter fließen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher eine Öffnung für die Leitung in die zweite Zelle birgt.
 
 Für Details zur Modellierung der archimedischen Schraube und der Halterung des Schneckenmotors siehe @schnegge und @motor-halterung.
 
@@ -101,7 +101,7 @@ Das in @zelle-1-programm abgebildete Programm -- welches in der Kontaktplan-Prog
 #pagebreak(weak: true)
 == Zelle Zwei (Feinfiltration)
 
-Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
+Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen, im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
 
 #htl3r.fspace(
   figure(
@@ -115,7 +115,7 @@ Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Ab
 Sie besteht aus zwei durchsichtigen Acryl-Wassertanks welche jeweils ca. 3L an Volumen aufweisen. Diese sind oben offen, werden jedoch von Deckeln abgedeckt. Diese Deckel wurden mittels 3D-Modellierung speziell angefertigt und zweimal gedruckt. In diesen Deckeln ist die für den Wassertank jeweils notwendige Sensorik verbaut. Diese besteht aus einem Füllstandssensor mit Schwimmer -- welcher als Widerstand agiert -- sowie einem DS18B20-Temperatursensor.
 Außerdem hat jeder Tankdeckel auch noch eine Öffnung für einen Schlauch, welcher als Zufluss dient. Als Gegenstück besitzt jeder Tank an der Unterseite einen Messing Auslass mit Gewinde, an welchem dann ein Harnverbinder angeschraubt um eine Steckverbindung für die weiteren Schläuche zu ermöglichen.
 
-Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filterball und eine Pumpe, welche Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transportiert. Die Pumpe wurde hinter dem Filter platziert, um dieser vor Verstopfungen durch Schmutzpartikel zu schützen. Der Filterball wurde dem Filter hinzugefügt, da dieser die Schmutzpartikel sehr gut aufnimmt und die Belastung des Filters verringert und somit die Effizienz der Filration erhöht und die Lebensdauer des Filters verlängert.
+Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filterball und eine Pumpe, welche Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transportiert. Die Pumpe wurde hinter dem Filter platziert, um dieser vor Verstopfungen durch Schmutzpartikel zu schützen. Ein Filterball wurde innerhalb des Filters hinzugefügt, da dieser die Schmutzpartikel sehr gut aufnimmt und die Belastung des Filters verringert und somit die Effizienz der Filration erhöht und die Lebensdauer des Filters verlängert.
 
 #htl3r.fspace(
   figure(
@@ -169,8 +169,10 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
       [TANK_2_TEMP], [INT], [%IW1], [-], [Nein],
       [TANK_1_LEVEL], [INT], [%IW2], [-], [Nein],
       [TANK_2_LEVEL], [INT], [%IW3], [-], [Nein],
-      [FILTER_PUMP_OVERRIDE], [BOOL], [%IW4], [-], [Nein],
-      [PROGRESSION_PUMP_OVERRIDE], [BOOL], [%IW5], [-], [Nein],      [FILTER_PUMP_ACTIVE], [BOOL], [%QX0], [-], [Nein],[PROGRESSION_PUMP_ACTIVE], [BOOL], [%QX1], [-], [Nein],
+      [FILTER_PUMP_OVERRIDE], [BOOL], [%QX1.0], [-], [Nein],
+      [PROGRESSION_PUMP_OVERRIDE], [BOOL], [%QX1.1], [-], [Nein],
+      [FILTER_PUMP_ACTIVE], [BOOL], [%QX0.0], [-], [Nein],
+      [PROGRESSION_PUMP_ACTIVE], [BOOL], [%QX0.1], [-], [Nein],
       [TANK_FULL], [INT], [-], [100], [Ja],
       [PUMP_DELAY], [TIME], [-], [T\#2000ms], [Ja],
     ),
@@ -189,9 +191,9 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
   ]
 )
 
-Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche charakteristisch für ein #htl3r.long[fup]-Programm sind. Mehr Informationen zu dieser Überschneidung sind in @sps-programmierung zu finden.
+Das Ziel des Programms ist es, je nach Füllstand der Tanks die jeweiligen Pumpen einzuschalten. Einmal um das schmutzige Wasser aus dem ersten Tank durch den Filter in den zweiten Tank zu befördern und einmal, um aus dem zweiten Tank das saubere Wasser in den Staudamm zu befördern. Hierfür wird zuerst ein Vergleich mittels eines "Greater Than"-Funktionsbausteins getätigt, ob der Füllstand des Tanks (`TANK_1_LEVEL` bzw. `TANK_2_LEVEL`) den für das Umpumpen festgelegten konstanten Füllstandswert `TANK_FULL` überschreitet. Falls dies der Fall ist, wird das Signal zum Einschalten der jeweiligen Pumpe an einen "Off Delay Timer"-Funktionsbaustein weitergeleitet. Dieser versichert, dass durch die Unterschreitung des zum Umpumpen nötigen Füllstandswerts während des Pumpvorgangs dieser nicht mittendrin abbricht. Die von diesem Funktionsbaustein getätigte Zeitverzögerung wird durch die konstante Variable `PUMP_DELAY` -- die 2000 Millisekunden entspricht -- gesteuert. Das vom "Off Delay Timer"-Funktionsbaustein manipulierte Signal wird final noch an ein "Or"-Funktionsbaustein weitergegeben, welcher dazu dient, dem SCADA einen Override der Pumpenaktivierung über die Variablen `FILTER_PUMP_OVERRIDE` bzw. `PROGRESSION_PUMP_OVERRIDE` zu gewähren.
 
-Das Ziel des Programms ist es, je nach Füllstand der Tanks die jeweiligen Pumpen einzuschalten. Einmal um das schmutzige Wasser aus dem ersten Tank durch den Filter in den zweiten Tank zu befördern und einmal um aus dem zweiten Tank das saubere Wasser in den Staudamm zu befördern. Hierfür wird zuerst ein Vergleich mittels eines "Greater Than"-Funktionsbausteins getätigt, ob der Füllstand des Tanks (`TANK_1_LEVEL` bzw. `TANK_2_LEVEL`) den für das Umpumpen festgelegten konstanten Füllstandswert `TANK_FULL` überschreitet. Falls dies der Fall ist, wird das Signal zum Einschalten der jeweiligen Pumpe an einen "Off Delay Timer"-Funktionsbaustein weitergeleitet. Dieser versichert, dass durch die Unterschreitung des zum Umpumpen nötigen Füllstandswerts während des Pumpvorgangs dieser nicht mittendrin abbricht. Die von diesem Funktionsbaustein getätigte Zeitverzögerung wird durch die konstante Variable `PUMP_DELAY` -- die 2000 Millisekunden entspricht -- gesteuert. Das vom "Off Delay Timer"-Funktionsbaustein manipulierte Signal wird final noch an ein "Or"-Funktionsbaustein weitergegeben, welcher dazu dient, dem SCADA einen Override der Pumpenaktivierung über die Variablen `FILTER_PUMP_OVERRIDE` bzw. `PROGRESSION_PUMP_OVERRIDE` zu gewähren.
+Das in @zelle-2-programm sichtbare Programm ist ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche charakteristisch für ein #htl3r.long[fup]-Programm sind. Mehr Informationen zu dieser Überschneidung sind in @sps-programmierung zu finden.
 
 Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen den Wert der ihnen zugehörigen Adresse auf "hoch". In @i2c-integration wird genauer erläutert, wie die Modbus-Output-Adresse mit den #htl3r.short[gpio]-Pins des Raspberry Pi verknüpft ist.
 
@@ -204,8 +206,6 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
     caption: [Schaltplan der 2. Betriebszelle]
   )
 )
-
-#htl3r.todo("im schaltplan die übergangspumpe ergänzen")
 
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
@@ -464,9 +464,14 @@ Das Siemens TIA ("Totally Integrated Automation") Portal ist eine Kombination au
 
 Aus dieser Suite wird für die Programmierung der Siemens SIMATIC-#htl3r.short[sps] das Tool "STEP 7" verwendet. Die verwendeten Versionen sind hierbei V16 des TIA Portals und ebenfalls V16 von STEP 7.
 
-Wichtig zu beachten ist, dass STEP 7 als einzige im Rahmen dieser Diplomarbeit verwendete #htl3r.short[sps]-Programmierungssoftware die Konfiguration von einem #htl3r.short[scada]-Override zulässt @s7-put-get[comp]. Bei der Konfiguration einer Variable in STEP 7 kann eine TODOOOO
+Wichtig zu beachten ist, dass STEP 7 als einzige im Rahmen dieser Diplomarbeit verwendete #htl3r.short[sps]-Programmierungssoftware die Konfiguration von einem #htl3r.short[scada]-Override zulässt @s7-put-get[comp]. Bei der Konfiguration einer Variable in STEP 7 können Optionen aktiviert werden, die diese Variable sichtbar oder bearbeitbar von einem #htl3r.short[hmi] oder einem #htl3r.short[scada]-System aus machen. Bei den Programmierungsumgebungen von der OpenPLC- und der LOGO!-#htl3r.short[sps] sind alle Output-Variablen standardmäßig von äußeren Quellen aus sichtbar sowie bearbeitbar.
 
-* BILD *
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-work/simatic_vars.png"),
+    caption: [Der Laptop zur OT-Administration]
+  )
+)
 
 ==== OpenPLC-Editor
 
@@ -475,6 +480,14 @@ Die Bereits im @steuerung-zwei erwähnte Software-#htl3r.short[sps]-Runtime -- d
 ==== OpenPLC-Webdashboard
 
 Der OpenPLC-Editor kann nicht direkt ein Programm auf die Runtime hochladen. Um dies zu tun, muss das OpenPLC-Webdashboard (der Runtime) geöffnet werden, wo, unter anderem, Programme hochgeladen und gestartet werden können, das #htl3r.short[psm] programmiert und Monitoring durchgeführt werden kann.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/ot-work/openplc_compile.png"),
+    caption: [Kompilieren des OpenPLC-Programms im Webdashboard]
+  )
+)
 
 Weil das Webdashboard als einziges Tool in der OpenPLC-Suite diese Funktionen bietet, kann es nicht gestoppt bzw. deaktiviert werden, ohne dabei die gesamte Runtime zu stoppen. Dies bietet im Vergleich zu anderen #htl3r.shortpl[sps] eine große Angriffsfläche. Es somit auch besonders wichtig, das Passwort vom Default-Admin "openplc" zu ändern (siehe @openplc-manipulation).
 
@@ -489,6 +502,20 @@ Im Vergleich zu einer Siemens SIMATIC-#htl3r.short[sps] kann eine Siemens LOGO!-
 === OpenPLC Python Submodule <openplc-psm>
 
 Um die aus der #htl3r.short[sps]-Programmierung bekannten Hardwareadressen auf einem Raspberry Pi sinnvoll umzusetzen, hat das OpenPLC-Team eine neue Hardwareebene -- das "Python Submodule" (kurz #htl3r.short[psm]) eingeführt. In der Weboberfläche der OpenPLC-Runtime können somit durch ein Python-Skript die #htl3r.short[gpio]-Pins des Raspberry Pi und die "software-defined" #htl3r.short[sps]-Hardwareadressen verknüpft bzw. gemeinsam verwendet werden @openplc-psm-guide[comp].
+
+#htl3r.fspace(
+  total-width: 40%,
+  figure(
+    table(
+      columns: (auto, auto),
+      align: (left, left),
+      table.header[*GPIO-Pin*][*SPS-Adresse*],
+      [GPIO 13], [`%QX0.0`],
+      [GPIO 15], [`%QX0.1`],
+    ),
+    caption: [Mapping der GPIO-Pins zu den SPS-Output-Adressen]
+  )
+)
 
 Die für das #htl3r.short[psm] notwendigen Funktionen sind:
 - `hardware_init()` initialisiert die nötigen Hardware-Komponenten.
@@ -528,18 +555,19 @@ def update_inputs():
 ```
 ]
 
-In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0` und `%QX1` ausgelesen und jeweils auf die GPIO-Pins 13 und 15 gemappt. Erst bei der Setzung der GPIO-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
+In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0.0` und `%QX0.1` ausgelesen und jeweils auf die GPIO-Pins 13 und 15 gemappt. Erst bei der Setzung der GPIO-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
 
+#pagebreak(weak: true)
 #htl3r.code(caption: "Setzung der GPIO-Pins anhand der Output-Werte im PSM", description: none)[
 ```python
 def update_outputs():
-    filter_pump_active = psm.get_var("QX0")
+    filter_pump_active = psm.get_var("QX0.0")
     if filter_pump_active == 1:
         GPIO.output(13, GPIO.HIGH)
     else:
         GPIO.output(13, GPIO.LOW)
 
-    prog_pump_active = psm.get_var("QX1")
+    prog_pump_active = psm.get_var("QX0.1")
     if prog_pump_active == 1:
         GPIO.output(15, GPIO.HIGH)
     else:
@@ -561,6 +589,7 @@ if __name__ == "__main__":
 ```
 ]
 
+#pagebreak(weak: true)
 #htl3r.author("David Koch")
 == Programmierung eines I²C-Kommunikationsbusses <diy-i2c>
 
@@ -641,7 +670,7 @@ Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r
 
 === Integration der I²C-Daten in OpenPLC <i2c-integration>
 
-OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-#htl3r.short[i2c]. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten. Mehr Informationen zum PSM sind in @openplc-psm zu finden.
+OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-#htl3r.short[tcp]. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten. Mehr Informationen zum PSM sind in @openplc-psm zu finden.
 
 Bevor die Daten per #htl3r.short[psm] gemappt werden können, müssen sie zuerst empfangen und dekodiert werden. Dazu wird folgende Python-Funktion verwendet:
 
@@ -702,7 +731,7 @@ Nun kann die #htl3r.short[sps]-Hardwareadresse `%IW2` in einem #htl3r.short[sps]
 #htl3r.fspace(
   [
     #figure(
-      image("../assets/openplc/openplc_vars.png", width: 115%),
+      image("../assets/ot-work/openplc_vars.png", width: 115%),
       caption: [Alle Variablen der OpenPLC-SPS]
     )
     <openplc-vars>
@@ -729,7 +758,7 @@ An der unteren Hutschiene hängt die gesamte Steuerungstechnik aller Betriebszel
 
 #htl3r.fspace(
   figure(
-    image("../assets/schrank.png"),
+    image("../assets/schrank.jpg", width: 92%),
     caption: [Der Schaltschrank der Modell-Kläranlage]
   )
 )

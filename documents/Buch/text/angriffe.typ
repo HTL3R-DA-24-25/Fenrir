@@ -9,7 +9,7 @@
 Um die Sicherheit der in den obigen Abschnitten erstellten Topologie,  herkömmlicher Firmennetzwerke mit #htl3r.short[ot]-Abschnitten oder die Netzwerke von echter kritischer Infrastruktur zu gewährleisten braucht es ein theoretisches Verständnis von den möglichen Angriffsvektoren als auch die dazugehörige Absicherung, um gegen die bekannten Angriffsvektoren vorzugehen und somit Angriffen vorzubeugen.
 
 === Sicherheitsmängel bei Bus-Systemen
-Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche #htl3r.short[tcp]/IP-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das Triple-A-System sind der Bus-Welt fremd.
+Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche #htl3r.short[tcp]/IP-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das AAA-System sind der Bus-Welt fremd.
 
 #htl3r.fspace(
   total-width: 95%,
@@ -323,7 +323,7 @@ Nach dem erfolgreichen Hochladen des bösartigen Programms ändert der Angreifer
   )
 )
 
-=== GAU tritt ein
+=== Größter anzunehmender Unfall tritt ein
 
 Das Netzwerk wurde aufgrund von fehlender Segmentierung infiltriert, das Lateral Movement des Angreifers wurde wegen fehlender Netzwerküberwachung nicht entdeckt. Eine für die Steuerung des Klärprozesses unabdingbare SPS wurde umprogrammiert und unzugänglich gemacht.
 

@@ -3,13 +3,21 @@
 #htl3r.author("David Koch")
 = Topologie
 
-Der Aufbau einer realistischen Netzwerktopologie wie sie in einer echten Kläranlage zu finden wäre ist unabdingbar wenn es darum geht, die Gefahr von Cyberangriffen auf #htl3r.short[ot]-Systeme zu dokumentieren.
+Der Aufbau einer realistischen Netzwerktopologie wie sie in einer echten Kläranlage zu finden ist, ist unabdingbar wenn es darum geht, die Gefahr von Cyberangriffen auf #htl3r.short[ot]-Systeme zu dokumentieren.
 
-In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuellen Geräten im Rahmen der Diplomarbeitstopologie genauer gezeigt und erklärt. Man bedenke, dass es nicht möglich ist die gesamte Topologie in einer einzigen Graphik im vollen Detail zu erfassen. Demnach wurd mit vereinzelten Abstraktionen gearbeitet.
+In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuellen Geräten im Rahmen der Diplomarbeitstopologie genauer gezeigt und erklärt. Man bedenke, dass es nicht möglich ist, die gesamte Topologie in einer einzigen Graphik im vollen Detail zu erfassen. Demnach wurde mit vereinzelten Abstraktionen gearbeitet.
+
+#htl3r.fspace(
+  total-width: 90%,
+  figure(
+    image("../assets/grobe_topologie.png"),
+    caption: [Die Projekttopologie in grober Darstellung]
+  )
+)
 
 == Purdue-Modell <purdue>
 
-Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum OSI-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert.
+Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum OSI-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert. Kommunikation darf ohne weiteres auch nur zwischen direkt benachbarten Ebenen stattfinden.
 
 Level 0 bis 3 gehören zur #htl3r.short[ot], 4 bis 5 sind Teil der #htl3r.short[it].
 Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 3 und 4 wird diese als Ebene 3.5 gekennzeichnet.
@@ -21,20 +29,23 @@ Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwis
   )
 )
 
-Die Netzwerksegmentierung der in dieser Diplomarbeit aufgebauten Topologie wurde anhand des Purdue-Modells durchgeführt.
+Die Netzwerksegmentierung der in dieser Diplomarbeit aufgebauten Topologie wurde anhand des Purdue-Modells durchgeführt. Dies bedeutet, dass das gesamte Netzwerk durch Fortigate-Firewalls den Ebenen des Purdue-Modells entsprechend segmentiert worden ist und der Datenverkehr zwischen den Ebenen durch granulare Firewall-Policies, die nur den nötigsten Datenverkehr erlauben, eingeschränkt worden ist.
 
 == Logische Topologie <logische-topo>
 
-Durch die Limitationen an verfügbarer physischer Hardware ist die unten gezeigte logische Topologie physisch nicht direkt umsetzbar. Durch den Einsatz von Virtualisierung, welcher in @physische-topo genauer erklärt wird, lassen sich alle nötigen Geräte, für die sonst keine physische Hardware verfügbar wäre, trotzdem in das Netzwerk einbinden.
+Durch die Limitationen an verfügbarer physischer Hardware ist die in @logische-topo-bild gezeigte logische Topologie physisch nicht direkt umsetzbar. Durch den Einsatz von Virtualisierung, welcher in @physische-topo genauer erklärt wird, lassen sich alle nötigen Geräte, für die sonst keine physische Hardware verfügbar wäre, trotzdem in das Netzwerk einbinden.
 
 Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtualisierung genutzte physische Hardware und somit auch die Verknüpfung von physischer zu virtueller Gerätschaft nicht eingezeichnet ist.
 
 #htl3r.fspace(
   total-width: 95%,
-  figure(
-    image("../assets/topology_logical.svg"),
-    caption: [Die Projekttopologie in logischer Darstellung]
-  )
+  [
+    #figure(
+      image("../assets/topology_logical.svg"),
+      caption: [Die Projekttopologie in logischer Darstellung]
+    )
+    <logische-topo-bild>
+  ]
 )
 
 === Alle Geräte in der logischen Topologie
@@ -335,7 +346,7 @@ Die Details bezüglich des Aufbaus der Modell-Kläranlage und der dazugehörigen
 #pagebreak(weak: true)
 == Verknüpfung der physischen & virtuellen Netzwerke
 
-Um die physisch vorhandenen und virtualisierten Bestandteile der gesamten Topologie miteinander zu verknüpfen, braucht es gleich mehrere zusammenarbeitende Konzepte.
+Um die physisch vorhandenen und virtualisierten Bestandteile der gesamten Topologie miteinander zu verknüpfen, braucht es gleich mehrere zusammenarbeitende Konzepte:
 
 === Modbus TCP als Kommunikationsprotokoll
 

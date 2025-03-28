@@ -89,7 +89,7 @@ foreach ($ou in $ous) {
   )
 )
 
-Um die Benutzerkonten zu erstellen, gibt es eine CSV-Datei mit den Benutzerdaten, die von einem PowerShell-Skript verarbeitet wird. Die Tabelle oben, zeigt wie die CSV Datei aussieht. Statt den Überschriften oben wird in der CSV Datei SamAccountName, GivenName, Surname und Department verwendet. Die Benutzerkonten werden mit folgendem PowerShell-Skript erstellt:
+Um die Benutzerkonten zu erstellen, gibt es eine #htl3r.short[csv]-Datei mit den Benutzerdaten, die von einem PowerShell-Skript verarbeitet wird. Die Tabelle oben, zeigt wie die #htl3r.short[csv]-Datei aussieht. Statt den Überschriften oben wird in der #htl3r.short[csv]-Datei SamAccountName, GivenName, Surname und Department verwendet. Die Benutzerkonten werden mit folgendem PowerShell-Skript erstellt:
 ```powershell
 $users = Import-CSV -Path "D:\users.csv" -Delimiter ";"
 $Password = ConvertTo-SecureString "ganzgeheim123!" -AsPlainText -Force
@@ -147,7 +147,7 @@ Damit die Benutzer auch in die richtige Gruppe eingefügt werden, wird in der le
 
 Die Benutzergruppen werden in der #htl3r.short[ad]-Umgebung der Firma "Fenrir" in Domain Local Groups und Global Groups unterteilt. Die Global Groups entsprechen den Abteilungen der Firma und die Domain Local Groups den Rollen, die die Benutzer auf den Network Shares auf dem Fileserver haben.
 
-Die Benutzergruppen sind einer CSV Datei erstellt, die folgendes Format hat:
+Die Benutzergruppen sind einer #htl3r.short[csv]-Datei erstellt, die folgendes Format hat:
 #htl3r.code-file(
   caption: "CSV für die Gruppenerstellung",
   filename: [ansible/playbooks/stages/stage_03/extra/groups_fenrir_ad.csv],
@@ -157,7 +157,7 @@ Die Benutzergruppen sind einer CSV Datei erstellt, die folgendes Format hat:
   text: read("../assets/scripts/groups_fenrir_ad.csv")
 )
 
-Es werden die Gruppenname, der Pfad, der Scope, die Kategorie und die Domain Local Groups, in die die Global Groups eingefügt werden, angegeben. Anhand der CSV Datei können die Gruppen mit folgendem PowerShell-Skript erstellt werden:
+Es werden die Gruppenname, der Pfad, der Scope, die Kategorie und die Domain Local Groups, in die die Global Groups eingefügt werden, angegeben. Anhand der #htl3r.short[csv]-Datei können die Gruppen mit folgendem PowerShell-Skript erstellt werden:
 #htl3r.code-file(
   caption: "Powershell-Skript für die Gruppenerstellung",
   filename: [ansible/playbooks/stages/stage_03/extra/DC1_part_3.ps1],
@@ -165,7 +165,7 @@ Es werden die Gruppenname, der Pfad, der Scope, die Kategorie und die Domain Loc
   lang: "powershell",
   text: read("../assets/scripts/Gruppen_erstellen.ps1")
 )
-Es werden zuerst die Domain Local Groups und dann die Global Groups erstellt. Anschließend werden die Global Groups in die Domain Local Groups eingefügt, die in der CSV Datei angegeben sind.
+Es werden zuerst die Domain Local Groups und dann die Global Groups erstellt. Anschließend werden die Global Groups in die Domain Local Groups eingefügt, die in der #htl3r.short[csv]-Datei angegeben sind.
 
 #htl3r.author("Bastian Uhlig")
 == GPOs
@@ -257,8 +257,8 @@ $gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers"
 #htl3r.author("David Koch")
 == Domain Controller
 
-Es gibt insgesamt zwei Domain Controller in der #htl3r.short[it]-Infrastruktur der Firma "Fenrir".
-Die Domain Controller teilen sich die Aufgaben:
+Es gibt insgesamt zwei #htl3r.long[dc] in der #htl3r.short[it]-Infrastruktur der Firma "Fenrir".
+Die #htl3r.long[dc] teilen sich die Aufgaben:
 
 #show table.cell.where(y: 0): strong
 #show table.cell.where(x: 0): strong
@@ -281,7 +281,7 @@ Die Domain Controller teilen sich die Aufgaben:
 
 === Aufsetzung der Domain Controller
 
-Durch den in @provisionierung beschriebenen Provisionierungsvorgang lassen sich die Domain Controller automatisiert aufsetzen. Zu den für die DC-Provisionierung notwendigen Dateien und Skripts zählen, unter anderem, das Ansible-Playbook, die PowerShell-Skripts für die Hochstufung und Konfigurations der DCs und jegliche Extra-Dateien wie eine CSV-Tabelle mit den AD-Gruppen, die von den PowerShell-Skripts verarbeitet wird.
+Durch den in @provisionierung beschriebenen Provisionierungsvorgang lassen sich die #htl3r.long[dc] automatisiert aufsetzen. Zu den für die #htl3r.short[dc]-Provisionierung notwendigen Dateien und Skripts zählen -- unter anderem -- das Ansible-Playbook, die PowerShell-Skripts für die Hochstufung und Konfiguration der #htl3r.shortpl[dc] und jegliche Extra-Dateien wie eine #htl3r.short[csv]-Tabelle mit den #htl3r.short[ad]-Gruppen, die von den PowerShell-Skripts verarbeitet wird.
 
 #htl3r.code-file(
   caption: "Ansible-Playbook für die Aufsetzung von DC1",
@@ -290,7 +290,7 @@ Durch den in @provisionierung beschriebenen Provisionierungsvorgang lassen sich 
   text: read("../assets/scripts/setup_dc_primary.yml")
 )
 
-Der Aufsetzungsprozess wird im Playbook durch die sogenannten "Tasks" gesteuert. Eine Task ist jeweils eine zu erledigende Aufgabe, bevor die nächsten Tasks abgearbeitet werden können. Somit wird als erste Task das "part_1"-PowerShell-Skript ausgeführt, welches für die Grundkonfiguration des Geräts zuständig ist. Hierbei wird der Hostname, das Admin-Passwort und der Netzwerkadapter konfiguriert und es wird das für die DC-Hochstufung notwendige Package ```AD-Domain-Services``` installiert.
+Der Aufsetzungsprozess wird im Playbook durch die sogenannten "Tasks" gesteuert. Eine Task ist jeweils eine zu erledigende Aufgabe, bevor die nächsten Tasks abgearbeitet werden können. Somit wird als erste Task das "part_1"-PowerShell-Skript ausgeführt, welches für die Grundkonfiguration des Geräts zuständig ist. Hierbei wird der Hostname, das Admin-Passwort und der Netzwerkadapter konfiguriert und es wird das für die #htl3r.short[dc]-Hochstufung notwendige Package `AD-Domain-Services` installiert. Die genaue Funktionsweise eines Ansible-Playbooks und wie dieses ausgeführt wird wird in @ansible erklärt.
 
 #htl3r.code-file(
   caption: "Part-1-Skript für die Aufsetzung von DC1",
@@ -301,7 +301,7 @@ Der Aufsetzungsprozess wird im Playbook durch die sogenannten "Tasks" gesteuert.
   text: read("../assets/scripts/DC1_part_1.ps1")
 )
 
-Nach der fertigen Ausführung vom Part-1-Skript ist ein Neustart des Domain Controllers notwendig. Dieser wird auch durch die im Ansible Playbook eingetragenen Tasks durchgeführt.
+Nach der fertigen Ausführung vom "part_1"-Skript ist ein Neustart des Domain Controllers notwendig. Dieser wird auch durch die im Ansible Playbook eingetragenen Tasks durchgeführt.
 
 Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten die Hochstufung und im dritten -- unter anderem -- die Konfiguration der #htl3r.short[ou]-Struktur, Benutzer, Gruppen und #htl3r.shortpl[gpo] stattfindet.
 
@@ -319,9 +319,7 @@ Dieser Server wird weltweit in einigen Firmen eingesetzt und bietet die Grundlag
 
 Damit der Exchange Server funktioniert, wird eine bestehenende #htl3r.short[ad] Struktur benötigt.
 
-
-
-=== Aufsetzung des Exchange Servers
+=== Aufsetzen des Exchange Servers
 Wie auch schon bei den Domain Controllern, wird der Exchange Server durch ein Ansible-Playbook aufgesetzt. Dieses Playbook besteht aus mehreren Parts, die jeweils für eine spezifische Aufgabe zuständig sind. Die Aufteilung ist notwendig, da der Exchange Server während der Installation mehrmals neu gestartet werden muss. Außerdem wird eine Exchange-Server ISO benötigt, die später verwendet wird un den Exchange Server zu installieren. Diese ist unter folgendem Link zu finden: \
 #link("https://www.microsoft.com/en-us/download/details.aspx?id=104131").
 #htl3r.code-file(
@@ -361,7 +359,7 @@ Da alle notwendigen Pakete installiert sind, wird von der ISO-Datei die Datei `S
   text: read("../assets/scripts/Exchange_part_3.ps1")
 )
 
-Im vierten Part des Playbooks wird das PowerShell-Skript `Exchange_part_4.ps1` ausgeführt. In diesem Skript werden die Postfächer für alle Benutzer erstellt. Dafür wird eine CSV-Datei benötigt, die die Benutzerdaten enthält. Die CSV-Datei ist die gleiche, die auch für die Benutzererstellung in @benutzerkonten benutzt wurde..
+Im vierten Part des Playbooks wird das PowerShell-Skript `Exchange_part_4.ps1` ausgeführt. In diesem Skript werden die Postfächer für alle Benutzer erstellt. Dafür wird eine #htl3r.short[csv]-Datei benötigt, die die Benutzerdaten enthält. Die #htl3r.short[csv]-Datei ist die gleiche, die auch für die Benutzererstellung in @benutzerkonten benutzt wurde..
 
 #htl3r.code-file(
   caption: "Part-4-Skript für die Aufsetzung von Exchange",
@@ -418,7 +416,7 @@ Im zweiten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_2.ps1`
   text: read("../assets/scripts/Fileserver_part_2.ps1")
 )
 
-Im dritten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_3.ps1` ausgeführt. Notwendig für dieses Skript ist die CSV Datei mit den Benutzern des #htl3r.short[ad] aus @benutzerkonten. Im Skript wird zunächst das Verzeichnis  `C:\Fenrir-Share` erstellt, in dem die Freigaben für die Benutzer und Abteilungen angelegt werden. Im nächsten Schritt, werden die Verzeichnisse für die Abteilungen erstellt und im Anschluss die Berechtigungen für die Domain Local Groups gesetzt. Danach werden die Verzeichnisse der einzelnen Benutzer in den Abteilungsverzeichnissen erstellt und die Berechtigungen für die Benutzer gesetzt. Abschließend wird das Verzeichnis `C:\Fenrir-Share` unter dem Namen `Fenrir-Share` freigegeben.
+Im dritten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_3.ps1` ausgeführt. Notwendig für dieses Skript ist die #htl3r.short[csv]-Datei mit den Benutzern des #htl3r.short[ad] aus @benutzerkonten. Im Skript wird zunächst das Verzeichnis  `C:\Fenrir-Share` erstellt, in dem die Freigaben für die Benutzer und Abteilungen angelegt werden. Im nächsten Schritt, werden die Verzeichnisse für die Abteilungen erstellt und im Anschluss die Berechtigungen für die Domain Local Groups gesetzt. Danach werden die Verzeichnisse der einzelnen Benutzer in den Abteilungsverzeichnissen erstellt und die Berechtigungen für die Benutzer gesetzt. Abschließend wird das Verzeichnis `C:\Fenrir-Share` unter dem Namen `Fenrir-Share` freigegeben.
 #htl3r.code-file(
   caption: "Part-3-Skript für die Aufsetzung von Fileserver",
   filename: [ansible/playbooks/stages/stage_04/extra/Fileserver_part_3.ps1],
