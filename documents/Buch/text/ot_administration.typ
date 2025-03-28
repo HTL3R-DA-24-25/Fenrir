@@ -1,8 +1,8 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 
 #htl3r.author("Bastian Uhlig")
 = OT-Administration
-Um ein #htl3r.short[ot]-Netzwerk zu administrieren, sind einige spezielle Tools notwendig. Diese Tools sind speziell auf die Anforderungen von #htl3r.short[ot]-Netzwerken zugeschnitten und können so die Sicherheit und Zuverlässigkeit eines solchen Netzwerks gewährleisten. Vorallem ein #htl3r.short[scada] und ein #htl3r.short[mes] sind hierbei von großer Bedeutung. 
+Um ein #htl3r.short[ot]-Netzwerk zu administrieren, sind einige spezielle Tools notwendig. Diese Tools sind speziell auf die Anforderungen von #htl3r.short[ot]-Netzwerken zugeschnitten und können so die Sicherheit und Zuverlässigkeit eines solchen Netzwerks gewährleisten. Vorallem ein #htl3r.short[scada] und ein #htl3r.short[mes] sind hierbei von großer Bedeutung.
 
 == SCADA
 Ein #htl3r.full[scada] ist ein System zur Überwachung und Steuerung von mehreren Aktoren und Sensoren. Es ist ein wichtiger Bestandteil eines #htl3r.short[ot]-Netzwerks und stellt das Interface zwischen Mensch und Maschine dar. Ein #htl3r.short[scada] ist in der Lage, Daten von Sensoren zu lesen und Aktoren zu steuern. Es ist jedoch nicht in der Lage, eigenständig Aktionen durchzuführen, sondern reagiert nur auf User-Input.
@@ -220,7 +220,7 @@ export async function middleware(request: NextRequest) {
         headers: { Authorization: `Bearer ${token?.value}` },
     });
     await response.json();
-    
+
     if (response.ok && pathname === "/login") {
         return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
     } else if (!response.ok) {
@@ -248,14 +248,14 @@ export type Datapoint = {
     typeId: number;
     dataSourceName: string;
     // MES Settings, not from the SCADA
-    date?: Date; 
-    startTime?: string; 
-    endTime?: string; 
+    date?: Date;
+    startTime?: string;
+    endTime?: string;
     active: boolean;
 };
 ```
 ]
-Die #htl3r.short[mes] spezifischen Variablen dürfen dabei nicht überschrieben werden, sollten die vom #htl3r.short[scada] stammendenden Daten aktualisiert werden. 
+Die #htl3r.short[mes] spezifischen Variablen dürfen dabei nicht überschrieben werden, sollten die vom #htl3r.short[scada] stammendenden Daten aktualisiert werden.
 #htl3r.code(caption: "Codeabschnitt zum Aktualisieren der Datenpunkte", description: none)[
 ```ts
 const updatedData = data.map((datapoint: Datapoint) => {
@@ -273,7 +273,7 @@ const updatedData = data.map((datapoint: Datapoint) => {
 All die Datenpunkte werden schlussendlich in einer Tabelle dargestellt, in welche Benutzer Daten sowie Uhrzeiten auswählen können, um Jobs zu erstellen. \
 
 Die zweite Tabelle zeigt alle derzeitig geplanten Jobs an, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht, womit die Tabelle fast ausschließlich zum Einsehen gemacht ist. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
-Um auch die Namen der Datenpunkte anzeigen zu können, werden diese mit den Datenpunkten vom #htl3r.short[scada] abgeglichen, da im #htl3r.short[mes] nur die xid gespeichert wird. 
+Um auch die Namen der Datenpunkte anzeigen zu können, werden diese mit den Datenpunkten vom #htl3r.short[scada] abgeglichen, da im #htl3r.short[mes] nur die xid gespeichert wird.
 #htl3r.code(caption: "Codeabschnitt zum Abgleichen der Datenpunktnamen", description: none)[
 ```ts
 const updatedData = data.map((timerItem: { xid: string; }) => ({
@@ -300,7 +300,7 @@ Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit du
 Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via #htl3r.short[api]-calls, die vom Backend des #htl3r.short[mes] verwaltet werden, wie sie in @scadalts-api-docs beschrieben ist. Es ist stark zu empfehlen, diese #htl3r.short[api] vor der Verwendung mittels eines Tools wie Postman zu testen, um sich mit der Funktionsweise dieser vertraut zu machen. Dazu sind auf dem #htl3r.short[mes] mehrere Endpunkte definiert, welche die Kommunikation mit dem #htl3r.short[scada] ermöglichen.
 
 #htl3r.code-file(
-  caption: "API zum Setzen eines Datenpunktes", 
+  caption: "API zum Setzen eines Datenpunktes",
   filename: [set_datapoint.ts],
   lang: "ts",
   ranges: ((6, 31),),

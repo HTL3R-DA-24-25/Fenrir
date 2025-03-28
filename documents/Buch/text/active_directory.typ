@@ -1,4 +1,4 @@
-#import "@preview/htl3r-da:1.0.0" as htl3r
+#import "@preview/htl3r-da:2.0.0" as htl3r
 #import "@preview/treet:0.1.1": *
 
 
@@ -169,7 +169,7 @@ Es werden zuerst die Domain Local Groups und dann die Global Groups erstellt. An
 
 #htl3r.author("Bastian Uhlig")
 == GPOs
-#htl3r.fullpl[gpo] sind Richtlinien, die in einer #htl3r.long[ad]-Domäne definiert werden und die Konfiguration von Benutzern und Computern in einem Netzwerk steuern. Mit #htl3r.short[gpo] können Administratoren Einstellungen für Benutzer und Computer festlegen, wie z.B. Sicherheitseinstellungen, Softwareinstallationen, Netzwerkeinstellungen und vieles mehr. In der Firma "Fenrir" werden #htl3r.shortpl[gpo] verwendet, um die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne zu steuern. \ 
+#htl3r.fullpl[gpo] sind Richtlinien, die in einer #htl3r.long[ad]-Domäne definiert werden und die Konfiguration von Benutzern und Computern in einem Netzwerk steuern. Mit #htl3r.short[gpo] können Administratoren Einstellungen für Benutzer und Computer festlegen, wie z.B. Sicherheitseinstellungen, Softwareinstallationen, Netzwerkeinstellungen und vieles mehr. In der Firma "Fenrir" werden #htl3r.shortpl[gpo] verwendet, um die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne zu steuern. \
 Effektiv setzen #htl3r.shortpl[gpo] Registy-Einträge, weshalb man in den Skriptausschnitten auch die Pfade dieser zu sehen bekommt.
 
 === GPOs in der Firma "Fenrir"
@@ -199,7 +199,7 @@ Set-GPRegistryValue -Name $desktopWallpaperGpoName -Key "HKCU\Software\Microsoft
 #htl3r.code(caption: "OU für die Standard-Startseite des Browsers", description: none)[
 ```powershell
 $defaultBrowserHomepageGpoName = "Default Browser Homepage Policy"
-$homepageUrl = "https://www.fenrir-ot.at" 
+$homepageUrl = "https://www.fenrir-ot.at"
 New-GPO -Name $defaultBrowserHomepageGpoName | Out-Null
 Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Microsoft\Internet Explorer\Main" -ValueName "Start Page" -Type String -Value $homepageUrl
 Set-GPRegistryValue -Name $defaultBrowserHomepageGpoName -Key "HKCU\Software\Microsoft\Internet Explorer\Main" -ValueName "Default_Page_URL" -Type String -Value $homepageUrl
@@ -212,9 +212,9 @@ $hidingLastUserGpoName = "Hiding Last User Policy"
 New-GPO -Name $hidingLastUserGpoName | Out-Null
 Set-GPRegistryValue -Name $hidingLastUserGpoName -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" -ValueName "dontdisplaylastusername" -Type DWORD -Value 1
 $gpo = Get-GPO -Name $hidingLastUserGpoName
-$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group
 ```
-]	
+]
 - *Login Screen:* Diese #htl3r.shortpl[gpo] legt das Firmenlogo auf dem Anmeldebildschirm fest, also der Bildschirm, den man auf bei Passwort und Benutzernameneingabe sieht.
 #htl3r.code(caption: "OU für das Firmenlogo auf dem Anmeldebildschirm", description: none)[
 ```powershell
@@ -223,7 +223,7 @@ $loginScreenPath = "\\fileserver\wallpapers\loginscreen.jpg"
 New-GPO -Name $loginScreenGpoName | Out-Null
 Set-GPRegistryValue -Name $loginScreenGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" -ValueName "LockScreenImage" -Type String -Value "$loginScreenPath"
 $gpo = Get-GPO -Name $loginScreenGpoName
-$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group
 ```
 ]
 - *Drive Mount:* Diese #htl3r.shortpl[gpo] legt fest, dass bei der Anmeldung der Benutzer automatisch das Firmeninterne Netzlaufwerk gemountet bekommt.
@@ -250,7 +250,7 @@ Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsof
 Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -ValueName "EnableFirewall" -Type DWord -Value 1
 Set-GPRegistryValue -Name $firewallGpoName -Key "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" -ValueName "EnableFirewall" -Type DWord -Value 1
 $gpo = Get-GPO -Name $firewallGpoName
-$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group 
+$gpo | Set-GPPermission -PermissionLevel GpoApply -TargetName "Domain Computers" -TargetType Group
 ```
 ]
 
