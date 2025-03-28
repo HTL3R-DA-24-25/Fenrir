@@ -17,7 +17,7 @@ Normalerweise wird pro Betriebszelle mindestens ein #htl3r.short[scada]-System v
 === Scada-LTS
 Als ein Fork von der Open-Source Software Scada-BR ist Scada-LTS der Nachfolger der vorhergehenden Software. Scada-LTS läuft virtualisiert auf einem Docker und ist über eine von tomcat veröffentlichten Website zu erreichen. Datenhistorien werden separat in einer MySQL-Datenbank gespeichert, die typischerweise auch dockerisiert läuft.
 
-==== Aufsetzung von SCADA-LTS
+==== Aufsetzen von SCADA-LTS
 Das Aufsetzen von Scada-LTS ist relativ simpel gestaltet, da nur die Docker-Images zu laden und zu starten sind. Auf dem öffentlichen Repository #footnote[https://github.com/SCADA-LTS/Scada-LTS] von Scada-LTS ist eine Docker-Compose Datei zu finden, mit welcher das ganze System gestartet werden kann. Es ist jedoch sinnvoll, diese Datei anzupassen, um einen reibungslosen Start zu gewährleisten.
 
 Vor allem ist dabei zu beachten, dass der Scada-LTS Docker abstürzt, sollte keine Verbindung zur Datenbank hergestellt werden können. Deshalb sollte Scada-LTS in der Docker-Compose Datei eine Abhängigkeit von der Datenbank bekommen, damit es erst startet, wenn die Datenbank bereit ist.
@@ -48,13 +48,14 @@ Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint
     caption: [Anlegen einer Datasource in Scada-LTS]
   )
 )
+#htl3r.todo[Bild beschreiben]
 
-Sinnvoll zu konfigurieren ist auch ein grafisches Interface, da dies einen schnellen Überblick über ein System bringt. Vor allem, wenn dies mit interaktiven Bildern kombiniert wird, ist die Überwachung um einiges angenehmer. Hierbei sollte für jede Betriebszelle ein eigenes grafisches Interface erstellt werden, um eine optische Trennung zu ermöglichen.
+Es ist auch sinnvoll, ein grafisches Interface zu konfigurieren, da dies einen schnellen Überblick über ein System bringt. Vor allem, wenn dies mit interaktiven Bildern kombiniert wird, ist die Überwachung um einiges angenehmer. Hierbei sollte für jede Betriebszelle ein eigenes grafisches Interface erstellt werden, um eine optische Trennung zu ermöglichen.
 
 Eine weitere Art der Übersicht ist durch Watchlists gegeben. Diese können sich als einfache Listen vorgestellt werden, wobei die derzeitigen Werte von konfigurierten Datapoints angezeigt werden. Im generellen Einsatz ist dies nur begrenzt sinnvoll, da ein grafisches  Interface eine benutzerfreundlichere Übersicht gibt, jedoch können Watchlists verwendet werden, um genauere Informationen zu geben.
 
 ==== Automatische Konfiguration von SCADA-LTS
-Im Falle einer automatischen Aufsetzung von Scada-LTS ist es am sinnvollsten, das System erst manuell zu konfigurieren, um danach via der Export-Funktion die Konfiguration als .zip-Datei abzuspeichern. Mittels einiger Befehle kann diese .zip-Datei dann automatisch eingefügt werden.
+Im Falle einer automatischen Aufsetzen von Scada-LTS ist es am sinnvollsten, das System erst manuell zu konfigurieren, um danach via der Export-Funktion die Konfiguration als .zip-Datei abzuspeichern. Mittels einiger Befehle kann diese .zip-Datei dann automatisch eingefügt werden.
 #htl3r.code(caption: "Skript zum Import eines Projektes in Scada-LTS", description: none)[
 ```bash
 curl -d "username=admin&password=admin&submit=Login" -c cookies http://localhost/Scada-LTS/login.htm
@@ -84,6 +85,7 @@ Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab
     caption: [Das SCADA-Dashboard der ersten Betriebszelle]
   )
 )
+#htl3r.todo[Bild beschreiben (Abfluss ist nicht erkennbar)]
 
 
 ==== Betriebszelle Zwei
@@ -162,13 +164,15 @@ Der Funktionsbaustein bietet drei Eingabe- und vier Ausgabe-Variablen, wobei auf
 #htl3r.author("Bastian Uhlig")
 #pagebreak(weak: true)
 == MES
-Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas grober als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen die Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte, und dadurch können Optimierungen leichter durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden -- dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
+Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas "grober" als mit einem #htl3r.short[scada] angesteuert werden. So können in einem #htl3r.short[mes] beispielsweise Zeitintervalle angegeben werden, in welchen die Maschinerie ein- oder ausgeschalten sein soll. Auch wird in einem #htl3r.short[mes] die gesamte Kette einer Produktionsanlage überwacht, nicht nur einzelne Abschnitte, und dadurch können Optimierungen leichter durchgeführt werden. Man kann jedoch unterschiedliche Aktoren nicht individuell verwenden werden -- dazu wird ein #htl3r.short[scada] verwendet. @symestic-mes[comp]
 
 === Entwicklung des MES
-Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich wären, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar und visuell ansprechbarer zu machen.
+Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich waren, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar und visuell ansprechbarer zu machen.
+#htl3r.todo[Funktionsgrafik (? SDO)]
 
 ==== Authentifizierung
-Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, um die Sicherheit zu gewährleisten. \
+Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, damit ein eingeloggter Benutzer nach dieser Zeit das Passwort neu eingeben muss, um die Sicherheit zu gewährleisten. Dies bewirkt auch, dass ein gehijackter Token nicht unendlich lange ausgenutzt werden kann. \
+#htl3r.todo[letze Sätze nochmal anschauen]
 #htl3r.code(caption: "Funktion zum Anmelden am MES", description: none)[
 ```ts
 export default async function handler(
@@ -287,7 +291,8 @@ Soll nun ein Datenpunkt gelöscht werden, so wird mittels eines #htl3r.short[api
 
 ==== Funktionsweise im Backend
 Userinputs auf der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, sind also für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
-Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit durchzuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die folgenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
+Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode zu sehenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
+#htl3r.todo[Auf Quellcode linken? Möglich?]
 
 #htl3r.code-file(
   caption: "Funktionen, zur Erstellung und Löschung von Jobs",
@@ -309,7 +314,7 @@ Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via
 
 
 ==== Cron Jobs <cron-jobs>
-Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden bei Hinzufügung von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus zwei Teilen. Der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das ein- oder ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
+Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden bei Hinzufügung von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus zwei Teilen: Der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das Ein- oder Ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
 
 #htl3r.code-file(
   caption: "In einen Cron-Job ausgeführter Job",
@@ -321,6 +326,7 @@ Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit
 
 === Funktionsweise für Enduser
 Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit im #htl3r.short[scada] überschrieben werden können. Das #htl3r.short[mes] ruft automatisch alle vorhandenen Datenpunkte vom #htl3r.short[scada] ab und stellt alle binären -- also alle, welche nur ein- und ausschalten sind -- auf dem Dashboard dar. Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
+#htl3r.todo[Gedruckt lesbar machen]
 #htl3r.fspace(
   figure(
     image("../assets/MES-Dashboard.png", width: 100%),
@@ -330,6 +336,7 @@ Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann
 
 Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für 4 Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. Weiters erhält der Client auch den Token zur Anmeldung am #htl3r.short[scada], damit dieser nicht im Backend verwaltet werden muss. \
 
+#htl3r.todo[Loginfeld ausschneiden]
 #htl3r.fspace(
   figure(
     image("../assets/MES-Login.png", width: 100%),
@@ -338,4 +345,5 @@ Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die A
 )
 
 === Aufsetzen
-Da das #htl3r.short[mes] mittels Next.js geschrieben ist, kann das fertige System in einen Docker-Container gepackt werden. Dieser Container ist dann nur auf den Server zu spielen und mit Beigabe der .env Datei zu starten. Diese .env Datei enthält die Konfiguration des #htl3r.short[mes], wie beispielsweise die Anmeldedaten für die #htl3r.short[api] des #htl3r.short[scada] oder die Adresse des #htl3r.short[scada]-Servers.
+Da das #htl3r.short[mes] mittels Next.js geschrieben ist, kann das fertige System in einen Docker-Image gepackt werden. Dieses Image ist dann auf den Server zu kopieren und mit Einbindung der .env Datei zu starten. Diese .env Datei enthält die Konfiguration des #htl3r.short[mes], wie beispielsweise die Anmeldedaten für die #htl3r.short[api] des #htl3r.short[scada] oder die Adresse des #htl3r.short[scada]-Servers.
+
