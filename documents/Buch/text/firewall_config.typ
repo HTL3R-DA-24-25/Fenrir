@@ -115,7 +115,7 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
   )
 )
 
-Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN-Zugriffe auf die Jumpbox erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
+Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN-Zugriffe auf die Jump-Server erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
 
 === Grundkonfiguration
 
@@ -190,16 +190,16 @@ end
 ```
 ]
 
-=== Jumpbox Policy
+=== Jump-Server Policy
 
-Wie bereits beschrieben, darf die Jumpbox nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic, welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN-Verbindungen gibt es zwei Adress-Objekte `Jumpbox` und `IT_Workstations`.
+Wie bereits beschrieben, darf die Jump-Server nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic, welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN-Verbindungen gibt es zwei Adress-Objekte `Jump-Server` und `IT_Workstations`.
 
 #htl3r.code(caption: [Übergangs-Firewall Jumbox Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
 config firewall address
-  edit "Jumpbox"
+  edit "Jump-Server"
     set subnet 192.168.33.50 255.255.255.0
-    set comment "OpenVPN Jumpbox"
+    set comment "OpenVPN Jump-Server"
   next
   edit "IT_Workstations"
     set type iprange
@@ -225,11 +225,11 @@ end
 
 config firewall policy
   edit 1
-    set name "IT-Workstations to Jumpbox"
+    set name "IT-Workstations to Jump-Server"
     set srcintf "wan1"
     set dstintf "vmnet-otdmz"
     set srcaddr "IT_Workstations"
-    set dstaddr "Jumpbox"
+    set dstaddr "Jump-Server"
     set action accept
     set schedule "always"
     set service "OPENVPN"
@@ -252,7 +252,7 @@ Man beachte, dass für OpenVPN ein eigener Service auf der FortiGate angelegt wu
 
 === OT-Workstation Policy
 
-Die Konfiguration für den #htl3r.short[rdp]-Zugriff auf die #htl3r.short[ot]-Workstations von der Jumpbox aus gleicht der zuvor angeführten Konfiguration. Es wird jedoch ein neues Adress-Objekt für die #htl3r.short[ot]-Workstations angelegt.
+Die Konfiguration für den #htl3r.short[rdp]-Zugriff auf die #htl3r.short[ot]-Workstations von der Jump-Server aus gleicht der zuvor angeführten Konfiguration. Es wird jedoch ein neues Adress-Objekt für die #htl3r.short[ot]-Workstations angelegt.
 
 #htl3r.code(caption: [Übergangs-Firewall RDP Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
 ```fortios
@@ -273,10 +273,10 @@ Dieses `OT_Workstation` Adress-Objekt wird dann in der Policy verwendet.
 ```fortios
 config firewall policy
   edit 2
-    set name "Jumpbox to OT-Workstations"
+    set name "Jump-Server to OT-Workstations"
     set srcintf "vmnet-otdmz"
     set dstintf "vmnet-otnet"
-    set srcaddr "Jumpbox"
+    set srcaddr "Jump-Server"
     set dstaddr "OT_Workstations"
     set action accept
     set schedule "always"
