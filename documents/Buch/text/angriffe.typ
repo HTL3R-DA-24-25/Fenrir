@@ -24,8 +24,6 @@ Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussys
 
 Im Falle eines Angriffs auf ein Bussystem und somit auf das gesamte #htl3r.short[ot]-Netzwerk liegen dem Angreifer viele Möglichkeiten vor, große Schäden anzurichten. Ob nun lediglich alle Informationen mitgehört werden, Werte gefälscht beziehungsweise gespoofed werden wie in @coil-spoofing oder doch eine #htl3r.short[dos]-Attacke auf eine #htl3r.short[sps] innerhalb des Bussystems stattfindet, um den gesamten Betrieb lahmzulegen, ist offen. Eines ist jedoch klar: Durch eine ausreichende Absicherung des Übergangs zwischen #htl3r.short[it] und #htl3r.short[ot], das heißt der Firewall auf Ebene 2.5 des Purdue-Modells (siehe @purdue), sind Angriffe auf das #htl3r.short[ot]-Netzwerk leicht vermeidbar. Beispielsweise sollte bei der Ausbreitung eines Netzwerkwurms innerhalb des #htl3r.short[it]-Netzwerks dieser keinesfalls auch in das #htl3r.short[ot]-Netzwerk gelangen können.
 
-#htl3r.todo("BILD FIREWALL")
-
 === Stuxnet <stuxnet>
 Der 2010 entdeckte Stuxnet-Computerwurm ist ein Schadprogramm, dass speziell entwickelt wurde zum Angriff auf ein #htl3r.short[scada]-System, das #htl3r.shortpl[sps] des Herstellers Siemens vom Typ Simatic S7 verwendet @stuxnet-1[comp]. Da bis Ende September 2010 der Iran den größten Anteil der infizierten Computer besaß und es zu außergewöhnlichen Störungen im iranischen Atomprogramm kam, lag es nah, dass Stuxnet hauptsächlich entstand, um als Schadsoftware die Leittechnik (Zentrifugen) der Urananreicherungsanlage in Natanz oder des Kernkraftwerks Buschehr zu stören @ndu-stuxnet.
 
@@ -82,18 +80,21 @@ Zur Verhinderung von Lateral Movement können unter anderem Netzwerksegmentierun
 
 Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenrir"-Topologie wird in @netzwerkueberwachung, @firewall-config und @weitere-absicherung genauer beschrieben.
 
+#htl3r.author("Gabriel Vogler")
 == Angriffe auf das IT-Netzwerk
 
-#htl3r.author("David Koch")
-=== Exchange
+=== Phishing-Mail auf dem Exchange-Server
 
 Nur selten passieren Angriffe, die als Endergebnisse beispielsweise die Störung des Exchange-Mail-Servers haben. Meistens wird die Präsenz eines Mail-Servers lediglich genutzt, um als "Sprungbrett" ins interne Netzwerk zu dienen durch Phishing-Angriffe.
 
-#htl3r.todo("Phishing Angriff hier umsetzen")
+#htl3r.todo("Phishing Angriff hier umsetzen (bzw auf angriffsszenario verweisen)")
 
+#htl3r.author("David Koch")
 === Ransomware auf Endgeräten
 
-Wenn bei einem Cyberangriff auf #htl3r.short[ot]-Infrastruktur der Profit und sonst kein strategisches Ziel im Vordergrund steht, ist ein Ransomware-Angriff der wahrscheinlichste. TODO
+Wenn bei einem Cyberangriff auf #htl3r.short[ot]-Infrastruktur der Profit und sonst kein strategisches Ziel im Vordergrund steht, ist ein Ransomware-Angriff am wahrscheinlichsten @tsystems-ot-ransomware[comp].
+
+Am 12. Mai 2017 hat der WannaCry-Ransomware-Wurm mehr als 200.000 Computer in über 150 Ländern infiziert. Durch dieses Ereignis ist WannaCry die bekannteste Ausführung eines Ransomware-Angriffs geworden. @cloudflare-wannacry[comp]
 
 #htl3r.fspace(
   figure(
@@ -102,11 +103,7 @@ Wenn bei einem Cyberangriff auf #htl3r.short[ot]-Infrastruktur der Profit und so
   ),
 )
 
-TODO
-
-=== Keylogging-Trojaner auf Endgeräten
-
-TODO
+Heutzutage sind die meisten Endgeräte -- soweit sie regelmäßig Updates erhalten -- gegen Wannacry geschützt @msrc-wannacrypt[comp]. Trotzdem ist es wichtig, gehen ähnliche Ransomware-Angriff gewappnet zu sein, sei dies durch die Vorbeugung durch moderne Firewalls, die die Signaturen dieser Payloads erkennen und blockieren, oder Endpoint-Security auf den Endgeräten.
 
 #htl3r.author("Gabriel Vogler")
 === Golden-Ticket Angriff
@@ -207,7 +204,7 @@ Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt
   total-width: 95%,
   figure(
     image("../assets/s7_1200_nmap.png"),
-    caption: [Port-Scan der S7-1200 #htl3r.short[sps]]
+    caption: [Port-Scan der S7-1200 SPS]
   )
 )
 
@@ -261,8 +258,8 @@ Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-
 
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
-1. Eine Phishing Mail wird von außen (aus dem Internet) an die Buchhaltung geschickt.
-2. Mittels gestohlener Identität eines Buchhaltungsmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt, zum Beispiel bezüglich einer Inventurliste.
+1. Eine Phishing Mail wird von außen (aus dem Internet) an das Management geschickt.
+2. Mittels gestohlener Identität eines Managementmitarbeiters wird eine interne Spear-Phishing-Mail an einen #htl3r.short[ot]-Engineer geschickt.
 3. Angreifer nutzt die #htl3r.short[rdp]-Berechtigungen des #htl3r.short[ot]-Engineers um tiefer in die Anlage einzudringen.
 4. #htl3r.long[lotl]: Angreifer sammelt über das #htl3r.short[scada]-System Infos, wie die Anlage intern ausschaut.
 5. Angreifer entdeckt die Default Credentials auf der OpenPLC-#htl3r.short[sps].
@@ -273,17 +270,57 @@ Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein 
 
 Der Angriff beginnt -- wie viele andere Angriffe in der Realität auch -- mit einer Phishing-Mail. Zuerst wird eine E-Mail an eine Person geschickt, die regelmäßig mit externen Personen kontakt hat und es somit nicht unbedingt auffällt, wenn mit einer gefälschten Identität eine Phishing-Mail empfagen wird.
 
-#htl3r.todo("mit gabi seinem exchange setup hier emails verschicken")
+#htl3r.fspace(
+  [
+    #figure(
+      image("../assets/phishing_mail.png", width: 75%),
+      caption: [Phishing-Mail von einem gefälschtem Siemens Kundensupport]
+    )
+    <phishing-mail>
+  ]
+)
+
+In der in @phishing-mail gezeigten E-Mail ist nicht nur eine legitime vom offiziellen Siemens Kundensupport veröffentlichte Umfrage enthalten, sondern auch ein Link zu einem maliziösen PDF, welches sich als Produktkatalog für das zweite Quartal des Verkaufsjahres 2025 tarnt. Man beachte, dass der Link zu der Umfrage unter der authentischen `www.siemens.com` Domäne zu finden ist, während das PDF unter `www.siemems.com` liegt.
+
+Der Manager David Koch hat zwar kein Interesse an der Umfrage, der Produktkatalog sticht ihm jedoch sofort ins Auge. Er besucht -- ohne die falsche Domäne zu beachten -- die Website und lädt sich den Produktkatalog herunter. Beim Öffnen der PDF-Datei öffnet sich für einen kurzen Augenblick eine Windows-Kommandozeile, der Manager denkt sich jedoch nichts dabei. Tatsache ist: Auf seinem Gerät ist nun ein Trojaner, welcher dem Angreifer ein Backdoor-Access auf sein System und die derzeit aktiven Konten gibt. Diese Art von Phishing-Angriff mittels Trojaner-PDF ist sehr üblich und Microsoft hat bereits mehr als 500 verschiedene Signaturen zu dieser Art von Angriff gesammelt @ms-security-pdf-phish[comp].
 
 === Spear-Phishing
 
-Nachdem das E-Mail-Konto des Buchhaltungsmitarbeiters übernommen worden ist, wird dessen gestohlene Identität dazu ausgenutzt, eine weitere Phishing-Mail zu verschicken. Diesmal ist in dieser jedoch ein maliziöser Dateianhang enthalten, um nicht nur das Konto zu übernehmen, sondern das Gerät, auf dem die E-Mail geöffnet wird, mit einem Virus zu infizieren.
+Nachdem das Gerät und somit auch das E-Mail-Konto des Managers übernommen worden ist, wird dessen gestohlene Identität dazu ausgenutzt, eine weitere Phishing-Mail zu verschicken. Durch die sogenannte "Open Source Intelligence" hat der Angreifer im Vorhinein die im "Fenrir"-Betrieb aktiven #htl3r.short[ot]-Administratoren ausgekundschaftet. Nun schickt er eine Spear-Phishing-Mail -- eine gezielte Phishing-Mail -- an einen #htl3r.short[ot]-Administrator.
 
-TODO
+#htl3r.fspace(
+  total-width: 90%,
+  [
+    #figure(
+      image("../assets/spear_phishing_mail.png"),
+      caption: [Spear-Phishing-Mail vom Benutzerkonte des Managers]
+    )
+    <spear-phishing-mail>
+  ]
+)
+
+Der #htl3r.short[ot]-Administrator liest diese E-Mail, hinterfragt die Aufforderung des Managers nicht und schickt ihm die Zugangsdaten zu den #htl3r.short[ot]-Workstations. Eine physische Absprache mit dem Manager, ob dieser auch tatsächlich hinter dieser Aufforderung steckt, hätte den Angreifer auffliegen lassen. Da die E-Mail jedoch von der echten Fenrir-Domäne und dem dkoch Benutzer aus geschickt worden ist und diese einen dringlichen Ton aufweißt, hat der #htl3r.short[ot]-Administrator nicht gezögert.
+
+#htl3r.fspace(
+  [
+    #figure(
+      image("../assets/spear_phishing_sender.png", width: 80%),
+      caption: [Die Details zum Absender der Spear-Phishing-Mail]
+    )
+    <spear-phishing-mail>
+  ]
+)
 
 === RDP Lateral Movement
 
-TODO
+Der Angreifer nutzt nun die vom #htl3r.short[ot]-Administrator erhaltenen Zugangsdaten (`ot-worker` / `OT_Ist_Toll&Sicher_123!`), um sich per #htl3r.short[rdp] auf eine der #htl3r.short[ot]-Workstations zu verbinden. Er breitet sich im Netzwerk aus, bisher quasi unbemerkt.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/ot_rdp.png", width: 75%),
+    caption: [Aufbau der RDP-Verbindung zur OT-Workstation]
+  )
+)
 
 === Living of the Land
 

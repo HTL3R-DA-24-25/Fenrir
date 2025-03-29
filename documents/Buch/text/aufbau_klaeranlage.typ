@@ -644,7 +644,7 @@ Um dieses Problem zu lösen wird über die #htl3r.short[i2c]-Kommunikation zwisc
 Die Länge des "Fenrir"-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi[comp]
 // ggf auch folgendes zitieren: https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus
 
-Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von `0x02`, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von `0x04`.
+Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von `0x02`, eine Angabe der Frame-Länge in Bytes, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von `0x04`.
 
 Die #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem Raspberry Pi mittels Python folgend berechnet:
 
