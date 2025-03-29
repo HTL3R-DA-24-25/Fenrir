@@ -458,3 +458,40 @@ nis-2-wko:
     value: https://www.wko.at/it-sicherheit/nis2-uebersicht
     date: 2025-03-16
   date: 2025-03-11
+
+ms-security-pdf-phish:
+  type: misc
+  title: Trojan:PDF/Phish
+  author: Microsoft Security Intelligence
+  url:
+    value: https://www.microsoft.com/en-us/wdsi/threats/threat-search?query=trojan:pdf/phish
+    date: 2025-03-28
+  date: 2025
+
+tsystems-ot-ransomware:
+  type: blog
+  title: Warum OT-Security jeden betrifft
+  author: Dheeraj Rawal
+  url:
+    value: https://www.t-systems.com/at/de/insights/newsroom/blog/ot-sicherheit-fuer-kritische-infrastrukturen-1009144
+    date: 2025-03-28
+  date: 2024-07-26
+
+cloudflare-wannacry:
+  type: article
+  title: What was the WannaCry ransomware attack?
+  author: Cloudflare
+  url:
+    value: https://www.cloudflare.com/learning/security/ransomware/wannacry-ransomware/
+    date: 2025-03-28
+  date: 2017
+
+msrc-wannacrypt:
+  type: misc
+  title: Customer Guidance for WannaCrypt attacks
+  author: Microsoft Security Response Center
+  url:
+    value: https://msrc.microsoft.com/blog/2017/05/customer-guidance-for-wannacrypt-attacks/
+    date: 2025-03-28
+  date: 2017-05-13
+  
