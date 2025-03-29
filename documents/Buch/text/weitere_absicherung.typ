@@ -79,7 +79,7 @@ Get-AdmPwdPassword -ComputerName "Exchange"
 ]
 #htl3r.fspace(
   figure(
-    image("../../assets/LAPS_Get_Password.png"),
+    image("../assets/LAPS_Get_Password.png"),
     caption: [Abrufen des LAPS-Passworts für den Exchange Server],
   )
 )
