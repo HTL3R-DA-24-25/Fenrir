@@ -77,7 +77,14 @@ Nach dem LAPS installiert und konfiguriert wurde, können die neuen Passwörter 
 Get-AdmPwdPassword -ComputerName "Exchange"
 ```
 ]
-#htl3r.todo["LAPS Bild einfügen"]
+#htl3r.fspace(
+  figure(
+    image("../../assets/LAPS_Get_Password.png"),
+    caption: [Abrufen des LAPS-Passworts für den Exchange Server],
+  )
+)
+
+Mit diesem Passwort kann man sich nun auf dem Exchange Server als "Administrator" anmelden.
 
 
 === Windows Security Baseline
