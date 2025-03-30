@@ -211,12 +211,30 @@ Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgese
 #htl3r.author("Julian Burger")
 == Jump-Server für IT/OT Kommunikation
 
-Um einen abgesicherten und nur eingeschränkten Zugriff auf die #htl3r.short[ot]-Infrastruktur zu ermöglichen muss jegliche Kommunikation über eine sogenannte Jump-Server verlaufen. Die Firewall-Policies dafür wurden bereits in @separation_firewall beschrieben. In diesem Kapitel wird primär auf die OpenVPN und #htl3r.full[rdp] Verbindungen eingegangen.
+Um einen abgesicherten und nur eingeschränkten Zugriff auf die #htl3r.short[ot]-Infrastruktur zu ermöglichen muss jegliche Kommunikation über ein sogenannter Jump-Server verlaufen. Die Firewall-Policies dafür wurden bereits in @separation_firewall beschrieben. In diesem Kapitel wird primär auf die OpenVPN und #htl3r.full[rdp] Verbindungen eingegangen.
 
-=== OpenVPN auf der Jump-Server
+=== OpenVPN auf dem Jump-Server
 
-Wie schon erwähnt wurde die Jump-Server, welche als Übergang von der #htl3r.short[it] in die #htl3r.short[ot] dient, mit einem OpenVPN-Server realisiert. Es wurde OpenVPN über Wireguard, IPSec oder ähnlichem bevorzugt, da OpenVPN mehrere Client-Verbindungen mit der selben Konfiguration ermöglicht. So kann der Zugriff auf die Client-Konfiguration mittels #htl3r.short[ad]-Richtlinien abgesichert werden und es muss nicht für eine eigene Konfiguration pro Benutzer gesorgt werden. Die Vertraulichkeit ist somit ebenfalls leichter gewährt, da die Zertifikate ebenfalls über #htl3r.long[ad] verwaltet werden können. Für genaure Informationen über die Konfiguration des #htl3r.short[ad]s, siehe @active_directory.
+Wie schon erwähnt wurde der Jump-Server, welche als Übergang von der #htl3r.short[it] in die #htl3r.short[ot] dient, mit einem OpenVPN-Server realisiert. Es wurde OpenVPN über Wireguard, IPSec oder ähnlichem bevorzugt, da OpenVPN mehrere Client-Verbindungen mit der selben Konfiguration ermöglicht. So kann der Zugriff auf die Client-Konfiguration mittels #htl3r.short[ad]-Richtlinien abgesichert werden und es muss nicht für eine eigene Konfiguration pro Benutzer gesorgt werden. Die Vertraulichkeit ist somit ebenfalls leichter gewährt, da die Zertifikate ebenfalls über #htl3r.long[ad] verwaltet werden können. Für genaure Informationen über die Konfiguration des #htl3r.short[ad]s, siehe @active_directory.
 
-OpenVPN arbeitet anhand von Zertifikaten, diese wurden mit einem tools namens "easy-rsa", welches ebenfalls von der OpenVPN-Organisation entwickelt wird, erstellt. easy-rsa erlaubt es dem Benutzer mithilfe von simplen Befehlen eine art #htl3r.short[pki] zu erstellen um anhand einer Root-#htl3r.short[ca] Zertifikate für den Server, als auch für den Client auszustellen. Diese Root-#htl3r.short[ca] kann im anschluss innerhalb des #htl3r.short[ad]s eingebunden werden, um diese automatisch auf die #htl3r.short[it]-Clients auszurollen.
+OpenVPN arbeitet anhand von Zertifikaten, diese wurden mit einem tools namens "easy-rsa", welches ebenfalls von der OpenVPN-Organisation entwickelt wird, erstellt. easy-rsa erlaubt es dem Benutzer mithilfe von simplen Befehlen eine art #htl3r.short[pki] zu erstellen um anhand einer Root-#htl3r.short[ca] Zertifikate für den Server, als auch für den Client auszustellen. Diese Root-#htl3r.short[ca] kann im anschluss innerhalb des #htl3r.short[ad]s eingebunden werden, um diese automatisch auf die #htl3r.short[it]-Clients auszurollen. Im Rahmen dieser Diplomarbeit werden die Zertifikate allerdings nur über einen File-Share zur Verfügung gestellt.
 
-#htl3r.todo[Weiter machen]
+Die Konfiguration von dem OpenVPN-Server selbst wird mittels automatischer Provisionierung, wie in @provisionierung beschrieben, eingespielt. Die Konfiguration beinhaltet die #htl3r.short[pki], Zertifikate und die Serverkonfigurationsdatei, welche die Tunnel-Konfiguration beinhaltet.
+
+#htl3r.code-file(caption: [OpenVPN-Server Konfiguration], filename: [/etc/openvpn/server.conf], text: read("../assets/openvpn/server.conf"))
+
+Diese OpenVPN-Server Konfiguration ist bis auf folgende zwei Ausnahmen sehr simplistisch gehalten:
+- `duplicate-cn`: Gibt an, dass sich mehrere Clients mit dem gleichen Zertifikat, zur selben Zeit, verbinden können.
+- `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den VPN-Tunnel erreichbar ist.
+
+OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, wird zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle, wird die #htl3r.short[nat]-Konfiguration mit Linux IP-Tables realisiert.
+
+#htl3r.code(caption: [OpenVPN-Server Tunnel NAT])[
+```bash
+iptables -t nat -A POSTROUTING -o ens224 -j MASQUERADE
+iptables -A FORWARD -i tun0 -o ens224 -j ACCEPT
+iptables -A FORWARD -i ens224 -o tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+```
+]
+
+=== OpenVPN auf den IT-Workstations

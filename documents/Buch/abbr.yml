@@ -660,3 +660,10 @@ csv:
   long:
     singular: Comma-Separated Values
   description: Ein einfaches, textbasiertes Datenformat, bei dem Werte durch Trennzeichen getrennt sind, um strukturierte Daten tabellarisch darzustellen.
+
+nat:
+  short:
+    singular: NAT
+  long:
+    singular: Network Address Translation
+  description: Eine methodik einen IP-Adressbereich auf einen anderen zu übersetzen.
