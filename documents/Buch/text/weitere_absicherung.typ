@@ -44,7 +44,7 @@ Local Administrator Password Solution, kurz LAPS, ist ein Tool von Microsoft, we
 
 LAPS wurde in der Topologie auf den Servern im #htl3r.short[it]-Netzwerk installiert und konfiguriert. Auf den Clients wurde LAPS nicht aktiviert. Dies resultiert daraus, dass auf den Windows Server 2022 Systemen LAPS nachinstalliert wird, was mittlerweile die Legacy Version ist. Die Clients sind Windows 11 Systeme, welche allerdings LAPS mitgeliefert bekommen, genauso wie Windows Server 2025. Dabei handelt es sich jedoch um die aktuelle Version von LAPS. Die beiden Versionen sind nicht kompatibel zueinander, weshalb LAPS auf den Clients nicht installiert wurde.
 
-Installiert wurde LAPS auf den Domain Controllern mittels des PowerShell-Skripts:
+Installiert wurde LAPS auf den #htl3r.longpl[dc]n mittels des PowerShell-Skripts:
 #htl3r.code-file(
   caption: "Installation von LAPS mittels PowerShell",
   filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
@@ -64,7 +64,7 @@ Damit die Server wissen, dass sie über LAPS gesteuert werden, musste eine Grupp
   text: read("../assets/scripts/AD_Hardening.ps1")
 )
 
-Auf den Servern wurde LAPS auch installiert, jedoch ist es nicht notwendig, die Managementtools wie beim Domain Controller zu installieren. Dies pasiert mit folgendem PowerShell-Befehl:
+Auf den Servern wurde LAPS auch installiert, jedoch ist es nicht notwendig, die Managementtools wie beim #htl3r.long[dc] zu installieren. Dies pasiert mit folgendem PowerShell-Befehl:
 #htl3r.code(caption: "Installation von LAPS auf den Servern", description: none)[
 ```powershell
 D:\LAPS\x64\LAPS.x64.msi /quiet
@@ -93,13 +93,13 @@ Diese umfasst folgende #htl3r.shortpl[gpo]:
 - MSFT Internet Explorer 11 - Computer
 - MSFT Internet Explorer 11 - User
 - MSFT Windows Server 2022 - Defender Antivirus
-- MSFT Windows Server 2022 - Domain Controller
-- MSFT Windows Server 2022 - Domain Controller Virtualization Based Security
+- MSFT Windows Server 2022 - #htl3r.longpl[dc]
+- MSFT Windows Server 2022 - #htl3r.longpl[dc] Virtualization Based Security
 - MSFT Windows Server 2022 - Domain Security
 - MSFT Windows Server 2022 - Member Server
 - MSFT Windows Server 2022 - Member Server Credential Guard
 
-Die beiden #htl3r.shortpl[gpo] "MSFT Windows Server 2022 - Domain Controller Virtualization Based Security" und "MSFT Windows Server 2022 - Member Server Credential Guard" wurden in der Topologie nicht aktiviert, da die Voraussetzungen, wie in @protected-users beschrieben, nicht erfüllt sind.
+Die beiden #htl3r.shortpl[gpo] "MSFT Windows Server 2022 - #htl3r.longpl[dc] Virtualization Based Security" und "MSFT Windows Server 2022 - Member Server Credential Guard" wurden in der Topologie nicht aktiviert, da die Voraussetzungen, wie in @protected-users beschrieben, nicht erfüllt sind.
 
 Die "MSFT Internet Explorer 11 - Computer" wurde auf alle Computer angewendet, die "MSFT Internet Explorer 11 - User" auf alle Benutzer. Beide #htl3r.shortpl[gpo] legen Sicherheitseinstellungen für den Internet Explorer fest, wie zum Beispiel das Erzwingen einer bestimmten Version von #htl3r.short[tls].
 

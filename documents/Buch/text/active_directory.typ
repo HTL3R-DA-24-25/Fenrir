@@ -40,7 +40,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
   )
 )
 
-Um die oben dargestellte #htl3r.short[ou]-Struktur in der #htl3r.short[ad]-Umgebung umzusetzen, muss auf einem Domain Controller folgendes PowerShell-Skript ausgeführt werden:
+Um die oben dargestellte #htl3r.short[ou]-Struktur in der #htl3r.short[ad]-Umgebung umzusetzen, muss auf einem #htl3r.long[dc] folgendes PowerShell-Skript ausgeführt werden:
 
 #htl3r.code(caption: "OU-Erstellung in PowerShell", description: none)[
 ```powershell
@@ -303,7 +303,7 @@ Der Aufsetzungsprozess wird im Playbook durch die sogenannten "Tasks" gesteuert.
   text: read("../assets/scripts/DC1_part_1.ps1")
 )
 
-Nach der fertigen Ausführung vom "part_1"-Skript ist ein Neustart des Domain Controllers notwendig. Dieser wird auch durch die im Ansible Playbook eingetragenen Tasks durchgeführt.
+Nach der fertigen Ausführung vom "part_1"-Skript ist ein Neustart des #htl3r.long[dc]s notwendig. Dieser wird auch durch die im Ansible Playbook eingetragenen Tasks durchgeführt.
 
 Es folgen nach der Grundkonfiguration noch zwei weitere Parts, wobei im zweiten die Hochstufung und im dritten -- unter anderem -- die Konfiguration der #htl3r.short[ou]-Struktur, Benutzer, Gruppen und #htl3r.shortpl[gpo] stattfindet.
 
@@ -322,7 +322,7 @@ Dieser Server wird weltweit in einigen Firmen eingesetzt und bietet die Grundlag
 Damit der Exchange Server funktioniert, wird eine bestehenende #htl3r.short[ad] Struktur benötigt.
 
 === Aufsetzen des Exchange Servers
-Wie auch schon bei den Domain Controllern, wird der Exchange Server durch ein Ansible-Playbook aufgesetzt. Dieses Playbook besteht aus mehreren Parts, die jeweils für eine spezifische Aufgabe zuständig sind. Die Aufteilung ist notwendig, da der Exchange Server während der Installation mehrmals neu gestartet werden muss. Außerdem wird eine Exchange-Server ISO benötigt, die später verwendet wird un den Exchange Server zu installieren. Diese ist unter folgendem Link zu finden: \
+Wie auch schon bei den #htl3r.long[dc]n, wird der Exchange Server durch ein Ansible-Playbook aufgesetzt. Dieses Playbook besteht aus mehreren Parts, die jeweils für eine spezifische Aufgabe zuständig sind. Die Aufteilung ist notwendig, da der Exchange Server während der Installation mehrmals neu gestartet werden muss. Außerdem wird eine Exchange-Server ISO benötigt, die später verwendet wird un den Exchange Server zu installieren. Diese ist unter folgendem Link zu finden: \
 #link("https://www.microsoft.com/en-us/download/details.aspx?id=104131").
 #htl3r.code-file(
   caption: "Ansible-Playbook für die Aufsetzung von Exchange",

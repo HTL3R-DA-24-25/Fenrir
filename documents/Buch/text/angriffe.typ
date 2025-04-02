@@ -175,7 +175,7 @@ pushd \\dc01.corp.fenrir-ot.at\c$
   )
 )
 
-Jetzt hat der Angreifer vollen Zugriff auf das C Laufwerk des Domain Controllers und somit auf das Zentrum des #htl3r.short[ad]. Das Golden Ticket hat auch eine Gültigkeit von standardmäßig 10 Jahren. Um Angriffe wie diesen zu vermeiden wird in @ad_hardening das #htl3r.long[ad] gehärtet.
+Jetzt hat der Angreifer vollen Zugriff auf das C Laufwerk des #htl3r.long[dc]s und somit auf das Zentrum des #htl3r.short[ad]. Das Golden Ticket hat auch eine Gültigkeit von standardmäßig 10 Jahren. Um Angriffe wie diesen zu vermeiden wird in @ad_hardening das #htl3r.long[ad] gehärtet.
 
 #htl3r.author("David Koch")
 == Angriffe auf das OT-Netzwerk
@@ -209,10 +209,17 @@ Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt
 )
 
 Bereits durch einen Port-Scan der #htl3r.short[sps] kann der Angreifer Informationen über mögliche Schwachstellen ergattern. Es sind derzeit folgende Ports offen, die eine Gefahr darstellen können:
-- *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-SPS-Administrationssoftware STEP 7 per Fernwartung mit der SPS kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
-- *UDP-Port 161:* Hostet den #htl3r.short[snmp]-Dienst und dient der Übermittlung von Logdaten an externe Log-Server. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
+- *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-SPS-Administrationssoftware STEP 7 per Fernwartung mit der #htl3r.short[sps] kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
+- *UDP-Port 161:* Hostet den #htl3r.short[snmp]-Dienst. Dieser dient der Übermittlung von Logdaten an externe Log-Server und der Konfiguration des Gerät per Fernwartung. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
 
 ...
+
+#htl3r.fspace(
+  figure(
+    image("../assets/dcp/dcp_1.png"),
+    caption: [TODO]
+  )
+)
 
 METASPLOIT NIX GEHEN
 
@@ -251,7 +258,9 @@ Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-
 
 ... TODO
 
-=== SCADA
+=== Unbefugter Zugriff auf das SCADA
+
+TODO
 
 #htl3r.author("David Koch")
 == Konkretes Angriffsszenario
@@ -362,6 +371,6 @@ Nach dem erfolgreichen Hochladen des bösartigen Programms ändert der Angreifer
 
 === Größter anzunehmender Unfall tritt ein
 
-Das Netzwerk wurde aufgrund von fehlender Segmentierung infiltriert, das Lateral Movement des Angreifers wurde wegen fehlender Netzwerküberwachung nicht entdeckt. Eine für die Steuerung des Klärprozesses unabdingbare SPS wurde umprogrammiert und unzugänglich gemacht.
+Das Netzwerk wurde aufgrund von fehlender Segmentierung infiltriert, das Lateral Movement des Angreifers wurde wegen fehlender Netzwerküberwachung nicht entdeckt. Eine für die Steuerung des Klärprozesses unabdingbare #htl3r.short[sps] wurde umprogrammiert und unzugänglich gemacht.
 
 Damit durch die manipulierte Steuerung keine weiteren Flutungen zustande kommen, muss die gesamte Anlage gestoppt werden -- der größte anzunehmende Unfall (#htl3r.short[gau]) tritt ein. Damit die Kläranlage wieder klären kann, muss die #htl3r.short[sps] für die Feinfiltration zurückgesetzt werden und das gesamte Netzwerk gesäubert werden, ob durch Virenscans oder sicherheitshalber einem Ersetzen der Geräte.
