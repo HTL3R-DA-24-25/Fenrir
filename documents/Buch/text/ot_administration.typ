@@ -52,7 +52,18 @@ Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint
   ]
 )
 
-In @scada-datasource ist die Konfiguration einer Datasource zu sehen. Dabei ist der Transport-Type von TCP zu beachten, sowie die verwendete Host-IP. Scada-LTS stellt einen Modbus-Scan in der Konfiguration zur Verfügung, mit welchem nach verwendeten Coils gesucht werden kann. Wenn man nun den Offset der Register weiß, erstellt man im unteren Teil der Oberfläche neue Points, wobei man hier diese auch schon sehen kann.  
+In @scada-datasource ist die Konfiguration einer Datasource zu sehen. Dabei ist der Transport-Type von #htl3r.short[tcp] zu beachten, sowie die verwendete Host-IP. Scada-LTS stellt einen Modbus-Scan in der Konfiguration zur Verfügung, mit welchem nach verwendeten Coils gesucht werden kann. Wenn man nun den Offset der Register weiß, erstellt man im unteren Teil der Oberfläche neue Points, wobei man hier diese auch schon sehen kann.  
+
+Bei dem Hinzufügen eines neuen Datapoints unter einer Datasource ist darauf zu achten, dass der Datentyp mit dem auf der #htl3r.short[sps] konfigurierten Datentyp übereinstimmt, damit auch die richtige Anzahl an Bits gelesen wird. Weiters ist der Offset von großer Bedeutung, da dieser angibt, ab welchem Register der Datapoint gelesen werden soll. Meist findet man in der Dokumentation der #htl3r.short[sps] den benötigten Offset, falls nicht muss dieser gescannt werden. Auch die Register range ist wichtig, da diese verschiedene Typen von Registern repräsentiert. Nur Input- oder Holding-Register können Datentypen annehmen, die nicht binät sind. Coil status sowie Input status sind dagegen immer binär. Außerdem kann man nur Input-Register setzen, alle anderen sind read-only. \
+
+#htl3r.fspace(
+  [
+    #figure(
+    image("../assets/scada_datapoint.png", width: 100%),
+    caption: [Anlegen eines Datapoints in Scada-LTS]
+  )
+  ]
+)
 
 Es ist auch sinnvoll, ein grafisches Interface zu konfigurieren, da dies einen schnellen Überblick über ein System bringt. Vor allem, wenn dies mit interaktiven Bildern kombiniert wird, ist die Überwachung um einiges angenehmer. Hierbei sollte für jede Betriebszelle ein eigenes grafisches Interface erstellt werden, um eine optische Trennung zu ermöglichen.
 
@@ -333,7 +344,7 @@ Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann
 #htl3r.fspace(
   figure(
     image("../assets/MES-Dashboard-Datapoints.png", width: 100%),
-    caption: [Das Dashboard des MES]
+    caption: [Alle Datenpunkte des SCADA-Systems auf dem Dashboard des MES]
   )
 )
 
@@ -342,13 +353,12 @@ Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukun
 #htl3r.fspace(
   figure(
     image("../assets/MES-Dashboard-Jobs.png", width: 100%),
-    caption: [Das Dashboard des MES]
+    caption: [Alle upcoming Jobs auf dem Dashboard des MES]
   )
 )
 
-Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für 4 Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. Weiters erhält der Client auch den Token zur Anmeldung am #htl3r.short[scada], damit dieser nicht im Backend verwaltet werden muss. \
+Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für vier Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. Weiters erhält der Client auch den Token zur Anmeldung am #htl3r.short[scada], damit dieser nicht im Backend verwaltet werden muss. \
 
-#htl3r.todo[Loginfeld ausschneiden]
 #htl3r.fspace(
   figure(
     image("../assets/MES-Login.png", width: 100%),
