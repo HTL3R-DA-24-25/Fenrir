@@ -330,9 +330,9 @@ Der Angriff beginnt -- wie viele andere Angriffe in der Realität auch -- mit ei
   ]
 )
 
-In der in @phishing-mail gezeigten E-Mail ist nicht nur eine legitime vom offiziellen Siemens Kundensupport veröffentlichte Umfrage enthalten, sondern auch ein Link zu einem maliziösen PDF, welches sich als Produktkatalog für das zweite Quartal des Verkaufsjahres 2025 tarnt. Man beachte, dass der Link zu der Umfrage unter der authentischen `www.siemens.com` Domäne zu finden ist, während das PDF unter `www.siemems.com` liegt.
+In der in @phishing-mail gezeigten E-Mail ist nicht nur eine legitime vom offiziellen Siemens Kundensupport veröffentlichte Umfrage enthalten, sondern auch ein Link zu einem maliziösen PDF, welches sich als Produktkatalog für das zweite Quartal des Verkaufsjahres 2025 tarnt. Man beachte, dass der Link zu der Umfrage unter der authentischen `www.siemens.com` Domain zu finden ist, während das PDF unter `www.siemems.com` liegt.
 
-Der Manager David Koch hat zwar kein Interesse an der Umfrage, der Produktkatalog sticht ihm jedoch sofort ins Auge. Er besucht -- ohne die falsche Domäne zu beachten -- die Website und lädt sich den Produktkatalog herunter. Beim Öffnen der PDF-Datei öffnet sich für einen kurzen Augenblick eine Windows-Kommandozeile, der Manager denkt sich jedoch nichts dabei. Tatsache ist: Auf seinem Gerät ist nun ein Trojaner, welcher dem Angreifer ein Backdoor-Access auf sein System und die derzeit aktiven Konten gibt. Diese Art von Phishing-Angriff mittels Trojaner-PDF ist sehr üblich und Microsoft hat bereits mehr als 500 verschiedene Signaturen zu dieser Art von Angriff gesammelt @ms-security-pdf-phish[comp].
+Der Manager David Koch hat zwar kein Interesse an der Umfrage, der Produktkatalog sticht ihm jedoch sofort ins Auge. Er besucht -- ohne die falsche Domain zu beachten -- die Website und lädt sich den Produktkatalog herunter. Beim Öffnen der PDF-Datei öffnet sich für einen kurzen Augenblick eine Windows-Kommandozeile, der Manager denkt sich jedoch nichts dabei. Tatsache ist: Auf seinem Gerät ist nun ein Trojaner, welcher dem Angreifer ein Backdoor-Access auf sein System und die derzeit aktiven Konten gibt. Diese Art von Phishing-Angriff mittels Trojaner-PDF ist sehr üblich und Microsoft hat bereits mehr als 500 verschiedene Signaturen zu dieser Art von Angriff gesammelt @ms-security-pdf-phish[comp].
 
 === Spear-Phishing
 
@@ -349,7 +349,7 @@ Nachdem das Gerät und somit auch das E-Mail-Konto des Managers übernommen word
   ]
 )
 
-Der #htl3r.short[ot]-Administrator liest diese E-Mail, hinterfragt die Aufforderung des Managers nicht und schickt ihm die Zugangsdaten zu den #htl3r.short[ot]-Workstations. Eine physische Absprache mit dem Manager, ob dieser auch tatsächlich hinter dieser Aufforderung steckt, hätte den Angreifer auffliegen lassen. Da die E-Mail jedoch von der echten Fenrir-Domäne und dem dkoch Benutzer aus geschickt worden ist und diese einen dringlichen Ton aufweißt, hat der #htl3r.short[ot]-Administrator nicht gezögert.
+Der #htl3r.short[ot]-Administrator liest diese E-Mail, hinterfragt die Aufforderung des Managers nicht und schickt ihm die Zugangsdaten zu den #htl3r.short[ot]-Workstations. Eine physische Absprache mit dem Manager, ob dieser auch tatsächlich hinter dieser Aufforderung steckt, hätte den Angreifer auffliegen lassen. Da die E-Mail jedoch von der echten Fenrir-Domain und dem dkoch Benutzer aus geschickt worden ist und diese einen dringlichen Ton aufweißt, hat der #htl3r.short[ot]-Administrator nicht gezögert.
 
 #htl3r.fspace(
   [
@@ -383,7 +383,7 @@ nmap 10.34.0.50
 ```
 ]
 
-Nach dem Ausführen von den Befehlen in Quellcode 7.8 weiß der Angreifer, dass auf der IP-Adresse `10.34.0.50` der #htl3r.short[tcp]-Port 80 offen ist, was auf ein Web-Interface hindeutet.
+Nach dem Ausführen von den Befehlen in Quellcode 7.8 weiß der Angreifer, dass auf der #htl3r.short[ip]-Adresse `10.34.0.50` der #htl3r.short[tcp]-Port 80 offen ist, was auf ein Web-Interface hindeutet.
 
 #htl3r.fspace(
   total-width: 100%,
@@ -393,7 +393,7 @@ Nach dem Ausführen von den Befehlen in Quellcode 7.8 weiß der Angreifer, dass 
   )
 )
 
-Über das #htl3r.short[scada]-Dashboard kann der Angreifer nun die gesamte OT-Gerätschaft auskundschaften und mit dem besseren Überblick diese gezielt angreifen.
+Über das #htl3r.short[scada]-Dashboard kann der Angreifer nun die gesamte #htl3r.short[ot]-Gerätschaft auskundschaften und mit dem besseren Überblick diese gezielt angreifen.
 
 === Default Credentials auf der SPS
 

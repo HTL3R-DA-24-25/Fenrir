@@ -103,7 +103,7 @@ Die beiden #htl3r.shortpl[gpo] "MSFT Windows Server 2022 - Domain Controller Vir
 
 Die "MSFT Internet Explorer 11 - Computer" wurde auf alle Computer angewendet, die "MSFT Internet Explorer 11 - User" auf alle Benutzer. Beide #htl3r.shortpl[gpo] legen Sicherheitseinstellungen für den Internet Explorer fest, wie zum Beispiel das Erzwingen einer bestimmten Version von #htl3r.short[tls].
 
-#htl3r.shortpl[gpo], die "Domain" im Namen haben, wurden auf die Domain-Controller angewendet. Diese legen Sicherheitseinstellungen für die Domäne fest, wie zum Beispiel der Aktivierung von AES-Verschlüsselung für Kerberos.
+#htl3r.shortpl[gpo], die "Domain" im Namen haben, wurden auf die Domain-Controller angewendet. Diese legen Sicherheitseinstellungen für die Domain fest, wie zum Beispiel der Aktivierung von AES-Verschlüsselung für Kerberos.
 
 Die #htl3r.shortpl[gpo] für die Member-Server wurden auf die Server angewendet, die keine Domain-Controller sind. Diese legen Sicherheitseinstellungen, wie zum Beispiel das Deaktivieren eines #htl3r.short[rdp]-Zugriffs für die Standard Administratoren fest.
 
@@ -241,7 +241,7 @@ Diese OpenVPN-Server-Konfiguration ist bis auf folgende zwei Ausnahmen sehr einf
 - `duplicate-cn`: Gibt an, dass sich mehrere Clients mit dem gleichen Zertifikat, zur selben Zeit, verbinden können.
 - `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den VPN-Tunnel erreichbar ist.
 
-OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, werden zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle wird die #htl3r.short[nat]-Konfiguration mit Linux IP-Tables realisiert, siehe @ovpn_iptables.
+OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, werden zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle wird die #htl3r.short[nat]-Konfiguration mit Linux #htl3r.short[ip]-Tables realisiert, siehe @ovpn_iptables.
 
 #htl3r.code(caption: [OpenVPN-Server Tunnel NAT])[
 ```bash
