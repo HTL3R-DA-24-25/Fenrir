@@ -136,7 +136,7 @@ whoami /user
 #htl3r.fspace(
   figure(
     image("../assets/mimikatz_ptt/02_SID_auslesen.png"),
-    caption: [Auslesen vom #htl3r.short[sid] der Domain]
+    caption: [Auslesen vom SID der Domain]
   )
 )
 
