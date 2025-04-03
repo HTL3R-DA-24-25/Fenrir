@@ -108,10 +108,13 @@ Heutzutage sind die meisten Endgeräte -- soweit sie regelmäßig Updates erhalt
 
 #htl3r.author("Gabriel Vogler")
 === Golden-Ticket Angriff
-Wenn ein Administrator vergisst, sich aus einem System auszuloggen, kann ein Angreifer ein Golden Ticket erstellen und dieses exportieren. Wenn der Angreifer ein Ticket hat, kann er sich als Administrator des #htl3r.long[ad] ausgeben und hat somit Zugriff auf alle Ressourcen des #htl3r.short[ad]. Ausgeführt kann diese Attacke mit dem Tool "Mimikatz" werden.
+Ein Golden Ticket ist ein gefälschtes Kerberos-#htl3r.short[tgt], wodurch ein Angreifer nahezu vollständigen und langfristigen Zugriff (Standardmäßig zehn Jahre) auf eine #htl3r.short[ad]-Domain erhält. Diese Art von Angriff ist besonders gefährlich, da er dem Angreifer ermöglicht, sich als Domain-Administrator auszugeben ohne sich während der Gültigkeit des Tickets erneut anmelden zu müssen. Das Golden Ticket wird mit dem #htl3r.short[ntlm]-Hash des Benutzers "krbtgt" erstellt. Dieser ist der Benutzer, der die Tickets für das #htl3r.short[ad] signiert. \
+@golden-ticket-doc[comp]
 
-Es wird gestartet auf dem System mit dem angemeldeten Administrator. 
-Im ersten Schritt wird Mimikatz gestartet und der NTLM-Hash von "krbtgt" ausgelesen. krbtgt ist der Benutzer, der die Tickets für das #htl3r.short[ad] signiert.
+Wenn ein Domain-Administrator vergisst, sich aus einem System auszuloggen, kann ein Angreifer ein Golden Ticket erstellen und dieses exportieren. Wenn der Angreifer ein Ticket hat, kann er sich als Administrator des #htl3r.long[ad] ausgeben und hat somit Zugriff auf alle Ressourcen des #htl3r.short[ad]. Ausgeführt kann diese Attacke mit dem Tool "Mimikatz" werden.
+
+Auf dem System, auf dem der Domain-Administrator  angemeldet ist, wird der Angriff gestartet.
+Im ersten Schritt wird Mimikatz ausgeführt und der #htl3r.short[ntlm]-Hash von "krbtgt" ausgelesen. "krbtgt" ist der Benutzer, der die #htl3r.longpl[tgt] für das #htl3r.short[ad] signiert.
 Das wurde mit folgendem Befehl realisiert:
 #htl3r.code(caption: "Auslesen des NTLM-Hashes von krbtgt", description: none)[
 ```
@@ -126,7 +129,7 @@ lsadump::dcsync /domain:corp.fenrir-ot.at /user:krbtgt
   )
 )
 
-Ab jetzt wird von einem beliebigen Client gearbeitet. Angemeldeter Benutzer ist `dkoch`. Jetzt wird vom #htl3r.short[sid] der Domain ausgelesen. Dazu wird ein Teil der #htl3r.short[sid] des Benutzers genommen und der letzte Teil abgeschnitten. Das wird mit folgendem Befehl realisiert:
+Sobald der #htl3r.short[ntlm]-Hash von "krbtgt" ausgelesen ist, wird das System des Administrators nicht mehr benötigt und es kann auf einem beliebigen Client weitergemacht werden. Angemeldeter Benutzer ist `dkoch`. Der #htl3r.short[sid] der Domain muss ausgelesen werden, damit das Ticket der Domain zugeordnet werden kann. Dazu wird ein Teil der #htl3r.short[sid] des Benutzers genommen und der letzte Teil abgeschnitten.
 #htl3r.code(caption: "Auslesen vom SID der Domain", description: none)[
 ```
 whoami /user
@@ -140,7 +143,7 @@ whoami /user
   )
 )
 
-Mit dem #htl3r.short[sid] wird jetzt ein Golden Ticket erstellt. Dazu wird der NTLM-Hash von krbtgt, der #htl3r.short[fqdn] der Domain und der Benutzername des Benutzers benötigt. Außerdem wird noch die ID des Administrators angegeben. Die ist Standardmäßig 500. Das wird mit folgendem Befehl realisiert:
+Mit dem #htl3r.short[sid] wird ein Golden Ticket erstellt. Dazu wird der NTLM-Hash von krbtgt, der #htl3r.short[fqdn] der Domain und der Benutzername des Benutzers benötigt. Zusätzlich muss noch die ID des Administrators angegeben werden. Die ID ist standardmäßig 500.
 #htl3r.code(caption: "Erstellen des Golden Tickets", description: none)[
 ```
 kerberos::golden /user:<USER> /domain:<FQDN> /sid:<SID> /krbtgt:<NTLM-HASH> /id:500
@@ -154,7 +157,7 @@ kerberos::golden /user:<USER> /domain:<FQDN> /sid:<SID> /krbtgt:<NTLM-HASH> /id:
   )
 )
 
-Das Ticket wird unter `ticket.kirbi` gespeichert. Das Ticket kann nun jederzeit verwendet werden, um sich als Administrator auszugeben. Das Ticket wird mit Mimikatz geladen und man kann anschließend eine Shell starten mit den Rechten des Administrators. 
+Die Datei, die das Ticket enthält ist `ticket.kirbi`. Das Ticket kann jederzeit verwendet werden, um sich als Administrator auszugeben. Das Ticket wird mit Mimikatz geladen, und eine Shell mit den Rechten des Administrators gestartet.
 #htl3r.code(caption: "Laden des Golden Tickets und Starten einer Shell", description: none)[
 ```
 kerberos::ptt ticket.kirbi
@@ -162,7 +165,7 @@ misc::cmd
 ```
 ]
 
-In der Shell kann dann Versucht werden, auf das C Laufwerk eines anderen Systems zuzugreifen. Dazu wird folgender Befehl ausgeführt:
+Um die Berechtigungen zu testen, kann mit der Shell auf das C Laufwerk eines anderen Systems zugegriffen werden.
 #htl3r.code(caption: "Zugriff auf das C Laufwerk eines DCs", description: none)[
 ```cmd
 pushd \\dc01.corp.fenrir-ot.at\c$
@@ -176,7 +179,7 @@ pushd \\dc01.corp.fenrir-ot.at\c$
   )
 )
 
-Jetzt hat der Angreifer vollen Zugriff auf das C Laufwerk des #htl3r.long[dc]s und somit auf das Zentrum des #htl3r.short[ad]. Das Golden Ticket hat auch eine Gültigkeit von standardmäßig 10 Jahren. Um Angriffe wie diesen zu vermeiden wird in @ad_hardening das #htl3r.long[ad] gehärtet.
+Der Angreifer hat mit dem Golden Ticket vollen Zugriff auf das C Laufwerk des #htl3r.long[dc]s und somit auf das Zentrum des #htl3r.short[ad]. Um Angriffe wie diesen zu vermeiden wird in @ad_hardening das #htl3r.long[ad] gehärtet.
 
 #htl3r.author("David Koch")
 == Angriffe auf das OT-Netzwerk
