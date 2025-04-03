@@ -47,7 +47,7 @@ Mit einem Doppelklick können über jedes Paket genauere Informationen angezeigt
   )
 )
 
-In großen Systemen wird eine Überwachung mittels Wireshark schnell unübersichtlich. Zwar kann der Anzeigebereich mit Filtern eingeschränkt werden, jedoch ist es schwer, unerwünschten Datenverkehr zu erkennen, weshalb Wireshark nur als stichprobenartiges Überwachungssystem verwendet werden sollte. Beispielsweise können Netzwerkadministratoren mittels Wireshark Netzwerktraffic auf einem Gerät aufzeichnen, auf welchem eine Kompromittierung vermutet wird. Diese Aufzeichnung kann dann analysiert werden, um die Ursache der Kompromittierung zu finden und dagegen vorzugehen.
+In großen Systemen wird eine Überwachung mittels Wireshark schnell unübersichtlich. Zwar kann der Anzeigebereich mit Filtern eingeschränkt werden, jedoch ist es schwer, unerwünschten Datenverkehr zu erkennen, weshalb Wireshark nur als stichprobenartiges Überwachungssystem verwendet werden sollte. Beispielsweise können Netzwerkadministratoren und Netzwerkadministratorinnen mittels Wireshark Netzwerktraffic auf einem Gerät aufzeichnen, auf welchem eine Kompromittierung vermutet wird. Diese Aufzeichnung kann dann analysiert werden, um die Ursache der Kompromittierung zu finden und dagegen vorzugehen.
 
 In Live-Systemen ist die Verwendung von Wireshark als Überwachungssystem somit nur sinnvoll, um stichprobenartig Pakete zu untersuchen und diese zu überprüfen. Es kann beispielsweise ein Hardware-Network-Tap eingesetzt werden, um den Datenfluss zwischen zwei Geräten an eine neue Schnittstelle zu spiegeln und anschließend diese mittels Wireshark auszuwerten.
 
