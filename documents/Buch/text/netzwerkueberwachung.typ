@@ -66,7 +66,7 @@ Grafana ist ein mächtiges Open-Source-Tool zur Visualisierung von Daten. Es kan
 Die Installation von Prometheus und Grafana erfolgt auf einem Ubuntu-22.04-Server mittels Docker.
 Da Docker bereits in @provisionierung installiert wurde, kann die Installation von Prometheus und Grafana direkt erfolgen. Die ganze Installation erfolgt mittels einem Shell-Skript, damit das in @provisionierung umgesetzte Automatisierungskonzept weitergeführt wird.
 
-Im ersten Schritt werden Netzwerk und Hostname für den Server konfiguriert. Für die Netzwerkkonfiguration wird Netplan verwendet, um die IP-Adresse des Servers zu setzen. Es gibt dabei zwei Netzwerkadapter, wobei der erste für das Management-Netzwerk und der zweite für das SEC Netzwerk verwendet wird. Wichtig zu beachten sind die Einstellungen die auf dem Netzwerkinterface des Managementnetzwerks getroffen werden. Diese werden benötigt um die in @provisionierung beschriebene Durchführung zu ermöglichen.
+Im ersten Schritt werden Netzwerk und Hostname für den Server konfiguriert. Für die Netzwerkkonfiguration wird Netplan verwendet, um die IP-Adresse des Servers zu setzen. Es gibt dabei zwei Netzwerkadapter, wobei der erste für das Management-Netzwerk und der zweite für das SEC Netzwerk verwendet wird. Wichtig zu beachten sind die Einstellungen die auf dem Netzwerkinterface des Managementnetzwerks getroffen werden. Diese werden benötigt um die in @provisionierung beschriebene Provisionierung zu ermöglichen.
 #htl3r.code-file(
   caption: "Netwerk- und Hostname-Konfiguration von Grafana",
   filename: [/terraform/stage_06/scripts/grafana.sh],
@@ -85,8 +85,8 @@ Im Anschluss wird das notwendige docker-compose File erstellt, welches die Konfi
   text: read("../assets/scripts/grafana.sh")
 )
 
-==== Automatisches einspielen von Dashboards in Grafana
-Damit die Aufsetzung voll automatisiert erfolgen kann, werden die Dashboards in Grafana automatisch importiert. Dafür wird eine Konfigurationsdatei erstellt, welche die Dashboards in Grafana importiert. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus/provisioning/dashboards` abgelegt.
+==== Automatisches Einspielen von Dashboards in Grafana
+Damit die Installation voll automatisiert erfolgen kann, werden die Dashboards in Grafana automatisch importiert. Dafür wird eine Konfigurationsdatei erstellt, welche die Dashboards in Grafana importiert. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus/provisioning/dashboards` abgelegt.
 Damit das Dashboard vollständig importiert werden kann, muss außerdem eine Datenquelle für das Dashboard definiert werden. Diese wird in das Verzeichnis `/grafana-prometheus/provisioning/datasources` abgelegt.
 
 #htl3r.code-file(
@@ -100,7 +100,7 @@ Damit das Dashboard vollständig importiert werden kann, muss außerdem eine Dat
 Jetzt werden alle Dashboards, die in das Verzeichnis `/grafana-prometheus/dashboards` abgelegt wurden, automatisch in Grafana importiert. Die Datenquelle für die Dashboards wird ebenfalls automatisch erstellt.
 
 ==== Konfiguration von Prometheus
-Die `prometheus.yml` Konfigurationsdatei wird erstellt, um Prometheus zu konfigurieren, damit es die Daten von den #htl3r.long[dc]n sammeln kann. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus` abgelegt und über das Docker-Compose-File eingebunden.
+Die `prometheus.yml` Konfigurationsdatei wird in `/grafana-prometheus` erstellt, um Prometheus zu konfigurieren, damit es die Daten von den #htl3r.long[dc]n sammeln kann. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus` abgelegt und über das Docker-Compose-File eingebunden.
 
 #htl3r.code-file(
   caption: "Konfigurationsdatei für Prometheus",

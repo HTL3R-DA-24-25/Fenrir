@@ -7,7 +7,7 @@
 #htl3r.author("Gabriel Vogler")
 = Active Directory <active_directory>
 
-#htl3r.long[adds] ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Diese zentrale Verwaltung erlaubt die Authentifizierung und Zugriffssteuerung dieser Benutzer und Computer, wobei auch ausserhalb von #htl3r.short[ad]-integrierten Windows-Geräten diese Authentifizierung eingesetzt werden kann. Dieser wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
+#htl3r.long[adds] ist ein Verzeichnisdienst von Microsoft und dient der zentralen Verwaltung und Organisation von Benutzern, Benutzergruppen, Berechtigungen und Computern in einem Unternehmensnetzwerk. Diese zentrale Verwaltung erlaubt die Authentifizierung und Zugriffssteuerung dieser Benutzer und Computer, wobei auch außerhalb von #htl3r.short[ad]-integrierten Windows-Geräten diese Authentifizierung eingesetzt werden kann. Diese wird auf einem Windows Server installiert und findet in dem meisten Unternehmen Anwendung.
 
 == Domain und Forest
 Im Szenario des Firmennetzwerkes der Firma "Fenrir", wird im #htl3r.long[ad] auf eine Domain und einen Forest gesetzt, da es sich um ein kleines Unternehmen handelt und nur ein Standort vorhanden ist. Dadurch sind die Konfiguration und die Verwaltung des #htl3r.short[ids] einfacher und übersichtlicher. Dennoch bietet die #htl3r.short[ad]-Struktur genug Flexibilität und Erweiterungsmöglichkeiten, wie es in der realen Welt auch der Fall sein sollte, falls das Unternehmen wächst.
@@ -34,6 +34,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
             - G_Infrastructure
           - OU=Management
             - G_Management
+        - OU=LAPS-Server
       ]
     ]))),
     caption: [Die OU-Struktur der corp.fenrir-ot.at Domäne]
@@ -65,6 +66,8 @@ foreach ($ou in $ous) {
 ```
 ]
 
+Die #htl3r.short[ou] "LAPS-Server" wird im in @ad_hardening beschriebenen #htl3r.short[ad]-Hardening erstellt und verwendet.
+
 === Benutzerkonten <benutzerkonten>
 #show table.cell.where(y: 0): set text(size: 8pt)
 #htl3r.fspace(
@@ -89,7 +92,8 @@ foreach ($ou in $ous) {
   )
 )
 
-Um die Benutzerkonten zu erstellen, gibt es eine #htl3r.short[csv]-Datei mit den Benutzerdaten, die von einem PowerShell-Skript verarbeitet wird. Die Tabelle oben, zeigt wie die #htl3r.short[csv]-Datei aussieht. Statt den Überschriften oben wird in der #htl3r.short[csv]-Datei SamAccountName, GivenName, Surname und Department verwendet. Die Benutzerkonten werden mit folgendem PowerShell-Skript erstellt:
+Um die Benutzerkonten zu erstellen, gibt es eine #htl3r.short[csv]-Datei mit den Benutzerdaten, die von einem PowerShell-Skript verarbeitet wird. Die Tabelle oben zeigt die #htl3r.short[csv]-Datei. Statt den Überschriften wird in der #htl3r.short[csv]-Datei SamAccountName, GivenName, Surname und Department verwendet. Die Benutzerkonten werden mit folgendem PowerShell-Skript erstellt:
+#htl3r.code(caption: "Powershell-Skript für die Benutzererstellung", description: none)[
 ```powershell
 $users = Import-CSV -Path "D:\users.csv" -Delimiter ";"
 $Password = ConvertTo-SecureString "ganzgeheim123!" -AsPlainText -Force
@@ -110,6 +114,7 @@ foreach ($user in $users) {
     Add-ADGroupMember -Identity $groupName -Members $user.SamAccountName
 }
 ```
+]
 
 Damit die Benutzer auch in die richtige Gruppe eingefügt werden, wird in der letzten Zeile des Skripts der Benutzer in die Global-Group eingefügt, die der Abteilung entspricht. Im Skript wurde ein Standardpasswort für alle Benutzer verwendet, welches beim ersten Anmelden geändert werden muss.
 
@@ -158,7 +163,7 @@ Die Benutzergruppen sind einer #htl3r.short[csv]-Datei erstellt, die folgendes F
   text: read("../assets/scripts/groups_fenrir_ad.csv")
 )
 
-Es werden die Gruppenname, der Pfad, der Scope, die Kategorie und die Domain Local Groups, in die die Global Groups eingefügt werden, angegeben. Anhand der #htl3r.short[csv]-Datei können die Gruppen mit folgendem PowerShell-Skript erstellt werden:
+Es werden der Gruppenname, der Pfad, der Scope, die Kategorie und die Domain Local Groups, in die die Global Groups eingefügt werden, angegeben. Anhand der #htl3r.short[csv]-Datei können die Gruppen mit folgendem PowerShell-Skript erstellt werden:
 #htl3r.code-file(
   caption: "Powershell-Skript für die Gruppenerstellung",
   filename: [ansible/playbooks/stages/stage_03/extra/DC1_part_3.ps1],
@@ -281,7 +286,7 @@ Die #htl3r.long[dc] teilen sich die Aufgaben:
   )
 )
 
-=== Aufsetzung der Domain Controller
+=== Aufsetzen der Domain Controller
 
 Durch den in @provisionierung beschriebenen Provisionierungsvorgang lassen sich die #htl3r.long[dc] automatisiert aufsetzen. Zu den für die #htl3r.short[dc]-Provisionierung notwendigen Dateien und Skripts zählen -- unter anderem -- das Ansible-Playbook, die PowerShell-Skripts für die Hochstufung und Konfiguration der #htl3r.shortpl[dc] und jegliche Extra-Dateien wie eine #htl3r.short[csv]-Tabelle mit den #htl3r.short[ad]-Gruppen, die von den PowerShell-Skripts verarbeitet wird.
 
@@ -325,7 +330,7 @@ Damit der Exchange Server funktioniert, wird eine bestehenende #htl3r.short[ad] 
 Wie auch schon bei den #htl3r.long[dc]n, wird der Exchange Server durch ein Ansible-Playbook aufgesetzt. Dieses Playbook besteht aus mehreren Parts, die jeweils für eine spezifische Aufgabe zuständig sind. Die Aufteilung ist notwendig, da der Exchange Server während der Installation mehrmals neu gestartet werden muss. Außerdem wird eine Exchange-Server ISO benötigt, die später verwendet wird un den Exchange Server zu installieren. Diese ist unter folgendem Link zu finden: \
 #link("https://www.microsoft.com/en-us/download/details.aspx?id=104131").
 #htl3r.code-file(
-  caption: "Ansible-Playbook für die Aufsetzung von Exchange",
+  caption: "Ansible-Playbook für das Aufsetzen von Exchange",
   filename: [ansible/playbooks/stages/stage_04/setup_exchange.yml],
   lang: "yml",
   text: read("../assets/scripts/setup_exchange.yml")
@@ -334,7 +339,7 @@ Wie auch schon bei den #htl3r.long[dc]n, wird der Exchange Server durch ein Ansi
 Im ersten Part des Playbooks wird das PowerShell-Skript `Exchange_part_1.ps1` ausgeführt. Dieses Skript ist für die Grundkonfiguration des Exchange Servers zuständig. Hierbei wird der Hostname, das Admin-Passwort und der Netzwerkadapter konfiguriert und es werden zahlreiche Windows Features installiert, die für den Exchange Server notwendig sind.
 
 #htl3r.code-file(
-  caption: "Part-1-Skript für die Aufsetzung von Exchange",
+  caption: "Part-1-Skript für das Aufsetzen von Exchange",
   filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_1.ps1],
   skips: ((26, 0),),
   ranges: ((0, 25), (63, 63)),
@@ -344,7 +349,7 @@ Im ersten Part des Playbooks wird das PowerShell-Skript `Exchange_part_1.ps1` au
 
 Im zweiten Part des Playbooks wird das PowerShell-Skript `Exchange_part_2.ps1` ausgeführt. Dieses Skript ist für den Beitritt des Exchange Servers in die #htl3r.short[ad] Domain zuständig.
 #htl3r.code-file(
-  caption: "Part-2-Skript für die Aufsetzung von Exchange",
+  caption: "Part-2-Skript für das Aufsetzen von Exchange",
   filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_2.ps1],
   lang: "powershell",
   text: read("../assets/scripts/Exchange_part_2.ps1")
@@ -355,7 +360,7 @@ Im dritten Part des Playbooks wird das PowerShell-Skript `Exchange_part_3.ps1` a
 Da alle notwendigen Pakete installiert sind, wird von der ISO-Datei die Datei `Setup.exe` ausgeführt, um den Exchange Server zu installieren.
 
 #htl3r.code-file(
-  caption: "Part-3-Skript für die Aufsetzung von Exchange",
+  caption: "Part-3-Skript für das Aufsetzen von Exchange",
   filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_3.ps1],
   lang: "powershell",
   text: read("../assets/scripts/Exchange_part_3.ps1")
@@ -364,7 +369,7 @@ Da alle notwendigen Pakete installiert sind, wird von der ISO-Datei die Datei `S
 Im vierten Part des Playbooks wird das PowerShell-Skript `Exchange_part_4.ps1` ausgeführt. In diesem Skript werden die Postfächer für alle Benutzer erstellt. Dafür wird eine #htl3r.short[csv]-Datei benötigt, die die Benutzerdaten enthält. Die #htl3r.short[csv]-Datei ist die gleiche, die auch für die Benutzererstellung in @benutzerkonten benutzt wurde..
 
 #htl3r.code-file(
-  caption: "Part-4-Skript für die Aufsetzung von Exchange",
+  caption: "Part-4-Skript für das Aufsetzen von Exchange",
   filename: [ansible/playbooks/stages/stage_04/extra/Exchange_part_4.ps1],
   lang: "powershell",
   text: read("../assets/scripts/Exchange_part_4.ps1")
@@ -378,23 +383,23 @@ Nach der Installation kann der Exchange Server getestet werden. Dafür wird eine
     caption: [E-Mail senden auf dem Exchange Server]
   )
 )
-Nach dem Senden der E-Mail wird der Empfang der E-Mail überprüft. Dafür wird sich mit dem Benutzer dkoch auf dem Webinterface des Exchange Servers angemeldet und die E-Mail überprüft:
+Nach dem Senden der E-Mail wird der Empfang der E-Mail überprüft. Dafür wird mit dem Benutzer dkoch das Webinterface aufgerufen und die E-Mail überprüft:
 #htl3r.fspace(
   figure(
     image("../assets/Test-Email_empfangen.png"),
     caption: [E-Mail empfangen]
   )
 )
-Die E-Mail wurde erfolgreich empfangen und der Exchange Server funktioniert einwandfrei.
+Die E-Mail wurde erfolgreich empfangen - somit funktioniert der Exchange Server einwandfrei.
 
 == Fileserver
 Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der #htl3r.short[it]-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der #htl3r.short[it]-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domäne integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
 
-=== Aufsetzung des File Servers
+=== Aufsetzen des File Servers
 Mithilfe eines Ansible-Playbooks wird der Fileserver aufgesetzt. Dabei wird das Playbook in mehreren Parts aufgeteilt, da der Fileserver während der Installation mehrmals neu gestartet werden muss.
 
 #htl3r.code-file(
-  caption: "Ansible-Playbook für die Aufsetzung von Fileserver",
+  caption: "Ansible-Playbook für das Aufsetzen von Fileserver",
   filename: [ansible/playbooks/stages/stage_04/setup_fileserver.yml],
   lang: "yml",
   text: read("../assets/scripts/setup_fileserver.yml")
@@ -402,7 +407,7 @@ Mithilfe eines Ansible-Playbooks wird der Fileserver aufgesetzt. Dabei wird das 
 
 Im ersten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_1.ps1` ausgeführt. Hier wird die Grundkonfiguration des Fileservers durchgeführt. Es wird der Hostname, das Admin-Passwort und der Netzwerkadapter konfiguriert und es wird das für den Fileserver notwendige Feature `FS-FileServer` installiert.
 #htl3r.code-file(
-  caption: "Part-1-Skript für die Aufsetzung von Fileserver",
+  caption: "Part-1-Skript für das Aufsetzen von Fileserver",
   filename: [ansible/playbooks/stages/stage_04/extra/Fileserver_part_1.ps1],
   skips: ((26, 0),),
   ranges: ((0, 25), (63, 63)),
@@ -412,7 +417,7 @@ Im ersten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_1.ps1` 
 
 Im zweiten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_2.ps1` ausgeführt. Hier wird der Fileserver in die Active Directory-Domäne integriert.
 #htl3r.code-file(
-  caption: "Part-2-Skript für die Aufsetzung von Fileserver",
+  caption: "Part-2-Skript für das Aufsetzen von Fileserver",
   filename: [ansible/playbooks/stages/stage_04/extra/Fileserver_part_2.ps1],
   lang: "powershell",
   text: read("../assets/scripts/Fileserver_part_2.ps1")
@@ -426,8 +431,8 @@ Im dritten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_3.ps1`
   text: read("../assets/scripts/Fileserver_part_3.ps1")
 )
 
-=== Test des File Servers
-Um den Fileserver zu testen, erstellt ein Benutzer zwei Dateien, eine liegt in seinem eigenen Verzeichnis und eine in dem seiner Abteilung. Der Benutzer `jburger` erstellt die Datei `test.txt` in seinem Verzeichnis und die Datei `test2.txt` im Verzeichnis der Abteilung `Infrastructure`. Der Benutzer `dkoch` sollte die Berechtigungen haben `test2.txt` zu lesen, `test.txt` jedoch nicht.  Um auf den Fileserver zuzugreifen, wird in einem Webbrowser die URL `\\fileserver.corp.fenrir-ot.at\Fenrir-Share` eingegeben.
+=== Test des Fileservers
+Um den Fileserver zu testen, erstellt ein Benutzer zwei Dateien auf dem Fenrir-Share, eine liegt in seinem eigenen Verzeichnis und eine in dem seiner Abteilung. Der Benutzer `jburger` erstellt die Datei `test.txt` in seinem Verzeichnis und die Datei `test2.txt` im Verzeichnis der Abteilung `Infrastructure`. Der Benutzer `dkoch` sollte die Berechtigungen haben `test2.txt` zu lesen, `test.txt` jedoch nicht.  Um auf den Fileserver zuzugreifen, wird in einem Webbrowser die URL `\\fileserver.corp.fenrir-ot.at\Fenrir-Share` eingegeben.
 
 Erfolgreicher Zugriff auf `test2.txt` im  Verzeichnis der Abteilung `Infrastructure`:
 #htl3r.fspace(

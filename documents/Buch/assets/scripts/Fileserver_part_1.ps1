@@ -8,9 +8,9 @@ $packages = ("FS-FileServer")
 $adapterTable = @(
     @{
         "Name"      = "Ethernet1"
-        "NewName"   = "OT-DMZ"
-        "IPAddress" = "192.168.33.100/24"
-        "Gateway"   = "192.168.33.254"
+        "NewName"   = "SEC"
+        "IPAddress" = "192.168.31.100/24"
+        "Gateway"   = "192.168.31.254"
         "DNS"       = "192.168.31.1"
         "DNSAlt"    = "192.168.31.2"
     }
