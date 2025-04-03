@@ -24,7 +24,7 @@ Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwis
 
 #htl3r.fspace(
   figure(
-    image("../assets/fenrir_purdue.svg", width: 95%),
+    image("../assets/purdue.png", width: 95%),
     caption: [Die Projekttopologie im Purdue-Modell]
   )
 )

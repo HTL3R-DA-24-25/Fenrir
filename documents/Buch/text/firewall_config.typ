@@ -441,7 +441,7 @@ Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung vo
 #htl3r.fspace(
     [
       #figure(
-        image("../assets/zellen_router_on_a_stick.svg"),
+        image("../assets/zellen_router_on_a_stick.png"),
         caption: ["Router on a Stick" als Alternative zu VDOMs]
       )
     ]
