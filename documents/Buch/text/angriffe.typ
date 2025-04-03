@@ -84,9 +84,10 @@ Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenri
 == Angriffe auf das IT-Netzwerk
 
 === Phishing-Mail auf dem Exchange-Server
-Nur selten passieren Angriffe, die als Endergebnisse beispielsweise die Störung des Exchange-Mail-Servers haben. Meistens wird die Präsenz eines Mail-Servers lediglich genutzt, um als "Sprungbrett" ins interne Netzwerk zu dienen durch Phishing-Angriffe.
+Nur selten passieren Angriffe, die als Endergebnis beispielsweise die Störung des Exchange-Mail-Servers haben. Meistens wird die Präsenz eines Mail-Servers lediglich genutzt, um als "Sprungbrett" ins interne Netzwerk zu dienen durch Phishing-Angriffe.
 Phishing gehört zu den häufigsten und einfachsten Angriffsmethoden in der Cyberkriminalität. Trotz seiner Einfachheit ist es eine der effektivsten Methoden, um an vertrauliche Informationen wie Zugangsdaten oder andere sensible Daten zu gelangen. Bei einem Phishing-Angriff versucht der Angreifer, durch gefälschte E-Mails, welche von einer augenscheinlich vertrauenswürdigen Quelle stammen, den Empfänger zu täuschen und dazu zu bringen Informationen preiszugeben. Oft geschieht dies über einen Link zu einer "Phishing-Seite", die eine seriöse Website imitiert. Auf dieser Seite wird das Opfer aufgefordert seine Zugansdaten einzugeben, welche dann in Besitz des Angreifers gelangen.
-Alternativ kann ein solcher Angriff auch ohne Link erfolgen - beispielsweise durch eine Aufforderung, bestimmte Daten per Anwort auf die E-Mail zu übermitteln.
+Alternativ kann ein solcher Angriff auch ohne Link erfolgen - beispielsweise durch eine Aufforderung, bestimmte Daten per Anwort auf die E-Mail zu übermitteln. \
+@phishing-mail-doc[comp]
 
 Ein typisches Beispiel für einen solchen Angriff wird in @angriffsszenario beschrieben.
 
@@ -113,7 +114,7 @@ Ein Golden Ticket ist ein gefälschtes Kerberos-#htl3r.short[tgt], wodurch ein A
 
 Wenn ein Domain-Administrator vergisst, sich aus einem System auszuloggen, kann ein Angreifer ein Golden Ticket erstellen und dieses exportieren. Wenn der Angreifer ein Ticket hat, kann er sich als Administrator des #htl3r.long[ad] ausgeben und hat somit Zugriff auf alle Ressourcen des #htl3r.short[ad]. Ausgeführt kann diese Attacke mit dem Tool "Mimikatz" werden.
 
-Auf dem System, auf dem der Domain-Administrator  angemeldet ist, wird der Angriff gestartet.
+Auf dem System, auf dem der Domain-Administrator angemeldet ist, wird der Angriff gestartet.
 Im ersten Schritt wird Mimikatz ausgeführt und der #htl3r.short[ntlm]-Hash von "krbtgt" ausgelesen. "krbtgt" ist der Benutzer, der die #htl3r.longpl[tgt] für das #htl3r.short[ad] signiert.
 Das wurde mit folgendem Befehl realisiert:
 #htl3r.code(caption: "Auslesen des NTLM-Hashes von krbtgt", description: none)[

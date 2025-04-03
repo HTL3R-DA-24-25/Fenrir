@@ -539,3 +539,12 @@ golden-ticket-doc:
     value: https://www.gosecurity.ch/vom-support-benutzer-zum-golden-ticket/
     date: 2025-04-03
   date: 2025
+
+phishing-mail-doc:
+  type: misc
+  title: Initial Access
+  author: MITRE ATT&CK
+  url:
+    value: https://attack.mitre.org/tactics/TA0001/
+    date: 2025-04-04
+  date: 2025
