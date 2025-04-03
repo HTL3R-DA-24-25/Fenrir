@@ -12,9 +12,18 @@ Dazu sind in der Guardian Phasen definiert, in welchen die Funktionsweise stets 
 - *Protecting:*
   In dieser Phase wird auf den Netzwerktraffic geachtet und aufgrund der Baseline entschieden, ob ein Paket unerwünscht ist. Sollte dies der Fall sein, wird ein Alarm ausgelöst.
 
-Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Assets bringt sie so viel wie möglich in Erfahrung. Sei dies von einer #htl3r.short[ip]-Adresse bis hin zu dem laufenden Betriebssystem oder Firmware-Version. Es werden offene Sessions und Verbindungen erkannt und auch, ob ein Asset ein gewisses Service anbietet, wie beispielsweise #htl3r.short[ntp].
+Die Nozomi Guardian nennt alle Geräte in einem Netzwerk Assets. Über diese Assets bringt sie so viel wie möglich in Erfahrung. Sei dies von einer #htl3r.short[ip]-Adresse bis hin zu dem Hersteller der MAC oder den laufenden Betriebssystem. 
 
-#htl3r.todo[lesbarer machen]
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/nozomi_dc1_general.png"),
+    caption: [Allgemeine Informationen des primary Domain Controllers]
+  )
+)
+
+Es werden offene Sessions und Verbindungen erkannt und auch, ob ein Asset ein gewisses Service anbietet, wie beispielsweise #htl3r.short[ntp].
+
 #htl3r.fspace(
   total-width: 100%,
   figure(
