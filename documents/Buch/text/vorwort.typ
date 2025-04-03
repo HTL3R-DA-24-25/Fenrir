@@ -22,7 +22,7 @@ Das Diplomarbeitsteam möchte sich ebenfalls bei Stefan Tomp der vorjährigen Di
 Des Weiteren hat die tatkräftige Unterstützung externer Firmenpartner und deren Vertreter die Umsetzung und generelle Industrienähe der Diplomarbeit ermöglicht.
 Ein recht herzlicher Dank gebührt den folgenden Firmenpartnern:
 - *CSA* im Namen von Herbert Dirnberger für die Bereitstellung von Server-Hardware als auch #htl3r.short[ot]-Gerätschaft.
-- *easyname* für die Bereitstellung einer Domäne und eines Webservers für das Hosting der Diplomarbeitswebsite.
+- *easyname* für die Bereitstellung einer Domain und eines Webservers für das Hosting der Diplomarbeitswebsite.
 - *Fortinet* für die Bereitstellung mehrerer Hardware-Firewalls und deren Lizenzen.
 - *Ikarus* für die finanzielle Unterstützung beim Aufbau der Modell-Kläranlage als auch die Hilfe bei der Gewinnung von weiteren Firmenpartnern durch Werbung der Diplomarbeit Fenrir.
 - Felix Eberstaller der *Limes Security* für seine Unterstützung bei der Durchführung von Cyberangriffen gegen SPSen, insbesondere der S7-1200.

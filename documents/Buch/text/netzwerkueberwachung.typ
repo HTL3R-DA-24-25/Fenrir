@@ -66,7 +66,7 @@ Grafana ist ein mächtiges Open-Source-Tool zur Visualisierung von Daten. Es kan
 Die Installation von Prometheus und Grafana erfolgt auf einem Ubuntu-22.04-Server mittels Docker.
 Da Docker bereits in @provisionierung installiert wurde, kann die Installation von Prometheus und Grafana direkt erfolgen. Die ganze Installation erfolgt mittels einem Shell-Skript, damit das in @provisionierung umgesetzte Automatisierungskonzept weitergeführt wird.
 
-Im ersten Schritt werden Netzwerk und Hostname für den Server konfiguriert. Für die Netzwerkkonfiguration wird Netplan verwendet, um die IP-Adresse des Servers zu setzen. Es gibt dabei zwei Netzwerkadapter, wobei der erste für das Management-Netzwerk und der zweite für das SEC Netzwerk verwendet wird. Wichtig zu beachten sind die Einstellungen die auf dem Netzwerkinterface des Managementnetzwerks getroffen werden. Diese werden benötigt um die in @provisionierung beschriebene Provisionierung zu ermöglichen.
+Im ersten Schritt werden Netzwerk und Hostname für den Server konfiguriert. Für die Netzwerkkonfiguration wird Netplan verwendet, um die #htl3r.short[ip]-Adresse des Servers zu setzen. Es gibt dabei zwei Netzwerkadapter, wobei der erste für das Management-Netzwerk und der zweite für das SEC Netzwerk verwendet wird. Wichtig zu beachten sind die Einstellungen die auf dem Netzwerkinterface des Managementnetzwerks getroffen werden. Diese werden benötigt um die in @provisionierung beschriebene Provisionierung zu ermöglichen.
 #htl3r.code-file(
   caption: "Netwerk- und Hostname-Konfiguration von Grafana",
   filename: [/terraform/stage_06/scripts/grafana.sh],

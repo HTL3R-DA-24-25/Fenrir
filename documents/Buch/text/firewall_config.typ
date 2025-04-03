@@ -119,11 +119,11 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
   )
 )
 
-Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den minimalen Traffic erlauben, welcher notwendig ist um auf die #htl3r.short[ot] zuzugreifen. Es existieren noch zusätzliche Einschränkungen, welche nur OpenVPN-Zugriffe auf die Jump-Server erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
+Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den minimalen Traffic erlauben, welcher notwendig ist um auf die #htl3r.short[ot] zuzugreifen. Es existieren noch zusätzliche Einschränkungen, welche nur OpenVPN-Zugriffe auf die Jump-Server erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des #htl3r.short[osi]-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
 
 === Grundkonfiguration
 
-Die Grundkonfiguration der Übergangs-Firewall bzw. Seperation-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen IP-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
+Die Grundkonfiguration der Übergangs-Firewall bzw. Seperation-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen #htl3r.short[ip]-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
 
 #htl3r.code-file(
   caption: "Übergangs-Firewall Grundkonfiguration",
@@ -138,7 +138,7 @@ Da die Grundkonfiguration mehrere Seiten in Anspruch nehmen würde, wurde die Ko
 
 === OT-Net DHCP-Konfiguration
 
-Innerhalb des #htl3r.short[ot]-Net Netzwerkes werden IP-Adressen an #htl3r.short[ot]-Workstations mittels #htl3r.short[dhcp] verteilt. Der #htl3r.short[dhcp]-Server ist dabei mithilfe der Übergangs-Firewall realisiert. Das Interface, auf dem der #htl3r.short[dhcp]-Server läuft, ist das #htl3r.short[vlan]-Subinterface des #htl3r.short[ot]-Net Netzwerkes.
+Innerhalb des #htl3r.short[ot]-Net Netzwerkes werden #htl3r.short[ip]-Adressen an #htl3r.short[ot]-Workstations mittels #htl3r.short[dhcp] verteilt. Der #htl3r.short[dhcp]-Server ist dabei mithilfe der Übergangs-Firewall realisiert. Das Interface, auf dem der #htl3r.short[dhcp]-Server läuft, ist das #htl3r.short[vlan]-Subinterface des #htl3r.short[ot]-Net Netzwerkes.
 
 #htl3r.code-file(
   caption: "Übergangs-Firewall OT-NET DHCP-Konfiguration",
@@ -162,7 +162,7 @@ Wie bereits beschrieben, darf die Jump-Server nur mit OpenVPN von den #htl3r.sho
   text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
 )
 
-Der IP-Adress-Bereich, welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp. Diese Adress-Objekte werden dann in der Policy verwendet, um den Zugriff einzuschränken.
+Der #htl3r.short[ip]-Adress-Bereich, welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp. Diese Adress-Objekte werden dann in der Policy verwendet, um den Zugriff einzuschränken.
 
 #htl3r.code-file(
   caption: "Übergangs-Firewall Jump-Server Policy",
@@ -212,7 +212,7 @@ Die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] benötigen ebenso 
   text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
 )
 
-Um diese definierten IP-Adressen zu erreichen, wird eine statische Route definiert, welche den Traffic über die Zellen-Firewall weiterleitet. Dazu wird die Adress-Gruppe `PLC_Group` verwendet. Die andere definierte Adress-Gruppe `PLC_Accessor` definiert alle Geräte, welche auf die #htl3r.shortpl[sps] zugreifen dürfen.
+Um diese definierten #htl3r.short[ip]-Adressen zu erreichen, wird eine statische Route definiert, welche den Traffic über die Zellen-Firewall weiterleitet. Dazu wird die Adress-Gruppe `PLC_Group` verwendet. Die andere definierte Adress-Gruppe `PLC_Accessor` definiert alle Geräte, welche auf die #htl3r.shortpl[sps] zugreifen dürfen.
 
 #htl3r.code-file(
   caption: "Übergangs-Firewall SPS-Routen",
@@ -260,7 +260,7 @@ Wenn kein Multi-#htl3r.short[vdom]-Mode verwendet wird, läuft alles auf der Fir
 Fortinet gibt einige Verwendungsarten für #htl3r.shortpl[vdom] vor, wobei bei der Zellen-Firewall zwei dieser Arten gemeinsam eingesetzt werden:
 
 + *Internet access VDOM*: \
-  In dieser Konfiguration ist der Internetzugang über eine einzelne #htl3r.short[vdom] -- beispielsweise die Root-VDOM in @internet-access-vdom -- bereitgestellt.
+  In dieser Konfiguration ist der Internetzugang über eine einzelne #htl3r.short[vdom] -- beispielsweise die Root-#htl3r.short[vdom] in @internet-access-vdom -- bereitgestellt.
   #htl3r.fspace(
     total-width: 95%,
     [
@@ -301,7 +301,7 @@ Zur Konfiguration dieser #htl3r.shortpl[vdom] muss zuerst mittels `config vdom` 
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
 
-Wie in Quellcode 10.14 zu sehen ist, müssen jegliche Konfigurationsschritte (z.B. die Erstellung von Adressobjekten), die normalerweise systemweit durchgeführt werden, pro VDOM einzeln durchgeführt werden. Dies ist zwar zuerst lästig, bei einer fertigen Konfiguration dient dies jedoch zur Vorbeugung von Flüchtigkeitsfehlern beim zukünftigen Umkonfigurieren.
+Wie in Quellcode 10.14 zu sehen ist, müssen jegliche Konfigurationsschritte (z.B. die Erstellung von Adressobjekten), die normalerweise systemweit durchgeführt werden, pro #htl3r.short[vdom] einzeln durchgeführt werden. Dies ist zwar zuerst lästig, bei einer fertigen Konfiguration dient dies jedoch zur Vorbeugung von Flüchtigkeitsfehlern beim zukünftigen Umkonfigurieren.
 
 Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung von den Betriebszellen wäre die Verwendung von #htl3r.shortpl[vlan] mit folgendem Aufbau:
 
@@ -355,7 +355,7 @@ Zuerst muss in der Root-#htl3r.short[vdom] pro Zelle eine Policy erstellt werden
 )
 
 #pagebreak(weak: true)
-Die Policy für den Datenverkehr zwischen der VDOM von Zelle Drei und der Root-VDOM sieht dann wiefolgt aus:
+Die Policy für den Datenverkehr zwischen der #htl3r.short[vdom] von Zelle Drei und der Root-#htl3r.short[vdom] sieht dann wiefolgt aus:
 
 #htl3r.code-file(
   caption: "Policy innerhalb der Zelle-Drei-VDOM für Kommunikation von der Root-VDOM zur Zelle",
@@ -366,7 +366,7 @@ Die Policy für den Datenverkehr zwischen der VDOM von Zelle Drei und der Root-V
 )
 
 #pagebreak(weak: true)
-Die Root-VDOM braucht für alle drei Zellen-VDOM-Links jeweils eine statische Route, hier wird die Route zur dritten Betriebszelle gezeigt:
+Die Root-#htl3r.short[vdom] braucht für alle drei Zellen-#htl3r.short[vdom]-Links jeweils eine statische Route, hier wird die Route zur dritten Betriebszelle gezeigt:
 
 #htl3r.code-file(
   caption: "Statische Route in der Root-VDOM für das Netzwerk von Zelle Drei",

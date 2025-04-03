@@ -108,7 +108,7 @@ Die beiden #htl3r.shortpl[gpo] "MSFT Windows Server 2022 - Domain Controller Vir
 
 Die "MSFT Internet Explorer 11 - Computer" wurde auf alle Computer angewendet, die "MSFT Internet Explorer 11 - User" auf alle Benutzer. Beide #htl3r.shortpl[gpo] legen Sicherheitseinstellungen für den Internet Explorer fest, wie zum Beispiel das Erzwingen einer bestimmten Version von #htl3r.short[tls].
 
-#htl3r.shortpl[gpo], die "Domain" im Namen haben, wurden auf die Domain-Controller angewendet. Diese legen Sicherheitseinstellungen für die Domäne fest, wie zum Beispiel der Aktivierung von AES-Verschlüsselung für Kerberos.
+#htl3r.shortpl[gpo], die "Domain" im Namen haben, wurden auf die Domain-Controller angewendet. Diese legen Sicherheitseinstellungen für die Domain fest, wie zum Beispiel der Aktivierung von AES-Verschlüsselung für Kerberos.
 
 Die #htl3r.shortpl[gpo] für die Member-Server wurden auf die Server angewendet, die keine Domain-Controller sind. Diese legen Sicherheitseinstellungen, wie zum Beispiel das Deaktivieren eines #htl3r.short[rdp]-Zugriffs für die Standard Administratoren fest.
 
@@ -141,23 +141,49 @@ In der Projekttopologie erhalten #htl3r.short[it]-Endgeräte, auf denen als Betr
 
 === Firmware-Update einer S7-1200
 
-Um den in @dos-sps beschriebenen #htl3r.short[dos]-Angriff gegenüber der S7-1200 #htl3r.short[sps] zu vermeiden, muss die neuste Firmware auf das Gerät eingespielt werden. Der #htl3r.short[cve]-2019-10936 beschreibt, dass alle Firmware-Versionen unter v4.4.0 von der Schwachstelle betroffen sind. Wenn nun auf eine neuere beziehungsweise die neuste Firmware-Version geupdatet wird, ist die #htl3r.short[sps] vor diesem Angriff geschützt.
+Um den in @dos-sps beschriebenen #htl3r.short[dos]-Angriff gegenüber der S7-1200 #htl3r.short[sps] zu vermeiden, muss die neuste Firmware auf das Gerät eingespielt werden. Der #htl3r.short[cve]-2019-10936 beschreibt, dass alle Firmware-Versionen unter v4.4.0 von der Schwachstelle betroffen sind. Wenn nun auf eine neuere -- beziehungsweise die neuste -- Firmware-Version geupdatet wird, ist die #htl3r.short[sps] vor diesem Angriff geschützt.
 
-TODO
+Die neuste Firmware-Version für das in dieser Diplomarbeit verwendete Modell der S7-1200 ist v4.6.0. Mit einem Siemens-Support-Konto lässt sich diese aus dem Internet herunterladen und mittels dem "Gerät Tauschen"-Feature auf die #htl3r.short[sps] einspielen.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/simatic_firmware_update.png"),
+    caption: [Die Aktualisierung der Firmware-Version auf der S7-1200],
+  )
+)
 
 Das Update muss aufgrund der benötigten Neustarts zu einer Zeit durchgeführt werden, wo die #htl3r.short[sps] nicht aktiv in der Betriebsumgebung gebraucht wird. Bei vielen Betrieben sind diese Geräte aber 24/7 im Einsatz, somit muss entweder ein kurzes Zeitfenster für diese wichtigen Updates eingeplant werden oder alternativ die Absicherung vom Netzwerk bis hin zur betroffenen #htl3r.short[sps] so stattfinden, dass die Netzwerk-Schwachstelle überhaupt nicht ausgenutzt werden kann.
 
 == Passwörter für SPS-Zugriff konfigurieren
 
-Der administrative Zugriff auf die Siemens #htl3r.shortpl[sps] ist standardmäßig nicht passwortgeschützt.
+Der administrative Zugriff auf die Siemens #htl3r.shortpl[sps] ist standardmäßig nicht passwortgeschützt. Da dies unglaublich unsicher ist, werden im Rahmen dieser Diplomarbeit auf allen #htl3r.shortpl[sps] Passwörter hinterlegt. 
 
-
-, wobei LSC für "LOGO! Soft Comfort" und LWE für "LOGO! Web Editor" steht. Das heißt, dass
+Das Passwort für den Vollzugriff auf die S7-1200 lässt sich in den Einstellungen der #htl3r.short[sps]-CPU unter #htl3r.breadcrumbs(("Allgemein", "Schutz & Security", "Zugriffsstufe")) konfigurieren. Es lässt sich ebenfalls die Zugriffsstuffe konfigurieren, hierbei wird "Kein Zugriff (kompletter Schutz)" ausgewählt, um maximale Sicherheit zu gewährleisten.
 
 #htl3r.fspace(
   figure(
-    image("../assets/LAPS_Get_Password.png"),
-    caption: [Abrufen des LAPS-Passworts für den Exchange Server],
+    image("../assets/simatic_password.png"),
+    caption: [Das PLC-Zugriffsschutz-Menü der S7-1200],
+  )
+)
+
+In den Einstellungen der LOGO!-#htl3r.short[sps] lässt sich unter #htl3r.breadcrumbs(("Online Settings", "Access control settings", "LSC & LWE access")) das Passwort für den Zugriff auf die #htl3r.short[sps] über LSC und LWE konfigurieren, wobei LSC für "LOGO! Soft Comfort" und LWE für "LOGO! Web Editor" steht. Das heißt, dass auf der L2-Netzwerkschnittstelle, welche von der Entwicklungsumgebung genutzt wird, als auch auf der optionalen Weboberfläche nun ein Passwort mitgeschickt werden muss, um Konfigurationen vorzunehmen.
+
+#htl3r.fspace(
+  total-width: 90%,
+  figure(
+    image("../assets/ot-work/logo_password.png"),
+    caption: [Konfiguration des Passworts auf der LOGO!-SPS],
+  )
+)
+
+Was anzumerken ist: Das Passwort auf der LOGO!-#htl3r.short[sps] ist auf eine maximale Anzahl von 10 Zeichen begrenzt. Man muss kein Cybersicherheitsexperte sein, um zu erkennen, dass solch eine Limitation die von einem Passwort gebrachte Sicherheit stark einschränkt. Mittels eines Brute-Force-Angriffs lässt sich ein 10 Zeichen langes Passwort in kürzester Zeit knacken.
+
+#htl3r.fspace(
+  total-width: 90%,
+  figure(
+    image("../assets/ot-work/logo_access_secured.png"),
+    caption: [Der Access Security Status der LOGO!-SPS],
   )
 )
 
@@ -191,42 +217,6 @@ end
 ```
 ]
 
-#htl3r.author("David Koch")
-== NIS-2
-
-Beim Betreiben von Industriebetrieben oder kritischer Infrastruktur ist es wichtig, die gesetzlich vorgelegten Spezifikationen einzuhalten. Diese gibt es auch für den digitalen Bereich, wobei die bekannteste und derzeit relevanteste Spezifikation bzw. Richtlinie die #htl3r.short[nis]-2 wäre.
-
-"Die #htl3r.short[nis]-2-Richtlinie soll die Resilienz und die Reaktion auf Sicherheitsvorfälle des öffentlichen und des privaten Sektors in der EU verbessern. Der bisherige Anwendungsbereich der #htl3r.short[nis]-Richtlinie nach Sektoren wird mit #htl3r.short[nis]-2 auf einen größeren Teil der Wirtschaft und des öffentlichen Sektors ausgeweitet, um eine umfassende Abdeckung jener Sektoren und Dienste zu gewährleisten, die im Binnenmarkt für grundlegende gesellschaftliche und wirtschaftliche Tätigkeiten von entscheidender Bedeutung sind. Betroffene Einrichtungen müssen daher geeignete Risikomanagementmaßnahmen für dise Sicherheit ihrer Netz- und Informationssysteme treffen und unterliegen Meldepflichten." @nis-2-wko
-
-Die #htl3r.short[nis]-2-Richtlinie unterscheidet zwischen wesentlichen und wichtigen Einreichtungen, für die teilweise unterschiedliche Vorschriften gelten @nis-2-massnahmen. Eine Kläranlage fällt laut Anhang I der Richtlinie in den siebten Sektor "Abwasser": "Unternehmen, die kommunales Abwasser, häusliches Abwasser oder industrielles Abwasser im Sinne des Artikels 2 Nummern 1, 2 und 3 der Richtlinie 91/271/EWG des Rates (23) sammeln, entsorgen oder behandeln, jedoch unter Ausschluss der Unternehmen, für die das Sammeln, die Entsorgung oder die Behandlung solchen Abwassers ein nicht wesentlicher Teil ihrer allgemeinen Tätigkeit ist" @nis2-richtlinie
-
-#pagebreak(weak: true)
-Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgesehen:
-
-#htl3r.fspace(
-  total-width: 100%,
-  figure(
-    table(
-      columns: (2fr, 3fr),
-      inset: 10pt,
-      align: (horizon + left, horizon + left),
-      table.header(
-        [*Maßnahme*], [*Im Rahmen der Diplomarbeit umgesetzt*],
-      ),
-      [Erstellung einer Risikoanalyse- \ und Informationssicherheitskonzepten], [Durch die Umsetzung eigener Angriffe ist eine partielle Risikoanalyse erstellt worden (siehe @angriffe-netzwerk).],
-      [Maßnahmen zur Bewältigung \ von Sicherheitsvorfällen (Incident Response)], [Es wurde kein Incident Reponse Plan erstellt.],
-      [Backup-Management und Wiederherstellung], [Es wurde kein Backup-Management umgesetzt. Es kann jedoch eine schnelle Wiederherstellung des virtualisierten Netzwerks mittels Provisionierung durchgeführt werden (siehe @provisionierung).],
-      [Konzepte für Zugriffskontrollen], [Wurde durch den Einsatz des AGDLP-Prinzips in der AD-Umgebung umgesetzt (siehe @benutzerkonten).],
-      [Software-Updates], [Es wurde manuelles Patch-Management durchgeführt (siehe @patch).],
-      [Gerätekonfiguration], [AD-Geräte, Netzwerkgeräte sowie die SPSen wurden gehärtet.],
-      [Netzwerksegmentierung], [Durch den Einsatz von FortiGate-Firewalls umgesetzt (siehe @firewall-config).],
-      [Schulungen für Mitarbeiter/innen], [Da keine echten Mitarbeiter/innen vorhanden sind, wurden keine Schulungen organisiert.],
-      [Zero-Trust-Prinzip], [Wurde nicht umgesetzt.]
-    ),
-    caption: [NIS-2-Maßnahmen für wesentliche Einrichtungen und deren Umsetzungsgrad in der Diplomarbeitstopologie],
-  )
-)
-
 #htl3r.author("Julian Burger")
 == Jump-Server für IT/OT Kommunikation
 
@@ -244,9 +234,9 @@ Die Konfiguration des OpenVPN-Servers selbst wird mittels automatischer Provisio
 
 Diese OpenVPN-Server-Konfiguration ist bis auf folgende zwei Ausnahmen sehr einfach gehalten:
 - `duplicate-cn`: Gibt an, dass sich mehrere Clients mit dem gleichen Zertifikat, zur selben Zeit, verbinden können.
-- `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den VPN-Tunnel erreichbar ist.
+- `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den #htl3r.short[vpn]-Tunnel erreichbar ist.
 
-OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, werden zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle wird die #htl3r.short[nat]-Konfiguration mit Linux IP-Tables realisiert, siehe @ovpn_iptables.
+OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, werden zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle wird die #htl3r.short[nat]-Konfiguration mit Linux #htl3r.short[ip]-Tables realisiert, siehe @ovpn_iptables.
 
 #htl3r.code(caption: [OpenVPN-Server Tunnel NAT])[
 ```bash
@@ -286,3 +276,39 @@ In @ovpn-client ist die finale Konfiguration der #htl3r.short[it]-Workstations e
 )
 
 Wie in @openvpn-client-conn erkennbar ist, ist es möglich, mit der #htl3r.short[it]-Workstation auf den OpenVPN-Server zuzugreifen. Über den OpenVPN-Server kann anschließend eine #htl3r.short[rdp]-Session auf eine #htl3r.short[ot]-Workstation geöffnet werden. Dieser Zugriff ist dank des Jump-Servers Purdue-Modell konform.
+
+#htl3r.author("David Koch")
+== NIS-2
+
+Beim Betreiben von Industriebetrieben oder kritischer Infrastruktur ist es wichtig, die gesetzlich vorgelegten Spezifikationen einzuhalten. Diese gibt es auch für den digitalen Bereich, wobei die bekannteste und derzeit relevanteste Spezifikation bzw. Richtlinie die #htl3r.short[nis]-2 wäre.
+
+"Die #htl3r.short[nis]-2-Richtlinie soll die Resilienz und die Reaktion auf Sicherheitsvorfälle des öffentlichen und des privaten Sektors in der EU verbessern. Der bisherige Anwendungsbereich der #htl3r.short[nis]-Richtlinie nach Sektoren wird mit #htl3r.short[nis]-2 auf einen größeren Teil der Wirtschaft und des öffentlichen Sektors ausgeweitet, um eine umfassende Abdeckung jener Sektoren und Dienste zu gewährleisten, die im Binnenmarkt für grundlegende gesellschaftliche und wirtschaftliche Tätigkeiten von entscheidender Bedeutung sind. Betroffene Einrichtungen müssen daher geeignete Risikomanagementmaßnahmen für dise Sicherheit ihrer Netz- und Informationssysteme treffen und unterliegen Meldepflichten." @nis-2-wko
+
+Die #htl3r.short[nis]-2-Richtlinie unterscheidet zwischen wesentlichen und wichtigen Einreichtungen, für die teilweise unterschiedliche Vorschriften gelten @nis-2-massnahmen. Eine Kläranlage fällt laut Anhang I der Richtlinie in den siebten Sektor "Abwasser": "Unternehmen, die kommunales Abwasser, häusliches Abwasser oder industrielles Abwasser im Sinne des Artikels 2 Nummern 1, 2 und 3 der Richtlinie 91/271/EWG des Rates (23) sammeln, entsorgen oder behandeln, jedoch unter Ausschluss der Unternehmen, für die das Sammeln, die Entsorgung oder die Behandlung solchen Abwassers ein nicht wesentlicher Teil ihrer allgemeinen Tätigkeit ist" @nis2-richtlinie
+
+#pagebreak(weak: true)
+Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgesehen:
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    table(
+      columns: (2fr, 3fr),
+      inset: 10pt,
+      align: (horizon + left, horizon + left),
+      table.header(
+        [*Maßnahme*], [*Im Rahmen der Diplomarbeit umgesetzt*],
+      ),
+      [Erstellung einer Risikoanalyse- \ und Informationssicherheitskonzepten], [Durch die Umsetzung eigener Angriffe ist eine partielle Risikoanalyse erstellt worden (siehe @angriffe-netzwerk).],
+      [Maßnahmen zur Bewältigung \ von Sicherheitsvorfällen (Incident Response)], [Es wurde kein Incident Reponse Plan erstellt.],
+      [Backup-Management und Wiederherstellung], [Es wurde kein Backup-Management umgesetzt. Es kann jedoch eine schnelle Wiederherstellung des virtualisierten Netzwerks mittels Provisionierung durchgeführt werden (siehe @provisionierung).],
+      [Konzepte für Zugriffskontrollen], [Wurde durch den Einsatz des AGDLP-Prinzips in der AD-Umgebung umgesetzt (siehe @benutzerkonten).],
+      [Software-Updates], [Es wurde manuelles Patch-Management durchgeführt (siehe @patch).],
+      [Gerätekonfiguration], [AD-Geräte, Netzwerkgeräte sowie die SPSen wurden gehärtet.],
+      [Netzwerksegmentierung], [Durch den Einsatz von FortiGate-Firewalls umgesetzt (siehe @firewall-config).],
+      [Schulungen für Mitarbeiter/innen], [Da keine echten Mitarbeiter/innen vorhanden sind, wurden keine Schulungen organisiert.],
+      [Zero-Trust-Prinzip], [Wurde nicht umgesetzt.]
+    ),
+    caption: [NIS-2-Maßnahmen für wesentliche Einrichtungen und deren Umsetzungsgrad in der Diplomarbeitstopologie],
+  )
+)

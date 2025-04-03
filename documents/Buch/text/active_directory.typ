@@ -37,7 +37,7 @@ Der logische Aufbau des #htl3r.short[ad]s der Firma "Fenrir" wird mit Hilfe von 
         - OU=LAPS-Server
       ]
     ]))),
-    caption: [Die OU-Struktur der corp.fenrir-ot.at Domäne]
+    caption: [Die OU-Struktur der corp.fenrir-ot.at Domain]
   )
 )
 
@@ -88,7 +88,7 @@ Die #htl3r.short[ou] "LAPS-Server" wird im in @ad_hardening beschriebenen #htl3r
       [mmeier], [Max], [Meier], [Operations],
       [mmuster], [Maria], [Mustermann], [Marketing],
     ),
-    caption: [Visualisierung der Benutzer in der Domäne]
+    caption: [Visualisierung der Benutzer in der Domain]
   )
 )
 
@@ -175,13 +175,13 @@ Es werden zuerst die Domain Local Groups und dann die Global Groups erstellt. An
 
 #htl3r.author("Bastian Uhlig")
 == GPOs
-#htl3r.fullpl[gpo] sind Richtlinien, die in einer #htl3r.long[ad]-Domäne definiert werden und die Konfiguration von Benutzern und Computern in einem Netzwerk steuern. Mit #htl3r.short[gpo] können Administratoren Einstellungen für Benutzer und Computer festlegen, wie z.B. Sicherheitseinstellungen, Softwareinstallationen, Netzwerkeinstellungen und vieles mehr. In der Firma "Fenrir" werden #htl3r.shortpl[gpo] verwendet, um die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne zu steuern. \ 
+#htl3r.fullpl[gpo] sind Richtlinien, die in einer #htl3r.long[ad]-Domain definiert werden und die Konfiguration von Benutzern und Computern in einem Netzwerk steuern. Mit #htl3r.short[gpo] können Administratoren Einstellungen für Benutzer und Computer festlegen, wie z.B. Sicherheitseinstellungen, Softwareinstallationen, Netzwerkeinstellungen und vieles mehr. In der Firma "Fenrir" werden #htl3r.shortpl[gpo] verwendet, um die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domain zu steuern. \ 
 Effektiv setzen #htl3r.shortpl[gpo] Registy-Einträge, weshalb man in den Skriptausschnitten auch die Pfade dieser sieht.
 
 === GPOs in der Firma "Fenrir"
-In der Firma "Fenrir" sind einige relativ grundlegende #htl3r.shortpl[gpo] definiert, die die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domäne steuern. Alle #htl3r.shortpl[gpo] werden - wie auch der Rest vom #htl3r.long[ad] - mittels PowerShell-Skripten erstellt:
+In der Firma "Fenrir" sind einige relativ grundlegende #htl3r.shortpl[gpo] definiert, die die Konfiguration der Benutzer und Computer in der #htl3r.long[ad]-Domain steuern. Alle #htl3r.shortpl[gpo] werden - wie auch der Rest vom #htl3r.long[ad] - mittels PowerShell-Skripten erstellt:
 
-- *Minimum Password Length:* Diese #htl3r.shortpl[gpo] legt die Mindestlänge des Passworts für Benutzer in der #htl3r.long[ad]-Domäne fest. In der Firma "Fenrir" wurde die Mindestlänge auf 8 Zeichen festgelegt.
+- *Minimum Password Length:* Diese #htl3r.shortpl[gpo] legt die Mindestlänge des Passworts für Benutzer in der #htl3r.long[ad]-Domain fest. In der Firma "Fenrir" wurde die Mindestlänge auf 8 Zeichen festgelegt.
 #htl3r.code(caption: "OU für minimale Passwortlänge", description: none)[
 ```powershell
 $minPasswordLengthGpoName = "Minimum Password Length Policy"
@@ -189,7 +189,7 @@ New-GPO -Name $minPasswordLengthGpoName | Out-Null
 Set-GPRegistryValue -Name $minPasswordLengthGpoName -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Network" -ValueName "MinPwdLen" -Type DWORD -Value 8
 ```
 ]
-- *Desktop Wallpaper:* Diese #htl3r.shortpl[gpo] legt das Hintergrundbild für die Desktops der Benutzer in der #htl3r.long[ad]-Domäne fest. In der Firma "Fenrir" wurde das Hintergrundbild auf das Firmenlogo festgelegt.
+- *Desktop Wallpaper:* Diese #htl3r.shortpl[gpo] legt das Hintergrundbild für die Desktops der Benutzer in der #htl3r.long[ad]-Domain fest. In der Firma "Fenrir" wurde das Hintergrundbild auf das Firmenlogo festgelegt.
 #htl3r.code(caption: "OU für den Desktop Hintergrund", description: none)[
 ```powershell
 $desktopWallpaperGpoName = "Desktop Wallpaper Policy"
@@ -278,7 +278,7 @@ Die #htl3r.long[dc] teilen sich die Aufgaben:
       align: (left + horizon, center, center),
       table.header[][DC1][DC2],
       [Rollen], align(left + horizon, llist("Domain Naming Master", "Root/Primary Domain Controller")), llist("Infrastructure Master", "RID Pool Manager", "Schema Master"),
-      [DHCP], "Ja", "Failover",
+      [#htl3r.short[dhcp]], "Ja", "Failover",
       [DNS], "Ja", "Ja",
       [Remoting], table.cell(colspan: 2, llist("PowerShell Remoting", "SSH Server", "RDP", "Remote Management"))
     ),
@@ -355,7 +355,7 @@ Im zweiten Part des Playbooks wird das PowerShell-Skript `Exchange_part_2.ps1` a
   text: read("../assets/scripts/Exchange_part_2.ps1")
 )
 
-Im dritten Part des Playbooks wird das PowerShell-Skript `Exchange_part_3.ps1` ausgeführt. Es wird damit begonnen, ein Verzeichnis zu erstellen, in dem die Installationsdateien für den Exchange Server benötigte Software abgelegt werden. Im Anschluss wird die `vcredist_x64.exe` heruntergeladen und installiert. Diese enthält die Visual C++ Redistributable Packages, die für den Exchange Server benötigt werden. Danach wird das mit der ISO-Datei mitgelieferte UCMARedist (Unified Communications Managed API) installiert. Dieses ist in diesem Fall nicht unbedingt notwendig, da es dabei um die Einbindung von Skype for Business und anderen Voricemaildiensten geht, jedoch kann es nicht schaden es zu installieren, falls es in der Zukunft benötigt wird. Als letzes Paket wird das "IIS URL rewrite Module" heruntergeladen und im Anschluss installiert. IIS ist der Webserver von Microsoft und wird für den Exchange Server benötigt und das URL rewrite Module ist ein Modul, das die URL-Umschreibung für den IIS-Webserver ermöglicht, um die Webzugriffe auf den Exchange Server zu steuern.
+Im dritten Part des Playbooks wird das PowerShell-Skript `Exchange_part_3.ps1` ausgeführt. Es wird damit begonnen, ein Verzeichnis zu erstellen, in dem die Installationsdateien für den Exchange Server benötigte Software abgelegt werden. Im Anschluss wird die `vcredist_x64.exe` heruntergeladen und installiert. Diese enthält die Visual C++ Redistributable Packages, die für den Exchange Server benötigt werden. Danach wird das mit der ISO-Datei mitgelieferte UCMARedist (Unified Communications Managed #htl3r.short[api]) installiert. Dieses ist in diesem Fall nicht unbedingt notwendig, da es dabei um die Einbindung von Skype for Business und anderen Voricemaildiensten geht, jedoch kann es nicht schaden es zu installieren, falls es in der Zukunft benötigt wird. Als letzes Paket wird das "IIS URL rewrite Module" heruntergeladen und im Anschluss installiert. IIS ist der Webserver von Microsoft und wird für den Exchange Server benötigt und das URL rewrite Module ist ein Modul, das die URL-Umschreibung für den IIS-Webserver ermöglicht, um die Webzugriffe auf den Exchange Server zu steuern.
 
 Da alle notwendigen Pakete installiert sind, wird von der ISO-Datei die Datei `Setup.exe` ausgeführt, um den Exchange Server zu installieren.
 
@@ -393,7 +393,7 @@ Nach dem Senden der E-Mail wird der Empfang der E-Mail überprüft. Dafür wird 
 Die E-Mail wurde erfolgreich empfangen - somit funktioniert der Exchange Server einwandfrei.
 
 == Fileserver
-Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der #htl3r.short[it]-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der #htl3r.short[it]-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domäne integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
+Der Fileserver ist ein zentraler Ablageort für Dateien und Dokumente in einem Netzwerk. Er stellt Verzeichnisse zur Verfügung, auf die die Benutzer des Netzwerks zugreifen können. Der Fileserver ist ein wichtiger Bestandteil der #htl3r.short[it]-Infrastruktur eines Unternehmens, da er die Speicherung und Organisation von Dateien erleichtert und die Zusammenarbeit der Mitarbeiter fördert. In der #htl3r.short[it]-Infrastruktur der Firma "Fenrir" wird ein Fileserver eingesetzt, um zentrale Speicherbereiche für die Benutzer und Abteilungen bereitzustellen. Damit die Benutzer auf die Dateien zugreifen können, wird der Fileserver in die Active Directory-Domain integriert und die Berechtigungen für die Benutzer und Gruppen verwaltet. Die Berechtigungen der Verzeichnisse der Abteilungen werden mithilfe der Domain Local Groups aus @benutzergruppen verwaltet.
 
 === Aufsetzen des File Servers
 Mithilfe eines Ansible-Playbooks wird der Fileserver aufgesetzt. Dabei wird das Playbook in mehreren Parts aufgeteilt, da der Fileserver während der Installation mehrmals neu gestartet werden muss.
@@ -415,7 +415,8 @@ Im ersten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_1.ps1` 
   text: read("../assets/scripts/Fileserver_part_1.ps1")
 )
 
-Im zweiten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_2.ps1` ausgeführt. Hier wird der Fileserver in die Active Directory-Domäne integriert.
+Im zweiten Part des Playbooks wird das PowerShell-Skript `Fileserver_part_2.ps1` ausgeführt. Hier wird der Fileserver in die #htl3r.long[ad]-Domain integriert.
+
 #htl3r.code-file(
   caption: "Part-2-Skript für das Aufsetzen von Fileserver",
   filename: [ansible/playbooks/stages/stage_04/extra/Fileserver_part_2.ps1],

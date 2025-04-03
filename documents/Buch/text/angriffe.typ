@@ -9,7 +9,7 @@
 Um die Sicherheit der in den obigen Abschnitten erstellten Topologie,  herkömmlicher Firmennetzwerke mit #htl3r.short[ot]-Abschnitten oder die Netzwerke von echter kritischer Infrastruktur zu gewährleisten braucht es ein theoretisches Verständnis von den möglichen Angriffsvektoren als auch die dazugehörige Absicherung, um gegen die bekannten Angriffsvektoren vorzugehen und somit Angriffen vorzubeugen.
 
 === Sicherheitsmängel bei Bus-Systemen
-Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche #htl3r.short[tcp]/IP-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das AAA-System sind der Bus-Welt fremd.
+Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussysteme vom Grundprinzip aus außerordentlich unsicher und leicht manipulierbar. Alle Geräte eines Bussystems hängen an einer Broadcast-Domain. Das bedeutet, dass alle Geräte jeweils alle Informationen, die über den Bus geschickt werden, mitlesen können. Noch dazu werden die über den Bus versendeten Daten unter anderem nicht auf einen legitimen Absender oder Datensatz kontrolliert. Zwar bieten manche #htl3r.short[tcp]/#htl3r.short[ip]-enkapsulierten Bussysteme eine verschlüsselte Ende-zu-Ende-Kommunikation, jedoch sind diese in der Industrie nur selten umgesetzt. Konzepte wie die CIA-Triade und das AAA-System sind der Bus-Welt fremd.
 
 #htl3r.fspace(
   total-width: 95%,
@@ -210,10 +210,10 @@ Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt
 )
 
 Bereits durch einen Port-Scan der #htl3r.short[sps] kann der Angreifer Informationen über mögliche Schwachstellen ergattern. Es sind derzeit folgende Ports offen, die eine Gefahr darstellen können:
-- *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-#htl3r.short[sps]-Administrationssoftware STEP 7 per Fernwartung mit der #htl3r.short[sps] kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
-- *UDP-Port 161:* Hostet den #htl3r.short[snmp]-Dienst. Dieser dient der Übermittlung von Logdaten an externe Log-Server und der Konfiguration des Gerät per Fernwartung. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
+- *#htl3r.short[tcp]-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-#htl3r.short[sps]-Administrationssoftware STEP 7 per Fernwartung mit der #htl3r.short[sps] kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
+- *#htl3r.short[udp]-Port 161:* Hostet den #htl3r.short[snmp]-Dienst. Dieser dient der Übermittlung von Logdaten an externe Log-Server und der Konfiguration des Gerät per Fernwartung. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
 
-Nachdem der Port-Scan fertig ist, weiß der Angreifer nun, welche Schnittstellen er über das Netzwerk nutzen kann, um die #htl3r.short[sps] anzugreifen. #htl3r.short[snmp] kann besonders bei Fehlkonfiguration der Zugriffsberechtigung zum Verhängnis werden. Da aber jedoch der ISO-TSAP-Dienst zur Fenrwartung nicht deaktiviert werden kann, ist dieser immer von Interesse für Angreifer. Aber: durch diesen Port-Scan wurden nur die #htl3r.short[udp]- und #htl3r.short[tcp]-Schnittstellen identifiziert. Diese liegen auf der vierten Schicht im OSI-Schichtenmodell, wobei meistens #htl3r.shortpl[sps] mittels Netzwerkkommunikation auf der zweiten Schicht konfiguriert werden. 
+Nachdem der Port-Scan fertig ist, weiß der Angreifer nun, welche Schnittstellen er über das Netzwerk nutzen kann, um die #htl3r.short[sps] anzugreifen. #htl3r.short[snmp] kann besonders bei Fehlkonfiguration der Zugriffsberechtigung zum Verhängnis werden. Da aber jedoch der ISO-TSAP-Dienst zur Fenrwartung nicht deaktiviert werden kann, ist dieser immer von Interesse für Angreifer. Aber: durch diesen Port-Scan wurden nur die #htl3r.short[udp]- und #htl3r.short[tcp]-Schnittstellen identifiziert. Diese liegen auf der vierten Schicht im #htl3r.short[osi]-Schichtenmodell, wobei meistens #htl3r.shortpl[sps] mittels Netzwerkkommunikation auf der zweiten Schicht konfiguriert werden. 
 
 Eines der L2-Protokolle zur #htl3r.short[sps]-Konfiguration ist Profinet DCP. Das DCP steht für "Discovery and basic Configuration Protocol" und einige Funktionen des Protokolls inkludieren die Identifizierung von Profinet-Geräten im Netzwerk (Identify), die Abfrage von Informationen (Get), das Setzen der #htl3r.short[ip]-Adresse sowie des Hostnamens (Set) und das Zurücksetzen auf Werkseinstellungen (Reset). Die S7-1200 antwortet standardmäßig auf Profinet DCP Anfragen. Somit wird nun versucht, über das Protokoll Profinet DCP die Informationen -- z.B. der Firmware-Version -- der #htl3r.short[sps] abzufragen. @profinet-dcp-doc
 
@@ -236,7 +236,7 @@ python3 modules/auxiliary/scanner/scada/dcp.py --interface eth1
 ```
 ]
 
-Nach wenigen Sekunden ist der Identify-Scan fertig und liefert dem Angreifer die nächsten Informationen: Im Netzwerk ist eine S7-1200 mit der MAC-Adresse `8c:f3:19:0b:ec:c3` vorhanden, auf welcher die Firmware-Version v4.3.1 installiert ist. Der Angreifer hat nun genug Informationen, um einen DoS-Angriff gegen die S7-1200 zu starten, denn der #htl3r.short[cve]-2019-10936 beschreibt eine Schwachstelle in den Firmware-Versionen vor v4.4.0 auf der ISO-TSAP-Schnittstelle der S7-1200 #htl3r.short[sps] @siemens-sps-dos-cve. Die Schwachstelle wird in @dos-sps ausgenutzt. 
+Nach wenigen Sekunden ist der Identify-Scan fertig und liefert dem Angreifer die nächsten Informationen: Im Netzwerk ist eine S7-1200 mit der MAC-Adresse `8c:f3:19:0b:ec:c3` vorhanden, auf welcher die Firmware-Version v4.3.1 installiert ist. Der Angreifer hat nun genug Informationen, um einen #htl3r.short[dos]-Angriff gegen die S7-1200 zu starten, denn der #htl3r.short[cve]-2019-10936 beschreibt eine Schwachstelle in den Firmware-Versionen vor v4.4.0 auf der ISO-TSAP-Schnittstelle der S7-1200 #htl3r.short[sps] @siemens-sps-dos-cve. Die Schwachstelle wird in @dos-sps ausgenutzt. 
 
 #htl3r.author("David Koch")
 === DoS einer SPS <dos-sps>
@@ -330,9 +330,9 @@ Der Angriff beginnt -- wie viele andere Angriffe in der Realität auch -- mit ei
   ]
 )
 
-In der in @phishing-mail gezeigten E-Mail ist nicht nur eine legitime vom offiziellen Siemens Kundensupport veröffentlichte Umfrage enthalten, sondern auch ein Link zu einem maliziösen PDF, welches sich als Produktkatalog für das zweite Quartal des Verkaufsjahres 2025 tarnt. Man beachte, dass der Link zu der Umfrage unter der authentischen `www.siemens.com` Domäne zu finden ist, während das PDF unter `www.siemems.com` liegt.
+In der in @phishing-mail gezeigten E-Mail ist nicht nur eine legitime vom offiziellen Siemens Kundensupport veröffentlichte Umfrage enthalten, sondern auch ein Link zu einem maliziösen PDF, welches sich als Produktkatalog für das zweite Quartal des Verkaufsjahres 2025 tarnt. Man beachte, dass der Link zu der Umfrage unter der authentischen `www.siemens.com` Domain zu finden ist, während das PDF unter `www.siemems.com` liegt.
 
-Der Manager David Koch hat zwar kein Interesse an der Umfrage, der Produktkatalog sticht ihm jedoch sofort ins Auge. Er besucht -- ohne die falsche Domäne zu beachten -- die Website und lädt sich den Produktkatalog herunter. Beim Öffnen der PDF-Datei öffnet sich für einen kurzen Augenblick eine Windows-Kommandozeile, der Manager denkt sich jedoch nichts dabei. Tatsache ist: Auf seinem Gerät ist nun ein Trojaner, welcher dem Angreifer ein Backdoor-Access auf sein System und die derzeit aktiven Konten gibt. Diese Art von Phishing-Angriff mittels Trojaner-PDF ist sehr üblich und Microsoft hat bereits mehr als 500 verschiedene Signaturen zu dieser Art von Angriff gesammelt @ms-security-pdf-phish[comp].
+Der Manager David Koch hat zwar kein Interesse an der Umfrage, der Produktkatalog sticht ihm jedoch sofort ins Auge. Er besucht -- ohne die falsche Domain zu beachten -- die Website und lädt sich den Produktkatalog herunter. Beim Öffnen der PDF-Datei öffnet sich für einen kurzen Augenblick eine Windows-Kommandozeile, der Manager denkt sich jedoch nichts dabei. Tatsache ist: Auf seinem Gerät ist nun ein Trojaner, welcher dem Angreifer ein Backdoor-Access auf sein System und die derzeit aktiven Konten gibt. Diese Art von Phishing-Angriff mittels Trojaner-PDF ist sehr üblich und Microsoft hat bereits mehr als 500 verschiedene Signaturen zu dieser Art von Angriff gesammelt @ms-security-pdf-phish[comp].
 
 === Spear-Phishing
 
@@ -349,7 +349,7 @@ Nachdem das Gerät und somit auch das E-Mail-Konto des Managers übernommen word
   ]
 )
 
-Der #htl3r.short[ot]-Administrator liest diese E-Mail, hinterfragt die Aufforderung des Managers nicht und schickt ihm die Zugangsdaten zu den #htl3r.short[ot]-Workstations. Eine physische Absprache mit dem Manager, ob dieser auch tatsächlich hinter dieser Aufforderung steckt, hätte den Angreifer auffliegen lassen. Da die E-Mail jedoch von der echten Fenrir-Domäne und dem dkoch Benutzer aus geschickt worden ist und diese einen dringlichen Ton aufweißt, hat der #htl3r.short[ot]-Administrator nicht gezögert.
+Der #htl3r.short[ot]-Administrator liest diese E-Mail, hinterfragt die Aufforderung des Managers nicht und schickt ihm die Zugangsdaten zu den #htl3r.short[ot]-Workstations. Eine physische Absprache mit dem Manager, ob dieser auch tatsächlich hinter dieser Aufforderung steckt, hätte den Angreifer auffliegen lassen. Da die E-Mail jedoch von der echten Fenrir-Domain und dem dkoch Benutzer aus geschickt worden ist und diese einen dringlichen Ton aufweißt, hat der #htl3r.short[ot]-Administrator nicht gezögert.
 
 #htl3r.fspace(
   [
@@ -383,7 +383,7 @@ nmap 10.34.0.50
 ```
 ]
 
-Nach dem Ausführen von den Befehlen in Quellcode 7.8 weiß der Angreifer, dass auf der IP-Adresse `10.34.0.50` der #htl3r.short[tcp]-Port 80 offen ist, was auf ein Web-Interface hindeutet.
+Nach dem Ausführen von den Befehlen in Quellcode 7.8 weiß der Angreifer, dass auf der #htl3r.short[ip]-Adresse `10.34.0.50` der #htl3r.short[tcp]-Port 80 offen ist, was auf ein Web-Interface hindeutet.
 
 #htl3r.fspace(
   total-width: 100%,
@@ -393,7 +393,7 @@ Nach dem Ausführen von den Befehlen in Quellcode 7.8 weiß der Angreifer, dass 
   )
 )
 
-Über das #htl3r.short[scada]-Dashboard kann der Angreifer nun die gesamte OT-Gerätschaft auskundschaften und mit dem besseren Überblick diese gezielt angreifen.
+Über das #htl3r.short[scada]-Dashboard kann der Angreifer nun die gesamte #htl3r.short[ot]-Gerätschaft auskundschaften und mit dem besseren Überblick diese gezielt angreifen.
 
 === Default Credentials auf der SPS
 

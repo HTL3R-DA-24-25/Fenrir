@@ -17,7 +17,7 @@ In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuelle
 
 == Purdue-Modell <purdue>
 
-Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum OSI-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert. Kommunikation darf ohne weiteres auch nur zwischen direkt benachbarten Ebenen stattfinden.
+Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum #htl3r.short[osi]-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert. Kommunikation darf ohne weiteres auch nur zwischen direkt benachbarten Ebenen stattfinden.
 
 Level 0 bis 3 gehören zur #htl3r.short[ot], 4 bis 5 sind Teil der #htl3r.short[it].
 Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 3 und 4 wird diese als Ebene 3.5 gekennzeichnet.
@@ -60,21 +60,21 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
       inset: 10pt,
       align: (horizon + left, horizon + center, horizon + left),
       table.header(
-        [*Name*], [*Netzwerksegment*], [*IP-Adresse(n)*],
+        [*Name*], [*Netzwerksegment*], [*#htl3r.short[ip]-Adresse(n)*],
       ),
-      [Exchange], [IT-DMZ], [192.168.30.100/24],
-      [ADDC-Primary], table.cell(rowspan: 4, "IT-SEC"), [192.168.31.1/24],
-      [ADDC-Secondary], [192.168.31.2/24],
+      [Exchange], [#htl3r.short[it]-#htl3r.short[dmz]], [192.168.30.100/24],
+      [#htl3r.short[adds]-Primary], table.cell(rowspan: 4, "IT-SEC"), [192.168.31.1/24],
+      [#htl3r.short[adds]-Secondary], [192.168.31.2/24],
       [Grafana], [192.168.31.50/24],
       [File Server], [192.168.31.100/24],
-      [IT Workstations], [IT-Net], [#htl3r.short[dhcp]],
+      [#htl3r.short[it] Workstations], [IT-Net], [#htl3r.short[dhcp]],
       [Jump-Server], table.cell(rowspan: 1, "OT-DMZ"), [192.168.33.50/24],
-      [SCADA], table.cell(rowspan: 3, "OT-NET"), [10.34.0.50/16],
-      [MES], [10.34.0.100/16],
-      [OT Workstations], [#htl3r.short[dhcp]],
-      [SPS Zelle Eins], table.cell(rowspan: 3, "Kläranlage"), [10.79.84.1/30],
-      [SPS Zelle Zwei], [10.79.84.5/30],
-      [SPS Zelle Drei], [10.79.84.9/30],
+      [#htl3r.short[scada]], table.cell(rowspan: 3, "OT-NET"), [10.34.0.50/16],
+      [#htl3r.short[mes]], [10.34.0.100/16],
+      [#htl3r.short[ot] Workstations], [#htl3r.short[dhcp]],
+      [#htl3r.short[sps] Zelle Eins], table.cell(rowspan: 3, "Kläranlage"), [10.79.84.1/30],
+      [#htl3r.short[sps] Zelle Zwei], [10.79.84.5/30],
+      [#htl3r.short[sps]Zelle Drei], [10.79.84.9/30],
     ),
     caption: [Alle Geräte die in der logischen Topologie vorhanden sind],
   )
@@ -93,7 +93,7 @@ Die in @logisch-geraete aufgelisteten Netzwerksegmente werden durch drei physisc
       inset: 10pt,
       align: (horizon + left, horizon + center, horizon + center, horizon + left),
       table.header(
-        [*Name*], [*Interface*], [*Netzwerksegment \ / Gerät*], [*IP-Adresse(n)*],
+        [*Name*], [*Interface*], [*Netzwerksegment \ / Gerät*], [*#htl3r.short[ip]-Adresse(n)*],
       ),
       table.cell(rowspan: 5, "Uplink Firewall"),
       [wan1], [Internet], [#htl3r.short[dhcp]],
@@ -119,7 +119,7 @@ Die in @logisch-geraete aufgelisteten Netzwerksegmente werden durch drei physisc
 #htl3r.author("Julian Burger")
 == Physische Topologie <physische-topo>
 
-Logisch betrachtet scheint die Topologie zunächst recht simpel, jedoch kommen mehrere abstraktions Ebenen zum Einsatz, um die IT-Infrastruktur einer Kläranlage zu emulieren. So kommen zum Beispiel #htl3r.shortpl[vlan] zum Einsatz, um die einzelnen Netzwerke zu separieren.
+Logisch betrachtet scheint die Topologie zunächst recht simpel, jedoch kommen mehrere abstraktions Ebenen zum Einsatz, um die #htl3r.short[it]-Infrastruktur einer Kläranlage zu emulieren. So kommen zum Beispiel #htl3r.shortpl[vlan] zum Einsatz, um die einzelnen Netzwerke zu separieren.
 
 Physische Server- und Clientgeräte werden virtualisiert und mittels #htl3r.fullpl[dvs] mit #htl3r.short[vlan]-Tags versehen, um diese dann wiederrum zu einem physischen Switch zu enkapsuliert weiterzuleiten, welcher die #htl3r.shortpl[vlan] dann zu den physischen Firewalls, ebenfalls enkapsuliert, weiterleitet. Dies geschieht für ein jedes Netzwerk in der Kläranlagen-Topologie. Besondere Netzwerke wie ein Management, Storage und Internet werden ähnlich, jedoch etwas abgewandelt realisiert, siehe @conf_vsphere.
 
@@ -139,7 +139,7 @@ Um einen groben Überblick über den physischen Aufbau des Netzwerks zu bekommen
   ]
 )
 
-Die Geräte der physischen Topologie sind -- mit Ausnahme der OT-Gerätschaft -- in einem leicht transportierbarem Server-Rack untergebracht:
+Die Geräte der physischen Topologie sind -- mit Ausnahme der #htl3r.short[ot]-Gerätschaft -- in einem leicht transportierbarem Server-Rack untergebracht:
 
 #htl3r.fspace(
   figure(
@@ -197,7 +197,7 @@ Innerhalb der Diplomarbeit werden alle #htl3r.short[it]-Geräte virtualisiert. D
 Dies ermöglicht ebenso eine gewisse Ausfallsicherheit, da #htl3r.shortpl[vm] unabhängig von den ESXi-Instanzen sind und im Falle eines Ausfalls von einer Instanz auf eine andere Übertragen werden können. Hier gibt es bei VMware Lösungen wie vMotion, welche Live-Migrationen durchführen kann. Im Rahmen dieser Diplomarbeit kommt dies jedoch nicht zum Einsatz; Es wird lediglich #htl3r.long[drs] verwendet um die #htl3r.shortpl[vm] auf die ESXi-Instanzen aufzuteilen.
 
 === vCenter Umgebung <vcenter_env>
-Der vCenter-Dienst läuft als #htl3r.short[vm] auf ESXi 1 und kommuniziert mit den restlichen ESXi-Instanzen über ein Management-Netzwerk. Dieses Mangement-Netzwerk ist als #htl3r.short[vlan] realisiert. Die #htl3r.short[vlan]-ID des Netzwerks ist 120 und als Subnetz wird 10.40.20.0/24 verwendet. Da vCenter eine #htl3r.short[sso]-Domäne erstellt, welche eine #htl3r.short[dns]-Domäne benötigt, existiert innerhalb des Management-Netzwerkes die #htl3r.short[dns]-Domäne fenrir.local mit folgenden #htl3r.short[dns]-Einträgen:
+Der vCenter-Dienst läuft als #htl3r.short[vm] auf ESXi 1 und kommuniziert mit den restlichen ESXi-Instanzen über ein Management-Netzwerk. Dieses Mangement-Netzwerk ist als #htl3r.short[vlan] realisiert. Die #htl3r.short[vlan]-ID des Netzwerks ist 120 und als Subnetz wird 10.40.20.0/24 verwendet. Da vCenter eine #htl3r.short[sso]-Domain erstellt, welche eine #htl3r.short[dns]-Domäne benötigt, existiert innerhalb des Management-Netzwerkes die #htl3r.short[dns]-Domain fenrir.local mit folgenden #htl3r.short[dns]-Einträgen:
 
 #htl3r.fspace(
   total-width: 100%,
@@ -209,7 +209,7 @@ Der vCenter-Dienst läuft als #htl3r.short[vm] auf ESXi 1 und kommuniziert mit d
       table.header(
         [*DNS-Name*], [*Adresse*], [*Gerät*],
       ),
-      [vcenter.fenrir.local], [10.40.20.10], [vCenter VM],
+      [vcenter.fenrir.local], [10.40.20.10], [vCenter #htl3r.short[vm]],
       [esxi1.fenrir.local], [10.40.20.11], [ESXi 1],
       [esxi2.fenrir.local], [10.40.20.12], [ESXi 2],
       [esxi3.fenrir.local], [10.40.20.13], [ESXi 3],
@@ -242,7 +242,7 @@ Die angesprochenen VMkernel Adapter existieren in identer Form auf allen ESXi-Ho
 - *vmk0*: Ist mit der _ManagementPG_ verbunden und hat den _Management_-Dienst aktiviert. Dies teilt vCenter/vSphere mit, dass sämtlicher Management-Traffic über diesen Adapter und somit über die _ManagementPG_ geschickt werden soll.
 - *vmk1*: Ist mit der _StoragePG_ verbunden und hat den _vMotion_-Dienst aktiviert. vMotion ermöglicht es #htl3r.shortpl[vm], während diese gestartet sind, auf andere ESXi-Hosts zu migrieren mit minimalen Ausfällen.
 
-Auch wenn vMotion nicht zwingend gebraucht wird, existiert der VMkernel Adapter aus performance Gründen, welche in @nfs_datastore beschrieben werden. Der andere VMkernel Adapter existiert aus gründen der Segmentierung und somit Sicherheit. Es ist möglich über einen VPN in das Management-Netzwerk zu gelangen und somit den Provisionierungsvorgang einzuleiten, wie in @provisionierung beschrieben.
+Auch wenn vMotion nicht zwingend gebraucht wird, existiert der VMkernel Adapter aus performance Gründen, welche in @nfs_datastore beschrieben werden. Der andere VMkernel Adapter existiert aus gründen der Segmentierung und somit Sicherheit. Es ist möglich über einen #htl3r.short[vpn] in das Management-Netzwerk zu gelangen und somit den Provisionierungsvorgang einzuleiten, wie in @provisionierung beschrieben.
 
 #htl3r.fspace(
   total-width: 75%,
@@ -266,7 +266,7 @@ So wird garantieren, dass alle ESXi-Hosts die volle Bandbreite ihrer Links, von 
   )
 )
 
-Die Einbindung des #htl3r.short[nfs]-Shares als Datastore erfolgt über vSphere, hierbei muss lediglich die IP-Adresse, sowie Benutzername und Passwort des #htl3r.short[nfs]-Shares eingegeben werden. Die Konfiguration des #htl3r.short[nfs]-Shares ist simpel gehalten:
+Die Einbindung des #htl3r.short[nfs]-Shares als Datastore erfolgt über vSphere, hierbei muss lediglich die #htl3r.short[ip]-Adresse, sowie Benutzername und Passwort des #htl3r.short[nfs]-Shares eingegeben werden. Die Konfiguration des #htl3r.short[nfs]-Shares ist simpel gehalten:
 
 #htl3r.code(caption: "NFS-Share Export-Konfiguration", description: none)[
 ```
@@ -338,7 +338,7 @@ Wie schon angesprochen müssen normale #htl3r.short[vm]-Templates, welche in ein
 
 Die eigentlichen #htl3r.shortpl[vm] sind dann in einem Ordner namens "Topology VMs" welcher mehrere Unterordner für die verwendeten Netzwerke besitzt. Einzig und allein die Bastion, siehe @prov-mit-bastion, liegt direkt innerhalb des "Topology VMs" Ordners.
 
-Ein ähnliches Konzept existiert auch bei den vSwitches. Hier liegt der "ManagementDVS" #htl3r.short[dvs] direkt auf der Datacenter-Node ohne Ordner gemeinsam mit den Standard-vSwitches, während der "FenrirDVS", welcher die #htl3r.shortpl[dpg] beinhaltet, welche verwendet werden um #htl3r.shortpl[vm] mit einem VLAN zu versehen, in einem Ordner namens "Topology Networks" liegt.
+Ein ähnliches Konzept existiert auch bei den vSwitches. Hier liegt der "ManagementDVS" #htl3r.short[dvs] direkt auf der Datacenter-Node ohne Ordner gemeinsam mit den Standard-vSwitches, während der "FenrirDVS", welcher die #htl3r.shortpl[dpg] beinhaltet, welche verwendet werden um #htl3r.shortpl[vm] mit einem #htl3r.short[vlan] zu versehen, in einem Ordner namens "Topology Networks" liegt.
 
 #htl3r.author("David Koch")
 == OT-Bereich
@@ -419,7 +419,7 @@ Wenn dieser Frame nun als Teil von Modbus #htl3r.short[tcp] enkapsuliert werden 
         [*Daten*], [*Parameter*], [*Beschreibung*],
       ),
       [*`0001`*], [Transaction identifier], [Dient zur Identifizierung der Übertragungsreinfolge bei mehreren Transaktionen],
-      [*`0000`*], [Protocol identifier], [Der "protocol identifier" für Modbus TCP ist immer 0],
+      [*`0000`*], [Protocol identifier], [Der "protocol identifier" für Modbus #htl3r.short[tcp] ist immer 0],
       [*`0006`*], [Length], [Die Länge der restlichen #htl3r.short[pdu] in Bytes (Slave ID bis Data, insgesamt 6 Bytes)],
       [*`11`*], [Slave ID], [Die Adresse des Slave-Geräts (17 = 11 hex)],
       [*`03`*], [Function Code], [Funktionscode für das Auslesen eines analogen "Holding"-Registers],
@@ -430,12 +430,12 @@ Wenn dieser Frame nun als Teil von Modbus #htl3r.short[tcp] enkapsuliert werden 
   )
 )
 
-Es darf bei der Enkapsulierung nicht vergessen werden, dass die #htl3r.short[pdu] lediglich das Datenfeld des gesamten #htl3r.short[tcp]/IP-Packets belegt. Durch diese Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40\% seiner ursprünglichen Daten-Durchsatzes. Jedoch wird dieser Verlust durch die zuvor erwähnten -- von #htl3r.short[tcp] mitgebrachten -- Vorteile ausgeglichen. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
+Es darf bei der Enkapsulierung nicht vergessen werden, dass die #htl3r.short[pdu] lediglich das Datenfeld des gesamten #htl3r.short[tcp]/#htl3r.short[ip]-Packets belegt. Durch diese Enkapsulierung in #htl3r.short[tcp] verliert die ursprünglich Serielle-Kommunikation des Modbus-Protokolls ca. 40\% seiner ursprünglichen Daten-Durchsatzes. Jedoch wird dieser Verlust durch die zuvor erwähnten -- von #htl3r.short[tcp] mitgebrachten -- Vorteile ausgeglichen. Nach der Enkapsulierung können im Idealfall 3,6 Mio. 16-bit-Registerwerte pro Sekunde in einem 100Mbit/s switched Ethernet-Netzwerk übertragen werden, und da diese Werte im Regelfall bei Weitem nicht erreicht werden, stellt der partielle Verlust an Daten-Durchsatz kein Problem dar.
 
 #htl3r.author("Julian Burger")
 === Cluster Switch Konfiguration <cluster_switch_conf>
 
-Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden: dem Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared-Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine IP-Adresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die kryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen.
+Die gesamte physische Topologie, wie in @physische-topo beschrieben, wird mit einem einzigen Switch verbunden: dem Cluster Switch. Dies ist ein Cisco-Catalyst welcher Gigabit-Ethernet fähig ist, ein Feature welches unabdingbar ist um den Shared-Storage mit akzeptabler Bandbreite anzubinden. Der Switch selbst hat mittels einem #htl3r.full[svi] eine #htl3r.short[ip]-Adresse im Management-Netzwerk über welche er mit Telnet konfigurierbar ist. Es wurde Telnet über #htl3r.short[ssh] gewählt, da die kryptografischen Fähigkeiten des Switches, aufgrund des Alters, zu wünschen übrig lassen.
 
 ==== Interfacekonfiguration
 
