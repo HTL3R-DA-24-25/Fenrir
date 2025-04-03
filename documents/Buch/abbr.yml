@@ -667,3 +667,31 @@ nat:
   long:
     singular: Network Address Translation
   description: Eine methodik einen IP-Adressbereich auf einen anderen zu übersetzen.
+
+lsass:
+  short:
+    singular: LSASS
+  long:
+    singular: Local Security Authority Subsystem Service
+  description: Ein Windows-Dienst, der für die Authentifizierung von Benutzern und die Durchsetzung von Sicherheitsrichtlinien verantwortlich ist.
+
+lsa :
+  short:
+    singular: LSA
+  long:
+    singular: Local Security Authority
+  description: Eine Windowskomponente, die für die Verwaltung von Sicherheitsrichtlinien und Authentifizierungsprozessen verantwortlich ist.
+
+laps:
+  short:
+    singular: LAPS
+  long:
+    singular: Local Administrator Password Solution
+  description: Eine Microsoft-Lösung zur Zentralen Verwaltung von lokalen Administratorpasswörtern auf Windows-Systemen.
+
+ntlm:
+  short:
+    singular: NTLM
+  long:
+    singular: NT LAN Manager
+  description: Ein legacy Authentifizierungsprotokoll von Microsoft.

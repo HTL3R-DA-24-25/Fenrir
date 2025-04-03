@@ -503,3 +503,30 @@ profinet-dcp-doc:
     value: https://profinetuniversity.com/naming-addressing/profinet-dcp/
     date: 2025-04-02
   date: 2025
+
+credential-guard:
+  type: misc
+  title: How Credential Guard works
+  author: Microsoft
+  url:
+    value: https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/how-it-works
+    date: 2025-04-03
+  date: 2025
+
+laps-overview:
+  type: misc
+  title: Was ist das Windows LAPS?
+  author: Microsoft
+  url:
+    value: https://learn.microsoft.com/de-de/windows-server/identity/laps/laps-overview
+    date: 2025-04-03
+  date: 2025
+
+protected-users:
+  type: misc
+  title: Protected Users Security group
+  author: Microsoft
+  url:
+    value: https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group
+    date: 2025-04-03
+  date: 2025

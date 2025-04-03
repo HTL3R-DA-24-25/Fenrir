@@ -9,10 +9,12 @@ Eine Lösung wäre, Firewalls von unterschiedlichen Herstellern zu nutzen, um da
 
 #htl3r.author("Gabriel Vogler")
 == Active Directory Härtung <ad_hardening>
-Das #htl3r.long[ad] ist ein zentraler Bestandteil des Netzwerks. Es ist für die Verwatung von Benutzerkonten, Gruppenrichtlinien und Zugriffsberechtigungen zuständig. Ein Angriff auf das #htl3r.short[ad] kann schwerwiegende Folgen haben. Daher ist es wichtig, das #htl3r.long[ad] abzusichern. Dies wird durch die Segmentierung des Netzwerks und die Härtung der #htl3r.short[ad]-Geräte erreicht. Gehärtet werden einerseits die #htl3r.short[ad]-Server selbst und andererseits die Benutzerkonten (inklusive die Authentifizierung mit diesen).
+Das #htl3r.long[ad] ist ein zentraler Bestandteil des Netzwerks. Es ist für die Verwatung von Benutzerkonten, Gruppenrichtlinien und Zugriffsberechtigungen zuständig. Ein Angriff auf das #htl3r.short[ad] kann schwerwiegende Folgen haben. Einige dieser werden in @angriffe-netzwerk beschrieben.
+Daher ist es wichtig, das #htl3r.long[ad] abzusichern. Dies wird durch die Segmentierung des Netzwerks und die Härtung der #htl3r.short[ad]-Geräte erreicht. Gehärtet werden einerseits die #htl3r.short[ad]-Server selbst und andererseits die Benutzerkonten (inklusive die Authentifizierung mit diesen).
 
 === Credential Guard
-Credential Guard ist eine Funktion von Windows Systemen die es ermöglicht, die Anmeldeinformationen von Benutzern zu schützen. Diese werden in einem abgekapseleten Bereich gepeichert. Dieser Bereich ist eine Art virtuelle Maschine, die neben dem eigentlichen Betriebssystem läuft. #htl3r.long[vbs] ist eine Voraussetzung für Credential Guard und ermöglicht die Isolation von Prozessen. Durch Credential Guard wird es Angreifern erschwert, an die Anmeldeinformationen von Benutzern zu gelangen. Dies kann Pass-the-Hash-Angriffe verhindern. Credential Guard wird mittels Gruppenrichtlinie aktiviert. Die Registry-Einträge für Credential Guard selbst -- Secure Boot und #htl3r.long[vbs] -- werden in der Gruppenrichtlinie gesetzt.
+Credential Guard ist eine Sicherheitsfunktion von Windows Systemen die es ermöglicht, die Anmeldeinformationen von Benutzern vor Angriffen zu schützen. Dazu werden sensible Authentifizierungsdaten, wie Kerberos-Tickets und #htl3r.short[ntlm]-Hashes, nicht mehr direkt im #htl3r.short[lsass]-Prozess gespeichert, sondern in einer isolierten Umgebung. Dieser Prozess heißt "isolated #htl3r.short[lsa]" und wird durch #htl3r.long[vbs] ermöglicht. Dabei wird eine virtuelle geschützte Speicherumgebung geschaffen, die keine Gerätetreiber beinhaltet. Auf diesen Bereich haben nur Prozesse Zugriff, die explizit dafür autorisiert sind. Dies wird durch die Signierung durch ein von #htl3r.short[vbs] vertrautes Zertifikat gewährleistet. Durch die Abkepselung wird es Angreifern erschwert, durch Pass-the-Hash- oder Pass-the-Ticket-Angriffe an Zugansdaten zu gelangen. Credential Guard wird über eine Gruppenrichtlinie aktiviert. Die Registry-Einträge für Credential Guard selbst -- Secure Boot und #htl3r.long[vbs] -- werden in der Gruppenrichtlinie gesetzt. \
+@credential-guard[comp]
 
 #htl3r.code-file(
   caption: "Aktivierung von Credential Guard mittels Gruppenrichtlinie",
@@ -23,10 +25,11 @@ Credential Guard ist eine Funktion von Windows Systemen die es ermöglicht, die 
   text: read("../assets/scripts/AD_Hardening.ps1")
 )
 
-Credential Guard kann aufgrund des fehlenden Secure Boot nicht in der Topologie aktiviert werden. Die Konfiguration und die Gruppenrichtlinie sind jedoch vorbereitet und können bei Bedarf aktiviert werden.
+Credential Guard kann aufgrund des fehlenden Secure Boot nicht in der Topologie aktiviert werden. Die Konfiguration und die Gruppenrichtlinie sind jedoch vorbereitet und können bei Bedarf aktiviert werden. Secure Boot ist in der Topologie nicht aktiviert, da es nicht mit der in @provisionierung beschriebenen Provisionierung umsetzbar ist.
 
 === Protected Users <protected-users>
-Protected Users ist ein Benutzergruppe, die es ermöglicht, die Anmeldeinformationen von Benutzern zu schützen. Benutzer, die Mitglied der Gruppe Protected Users sind, können keine Legacy Protokolle verwenden. Dazu zählt z.B. NTLM. Da NTLM ein veraltetes Protokoll ist, das anfällig für Angriffe ist, ist es wichtig, dieses zu deaktivieren. Aufpassen muss man jedoch, wenn Benutzer weiterhin NTLM-basierte Anwendungen verwenden müssen. Ein Problem könnte bei #htl3r.short[rdp] auftreten, da dort NTLM verwendet wird. Vorallem die Administratoren sollten in der Gruppe Protected Users sein, da mit diesen im Falle eines Angriffs am meisten Schaden angerichtet werden kann. Alle Benutzer die nicht der Abteilung Operations oder Infrastructure angehören, sollten in der Gruppe Protected Users sein, da diese kein #htl3r.short[rdp] benötigen.
+Protected Users ist ein Benutzergruppe, die es ermöglicht, die Anmeldeinformationen von Benutzern zu schützen. Benutzer, die Mitglied der Gruppe Protected Users sind, können keine Legacy Protokolle verwenden. Dazu zählt z.B. #htl3r.long[ntlm]. Da #htl3r.short[ntlm] ein veraltetes Protokoll ist, das anfällig für Angriffe ist, ist es wichtig, dieses zu deaktivieren. Aufpassen muss man jedoch, wenn Benutzer weiterhin #htl3r.short[ntlm]-basierte Anwendungen verwenden müssen. Ein Problem könnte bei #htl3r.short[rdp] auftreten, da dort #htl3r.short[ntlm] verwendet wird, allerdings nur wenn der Client nicht #htl3r.short[ad]-integriert ist. Vorallem die Administratoren sollten in der Gruppe Protected Users sein, da mit diesen im Falle eines Angriffs am meisten Schaden angerichtet werden kann. Alle Benutzer die nicht der Abteilung Operations oder Infrastructure angehören, sollten in der Gruppe Protected Users sein, da diese kein #htl3r.short[rdp] benötigen.
+@protected-users[comp]
 
 #htl3r.code-file(
   caption: "Hinzufügen von Benutzern zur Gruppe Protected Users",
@@ -38,13 +41,14 @@ Protected Users ist ein Benutzergruppe, die es ermöglicht, die Anmeldeinformati
 )
 
 === LAPS
-Dass die Admin-Passwörter beim in @provisionierung beschriebenen Provisionierungsvorgang auf allen Geräten gleich gesetzt werden ist klarerweise ein Sicherheitsrisiko. Wenn ein Angreifer eines der Passwörter herausfindet, kann er sich auf allen anderen Geräten ebenfalls mit diesem Passwort anmelden -- Es kommt zu Lateral Movement.
+Dass die lokalen Admin-Passwörter beim in @provisionierung beschriebenen Provisionierungsvorgang auf allen Geräten gleich gesetzt werden, ist ein Sicherheitsrisiko. Wenn ein Angreifer dieses Passwort herausfindet, kann er sich auf allen anderen Geräten ebenfalls anmelden -- Es kommt zu Lateral Movement.
 
-Local Administrator Password Solution, kurz LAPS, ist ein Tool von Microsoft, welches es ermöglicht, zentral über das #htl3r.short[ad] die lokalen Administrator-Passwörter von Windows-Computern zu verwalten. Zufällige Passwörter werden generiert und in einem #htl3r.long[ad]-Objekt gespeichert. Die Computer rufen die Passwörter ab und speichern sie lokal. Dadurch wird einerseits sichergestellt, dass alle lokalen Administrator-Passwörter auf den Computern unterschiedlich sind und andererseits, dass sie regelmäßig geändert werden. Dies erhöht die Sicherheit, da ein Angreifer, der ein Passwort herausfindet, nicht auf alle Computer zugreifen kann.
+#htl3r.long[laps], kurz #htl3r.short[laps], ist ein Tool von Microsoft zur zentralen Verwaltung des lokalen Administrator-Passworts von Computer Objekten über das #htl3r.long[ad]. Zufällige Passwörter werden generiert und in einem #htl3r.long[ad]-Objekt gespeichert. Die Computer generieren die Passwörter selbst und speichern sie im #htl3r.short[ad]. Dadurch wird einerseits sichergestellt, dass alle lokalen Administrator-Passwörter auf den Computern unterschiedlich sind und andererseits, dass sie regelmäßig geändert werden. Dies erhöht die Sicherheit, da ein Angreifer, der ein Passwort herausfindet, nicht auf alle Computer zugreifen kann. \
+@laps-overview[comp]
 
-LAPS wurde in der Topologie auf den Servern im #htl3r.short[it]-Netzwerk installiert und konfiguriert. Auf den Clients wurde LAPS nicht aktiviert. Dies resultiert daraus, dass auf den Windows Server 2022 Systemen LAPS nachinstalliert wird, was mittlerweile die Legacy Version ist. Die Clients sind Windows 11 Systeme, welche allerdings LAPS mitgeliefert bekommen, genauso wie Windows Server 2025. Dabei handelt es sich jedoch um die aktuelle Version von LAPS. Die beiden Versionen sind nicht kompatibel zueinander, weshalb LAPS auf den Clients nicht installiert wurde.
+#htl3r.short[laps] wurde in der Topologie auf den Servern im #htl3r.short[it]-Netzwerk installiert und konfiguriert. Auf den Clients wurde #htl3r.short[laps] nicht aktiviert. Dies resultiert daraus, dass auf den Windows Server 2022 Systemen #htl3r.short[laps] nachinstalliert wird, was mittlerweile die Legacy Version ist. Die Clients sind Windows 11 Systeme, welche allerdings #htl3r.short[laps] mitgeliefert bekommen, genauso wie Windows Server 2025. Dabei handelt es sich jedoch um die aktuelle Version von #htl3r.short[laps]. Die beiden Versionen sind nicht kompatibel zueinander, weshalb #htl3r.short[laps] auf den Clients nicht installiert wurde. Windows Server 2025 wurde in der Topologie nicht verwendet, da es zum Start der Diplomarbeit noch nicht veröffentlicht wurde.
 
-Installiert wurde LAPS auf den Domain Controllern mittels des PowerShell-Skripts:
+Installiert wurde #htl3r.short[laps] auf den Domain Controllern mittels des PowerShell-Skripts:
 #htl3r.code-file(
   caption: "Installation von LAPS mittels PowerShell",
   filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
@@ -54,7 +58,7 @@ Installiert wurde LAPS auf den Domain Controllern mittels des PowerShell-Skripts
   text: read("../assets/scripts/AD_Hardening.ps1")
 )
 
-Damit die Server wissen, dass sie über LAPS gesteuert werden, musste eine Gruppenrichtlinie erstellt werden. Diese legt die Parameter von LAPS fest. Dabei werden die Häufigkeit der Änderung des Passworts, die Passwortlänge und die Komplexität des Passworts angegeben. Die #htl3r.short[gpo] wurde mit folgendem PowerShell-Skript erstellt:
+Damit die Server wissen, dass sie über #htl3r.short[laps] gesteuert werden, musste eine Gruppenrichtlinie erstellt werden. Diese legt die Parameter von #htl3r.short[laps] fest. Dabei werden die Häufigkeit der Änderung des Passworts, die Passwortlänge und die Komplexität des Passworts angegeben. Die #htl3r.short[gpo] wurde mit folgendem PowerShell-Skript erstellt:
 #htl3r.code-file(
   caption: "Erstellung der Gruppenrichtlinie für LAPS mittels PowerShell",
   filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
@@ -64,14 +68,14 @@ Damit die Server wissen, dass sie über LAPS gesteuert werden, musste eine Grupp
   text: read("../assets/scripts/AD_Hardening.ps1")
 )
 
-Auf den Servern wurde LAPS auch installiert, jedoch ist es nicht notwendig, die Managementtools wie beim Domain Controller zu installieren. Dies pasiert mit folgendem PowerShell-Befehl:
+Auf den Servern wurde #htl3r.short[laps] auch installiert, jedoch ist es nicht notwendig, die Managementtools wie beim Domain Controller zu installieren. Dies erfolgt mit folgendem PowerShell-Befehl:
 #htl3r.code(caption: "Installation von LAPS auf den Servern", description: none)[
 ```powershell
 D:\LAPS\x64\LAPS.x64.msi /quiet
 ```
 ]
 
-Nach dem LAPS installiert und konfiguriert wurde, können die neuen Passwörter abgerufen werden. Dies geschieht mit folgendem PowerShell-Befehl:
+Nachdem #htl3r.short[laps] installiert und konfiguriert wurde, können die neuen Passwörter abgerufen werden. Dies geschieht mit folgendem PowerShell-Befehl:
 #htl3r.code(caption: "Abrufen von LAPS-Passwort", description: none)[
 ```powershell
 Get-AdmPwdPassword -ComputerName "Exchange"
@@ -84,11 +88,12 @@ Get-AdmPwdPassword -ComputerName "Exchange"
   )
 )
 
-Mit diesem Passwort kann man sich nun auf dem Exchange Server als "Administrator" anmelden.
+Mit diesem Passwort kann man sich nun auf dem Exchange Server lokal als "Administrator" anmelden.
 
 
 === Windows Security Baseline
-Die Windows Security Baseline ist eine Sammlung von Microsoft bereitgestelllten Gruppenrichtlinien zur Absicherung von Windows Systemen. In der Topologie wurde die Windows Security Baseline für Windows Server 2022 verwendet. \
+Die Windows Security Baseline ist eine Sammlung von Microsoft bereitgestellten Gruppenrichtlinien zur Absicherung von Windows Systemen. Sie wurde in enger Zusammenarbeit mit dem US-Verteidigungsministerium (DoD) und dem National Institute of Standards and Technology (NIST) entwickelt.
+In der Topologie wurde die Windows Security Baseline für Windows Server 2022 verwendet. \
 Diese umfasst folgende #htl3r.shortpl[gpo]:
 - MSFT Internet Explorer 11 - Computer
 - MSFT Internet Explorer 11 - User
