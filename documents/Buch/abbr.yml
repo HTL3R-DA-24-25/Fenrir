@@ -615,7 +615,7 @@ sid:
     singular: SID
   long:
     singular: Security Identifier
-  description: Eine eindeutige Kennung, welche einem Benutzer oder einer Gruppe in einem Windows-System zugeordnet wird.
+  description: Eine eindeutige Kennung, welche einem Benutzer oder einer Gruppe in einem Windows-System/-Domain zugeordnet wird.
 
 csv:
   short:
@@ -658,3 +658,12 @@ ntlm:
   long:
     singular: NT LAN Manager
   description: Ein legacy Authentifizierungsprotokoll von Microsoft.
+
+tgt:
+  short:
+    singular: TGT
+    plural: TGTs
+  long:
+    singular: Ticket Granting Ticket
+    plural: Ticket Granting Tickets
+  description: Ein Ticket, welches vom Kerberos-Authentifizierungsdienst ausgestellt wird und es einem Benutzer ermöglicht, auf verschiedene Dienste innerhalb einer Kerberos-geschützten Umgebung zuzugreifen, ohne sich erneut authentifizieren zu müssen.

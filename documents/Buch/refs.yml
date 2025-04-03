@@ -530,3 +530,12 @@ protected-users-doc:
     value: https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group
     date: 2025-04-03
   date: 2025
+
+golden-ticket-doc:
+  type: misc
+  title: Vom Support Benutzer zum „Golden Ticket“
+  author: GoSecurity
+  url:
+    value: https://www.gosecurity.ch/vom-support-benutzer-zum-golden-ticket/
+    date: 2025-04-03
+  date: 2025
