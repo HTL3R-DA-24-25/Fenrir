@@ -54,7 +54,7 @@ Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint
 
 In @scada-datasource ist die Konfiguration einer Datasource zu sehen. Dabei ist der Transport-Type von #htl3r.short[tcp] zu beachten, sowie die verwendete Host-#htl3r.short[ip]. Scada-LTS stellt einen Modbus-Scan in der Konfiguration zur Verfügung, mit welchem nach verwendeten Coils gesucht werden kann. Wenn man nun den Offset der Register weiß, erstellt man im unteren Teil der Oberfläche neue Points, wobei man hier diese auch schon sehen kann.  
 
-Bei dem Hinzufügen eines neuen Datapoints unter einer Datasource ist darauf zu achten, dass der Datentyp mit dem auf der #htl3r.short[sps] konfigurierten Datentyp übereinstimmt, damit auch die richtige Anzahl an Bits gelesen wird. Weiters ist der Offset von großer Bedeutung, da dieser angibt, ab welchem Register der Datapoint gelesen werden soll. Meist findet man in der Dokumentation der #htl3r.short[sps] den benötigten Offset, falls nicht muss dieser gescannt werden. Auch die Register range ist wichtig, da diese verschiedene Typen von Registern repräsentiert. Nur Input- oder Holding-Register können Datentypen annehmen, die nicht binät sind. Coil status sowie Input status sind dagegen immer binär. Außerdem kann man nur Input-Register setzen, alle anderen sind read-only. \
+Bei dem Hinzufügen eines neuen Datapoints unter einer Datasource ist darauf zu achten, dass der Datentyp mit dem auf der #htl3r.short[sps] konfigurierten Datentyp übereinstimmt, damit auch die richtige Anzahl an Bits gelesen wird. Weiters ist der Offset von großer Bedeutung, da dieser angibt, ab welchem Register der Datapoint gelesen werden soll. Meist findet man in der Dokumentation der #htl3r.short[sps] den benötigten Offset, falls nicht, muss dieser gescannt werden. Auch die Register range ist wichtig, da diese verschiedene Typen von Registern repräsentiert. Nur Input- oder Holding-Register können Datentypen annehmen, die nicht binär sind. Coil status sowie Input status sind dagegen immer binär. Außerdem kann man nur Input-Register setzen, alle anderen sind read-only. \
 
 #htl3r.fspace(
   [
@@ -93,7 +93,7 @@ Im Falle der Modell-Kläranlage ist es nicht der Fall. Hier wird jede Betriebsze
 
 In der ersten Betriebszelle ist nur die Schraube, welche das Wasser in den obersten Wassertank befördert, mittels #htl3r.short[sps] gesteuert, wodurch auch das #htl3r.short[scada] nur diese Schraube steuern kann. Über das #htl3r.short[scada] kann die Schraube ein- bzw. ausgeschalten werden. \
 Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab, den Fluss des Wassers zu visualisieren. So sind die Tanks und die Schraube grafisch dargestellt, um Endnutzern eine einfache Übersicht zu geben. \
-Man erkennt hier auch den Fluss des Wassers, dieser ist zwar nicht live animiert jedoch wird einem Benutzer so klar, dass das Wasser erst die Schnecke hochbefördert werden muss, bevor es durch den Rechen in das Auffangbecken gelangt und von dort weiter in die nächste Zelle befördert wird. Steine werden hierbei ausgefiltert. 
+Man erkennt hier auch den Fluss des Wassers, dieser ist zwar nicht live animiert, jedoch wird einem Benutzer so klar, dass das Wasser erst die Schnecke hinauf befördert werden muss, bevor es durch den Rechen in das Auffangbecken gelangt und von dort weiter in die nächste Zelle befördert wird. Steine werden hierbei ausgefiltert. 
 
 #htl3r.fspace(
   figure(
