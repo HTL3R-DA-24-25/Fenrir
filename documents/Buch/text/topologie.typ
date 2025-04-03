@@ -449,7 +449,34 @@ Auf dem Cluster Switch wurden vorallem #htl3r.shortpl[vlan] und #htl3r.short[spa
   )
 )
 
-Das Konzept hinter der Interface aufteilung ist, dass jeweils zwölf Interfaces zu einem Block gruppiert werden. Interfaces eines Blocks haben einen gemeinsamen Zweck und praktisch, bis auf ein paar ausnahmen, die gleiche Konfiguration. Das letzte Interface pro Block ist jeweils eine #htl3r.short[span]-Session zum #htl3r.short[ids]. Die #htl3r.short[span]-Session pro Block überliefert jeweils immer den Traffic aller #htl3r.shortpl[vlan] innerhalb des Blocks, mit ausnahme des Storage-#htl3r.shortpl[vlan], welches, aufgrund der hohen Auslastung, das #htl3r.short[ids] verlangsamen würde. Die Daten, welche über das Storage-#htl3r.short[vlan] geschickt werden, sind von geringer Interesse. Demnach ist das letzte Interface des Switches nicht aktiv in Verwendung, sonder nur reserviert.
+Das Konzept hinter der Interface aufteilung ist, dass jeweils zwölf Interfaces zu einem Block gruppiert werden. Interfaces eines Blocks haben einen gemeinsamen Zweck und praktisch, bis auf ein paar ausnahmen, die gleiche Konfiguration. Das letzte Interface pro Block ist jeweils eine #htl3r.short[span]-Session zum #htl3r.short[ids]. Die #htl3r.short[span]-Session pro Block überliefert jeweils immer den Traffic aller #htl3r.shortpl[vlan] innerhalb des Blocks, mit ausnahme des Storage-#htl3r.shortpl[vlan], welches, aufgrund der hohen Auslastung, das #htl3r.short[ids] verlangsamen würde. Die Daten, welche über das Storage-#htl3r.short[vlan] geschickt werden, sind von geringer Interesse. Demnach ist das letzte Interface des Switches nicht aktiv in Verwendung, sonder nur reserviert. Die Interface-Gerätezuordnung ist in @int_table beschrieben.
+
+#figure(
+  caption: [Cluster Switch Interface verkabelung],
+  table(
+    columns: (auto, 1fr, auto),
+    align: (horizon + left, horizon + left, horizon + left),
+    table.header(
+      [*Interface am Switch*], [*Gerät*], [*Interface am Gerät*]
+    ),
+    [GigabitEthernet1/0/1], [Uplink-Firewall], [internal1],
+    [GigabitEthernet1/0/2], [Separation-Firewall], [internal1],
+    [GigabitEthernet1/0/13], [Shared-Storage], [mgmt (ens0)],
+    [GigabitEthernet1/0/15], [ESXi 1], [vmnic0],
+    [GigabitEthernet1/0/17], [ESXi 2], [vmnic0],
+    [GigabitEthernet1/0/19], [ESXi 3], [vmnic0],
+    [GigabitEthernet1/0/23], [Nozomi Guardian], [mgmt],
+    [GigabitEthernet1/0/24], [Nozomi Guardian], [port1],
+    [GigabitEthernet1/0/25], [ESXi 1], [vmnic1],
+    [GigabitEthernet1/0/27], [ESXi 2], [vmnic1],
+    [GigabitEthernet1/0/29], [ESXi 3], [vmnic1],
+    [GigabitEthernet1/0/36], [Nozomi Guardian], [port2],
+    [GigabitEthernet1/0/37], [Shared-Storage], [storage-bond (ens1f0)],
+    [GigabitEthernet1/0/38], [Shared-Storage], [storage-bond (ens1f1)],
+    [GigabitEthernet1/0/39], [Shared-Storage], [storage-bond (ens1f2)],
+    [GigabitEthernet1/0/40], [Shared-Storage], [storage-bond (ens1f3)],
+  )
+) <int_table>
 
 Das Storage-#htl3r.short[vlan] ist dafür zuständig, alle ESXi-Hosts der physischen Topologie, siehe @physische-topo, an einen #htl3r.short[nfs]-Share anzubinden. Der Server welcher diesen #htl3r.short[nfs]-Share hosted, ist mit vier Links an den Switch angebunden und es wird LACP, zur Lastaufteilung zwischen diesen, verwendet. Ebenso ist die #htl3r.short[mtu]-Größe auf dem switch auf 9000 gestellt, um maximalen Durchsatz zu erzielen.
 
