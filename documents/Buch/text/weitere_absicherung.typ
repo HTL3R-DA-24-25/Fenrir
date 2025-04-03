@@ -29,7 +29,7 @@ Credential Guard kann aufgrund des fehlenden Secure Boot nicht in der Topologie 
 
 === Protected Users <protected-users>
 Protected Users ist ein Benutzergruppe, die es ermöglicht, die Anmeldeinformationen von Benutzern zu schützen. Benutzer, die Mitglied der Gruppe Protected Users sind, können keine Legacy Protokolle verwenden. Dazu zählt z.B. #htl3r.long[ntlm]. Da #htl3r.short[ntlm] ein veraltetes Protokoll ist, das anfällig für Angriffe ist, ist es wichtig, dieses zu deaktivieren. Aufpassen muss man jedoch, wenn Benutzer weiterhin #htl3r.short[ntlm]-basierte Anwendungen verwenden müssen. Ein Problem könnte bei #htl3r.short[rdp] auftreten, da dort #htl3r.short[ntlm] verwendet wird, allerdings nur wenn der Client nicht #htl3r.short[ad]-integriert ist. Vorallem die Administratoren sollten in der Gruppe Protected Users sein, da mit diesen im Falle eines Angriffs am meisten Schaden angerichtet werden kann. Alle Benutzer die nicht der Abteilung Operations oder Infrastructure angehören, sollten in der Gruppe Protected Users sein, da diese kein #htl3r.short[rdp] benötigen.
-@protected-users[comp]
+@protected-users-doc[comp]
 
 #htl3r.code-file(
   caption: "Hinzufügen von Benutzern zur Gruppe Protected Users",

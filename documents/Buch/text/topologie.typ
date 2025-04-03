@@ -19,6 +19,7 @@ In den nächsten Abschnitten wird das Zusammenspiel von physischen und virtuelle
 
 Das Purdue-Modell (auch bekannt als "Purdue Enterprise Reference Architecture", kurz PERA), ähnlich zum #htl3r.short[osi]-Schichtenmodell, dient zur Einteilung bzw. Segmentierung eines #htl3r.short[ics]-Netzwerks. Je niedriger die Ebene, desto kritischer sind die Prozesskontrollsysteme, und desto strenger sollten die Sicherheitsmaßnahmen sein, um auf diese zugreifen zu können. Die Komponenten der niedrigeren Ebenen werden jeweils von Systemen auf höhergelegenen Ebenen angesteuert. Kommunikation darf ohne weiteres auch nur zwischen direkt benachbarten Ebenen stattfinden.
 
+#pagebreak(weak: true)
 Level 0 bis 3 gehören zur #htl3r.short[ot], 4 bis 5 sind Teil der #htl3r.short[it].
 Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 3 und 4 wird diese als Ebene 3.5 gekennzeichnet.
 
@@ -221,7 +222,7 @@ Der vCenter-Dienst läuft als #htl3r.short[vm] auf ESXi 1 und kommuniziert mit d
   )
 )
 
-Als DNS-Server fungiert die Uplink-Firewall, siehe @fenrir_phys_topo. Diese ermöglicht ebenso einen Internetzugang, welcher benötigt wird um Software auf den #htl3r.shortpl[vm] herunterzuladen.
+Als #htl3r.short[dns]-Server fungiert die Uplink-Firewall, siehe @fenrir_phys_topo. Diese ermöglicht ebenso einen Internetzugang, welcher benötigt wird um Software auf den #htl3r.shortpl[vm] herunterzuladen.
 
 Wie bereits in @virt_env erwähnt wurde, existiert ebenso ein geteiltest Speichermedium, den Shared-Storage Server, welches von den ESXi-Instanzen, über das Netzwerk mittels #htl3r.full[nfs], erreichbar ist. Der #htl3r.short[nfs]-Zugriff geschieht über ein eigenes #htl3r.short[vlan], das Storage-#htl3r.short[vlan]. Dies hat den Grund, dass #htl3r.short[nfs]-Zugriffe eine sehr hohe Auslastung des Netzwerks, aufgrund von vielen Lese- und Schreibzugriffen, bedeuten. Um dieser Auslastung gerecht zu werden ist der Storage-Server mit vier Gigabit-Ethernet Links an den Cluster Switch, siehe @vcenter_logical und @cluster_switch_conf, angeschlossen. Diese vier physischen Links wurden mittels #htl3r.short[lacp] zu einem logischen Link zusammengefasst. Die ESXi-Instanzen haben jeweils einen dedizierten Gigabit-Ethernet Link für #htl3r.short[nfs]-Zugriffe. So ist es möglich mit akzeptabler Geschwindigkeit auf den Shared-Storage zuzugreifen.
 
