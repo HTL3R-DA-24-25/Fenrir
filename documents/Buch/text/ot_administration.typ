@@ -183,7 +183,13 @@ Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas "grober" als mi
 
 === Entwicklung des MES
 Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich waren, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar und visuell ansprechbarer zu machen.
-#htl3r.todo[Funktionsgrafik (? SDO)]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/mes-ablaufdiagram.png"),
+    caption: [Ablauf von Userinteraktionen im MES]
+  )
+)
 
 ==== Authentifizierung
 Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, damit ein eingeloggter Benutzer nach dieser Zeit das Passwort neu eingeben muss, um die Sicherheit zu gewährleisten. Dies bewirkt auch, dass ein gehijackter Token nicht unendlich lange ausgenutzt werden kann, da solch ein Angriff im Falle von #htl3r.short[jwt]-Tokens relativ häufig ist. \

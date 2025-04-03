@@ -507,7 +507,7 @@ Um die aus der #htl3r.short[sps]-Programmierung bekannten Hardwareadressen auf e
     table(
       columns: (auto, auto),
       align: (left, left),
-      table.header[*GPIO-Pin*][*SPS-Adresse*],
+      table.header[*#htl3r.short[gpio]-Pin*][*SPS-Adresse*],
       [GPIO 13], [`%QX0.0`],
       [GPIO 15], [`%QX0.1`],
     ),
@@ -521,7 +521,7 @@ Die für das #htl3r.short[psm] notwendigen Funktionen sind:
 - `update_outputs()` setzt die #htl3r.short[gpio]-Pins laut Output-Hardwareadressen.
 - Die Main-Funktion für die Initialisierung der Hardware per `hardware_init()` und die periodische Ausführung von `update_inputs()` und `update_outputs()` (mit einem Intervall von 100ms).
 
-Bei der Initiliasierung wird das #htl3r.short[psm] gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen GPIO-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
+Bei der Initiliasierung wird das #htl3r.short[psm] gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen #htl3r.short[gpio]-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
 
 #htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
 ```python
@@ -553,7 +553,7 @@ def update_inputs():
 ```
 ]
 
-In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0.0` und `%QX0.1` ausgelesen und jeweils auf die GPIO-Pins 13 und 15 gemappt. Erst bei der Setzung der GPIO-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
+In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0.0` und `%QX0.1` ausgelesen und jeweils auf die #htl3r.short[gpio]-Pins 13 und 15 gemappt. Erst bei der Setzung der #htl3r.short[gpio]-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
 
 #pagebreak(weak: true)
 #htl3r.code(caption: "Setzung der GPIO-Pins anhand der Output-Werte im PSM", description: none)[
