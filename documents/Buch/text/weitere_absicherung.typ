@@ -238,3 +238,28 @@ iptables -A FORWARD -i ens224 -o tun0 -m state --state RELATED,ESTABLISHED -j AC
 ]
 
 === OpenVPN auf den IT-Workstations
+
+Damit die Windows-Clients, beziehungsweise #htl3r.short[it]-Workstations, eine OpenVPN-Verbindung aufbauen können, benötigen diese die OpenVPN-Client Software installiert. Die Installation dieser Software erfolgt, wie in @provisionierung beschrieben, bereits innerhalb des Golden-Images welches mit Packer erzeugt wird. Dies geschieht über ein PowerShell-Skript welches, wegen passender Konfiguration innerhalb einer `autounattend.xml`-Datei, vom Windows-Installations-Prozess aufgerufen wird.
+
+#htl3r.code(caption: [OpenVPN-Client installation auf IT-Workstations])[
+```ps1
+(New-Object System.Net.WebClient).DownloadFile('https://swupdate.openvpn.org/community/releases/OpenVPN-2.6.13-I002-amd64.msi', 'C:\Windows\Temp\openvpn.msi')
+C:\Windows\Temp\openvpn.msi /quiet /passive
+Start-Sleep -Seconds 120
+```
+]
+
+Die Software sollte jedoch nur für bestimmte #htl3r.short[ad]-Benutzer verfügbar sein, somit muss dieser Zugriff eingeschränkt werden. Für weitere Informationen über diese Einschränkung siehe @active_directory.
+
+Damit sich ein Client mit dem Server verbinden kann ist ein Zertifikat notwendig, welches zuvor von der #htl3r.short[pki], welche in diesem Fall ebenfalls am Jump-Host liegt, ausgestellt wurde. Zusätzlich wird das Zertifikat, jedoch nicht der private Schlüssel, der #htl3r.short[pki] benötigt.
+
+#htl3r.code-file(caption: [OpenVPN-Client Konfiguration], filename: [client.ovpn], text: read("../assets/openvpn/client.conf")) <ovpn-client>
+
+In @ovpn-client ist die finale Konfiguration der #htl3r.short[it]-Workstations enthalten. Man beachte, dass ein `tun`-Device, kurz für Tunnel, verwendet wird. Ein Tunnel ermöglicht #htl3r.short[osi]-Ebene 3 Verbindungen. Mittels `tap`-Device wären sogar #htl3r.short[osi]-Ebene 2 Verbindungen über OpenVPN möglich, dies wird allerdings im Rahmen dieser Diplomarbeit nicht benötigt.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/openvpn_client_verbindung.png", width: 100%),
+    caption: [IT-Workstation OpenVPN-Client Verbindung]
+  )
+)
