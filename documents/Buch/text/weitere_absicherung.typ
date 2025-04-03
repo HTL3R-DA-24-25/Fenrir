@@ -211,7 +211,7 @@ Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgese
       [Erstellung einer Risikoanalyse- \ und Informationssicherheitskonzepten], [Durch die Umsetzung eigener Angriffe ist eine partielle Risikoanalyse erstellt worden (siehe @angriffe-netzwerk).],
       [Maßnahmen zur Bewältigung \ von Sicherheitsvorfällen (Incident Response)], [Es wurde kein Incident Reponse Plan erstellt.],
       [Backup-Management und Wiederherstellung], [Es wurde kein Backup-Management umgesetzt. Es kann jedoch eine schnelle Wiederherstellung des virtualisierten Netzwerks mittels Provisionierung durchgeführt werden (siehe @provisionierung).],
-      [Konzepte für Zugriffskontrollen], [Wurde durch den Einsatz des AGDLP-Prinzips in der AD-Umgebung umgesetzt (siehe @benutzerkonten).],
+      [Konzepte für Zugriffskontrollen], [Wurde durch den Einsatz des AGDLP-Prinzips in der #htl3r.short[ad]-Umgebung umgesetzt (siehe @benutzerkonten).],
       [Software-Updates], [Es wurde manuelles Patch-Management durchgeführt (siehe @patch).],
       [Gerätekonfiguration], [AD-Geräte, Netzwerkgeräte sowie die SPSen wurden gehärtet.],
       [Netzwerksegmentierung], [Durch den Einsatz von FortiGate-Firewalls umgesetzt (siehe @firewall-config).],
@@ -239,7 +239,7 @@ Die Konfiguration des OpenVPN-Servers selbst wird mittels automatischer Provisio
 
 Diese OpenVPN-Server-Konfiguration ist bis auf folgende zwei Ausnahmen sehr einfach gehalten:
 - `duplicate-cn`: Gibt an, dass sich mehrere Clients mit dem gleichen Zertifikat, zur selben Zeit, verbinden können.
-- `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den VPN-Tunnel erreichbar ist.
+- `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den #htl3r.short[vpn]-Tunnel erreichbar ist.
 
 OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, werden zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle wird die #htl3r.short[nat]-Konfiguration mit Linux #htl3r.short[ip]-Tables realisiert, siehe @ovpn_iptables.
 

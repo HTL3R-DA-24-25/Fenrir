@@ -38,7 +38,7 @@ Jegliche Konfiguration von Scada-LTS erfolgt über das Webdashbord, welches unte
 
 Die mit Abstand wichtigste Konfiguration in einem #htl3r.short[scada] sind die Datasources, da diese jegliche Datenquellen darstellen. In Scada-LTS konfiguriert man diese unter dem gleichnamigen Punkt, wobei zu Testzwecken es auch möglich ist, virtuelle Datenquellen anzulegen. Dies ist im Echtbetrieb jedoch kaum sinnvoll.
 
-Stattdessen werden reale Datenquellen angegeben, welche typischerweise Modbus-IP Quellen sind. Bei der Konfiguration sind einige Daten anzugeben, die wichtigsten hierbei sind der Transport-Type, Host und Port.
+Stattdessen werden reale Datenquellen angegeben, welche typischerweise Modbus-#htl3r.short[ip] Quellen sind. Bei der Konfiguration sind einige Daten anzugeben, die wichtigsten hierbei sind der Transport-Type, Host und Port.
 
 Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint sind, die von der #htl3r.short[sps] ausgegeben werden. Datenpunkte beziehen sich immer auf eine Register range, Datentyp und einem Offset. Es können pro Datenquelle beliebig viele Datenpunkte konfiguriert werden, diese müssen jedoch mit der Konfiguration der Register auf der gegenüberliegenden #htl3r.short[sps] übereinstimmen, um die Binärwerte richtig auslesen zu können.
 
@@ -52,7 +52,7 @@ Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint
   ]
 )
 
-In @scada-datasource ist die Konfiguration einer Datasource zu sehen. Dabei ist der Transport-Type von #htl3r.short[tcp] zu beachten, sowie die verwendete Host-IP. Scada-LTS stellt einen Modbus-Scan in der Konfiguration zur Verfügung, mit welchem nach verwendeten Coils gesucht werden kann. Wenn man nun den Offset der Register weiß, erstellt man im unteren Teil der Oberfläche neue Points, wobei man hier diese auch schon sehen kann.  
+In @scada-datasource ist die Konfiguration einer Datasource zu sehen. Dabei ist der Transport-Type von #htl3r.short[tcp] zu beachten, sowie die verwendete Host-#htl3r.short[ip]. Scada-LTS stellt einen Modbus-Scan in der Konfiguration zur Verfügung, mit welchem nach verwendeten Coils gesucht werden kann. Wenn man nun den Offset der Register weiß, erstellt man im unteren Teil der Oberfläche neue Points, wobei man hier diese auch schon sehen kann.  
 
 Bei dem Hinzufügen eines neuen Datapoints unter einer Datasource ist darauf zu achten, dass der Datentyp mit dem auf der #htl3r.short[sps] konfigurierten Datentyp übereinstimmt, damit auch die richtige Anzahl an Bits gelesen wird. Weiters ist der Offset von großer Bedeutung, da dieser angibt, ab welchem Register der Datapoint gelesen werden soll. Meist findet man in der Dokumentation der #htl3r.short[sps] den benötigten Offset, falls nicht muss dieser gescannt werden. Auch die Register range ist wichtig, da diese verschiedene Typen von Registern repräsentiert. Nur Input- oder Holding-Register können Datentypen annehmen, die nicht binät sind. Coil status sowie Input status sind dagegen immer binär. Außerdem kann man nur Input-Register setzen, alle anderen sind read-only. \
 
@@ -140,7 +140,7 @@ Wenn es in der Betriebszelle zu einer Überflutung kommt, so wird dies im #htl3r
 
 Damit das #htl3r.short[scada]-System auf die #htl3r.shortpl[sps] zugreifen und deren Werte auslesen kann, müssen die #htl3r.shortpl[sps] Kommunikation über Modbus #htl3r.short[tcp] zulassen. Bei der OpenPLC-#htl3r.short[sps] zum Beispiel ist diese Kommunikationsschnittstelle standardmäßig aktiviert, bei der Siemens LOGO! und der S7-1200 nicht.
 
-Um auf der LOGO! die Modbus TCP Kommunikation zu aktivieren, muss in den Einstellungen unter #htl3r.breadcrumbs(("Offline Settings", "General", "Ethernet connections")) die Checkbox für "Allow Modbus access" aktiviert werden. Danach muss noch unterhalb dieser Checkbox der konkrete Modbus-Server, also das #htl3r.short[scada]-System, konfiguriert werden.
+Um auf der LOGO! die Modbus #htl3r.short[tcp] Kommunikation zu aktivieren, muss in den Einstellungen unter #htl3r.breadcrumbs(("Offline Settings", "General", "Ethernet connections")) die Checkbox für "Allow Modbus access" aktiviert werden. Danach muss noch unterhalb dieser Checkbox der konkrete Modbus-Server, also das #htl3r.short[scada]-System, konfiguriert werden.
 
 #htl3r.fspace(
   figure(
@@ -149,7 +149,7 @@ Um auf der LOGO! die Modbus TCP Kommunikation zu aktivieren, muss in den Einstel
   )
 )
 
-Bei der Konfiguration des Modbus-Servers muss lediglich der Port und die IP-Adresse eingetragen werden. Es kann auch ausgewählt werden, dass unabhängig von der IP-Adresse alle Anfragen akzeptiert werden, dies sollte jedoch sicherheitstechnisch nicht verwendet werden.
+Bei der Konfiguration des Modbus-Servers muss lediglich der Port und die #htl3r.short[ip]-Adresse eingetragen werden. Es kann auch ausgewählt werden, dass unabhängig von der #htl3r.short[ip]-Adresse alle Anfragen akzeptiert werden, dies sollte jedoch sicherheitstechnisch nicht verwendet werden.
 
 #htl3r.fspace(
   figure(

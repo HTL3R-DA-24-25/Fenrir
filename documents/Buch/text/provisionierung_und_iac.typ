@@ -60,7 +60,7 @@ Das Linux-Server-Image wird mittels Cloud-Init, einer plattformübergreifenden S
 
 #pagebreak(weak: true)
 === Terraform <terraform-prov>
-Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.shortpl[vm], #htl3r.shortpl[dvs], #htl3r.shortpl[dpg], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer DPG aufgerufen werden und eine Template-VM erzeugen. So ähnlich wurde dies auch umgesetzt:
+Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte #htl3r.short[it]-Infrastruktur als Code darzustellen, dies beinhaltet #htl3r.shortpl[vm], #htl3r.shortpl[dvs], #htl3r.shortpl[dpg], etc. Allerdings existieren gewisse Limitationen, da Terraform einen konvergenten Zustand gewährleisten muss. Damit dies jederzeit der Fall ist, ist es nicht möglich, zu jeder Zeit beliebig auf die definierten Ressourcen zuzugreifen. Jedoch kann man gewisse "Create" und "Destroy" Provisioner definieren. So kann man Terraform mit anderen Tools integrieren. Packer kann zum Beispiel beim Erstellen einer #htl3r.short[dpg] aufgerufen werden und eine Template-#htl3r.short[vm] erzeugen. So ähnlich wurde dies auch umgesetzt:
 #htl3r.code-file(
   caption: "Terraform Bastion Provisionierung",
   filename: [stage_00/main.tf],
