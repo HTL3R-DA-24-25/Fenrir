@@ -40,8 +40,8 @@ Somit kann auf die ```hcl "vsphere-iso"``` Packer-Source zugegriffen werden. Die
   caption: "Packer vSphere-VM Beispiel",
   filename: [golden_linux_server/main.pkr.hcl],
   lang: "hcl",
+  skips: ((10,0), (80,0), (81,0)),
   ranges: ((10, 19), (80, 80),),
-  skips: ((19,0),),
   text: read("../assets/scripts/golden_linux_server.pkr.hcl")
 )
 
@@ -65,8 +65,8 @@ Terraform, ebenfalls ein Produkt von HashiCorp, ermöglicht es, die gesamte IT-I
   caption: "Terraform Bastion Provisionierung",
   filename: [stage_00/main.tf],
   lang: "tf",
+  skips: ((58,0), (76, 0), (109, 0), (114, 0),),
   ranges: ((58, 63), (76, 80), (109, 113)),
-  skips: ((63,0), (80, 0),),
   text: read("../assets/scripts/stage_00.tf")
 )
 
@@ -77,8 +77,8 @@ Solch ein Verfahren ist nicht allein mit Terraform möglich, da Terraform, falls
   caption: "Terraform Snapshot Destroy-Provisioner",
   filename: [stage_03/main.tf],
   lang: "tf",
+  skips: ((12, 0), (17, 0)),
   ranges: ((0, 6), (12, 16),),
-  skips: ((6, 0),),
   text: read("../assets/scripts/stage_03.tf")
 )
 Die von der Ressource gebrauchte ``` vm_uuids``` Variable ist in einer anderen Datei enthalten:
@@ -124,6 +124,7 @@ Die IPv4-Adressen der #htl3r.shortpl[vm] im Managementnetzwerk sind oft unklar, 
 #htl3r.code-file(
   caption: "Terraform Ansible Provisioning",
   filename: [stage_03/main.tf],
+  skips: ((29, 0), (44, 0)),
   range: (29, 43),
   lang: "tf",
   text: read("../assets/scripts/stage_03.tf")
@@ -131,6 +132,7 @@ Die IPv4-Adressen der #htl3r.shortpl[vm] im Managementnetzwerk sind oft unklar, 
 #htl3r.code-file(
   caption: "Ansible Execute Script",
   filename: [ansible/execute_stage_03.sh],
+  skips: ((6, 0), (22, 0)),
   range: (6, 21),
   lang: "bash",
   text: read("../assets/scripts/stage_03_execute_script.sh")
@@ -139,12 +141,12 @@ Die IPv4-Adressen der #htl3r.shortpl[vm] im Managementnetzwerk sind oft unklar, 
 #htl3r.code-file(
   caption: "Stage-03 Ansible-Playbook",
   filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
-  range: (0, 11),
   skips: ((12, 0),),
+  range: (0, 11),
   lang: "yml",
   text: read("../assets/scripts/setup_dc_primary.yml")
 )
-Der Grund, warum die ```ansible_ssh_common_args``` Variable solch einen komplexen Inhalt hat, wird in @prov-mit-bastion beschrieben.
+Der Grund, weshalb die ```ansible_ssh_common_args``` Variable solch einen komplexen Inhalt hat, wird in @prov-mit-bastion beschrieben.
 
 === pyVmomi
 Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es dennoch Limitationen. Um diese Limitationen zu umgehen, wird direkt auf die VMware-vSphere #htl3r.short[api] zurückgegriffen. Hierzu wird pyVmomi, die offizielle Python-Bibliothek für vSphere, verwendet. Mit pyVmomi ist es möglich, mit jeglicher Art von vSphere-Objekt zu interagieren. Es ist ebenfalls möglich, Parameter zu setzen, welche im Web-#htl3r.short[gui] von vSphere nicht sichtbar sind. Der Anwendungszweck, welcher vom größten Interesse ist, ist das Setzen von Traffic-Filter Regeln auf #htl3r.shortpl[dpg]. Dies ist in keinem der vorher genannten Tools direkt möglich, allerdings ist es zwingend nötig, um das geplante Security-Konzept umzusetzen. Es soll kein Datenverkehr zwischen Managed-#htl3r.shortpl[vm] möglich sein, jedoch sollte sie trotzdem die Möglichkeit haben mit der Bastion zu kommunizieren und #htl3r.short[dhcp]-Requests zu verschicken. Hierzu werden folgende Traffic-Filter-Regeln verwendet:
@@ -156,36 +158,34 @@ Obwohl Packer, Terraform und Ansible ein sehr breites Spektrum abdecken, gibt es
   )
 )
 
-Um nun diese Regeln zu definieren, muss zunächst eine Authentifizierung in vSphere stattfinden:
+Um nun diese Regeln zu definieren, muss zunächst eine Authentifizierung gegenüber vSphere stattfinden:
 #htl3r.code-file(
   caption: "pyVmomi Authentifizierung",
   filename: [ansible/custom/create_filtering_rules.py],
-  range: (152, 161),
+  skips: ((160, 0), (174, 0)),
+  range: (160, 173),
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
 
+#pagebreak(weak: true)
 In weiterer Folge werden das Datacenter sowie die #htl3r.short[dpg] abgefragt:
 #htl3r.code-file(
   caption: "pyVmomi Ressourcen Abfrage",
   filename: [ansible/custom/create_filtering_rules.py],
-  ranges: ((163, 164), (171, 172)),
-  skips: ((164, 0),),
+  skips: ((175, 0),(190, 0),),
+  ranges: ((175, 189), ),
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-Um nun die #htl3r.short[dpg] zu bearbeiten, wird ein ```ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. In diesem Fall sind diese Änderungen in zwei Gruppen zu unterteilen:
-
-+ Alle eingetragenen Traffic-Filter Regeln löschen.
-+ Die gebrauchten Traffic-Filter Regeln hinzufügen.
-
-Der erste Schritt ist notwendig, damit das Skript bei mehreren Aufrufen dasselbe Resultat erzielt.
+Um nun die #htl3r.short[dpg] zu bearbeiten, wird ein ```ConfigSpec``` Objekt gebraucht. Dieses Objekt beinhaltet alle Änderungen, die vorgenommen werden sollen. Um die Ausführung des Skriptes wiederholbar zu gestallten, werden die Filter-Regeln zuerst gelöscht und anschließend erneut hinzugefügt.
 
 Dies sieht in der Umsetzung wie folgt aus:
 #htl3r.code-file(
   caption: "pyVmomi Traffic-Filter Regel Bearbeitung",
   filename: [ansible/custom/create_filtering_rules.py],
-  ranges: ((178, 191),),
+  skips: ((191, 0), (211, 0)),
+  ranges: ((191, 210),),
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
@@ -194,15 +194,15 @@ Solch eine Regel sieht folgendermaßen aus:
 #htl3r.code-file(
   caption: "pyVmomi Traffic-Filter Regel Erstellung",
   filename: [ansible/custom/create_filtering_rules.py],
-  ranges: ((58, 81), (131, 145),),
-  skips: ((81, 0),),
+  skips: ((58, 0), (146, 0), (156, 0)),
+  ranges: ((58, 81), (146, 155)),
   lang: "py",
   text: read("../assets/scripts/create_filtering_rules.py")
 )
-Die gezeigte Regel erlaubt #htl3r.short[dhcp]-Requests von den Managed #htl3r.shortpl[vm] auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
+Die gezeigte Regel erlaubt #htl3r.short[dhcp]-Requests von den Managed-#htl3r.shortpl[vm] auf die Bastion. Die restlichen Regeln werden verwendet, um nur die Kommunikation mit der Bastion zu erlauben, demnach sind sie relativ simpel gehalten.
 
 == Provisionierung mittels Bastion <prov-mit-bastion>
-Bei der Provisionierung eines großen Netzwerks kann es zu verschiedensten Problemen kommen. Ein großes Problem welches sich häufiger entpuppt ist Trust. Um diverse Dienste und Programme zu Konfigurieren braucht es einen Remote-Shell zugriff in beliebiger Form. Da im Rahmen dieser Diplomarbeit vor allem auf Packer, Terraform und Ansible gesetzt wird, macht es sinn #htl3r.short[ssh] für diesen Zweck einzusetzen, da jedes dieser Tools dies unterstützt.
+Bei der Provisionierung eines großen Netzwerks kann es zu den verschiedensten Problemen kommen. Eines dieser Proble, auf welches häufig gestoßen wird, ist Trust. Um diverse Dienste und Programme zu Konfigurieren braucht es einen Remote-Shell zugriff in beliebiger Form. Da im Rahmen dieser Diplomarbeit vor allem auf Packer, Terraform und Ansible gesetzt wird, macht es Sinn, #htl3r.short[ssh] für diesen Zweck einzusetzen, da jedes dieser Tools dies unterstützt.
 
 #htl3r.short[ssh] erfordert eine Authentifizierung, demnach ist es wichtig, Passwörter oder auch Schlüsselpaare bei der Provisionierung, sowie im laufenden Betrieb, zu verwalten. Um diesen Prozess zu erleichtern gibt es eine zentrale Quelle des Vertrauens. Dies wird in Form einer besonderen #htl3r.short[vm] erzielt. Diese #htl3r.short[vm] besitzt einen besonderen Schlüssel, welcher ihr den Zugriff auf alle anderen #htl3r.shortpl[vm] gewährt. Diese #htl3r.short[vm] wird "Bastion" genannt, denn diese #htl3r.short[vm] darf unter keinen Umständen kompromittiert werden. Schafft es ein Angreifer die Bastion einzunehmen, so bekommt er Zugriff auf das gesamte Netzwerk, da jede #htl3r.short[vm] dem Schlüssel der Bastion vertraut. Um Angriffe auf die Bastion zu vermeiden, wird diese in keinem Produktiv-Netzwerk eingebunden und Internetzugriff wird untersagt. Es ist lediglich möglich über das Management-Netzwerk auf die Bastion zuzugreifen, da eine Schnittstelle für die #htl3r.short[iac]-Tools gebraucht wird. Der Zugriff in das Management-Netzwerk ist jedoch nur über einen #htl3r.short[vpn] möglich.
 
@@ -238,22 +238,23 @@ Terraform und Packer unterstützen die Nutzung eines #htl3r.short[ssh]-Agents na
 Die Konfigurationsoptionen in Packer sind selbsterklärend benannt und verständlich. Veranschaulichen lässt sich dies gut an der Packer-Konfiguration des Golden Linux Images:
 #htl3r.code-file(
   caption: "Packer verwendung von einer Bastion",
-  filename: [packer/images/golde_linux_server/main.pkr.hcl],
-  skips: ((0,9),(1, 62),),
+  filename: [packer/images/golden_linux_server/main.pkr.hcl],
+  skips: ((1,9),(2, 62), (9, 0)),
   lang: "hcl",
   text: read("../assets/scripts/packer-ssh-example.pkr.hcl")
 )
 
+#pagebreak(weak: true)
 Ähnlich simpel ist es auch in Terraform. Zu sehen ist ein Ausschnitt aus der zweiten Stage, in dieser Stage wird das #htl3r.short[scada] aufgesetzt:
 #htl3r.code-file(
   caption: "Terraform verwendung von einer Bastion",
   filename: [terraform/stage_02/main.tf],
-  skips: ((30, 0),(32,0), (42, 0), (45, 0)),
-  ranges: ((30, 30), (32, 32), (34, 41), (45, 45), (59, 59)),
+  skips: ((30, 0), (32, 0), (34, 0), (46, 0), (61, 0), (62, 0)),
+  ranges: ((30, 30), (32, 32), (34, 42), (46, 46), (61, 61)),
   lang: "hcl",
   text: read("../assets/scripts/stage02-main.tf")
 )
-Die nicht gezeigten Abschnitte werden ausgeblendet um für bessere Lesbarkeit zu sorgen. Es ist somit sehr gut erkennbar, wie sich die Konfiguration zu der selbigen in Packer ähnelt.
+Manche Abschnitte können vernachlässigt werden und werden deswegen ausgeblendet, dies sorgt ebenso für eine bessere Lesbarkeit des Quelllcodes. Es ist somit sehr gut erkennbar, wie sich die Konfiguration zu der selbigen in Packer ähnelt.
 
 ==== Ansible
 Aufgrund von der Simplizität von Ansible unterstützt es #htl3r.short[ssh]-Agents nicht direkt nativ. Ansible bevorzugt eine #htl3r.short[ssh]-Proxy. Eine #htl3r.short[ssh]-Proxy ist ähnlich zu einem #htl3r.short[ssh]-Agent, jedoch gibt es Unterschiede in der Art, wie mit den Schlüsseln umgegangen wird. Es ist allerdings trotzdem möglich, einen Ablauf mit einem #htl3r.short[ssh]-Agent zu realisieren:
@@ -261,7 +262,7 @@ Aufgrund von der Simplizität von Ansible unterstützt es #htl3r.short[ssh]-Agen
   caption: "Ansible Verwendung von einer Bastion",
   filename: [ansible/playbooks/stages/stage_03/setup_dc_primary.yml],
   skips: ((11, 0),),
-  ranges: ((0, 11),),
+  ranges: ((0, 10),),
   lang: "yml",
   text: read("../assets/scripts/setup_dc_primary.yml")
 )
@@ -280,7 +281,7 @@ Dieser Prozess vom Hinzufügen der Schlüssel der Bastion zum lokalen #htl3r.sho
 
 === SSH-Proxy
 
-Als alternative zu #htl3r.short[ssh]-Agent forwarding steht eine #htl3r.short[ssh] proxying, oder auch #htl3r.short[ssh] tunneling genannt. Eine #htl3r.short[ssh]-Proxy kann ebenfalls Resourcen in einem geschützten Netzwerk verfügbar machen, indem ein Tunnel aufgebaut wird, durch den dann weitere #htl3r.short[ssh]-Verbindungen aufgemacht werden können. Es werden meistens mehrere Schlüsselpaare verwenden um auf die Resourcen zuzugreifen. Das Hauptschlüsselpaar, ist jedoch das Paar, welches verwendet wird, um den Tunnel aufzubauen. Der Server, welcher den SSH-Server für den Tunnel hosted, wird Bastion genannt. Selbstverständliich ist es nicht absolut von nöten Schlüsselpaare für den Verbindungsaufbau mit der Bastion zu nutzen, es ist jedoch stark zu empfehlen.
+Als Alternative zu #htl3r.short[ssh]-Agent-Forwarding steht das #htl3r.short[ssh]-Proxying, oder auch #htl3r.short[ssh]-Tunneling genannt. Eine #htl3r.short[ssh]-Proxy kann ebenfalls Ressourcen in einem geschützten Netzwerk verfügbar machen, indem ein Tunnel aufgebaut wird, durch den dann weitere #htl3r.short[ssh]-Verbindungen aufgemacht werden können. Es werden meistens mehrere Schlüsselpaare verwendet, um auf die Ressourcen zuzugreifen. Das Hauptschlüsselpaar ist jedoch das Paar, welches verwendet wird, um den Tunnel aufzubauen. Der Server, welcher den #htl3r.short[ssh]-Server für den Tunnel bereitstellt, wird Bastion genannt. Selbstverständlich ist es nicht absolut notwendig, Schlüsselpaare für den Verbindungsaufbau mit der Bastion zu nutzen, es ist jedoch stark zu empfehlen.
 
 #htl3r.fspace(
   total-width: 100%,
@@ -292,6 +293,6 @@ Als alternative zu #htl3r.short[ssh]-Agent forwarding steht eine #htl3r.short[ss
   ]
 )
 
-Wie in @bastion_proxy zu erkennen ist, liegen im kontrast zum #htl3r.short[ssh]-Agent forwarding, beide Schlüsselpaare auf der #htl3r.short[iac]-Workstation. Das erste Schlüsselpaar (Schlüssel A) wird verwendet, um den Tunnel zur Bastion aufzubauen. Das zweite Schlüsselpaar (Schlüssel B) wird im Anschluss verwendet um eine #htl3r.short[ssh]-Verbindung zur #htl3r.short[vm] aufzubauen. Man beachte, dass in keinem Moment, auch nur eines der beiden Schlüsselpaar, auf der Bastion liegt.
+Wie in @bastion_proxy zu erkennen ist, liegen im Gegensatz zum #htl3r.short[ssh]-Agent-Forwarding, beide Schlüsselpaare auf der #htl3r.short[iac]-Workstation. Das erste Schlüsselpaar (Schlüssel A) wird verwendet, um den Tunnel zur Bastion aufzubauen. Das zweite Schlüsselpaar (Schlüssel B) wird im Anschluss verwendet, um eine #htl3r.short[ssh]-Verbindung zur #htl3r.short[vm] aufzubauen. Man beachte, dass in keinem Moment, auch nur eines der beiden Schlüsselpaar, auf der Bastion liegt.
 
-Es gilt jedoch zu beachten, dass die Schlüsselpaare, welche in diesem Falle auf der #htl3r.short[iac]-Workstation liegen, sicher verwaltet werden müssen. Hierzu können verschiedene Key-Store-Dienste verwendet werden, dies fällt jedoch außerhalb des Rahmens dieser Diplomarbeit und wird somit hier nicht näher dokumentiert.
+Es gilt jedoch zu beachten, dass die Schlüsselpaare, welche in diesem Fall auf der #htl3r.short[iac]-Workstation liegen, sicher verwaltet werden müssen. Hierzu können verschiedene Key-Store-Dienste verwendet werden, dies fällt jedoch außerhalb des Rahmens dieser Diplomarbeit und wird somit hier nicht näher dokumentiert.
