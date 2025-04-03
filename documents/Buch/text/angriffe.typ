@@ -84,10 +84,11 @@ Die Umsetzung dieser Entdeckungs- als auch Verhinderungsstrategien in der "Fenri
 == Angriffe auf das IT-Netzwerk
 
 === Phishing-Mail auf dem Exchange-Server
-
 Nur selten passieren Angriffe, die als Endergebnisse beispielsweise die Störung des Exchange-Mail-Servers haben. Meistens wird die Präsenz eines Mail-Servers lediglich genutzt, um als "Sprungbrett" ins interne Netzwerk zu dienen durch Phishing-Angriffe.
+Phishing gehört zu den häufigsten und einfachsten Angriffsmethoden in der Cyberkriminalität. Trotz seiner Einfachheit ist es eine der effektivsten Methoden, um an vertrauliche Informationen wie Zugangsdaten oder andere sensible Daten zu gelangen. Bei einem Phishing-Angriff versucht der Angreifer, durch gefälschte E-Mails, welche von einer augenscheinlich vertrauenswürdigen Quelle stammen, den Empfänger zu täuschen und dazu zu bringen Informationen preiszugeben. Oft geschieht dies über einen Link zu einer "Phishing-Seite", die eine seriöse Website imitiert. Auf dieser Seite wird das Opfer aufgefordert seine Zugansdaten einzugeben, welche dann in Besitz des Angreifers gelangen.
+Alternativ kann ein solcher Angriff auch ohne Link erfolgen - beispielsweise durch eine Aufforderung, bestimmte Daten per Anwort auf die E-Mail zu übermitteln.
 
-#htl3r.todo("Phishing Angriff hier umsetzen (bzw auf angriffsszenario verweisen)")
+Ein typisches Beispiel für einen solchen Angriff wird in @angriffsszenario beschrieben.
 
 #htl3r.author("David Koch")
 === Ransomware auf Endgeräten
@@ -263,7 +264,7 @@ Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-
 TODO
 
 #htl3r.author("David Koch")
-== Konkretes Angriffsszenario
+== Konkretes Angriffsszenario <angriffsszenario>
 
 Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein konkretes Angriffsszenario konzipieren, welches in dieser Form auch in einem Echtbetrieb stattfinden könnte:
 
