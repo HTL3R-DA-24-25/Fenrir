@@ -111,7 +111,7 @@ Heutzutage sind die meisten Endgeräte -- soweit sie regelmäßig Updates erhalt
 Wenn ein Administrator vergisst, sich aus einem System auszuloggen, kann ein Angreifer ein Golden Ticket erstellen und dieses exportieren. Wenn der Angreifer ein Ticket hat, kann er sich als Administrator des #htl3r.long[ad] ausgeben und hat somit Zugriff auf alle Ressourcen des #htl3r.short[ad]. Ausgeführt kann diese Attacke mit dem Tool "Mimikatz" werden.
 
 Es wird gestartet auf dem System mit dem angemeldeten Administrator. 
-Im ersten Schritt wird Mimikatz gestartet und der #htl3r.short[ntml]-Hash von "krbtgt" ausgelesen. krbtgt ist der Benutzer, der die Tickets für das #htl3r.short[ad] signiert.
+Im ersten Schritt wird Mimikatz gestartet und der #htl3r.short[ntlm]-Hash von "krbtgt" ausgelesen. krbtgt ist der Benutzer, der die Tickets für das #htl3r.short[ad] signiert.
 Das wurde mit folgendem Befehl realisiert:
 #htl3r.code(caption: "Auslesen des NTLM-Hashes von krbtgt", description: none)[
 ```
@@ -140,7 +140,7 @@ whoami /user
   )
 )
 
-Mit dem #htl3r.short[sid] wird jetzt ein Golden Ticket erstellt. Dazu wird der #htl3r.short[ntml]-Hash von krbtgt, der #htl3r.short[fqdn] der Domain und der Benutzername des Benutzers benötigt. Außerdem wird noch die ID des Administrators angegeben. Die ist Standardmäßig 500. Das wird mit folgendem Befehl realisiert:
+Mit dem #htl3r.short[sid] wird jetzt ein Golden Ticket erstellt. Dazu wird der #htl3r.short[ntlm]-Hash von krbtgt, der #htl3r.short[fqdn] der Domain und der Benutzername des Benutzers benötigt. Außerdem wird noch die ID des Administrators angegeben. Die ist Standardmäßig 500. Das wird mit folgendem Befehl realisiert:
 #htl3r.code(caption: "Erstellen des Golden Tickets", description: none)[
 ```
 kerberos::golden /user:<USER> /domain:<FQDN> /sid:<SID> /krbtgt:<NTLM-HASH> /id:500
