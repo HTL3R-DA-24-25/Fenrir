@@ -244,7 +244,7 @@ Nach wenigen Sekunden ist der Identify-Scan fertig und liefert dem Angreifer die
 #htl3r.author("David Koch")
 === DoS einer SPS <dos-sps>
 
-Die CVE-Beschreibung von #htl3r.short[cve]-2019-10936 lautet: "Affected devices improperly handle large amounts of specially crafted #htl3r.short[udp] packets. This could allow an unauthenticated remote attacker to trigger a denial of service condition." @siemens-sps-dos-cve Es wird ebenfalls erwähnt, dass nur Firmware-Versionen unter v4.4.0 von dieser Schwachstelle betroffen sind. Wie bereits in @recon ermittelt worden ist, hat die auf der S7-1200 derzeit installierte Firmware die Version v4.3.1. Das heißt: Der Angriff kann beginnen.
+Die #htl3r.short[cve]-Beschreibung von #htl3r.short[cve]-2019-10936 lautet: "Affected devices improperly handle large amounts of specially crafted #htl3r.short[udp] packets. This could allow an unauthenticated remote attacker to trigger a denial of service condition." @siemens-sps-dos-cve Es wird ebenfalls erwähnt, dass nur Firmware-Versionen unter v4.4.0 von dieser Schwachstelle betroffen sind. Wie bereits in @recon ermittelt worden ist, hat die auf der S7-1200 derzeit installierte Firmware die Version v4.3.1. Das heißt: Der Angriff kann beginnen.
 
 Was mit "specially crafted #htl3r.short[udp] packets" gemeint ist, ist nicht näher beschrieben. In den meisten #htl3r.short[dos]-Angriffen handelt es sich bei diesen Packets meist um Buffer-Underflow- bzw. Buffer-Overflow-Payloads. Bei einem Underflow werden in den einzelnen Packets zu wenige Nutzdaten übermittelt, bei einem Overflow werden zu viele Nutzdaten übermittelt. Insgesamt werden diese Packets dann in sehr großen Mengen an das anzugreifende Gerät geschickt, um den #htl3r.short[dos]-Zustand auszulösen.
 

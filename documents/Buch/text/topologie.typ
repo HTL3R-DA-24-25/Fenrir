@@ -75,7 +75,7 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
       [#htl3r.short[ot] Workstations], [#htl3r.short[dhcp]],
       [#htl3r.short[sps] Zelle Eins], table.cell(rowspan: 3, "Kläranlage"), [10.79.84.1/30],
       [#htl3r.short[sps] Zelle Zwei], [10.79.84.5/30],
-      [#htl3r.short[sps]Zelle Drei], [10.79.84.9/30],
+      [#htl3r.short[sps] Zelle Drei], [10.79.84.9/30],
     ),
     caption: [Alle Geräte die in der logischen Topologie vorhanden sind],
   )
@@ -208,7 +208,7 @@ Der vCenter-Dienst läuft als #htl3r.short[vm] auf ESXi 1 und kommuniziert mit d
       inset: 10pt,
       align: (horizon + left, horizon + center, horizon + left),
       table.header(
-        [*DNS-Name*], [*Adresse*], [*Gerät*],
+        [*#htl3r.short[dns]-Name*], [*Adresse*], [*Gerät*],
       ),
       [vcenter.fenrir.local], [10.40.20.10], [vCenter #htl3r.short[vm]],
       [esxi1.fenrir.local], [10.40.20.11], [ESXi 1],
@@ -479,7 +479,7 @@ Das Konzept hinter der Interface aufteilung ist, dass jeweils zwölf Interfaces 
   )
 ) <int_table>
 
-Das Storage-#htl3r.short[vlan] ist dafür zuständig, alle ESXi-Hosts der physischen Topologie, siehe @physische-topo, an einen #htl3r.short[nfs]-Share anzubinden. Der Server welcher diesen #htl3r.short[nfs]-Share hosted, ist mit vier Links an den Switch angebunden und es wird LACP, zur Lastaufteilung zwischen diesen, verwendet. Ebenso ist die #htl3r.short[mtu]-Größe auf dem switch auf 9000 gestellt, um maximalen Durchsatz zu erzielen.
+Das Storage-#htl3r.short[vlan] ist dafür zuständig, alle ESXi-Hosts der physischen Topologie, siehe @physische-topo, an einen #htl3r.short[nfs]-Share anzubinden. Der Server welcher diesen #htl3r.short[nfs]-Share hosted, ist mit vier Links an den Switch angebunden und es wird #htl3r.short[lacp], zur Lastaufteilung zwischen diesen, verwendet. Ebenso ist die #htl3r.short[mtu]-Größe auf dem switch auf 9000 gestellt, um maximalen Durchsatz zu erzielen.
 
 #htl3r.code(caption: [Storage Channel-Group des Cluster Switches], description: [Storage LACP])[
 ```

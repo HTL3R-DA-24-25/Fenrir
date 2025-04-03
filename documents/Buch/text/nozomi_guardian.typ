@@ -54,7 +54,7 @@ Durch die automatische Erkennung ist die Guardian vor allem in Netzwerken, in we
 )
 
 == Nozomi Guardian in der OT-Welt
-Die Nozomi Guardian wurde speziell für #htl3r.short[ot]-Netzwerke entwickelt. Sie ist daher in der Lage, typische #htl3r.short[ot]-Protokolle zu erkennen und zu verarbeiten. In dem Fall der Modell Kläranlage kann sie beispielsweise Modbus #htl3r.short[tcp] Pakete auslesen. Falls nun ein Wert außerhalb eines definierten Bereiches liegt, da ein Angreifer versucht, diesen zu manipulieren, kann ein Alert definiert werden, welcher dann auch ausgelöst wird. 
+Die Nozomi Guardian wurde speziell für #htl3r.short[ot]-Netzwerke entwickelt. Sie ist daher in der Lage, typische #htl3r.short[ot]-Protokolle zu erkennen und zu verarbeiten. In dem Fall der Modellkläranlage kann sie beispielsweise Modbus #htl3r.short[tcp] Pakete auslesen. Falls nun ein Wert außerhalb eines definierten Bereiches liegt, da ein Angreifer versucht, diesen zu manipulieren, kann ein Alert definiert werden, welcher dann auch ausgelöst wird. 
 
 == Arc Sensor
 Der Arc Sensor ist eine Komponente der Guardian, welche ein Endpoint-Schutzsystem darstellt und speziell für #htl3r.short[ot]-Netzwerke entwickelt wurde. Er fungiert als hostbasierter Sensor zur erkennung von kompromittierten Endpunkten und kann auf allen gängigen Betriebssystemen installiert werden.  @takeponint-arc-sensor[comp] Er erfasst Daten wie installierte Software, Treiber und ähnliches @ikarus-arc-sensor[comp].

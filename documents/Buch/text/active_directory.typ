@@ -66,7 +66,7 @@ foreach ($ou in $ous) {
 ```
 ]
 
-Die #htl3r.short[ou] "LAPS-Server" wird im in @ad_hardening beschriebenen #htl3r.short[ad]-Hardening erstellt und verwendet.
+Die #htl3r.short[ou] "#htl3r.short[laps]-Server" wird im in @ad_hardening beschriebenen #htl3r.short[ad]-Hardening erstellt und verwendet.
 
 === Benutzerkonten <benutzerkonten>
 #show table.cell.where(y: 0): set text(size: 8pt)

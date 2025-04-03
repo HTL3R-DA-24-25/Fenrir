@@ -68,7 +68,7 @@ Auf der Uplink-Firewall liegen mehrere #htl3r.short[dhcp]-Server für drei unter
       inset: 10pt,
       align: (horizon + left, horizon + left, horizon + left, horizon + left),
       table.header(
-        [*Interface*], [*Adresspool*], [*Gateway*], [*DNS-Server*],
+        [*Interface*], [*Adresspool*], [*Gateway*], [*#htl3r.short[dns]-Server*],
       ),
       [inet], [10.10.0.100 - 10.10.0.200], [10.10.0.254], [1.1.1.1],
       [mgmt], [10.40.20.210 - 10.40.20.230], [10.40.20.254], [10.40.20.254],
