@@ -38,6 +38,7 @@ resource "terraform_data" "scada_provisioning" {
       bastion_user     = var.bastion_settings.username
       bastion_password = var.bastion_settings.password
       agent            = true
+      private_key      = file("../../keys/id_ed25519")
     }
     on_failure  = fail
     source      = "./extra/project.zip"
@@ -52,6 +53,7 @@ resource "terraform_data" "scada_provisioning" {
       bastion_user     = var.bastion_settings.username
       bastion_password = var.bastion_settings.password
       agent            = true
+      private_key      = file("../../keys/id_ed25519")
     }
     on_failure = fail
     script     = "./scripts/scada.sh"

@@ -44,7 +44,7 @@ Local Administrator Password Solution, kurz LAPS, ist ein Tool von Microsoft, we
 
 LAPS wurde in der Topologie auf den Servern im #htl3r.short[it]-Netzwerk installiert und konfiguriert. Auf den Clients wurde LAPS nicht aktiviert. Dies resultiert daraus, dass auf den Windows Server 2022 Systemen LAPS nachinstalliert wird, was mittlerweile die Legacy Version ist. Die Clients sind Windows 11 Systeme, welche allerdings LAPS mitgeliefert bekommen, genauso wie Windows Server 2025. Dabei handelt es sich jedoch um die aktuelle Version von LAPS. Die beiden Versionen sind nicht kompatibel zueinander, weshalb LAPS auf den Clients nicht installiert wurde.
 
-Installiert wurde LAPS auf den #htl3r.longpl[dc]n mittels des PowerShell-Skripts:
+Installiert wurde LAPS auf den Domain Controllern mittels des PowerShell-Skripts:
 #htl3r.code-file(
   caption: "Installation von LAPS mittels PowerShell",
   filename: [ansible/playbooks/stages/stage_03/DC1_part_3.ps1],
@@ -64,7 +64,7 @@ Damit die Server wissen, dass sie über LAPS gesteuert werden, musste eine Grupp
   text: read("../assets/scripts/AD_Hardening.ps1")
 )
 
-Auf den Servern wurde LAPS auch installiert, jedoch ist es nicht notwendig, die Managementtools wie beim #htl3r.long[dc] zu installieren. Dies pasiert mit folgendem PowerShell-Befehl:
+Auf den Servern wurde LAPS auch installiert, jedoch ist es nicht notwendig, die Managementtools wie beim Domain Controller zu installieren. Dies pasiert mit folgendem PowerShell-Befehl:
 #htl3r.code(caption: "Installation von LAPS auf den Servern", description: none)[
 ```powershell
 D:\LAPS\x64\LAPS.x64.msi /quiet
@@ -93,13 +93,13 @@ Diese umfasst folgende #htl3r.shortpl[gpo]:
 - MSFT Internet Explorer 11 - Computer
 - MSFT Internet Explorer 11 - User
 - MSFT Windows Server 2022 - Defender Antivirus
-- MSFT Windows Server 2022 - #htl3r.longpl[dc]
-- MSFT Windows Server 2022 - #htl3r.longpl[dc] Virtualization Based Security
+- MSFT Windows Server 2022 - Domain Controller
+- MSFT Windows Server 2022 - Domain Controller Virtualization Based Security
 - MSFT Windows Server 2022 - Domain Security
 - MSFT Windows Server 2022 - Member Server
 - MSFT Windows Server 2022 - Member Server Credential Guard
 
-Die beiden #htl3r.shortpl[gpo] "MSFT Windows Server 2022 - #htl3r.longpl[dc] Virtualization Based Security" und "MSFT Windows Server 2022 - Member Server Credential Guard" wurden in der Topologie nicht aktiviert, da die Voraussetzungen, wie in @protected-users beschrieben, nicht erfüllt sind.
+Die beiden #htl3r.shortpl[gpo] "MSFT Windows Server 2022 - Domain Controller Virtualization Based Security" und "MSFT Windows Server 2022 - Member Server Credential Guard" wurden in der Topologie nicht aktiviert, da die Voraussetzungen, wie in @protected-users beschrieben, nicht erfüllt sind.
 
 Die "MSFT Internet Explorer 11 - Computer" wurde auf alle Computer angewendet, die "MSFT Internet Explorer 11 - User" auf alle Benutzer. Beide #htl3r.shortpl[gpo] legen Sicherheitseinstellungen für den Internet Explorer fest, wie zum Beispiel das Erzwingen einer bestimmten Version von #htl3r.short[tls].
 
@@ -211,23 +211,23 @@ Unter anderem sind folgende Maßnahmen für eine wesentliche Einrichtung vorgese
 #htl3r.author("Julian Burger")
 == Jump-Server für IT/OT Kommunikation
 
-Um einen abgesicherten und nur eingeschränkten Zugriff auf die #htl3r.short[ot]-Infrastruktur zu ermöglichen muss jegliche Kommunikation über ein sogenannter Jump-Server verlaufen. Die Firewall-Policies dafür wurden bereits in @separation_firewall beschrieben. In diesem Kapitel wird primär auf die OpenVPN und #htl3r.full[rdp] Verbindungen eingegangen.
+Um einen abgesicherten und nur eingeschränkten Zugriff auf die #htl3r.short[ot]-Infrastruktur zu ermöglichen, muss jegliche Kommunikation über einen sogenannten Jump-Server verlaufen. Die Firewall-Richtlinien dafür wurden bereits in @separation_firewall beschrieben. In diesem Kapitel wird primär auf die OpenVPN und #htl3r.full[rdp] Verbindungen eingegangen.
 
 === OpenVPN auf dem Jump-Server
 
-Wie schon erwähnt wurde der Jump-Server, welche als Übergang von der #htl3r.short[it] in die #htl3r.short[ot] dient, mit einem OpenVPN-Server realisiert. Es wurde OpenVPN über Wireguard, IPSec oder ähnlichem bevorzugt, da OpenVPN mehrere Client-Verbindungen mit der selben Konfiguration ermöglicht. So kann der Zugriff auf die Client-Konfiguration mittels #htl3r.short[ad]-Richtlinien abgesichert werden und es muss nicht für eine eigene Konfiguration pro Benutzer gesorgt werden. Die Vertraulichkeit ist somit ebenfalls leichter gewährt, da die Zertifikate ebenfalls über #htl3r.long[ad] verwaltet werden können. Für genaure Informationen über die Konfiguration des #htl3r.short[ad]s, siehe @active_directory.
+Wie schon erwähnt wurde der Jump-Server, welcher als Übergang von der #htl3r.short[it] in die #htl3r.short[ot] dient, mit einem OpenVPN-Server realisiert. Es wurde OpenVPN über WireGuard, IPSec oder Ähnliches bevorzugt, da OpenVPN mehrere Client-Verbindungen mit derselben Konfiguration ermöglicht. So kann der Zugriff auf die Client-Konfiguration mittels #htl3r.short[ad]-Richtlinien abgesichert werden und es muss nicht für eine eigene Konfiguration pro Benutzer gesorgt werden. Die Vertraulichkeit ist somit ebenfalls leichter gewährt, da die Zertifikate ebenfalls über #htl3r.long[ad] verwaltet werden können. Für genauere Informationen über die Konfiguration des #htl3r.short[ad]s, siehe @active_directory.
 
-OpenVPN arbeitet anhand von Zertifikaten, diese wurden mit einem tools namens "easy-rsa", welches ebenfalls von der OpenVPN-Organisation entwickelt wird, erstellt. easy-rsa erlaubt es dem Benutzer mithilfe von simplen Befehlen eine art #htl3r.short[pki] zu erstellen um anhand einer Root-#htl3r.short[ca] Zertifikate für den Server, als auch für den Client auszustellen. Diese Root-#htl3r.short[ca] kann im anschluss innerhalb des #htl3r.short[ad]s eingebunden werden, um diese automatisch auf die #htl3r.short[it]-Clients auszurollen. Im Rahmen dieser Diplomarbeit werden die Zertifikate allerdings nur über einen File-Share zur Verfügung gestellt.
+OpenVPN arbeitet anhand von Zertifikaten, diese wurden mit einem Tool namens "easy-rsa", welches ebenfalls von der OpenVPN-Organisation entwickelt wird, erstellt. easy-rsa erlaubt es dem Benutzer mithilfe von simplen Befehlen eine Art #htl3r.short[pki] zu erstellen, um anhand einer Root-#htl3r.short[ca] Zertifikate für den Server, als auch für den Client auszustellen. Diese Root-#htl3r.short[ca] kann im Anschluss innerhalb des #htl3r.short[ad]s eingebunden werden, um diese automatisch auf die #htl3r.short[it]-Clients auszurollen. Im Rahmen dieser Diplomarbeit werden die Zertifikate allerdings nur über einen File-Share zur Verfügung gestellt.
 
-Die Konfiguration von dem OpenVPN-Server selbst wird mittels automatischer Provisionierung, wie in @provisionierung beschrieben, eingespielt. Die Konfiguration beinhaltet die #htl3r.short[pki], Zertifikate und die Serverkonfigurationsdatei, welche die Tunnel-Konfiguration beinhaltet.
+Die Konfiguration des OpenVPN-Servers selbst wird mittels automatischer Provisionierung, wie in @provisionierung beschrieben, eingespielt. Die Konfiguration beinhaltet die #htl3r.short[pki], Zertifikate und die Serverkonfigurationsdatei, welche die Tunnel-Konfiguration beinhaltet.
 
 #htl3r.code-file(caption: [OpenVPN-Server Konfiguration], filename: [/etc/openvpn/server.conf], text: read("../assets/openvpn/server.conf"))
 
-Diese OpenVPN-Server Konfiguration ist bis auf folgende zwei Ausnahmen sehr simplistisch gehalten:
+Diese OpenVPN-Server-Konfiguration ist bis auf folgende zwei Ausnahmen sehr einfach gehalten:
 - `duplicate-cn`: Gibt an, dass sich mehrere Clients mit dem gleichen Zertifikat, zur selben Zeit, verbinden können.
 - `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den VPN-Tunnel erreichbar ist.
 
-OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, wird zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle, wird die #htl3r.short[nat]-Konfiguration mit Linux IP-Tables realisiert.
+OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, werden zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle wird die #htl3r.short[nat]-Konfiguration mit Linux IP-Tables realisiert, siehe @ovpn_iptables.
 
 #htl3r.code(caption: [OpenVPN-Server Tunnel NAT])[
 ```bash
@@ -235,6 +235,35 @@ iptables -t nat -A POSTROUTING -o ens224 -j MASQUERADE
 iptables -A FORWARD -i tun0 -o ens224 -j ACCEPT
 iptables -A FORWARD -i ens224 -o tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 ```
-]
+] <ovpn_iptables>
 
 === OpenVPN auf den IT-Workstations
+
+Damit die Windows-Clients, beziehungsweise #htl3r.short[it]-Workstations, eine OpenVPN-Verbindung aufbauen können, benötigen diese die OpenVPN-Client-Software zu installieren. Die Installation dieser Software erfolgt, wie in @provisionierung beschrieben, bereits innerhalb des Golden-Images, welches mit Packer erzeugt wird. Dies geschieht über ein PowerShell-Skript, welches, wegen passender Konfiguration innerhalb einer `autounattend.xml`-Datei, vom Windows-Installations-Prozess aufgerufen wird.
+
+#htl3r.code(caption: [OpenVPN-Client installation auf IT-Workstations])[
+```ps1
+(New-Object System.Net.WebClient).DownloadFile('https://swupdate.openvpn.org/community/releases/OpenVPN-2.6.13-I002-amd64.msi', 'C:\Windows\Temp\openvpn.msi')
+C:\Windows\Temp\openvpn.msi /quiet /passive
+Start-Sleep -Seconds 120
+```
+]
+
+Die Software sollte jedoch nur für bestimmte #htl3r.short[ad]-Benutzer verfügbar sein, somit muss dieser Zugriff eingeschränkt werden. Für weitere Informationen über diese Einschränkung siehe @active_directory.
+
+Damit sich ein Client mit dem Server verbinden kann, ist ein Zertifikat notwendig, welches zuvor von der #htl3r.short[pki], welche in diesem Fall ebenfalls am Jump-Host liegt, ausgestellt wurde. Zusätzlich wird das Zertifikat, jedoch nicht der private Schlüssel, der #htl3r.short[pki] benötigt.
+
+#htl3r.code-file(caption: [OpenVPN-Client Konfiguration], filename: [client.ovpn], text: read("../assets/openvpn/client.conf")) <ovpn-client>
+
+In @ovpn-client ist die finale Konfiguration der #htl3r.short[it]-Workstations enthalten. Man beachte, dass ein `tun`-Device, kurz für Tunnel, verwendet wird. Ein Tunnel ermöglicht #htl3r.short[osi]-Ebene 3 Verbindungen. Mittels `tap`-Device wären sogar #htl3r.short[osi]-Ebene 2 Verbindungen über OpenVPN möglich, dies wird allerdings im Rahmen dieser Diplomarbeit nicht benötigt.
+
+#htl3r.fspace(
+  [
+  #figure(
+    image("../assets/openvpn_client_verbindung.png", width: 100%),
+    caption: [IT-Workstation OpenVPN-Client Verbindung]
+  ) <openvpn-client-conn>
+  ]
+)
+
+Wie in @openvpn-client-conn erkennbar ist, ist es möglich, mit der #htl3r.short[it]-Workstation auf den OpenVPN-Server zuzugreifen. Über den OpenVPN-Server kann anschließend eine #htl3r.short[rdp]-Session auf eine #htl3r.short[ot]-Workstation geöffnet werden. Dieser Zugriff ist dank des Jump-Servers Purdue-Modell konform.

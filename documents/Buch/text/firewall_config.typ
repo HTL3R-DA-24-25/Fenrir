@@ -119,53 +119,20 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
   )
 )
 
-Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den Traffic wie gewollt erlauben. Man bedenke, dass zusätzliche Einschränkungen gelten, welche nur OpenVPN-Zugriffe auf die Jump-Server erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
+Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den minimalen Traffic erlauben, welcher notwendig ist um auf die #htl3r.short[ot] zuzugreifen. Es existieren noch zusätzliche Einschränkungen, welche nur OpenVPN-Zugriffe auf die Jump-Server erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
 
 === Grundkonfiguration
 
 Die Grundkonfiguration der Übergangs-Firewall bzw. Seperation-Firewall beinhaltet das Einrichten des Management-#htl3r.short[vlan]s, sowie die Konfiguration von statischen IP-Adressen und #htl3r.short[vlan]-Subinterfaces für die Kläranlagen-Topologie. Andere Aspekte wie Hostname und Zeitzone werden ebenfalls gesetzt.
 
-#htl3r.code(caption: [Übergangs-Firewall Grundkonfiguration], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config system global
-  set admintimeout 30
-  set hostname "Seperation-FW-Fenrir"
-  set timezone 26
-end
-
-config sys interface
-  edit wan1
-    set mode static
-    set description "To Uplink Firewall"
-    set vdom "root"
-    set ip 172.16.10.1 255.255.255.252
-    set allowaccess ping
-    set type physical
-    set snmp-index 1
-  next
-  ...
-  edit "mgmt"
-    set description "Management VLAN"
-    set vdom "root"
-    set mode static
-    set vlanid 120
-    set ip 10.40.20.253/24
-    set interface internal1
-    set allowaccess ping http https ssh fgfm
-  next
-  edit "vmnet-otnet"
-    set description "VMNET OT-NET"
-    set vdom "root"
-    set mode static
-    set vlanid 334
-    set ip 10.34.255.254/16
-    set interface internal2
-    set allowaccess ping
-  next
-  ...
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall Grundkonfiguration",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((35, 0), (50, 0), (76, 0)),
+  ranges: ((35, 49), (58, 75), (85, 85)),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 Da die Grundkonfiguration mehrere Seiten in Anspruch nehmen würde, wurde die Konfiguration von ein paar Interfaces nicht inkludiert.
 
@@ -173,84 +140,38 @@ Da die Grundkonfiguration mehrere Seiten in Anspruch nehmen würde, wurde die Ko
 
 Innerhalb des #htl3r.short[ot]-Net Netzwerkes werden IP-Adressen an #htl3r.short[ot]-Workstations mittels #htl3r.short[dhcp] verteilt. Der #htl3r.short[dhcp]-Server ist dabei mithilfe der Übergangs-Firewall realisiert. Das Interface, auf dem der #htl3r.short[dhcp]-Server läuft, ist das #htl3r.short[vlan]-Subinterface des #htl3r.short[ot]-Net Netzwerkes.
 
-#htl3r.code(caption: [Übergangs-Firewall OT-NET DHCP-Konfiguration], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config sys dhcp server
-  edit 1
-    set status enable
-    set lease-time 86400
-    set vci-match disable
-    set interface "vmnet-otnet"
-    set default-gateway 10.34.255.254
-    set netmask 255.255.0.0
-    config ip-range
-      edit 1
-        set start-ip 10.34.0.200
-        set end-ip 10.34.255.200
-      next
-    end
-  next
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall OT-NET DHCP-Konfiguration",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((210, 0),),
+  ranges: ((210, 225),),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 === Jump-Server Policy
 
 Wie bereits beschrieben, darf die Jump-Server nur mit OpenVPN von den #htl3r.short[it]-Workstations erreichbar sein. Der einzige Traffic, welcher ansonsten erlaubt ist, sind die #htl3r.short[rdp]-Verbindungen zu den #htl3r.short[ot]-Workstations. Für die OpenVPN-Verbindungen gibt es zwei Adress-Objekte `Jump-Server` und `IT_Workstations`.
 
-#htl3r.code(caption: [Übergangs-Firewall Jumbox Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config firewall address
-  edit "Jump-Server"
-    set subnet 192.168.33.50 255.255.255.0
-    set comment "OpenVPN Jump-Server"
-  next
-  edit "IT_Workstations"
-    set type iprange
-    set start-ip 10.32.0.10
-    set end-ip 10.32.255.240
-    set allow-routing enable
-    set comment "IT-Workstation DHCP-Range"
-  next
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall Jump-Server Policy Adress-Objekte",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((87, 0), (114, 0), (126, 0)),
+  ranges: ((87, 87), (114, 125), ),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 Der IP-Adress-Bereich, welcher in `IT_Workstations` angegeben ist, wird von der Uplink-Firewall hergeleitet, siehe @uplink_fw_dhcp. Diese Adress-Objekte werden dann in der Policy verwendet, um den Zugriff einzuschränken.
 
-#htl3r.code(caption: [Übergangs-Firewall Jumbox Policy], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config firewall service custom
-  edit "OPENVPN"
-    set category "Remote Access"
-    set udp-portrange 1194
-  next
-end
-
-config firewall policy
-  edit 1
-    set name "IT-Workstations to Jump-Server"
-    set srcintf "wan1"
-    set dstintf "vmnet-otdmz"
-    set srcaddr "IT_Workstations"
-    set dstaddr "Jump-Server"
-    set action accept
-    set schedule "always"
-    set service "OPENVPN"
-    set logtraffic all
-    set status enable
-  next
-end
-
-config router static
-  edit 1
-    set gateway 172.16.10.2
-    set device "wan1"
-    set dstaddr "IT_Workstations"
-  next
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall Jump-Server Policy",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((158, 0), (183, 0), (196, 0)),
+  ranges: ((158, 158), (183, 195)),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 Man beachte, dass für OpenVPN ein eigener Service auf der FortiGate angelegt wurde. Dies ist notwendig, da es standardmäßig keinen Service und damit Port-Mapping hierfür gibt. Für die Policy jedoch ist es essenziell, dass sie weiß, welche Art von Traffic sie durchlassen darf. Des Weiteren ist ein statischer Routeneintrag notwendig, damit die Firewall den Traffic vom #htl3r.short[it]-Netzwerk weiterleiten kann.
 
@@ -258,114 +179,60 @@ Man beachte, dass für OpenVPN ein eigener Service auf der FortiGate angelegt wu
 
 Die Konfiguration für den #htl3r.short[rdp]-Zugriff auf die #htl3r.short[ot]-Workstations von der Jump-Server aus gleicht der zuvor angeführten Konfiguration. Es wird jedoch ein neues Adress-Objekt für die #htl3r.short[ot]-Workstations angelegt.
 
-#htl3r.code(caption: [Übergangs-Firewall RDP Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config firewall address
-  edit "OT_Workstations"
-    set type iprange
-    set start-ip 10.34.0.200
-    set end-ip 10.34.255.200
-    set comment "OT-Workstation DHCP-Range"
-  next
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall RDP Policy Adress-Objekte",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((87, 0), (108, 0), (125, 0), (126, 0)),
+  ranges: ((87, 87), (108, 113), (125, 125)),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 Dieses `OT_Workstation` Adress-Objekt wird dann in der Policy verwendet.
 
-#htl3r.code(caption: [Übergangs-Firewall RDP Policy], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config firewall policy
-  edit 2
-    set name "Jump-Server to OT-Workstations"
-    set srcintf "vmnet-otdmz"
-    set dstintf "vmnet-otnet"
-    set srcaddr "Jump-Server"
-    set dstaddr "OT_Workstations"
-    set action accept
-    set schedule "always"
-    set service "RDP"
-    set logtraffic all
-    set status enable
-  next
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall RDP Policy",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((158, 0), (171, 0), (195, 0), (196, 0)),
+  ranges: ((158, 158), (171, 182), (195, 195)),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 === SPS Policy
 
 Die #htl3r.short[ot]-Workstations und das #htl3r.short[scada] benötigen ebenso Zugriff auf die drei #htl3r.shortpl[sps] hierzu existiert pro #htl3r.short[sps] ein Adress-Objekt. Diese drei Adress-Objekte werden dann in eine gemeinsame Adress-Gruppe hinzugefügt. Dies erleichtert das Definieren der Policy und das Setzen der statischen Route.
 
-#htl3r.code(caption: [Übergangs-Firewall SPS Policy Adress-Objekte], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config firewall address
-  edit "SIMATIC"
-    set subnet 10.79.84.1 255.255.255.255
-    set allow-routing enable
-    set comment "Siemens SIMATIC PLC"
-  next
-  edit "OpenPLC"
-    set subnet 10.79.84.5 255.255.255.255
-    set allow-routing enable
-    set comment "OpenPLC PLC (Raspberry Pi)"
-  next
-  edit "LOGO"
-    set subnet 10.79.84.9 255.255.255.255
-    set allow-routing enable
-    set comment "Siemens LOGO! PLC"
-  next
-  edit "SCADA"
-    edit subnet 10.34.0.50 255.255.255.255
-    set comment "SCADA"
-end
-
-config firewall addrgrp
-  edit "PLC_Group"
-    set member "SIMATIC" "OpenPLC" "LOGO"
-    set allow-routing enable
-    set comment "All plcs"
-  next
-  edit "PLC_Accessor"
-    set member "SCADA" "OT_Workstations"
-    set comment "All devices that need to access the PLCs"
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall SPS Policy Adress-Objekte",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((87, 0), (125, 0), (147, 0), (157, 0)),
+  ranges: ((87, 103), (125, 125), (147, 156)),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 Um diese definierten IP-Adressen zu erreichen, wird eine statische Route definiert, welche den Traffic über die Zellen-Firewall weiterleitet. Dazu wird die Adress-Gruppe `PLC_Group` verwendet. Die andere definierte Adress-Gruppe `PLC_Accessor` definiert alle Geräte, welche auf die #htl3r.shortpl[sps] zugreifen dürfen.
 
-#htl3r.code(caption: [Übergangs-Firewall SPS-Routen], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config router static
-  edit 2
-    set gateway 172.16.10.5
-    set device "wan2"
-    set dstaddr "PLC_Group"
-  next
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall SPS-Routen",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((197, 0), (203, 0), (209, 0)),
+  ranges: ((197, 197), (203, 208)),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
-Final ist die Policy für den Zugriff auf die #htl3r.shortpl[sps] definiert. Diese weicht wiedermal nur leicht von den anderen Policies ab. Allerdings wird als Service alles erlaubt. Dies ist, obwohl nicht komplett sicher, die beste Möglichkeit, die Funktion der diversen #htl3r.short[sps]-Programmierprogramme zu garantieren, siehe @separation_firewall.
+Final ist die Policy für den Zugriff auf die #htl3r.shortpl[sps] definiert. Diese weicht leicht von den anderen Policies ab. Allerdings wird als Service alles erlaubt. Dies ist, obwohl nicht komplett sicher, die beste Möglichkeit, die Funktion der diversen #htl3r.short[sps]-Programmierprogramme zu garantieren, siehe @separation_firewall.
 
-#htl3r.code(caption: [Übergangs-Firewall SPS-Policy], description: [Seperation-FW-Fenrir.conf])[
-```fortios
-config firewall policy
-  edit 3
-    set name "OT-Net to PLCs"
-    set srcintf "vmnet-otnet"
-    set dstintf "wan2"
-    set srcaddr "PLC_Accessor"
-    set dstaddr "PLC_Group"
-    set action accept
-    set schedule "always"
-    set service "all"
-    set logtraffic all
-    set status enable
-  next
-end
-```
-]
+#htl3r.code-file(
+  caption: "Übergangs-Firewall SPS-Policy",
+  filename: [Seperation-FW-Fenrir.conf],
+  lang: "fortios",
+  skips: ((158, 0), (195, 0), (196, 0)),
+  ranges: ((158, 170), (195, 195)),
+  text: read("../assets/firewall/Seperation-FW-Fenrir.conf")
+)
 
 So wird mit insgesamt drei simplen Policies der in diesem Abschnitt definierte Traffic-Flow über die Übergangs-Firewall realisiert. Die Adress-Gruppen sind jederzeit erweiterbar und die Konfiguration ist leicht zu verifizieren.
 
@@ -441,7 +308,7 @@ Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung vo
 #htl3r.fspace(
     [
       #figure(
-        image("../assets/zellen_router_on_a_stick.svg"),
+        image("../assets/zellen_router_on_a_stick.png"),
         caption: ["Router on a Stick" als Alternative zu VDOMs]
       )
     ]
