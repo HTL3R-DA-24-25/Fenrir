@@ -43,12 +43,16 @@ Stattdessen werden reale Datenquellen angegeben, welche typischerweise Modbus-IP
 Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint sind, die von der #htl3r.short[sps] ausgegeben werden. Datenpunkte beziehen sich immer auf eine Register range, Datentyp und einem Offset. Es können pro Datenquelle beliebig viele Datenpunkte konfiguriert werden, diese müssen jedoch mit der Konfiguration der Register auf der gegenüberliegenden #htl3r.short[sps] übereinstimmen, um die Binärwerte richtig auslesen zu können.
 
 #htl3r.fspace(
-  figure(
+  [
+    #figure(
     image("../assets/scada_datasource.png", width: 100%),
     caption: [Anlegen einer Datasource in Scada-LTS]
   )
+  <scada-datasource>
+  ]
 )
-#htl3r.todo[Bild beschreiben]
+
+In @scada-datasource ist die Konfiguration einer Datasource zu sehen. Dabei ist der Transport-Type von TCP zu beachten, sowie die verwendete Host-IP. Scada-LTS stellt einen Modbus-Scan in der Konfiguration zur Verfügung, mit welchem nach verwendeten Coils gesucht werden kann. Wenn man nun den Offset der Register weiß, erstellt man im unteren Teil der Oberfläche neue Points, wobei man hier diese auch schon sehen kann.  
 
 Es ist auch sinnvoll, ein grafisches Interface zu konfigurieren, da dies einen schnellen Überblick über ein System bringt. Vor allem, wenn dies mit interaktiven Bildern kombiniert wird, ist die Überwachung um einiges angenehmer. Hierbei sollte für jede Betriebszelle ein eigenes grafisches Interface erstellt werden, um eine optische Trennung zu ermöglichen.
 
@@ -77,7 +81,8 @@ Im Falle der Modell-Kläranlage ist es nicht der Fall. Hier wird jede Betriebsze
 ==== Betriebszelle Eins
 
 In der ersten Betriebszelle ist nur die Schraube, welche das Wasser in den obersten Wassertank befördert, mittels #htl3r.short[sps] gesteuert, wodurch auch das #htl3r.short[scada] nur diese Schraube steuern kann. Über das #htl3r.short[scada] kann die Schraube ein- bzw. ausgeschalten werden. \
-Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab, den Fluss des Wassers zu visualisieren. So sind die Tanks und die Schraube grafisch dargestellt, um Endnutzern eine einfache Übersicht zu geben.
+Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab, den Fluss des Wassers zu visualisieren. So sind die Tanks und die Schraube grafisch dargestellt, um Endnutzern eine einfache Übersicht zu geben. \
+Man erkennt hier auch den Fluss des Wassers, dieser ist zwar nicht live animiert jedoch wird einem Benutzer so klar, dass das Wasser erst die Schnecke hochbefördert werden muss, bevor es durch den Rechen in das Auffangbecken gelangt und von dort weiter in die nächste Zelle befördert wird. Steine werden hierbei ausgefiltert. 
 
 #htl3r.fspace(
   figure(
@@ -85,7 +90,6 @@ Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab
     caption: [Das SCADA-Dashboard der ersten Betriebszelle]
   )
 )
-#htl3r.todo[Bild beschreiben (Abfluss ist nicht erkennbar)]
 
 
 ==== Betriebszelle Zwei
@@ -171,8 +175,8 @@ Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das
 #htl3r.todo[Funktionsgrafik (? SDO)]
 
 ==== Authentifizierung
-Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, damit ein eingeloggter Benutzer nach dieser Zeit das Passwort neu eingeben muss, um die Sicherheit zu gewährleisten. Dies bewirkt auch, dass ein gehijackter Token nicht unendlich lange ausgenutzt werden kann. \
-#htl3r.todo[letze Sätze nochmal anschauen]
+Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, damit ein eingeloggter Benutzer nach dieser Zeit das Passwort neu eingeben muss, um die Sicherheit zu gewährleisten. Dies bewirkt auch, dass ein gehijackter Token nicht unendlich lange ausgenutzt werden kann, da solch ein Angriff im Falle von #htl3r.short[jwt]-Tokens relativ häufig ist. \
+
 #htl3r.code(caption: "Funktion zum Anmelden am MES", description: none)[
 ```ts
 export default async function handler(
@@ -291,8 +295,7 @@ Soll nun ein Datenpunkt gelöscht werden, so wird mittels eines #htl3r.short[api
 
 ==== Funktionsweise im Backend
 Userinputs auf der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, sind also für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
-Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode zu sehenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
-#htl3r.todo[Auf Quellcode linken? Möglich?]
+Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode 5.7 zu sehenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
 
 #htl3r.code-file(
   caption: "Funktionen, zur Erstellung und Löschung von Jobs",

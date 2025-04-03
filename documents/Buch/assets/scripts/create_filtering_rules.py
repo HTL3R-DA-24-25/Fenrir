@@ -128,19 +128,29 @@ def create_filter_config() -> vim.dvs.DistributedVirtualPort.TrafficFilterConfig
     bastion_not_destination_drop.description = "To Bastion Drop"
     bastion_not_destination_drop.direction = "both"
 
+    # Rule Drop All IPv6
+    ipv6_drop_qualifier = vim.dvs.TrafficRule.IpQualifier()
+    ipv6_drop_qualifier.destinationAddress = vim.IpRange()
+    ipv6_drop_qualifier.destinationAddress.prefixLength = 0
+    ipv6_drop_qualifier.destinationAddress.addressPrefix = "::"
+    ipv6_drop_qualifier.sourceAddress = vim.IpRange()
+    ipv6_drop_qualifier.sourceAddress.prefixLength = 0
+    ipv6_drop_qualifier.sourceAddress.addressPrefix = "::"
+    ipv6_drop = vim.dvs.TrafficRule()
+    ipv6_drop.sequence = 60
+    ipv6_drop.qualifier = [ipv6_drop_qualifier]
+    ipv6_drop.action = vim.dvs.TrafficRule.DropAction()
+    ipv6_drop.description = "Drop all IPv6"
+    ipv6_drop.direction = "both"
+
     # Create ruleset
     filter_config = vim.dvs.DistributedVirtualPort.TrafficFilterConfigSpec()
     filter_config.inherited = False
     filter_config.agentName = "dvfilter-generic-vmware"
     filter_config.operation = "add"
     filter_config.trafficRuleset = vim.dvs.TrafficRuleset()
-    filter_config.trafficRuleset.rules = [
-        dhcp_accept,
-        bastion_source_accept,
-        bastion_destination_accept,
-        bastion_not_source_drop,
-        bastion_not_destination_drop
-    ]
+    filter_config.trafficRuleset.rules = [dhcp_accept, bastion_source_accept, bastion_destination_accept, bastion_not_source_drop,
+                                          bastion_not_destination_drop, ipv6_drop]
     filter_config.trafficRuleset.enabled = True
     return filter_config
 
@@ -155,12 +165,10 @@ def main():
     parser.add_argument("secrets", type=str)
     args = parser.parse_args()
     settings = read_environment_settings(args.variables, args.secrets)
-    service_instance = SmartConnect(
-        host=settings.vcenter_hostname,
-        user=settings.vcenter_username,
-        pwd=settings.vcenter_password,
-        disableSslCertValidation=True
-    )
+    service_instance = SmartConnect(host=settings.vcenter_hostname,
+                                    user=settings.vcenter_username,
+                                    pwd=settings.vcenter_password,
+                                    disableSslCertValidation=True)
     atexit.register(Disconnect, service_instance)
     logger.info("Connected to vCenter")
     content = service_instance.RetrieveContent()
@@ -186,9 +194,8 @@ def main():
     spec.defaultPortConfig.filterPolicy = vim.dvs.DistributedVirtualPort.FilterPolicy()
     spec.defaultPortConfig.filterPolicy.inherited = False
 
-    # Erstellen
+    # Replace all configs
     spec.defaultPortConfig.filterPolicy.filterConfig = [create_filter_config()]
-    # Löschen
     for config_key in get_filter_config_keys(pg):
         filter_config = vim.dvs.DistributedVirtualPort.TrafficFilterConfigSpec()
         filter_config.key = config_key
@@ -199,7 +206,6 @@ def main():
     while task.info.state != vim.TaskInfo.State.success and task.info.state != vim.TaskInfo.State.error:
         logger.debug(task.info.state)
         sleep(0.1)
-    # logger.info(task.info)
 
     logger.debug([config.key for config in pg.config.defaultPortConfig.filterPolicy.filterConfig])
 
