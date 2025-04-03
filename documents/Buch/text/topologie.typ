@@ -23,8 +23,9 @@ Level 0 bis 3 gehören zur #htl3r.short[ot], 4 bis 5 sind Teil der #htl3r.short[
 Es gibt nicht nur ganzzahlige Ebenen, denn im Falle einer #htl3r.short[dmz] zwischen beispielsweise den Ebenen 3 und 4 wird diese als Ebene 3.5 gekennzeichnet.
 
 #htl3r.fspace(
+  total-width: 90%,
   figure(
-    image("../assets/purdue.png", width: 95%),
+    image("../assets/purdue.png"),
     caption: [Die Projekttopologie im Purdue-Modell]
   )
 )
@@ -41,7 +42,7 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
   total-width: 95%,
   [
     #figure(
-      image("../assets/topology_logical.svg"),
+      image("../assets/logical_topo_fenrir.png"),
       caption: [Die Projekttopologie in logischer Darstellung]
     )
     <logische-topo-bild>
@@ -62,13 +63,12 @@ Die gezeigte Topologie ist somit eine Darstellung, in welcher die für die Virtu
         [*Name*], [*Netzwerksegment*], [*IP-Adresse(n)*],
       ),
       [Exchange], [IT-DMZ], [192.168.30.100/24],
-      [ADDC-Primary], table.cell(rowspan: 3, "IT-SEC"), [192.168.31.1/24],
+      [ADDC-Primary], table.cell(rowspan: 4, "IT-SEC"), [192.168.31.1/24],
       [ADDC-Secondary], [192.168.31.2/24],
-      [Nozomi Guardian], [192.168.31.50/24],
+      [Grafana], [192.168.31.50/24],
+      [File Server], [192.168.31.100/24],
       [IT Workstations], [IT-Net], [#htl3r.short[dhcp]],
-      [Jump-Server], table.cell(rowspan: 3, "OT-DMZ"), [192.168.33.50/24],
-      [File Server], [192.168.33.100/24],
-      [Jump-Server], [192.168.33.50/24],
+      [Jump-Server], table.cell(rowspan: 1, "OT-DMZ"), [192.168.33.50/24],
       [SCADA], table.cell(rowspan: 3, "OT-NET"), [10.34.0.50/16],
       [MES], [10.34.0.100/16],
       [OT Workstations], [#htl3r.short[dhcp]],
