@@ -301,7 +301,7 @@ Zur Konfiguration dieser #htl3r.shortpl[vdom] muss zuerst mittels `config vdom` 
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
 
-Wie in Quellcode 10.2 zu sehen ist müssen jegliche Konfigurationsschritte (z.B. die Erstellung von Adressobjekten), die normalerweise systemweit durchgeführt werden, pro VDOM einzeln durchgeführt werden. Dies ist zwar zuerst lästig, bei einer fertigen Konfiguration dient dies jedoch zur Vorbeugung von Flüchtigkeitsfehlern beim zukünftigen Umkonfigurieren.
+Wie in Quellcode 10.14 zu sehen ist, müssen jegliche Konfigurationsschritte (z.B. die Erstellung von Adressobjekten), die normalerweise systemweit durchgeführt werden, pro VDOM einzeln durchgeführt werden. Dies ist zwar zuerst lästig, bei einer fertigen Konfiguration dient dies jedoch zur Vorbeugung von Flüchtigkeitsfehlern beim zukünftigen Umkonfigurieren.
 
 Eine Alternative zu der Verwendung von #htl3r.shortpl[vdom] zur Segmentierung von den Betriebszellen wäre die Verwendung von #htl3r.shortpl[vlan] mit folgendem Aufbau:
 
@@ -392,6 +392,6 @@ Die Nutzung dieser Features ist von den auf der Firewall registrierten Lizenzen 
   ranges: ((161, 170),),
   text: read("../assets/scripts/Zellen-FW-Fenrir.conf")
 )
-@fw-ips-modbus-decoder[comp]
 
 In Quellcode 10.19 wurde ebenfalls der Modbus-Decoder des #htl3r.short[ips] auf den Port 502 eingeschränkt, da Modbus-#htl3r.short[tcp] immer auf Port 502 kommuniziert. Der Modbus-Decoder sollte zwar standardmäßig bereits nur die Daten auf Port 502 bearbeiten, falls die Range jedoch größer konfiguriert sein sollte, kann dies zu erheblichen Perfomance-Problemen mit der Firewall führen.
+@fw-ips-modbus-decoder[comp]
