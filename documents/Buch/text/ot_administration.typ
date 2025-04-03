@@ -311,7 +311,7 @@ Soll nun ein Datenpunkt gelöscht werden, so wird mittels eines #htl3r.short[api
 
 
 ==== Funktionsweise im Backend
-Userinputs auf der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, sind also für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
+User-Inputs in der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, also sind sie für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
 Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode 5.7 zu sehenden Funktionen, welche je über einen #htl3r.short[api]-Call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
 
 #htl3r.code-file(
@@ -334,7 +334,7 @@ Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via
 
 
 ==== Cron Jobs <cron-jobs>
-Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden bei Hinzufügung von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus zwei Teilen: Der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das Ein- oder Ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
+Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden beim Hinzufügen von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus zwei Teilen: der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das Ein- oder Ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
 
 #htl3r.code-file(
   caption: "In einen Cron-Job ausgeführter Job",
