@@ -119,7 +119,7 @@ Die Übergangs-Firewall -- eine FortiGate92D -- separiert #htl3r.short[it]- und 
   )
 )
 
-Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den minimalen Traffic erlauben, welcher notwendig ist um auf die #htl3r.short[ot] zuzugreifen. Es existieren noch zusätzliche Einschränkungen, welche nur OpenVPN-Zugriffe auf die Jump-Server erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des OSI-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
+Farblich markiert erkennt man gut die einzelnen Policies, welche gemeinsam den minimalen Traffic erlauben, welcher notwendig ist um auf die #htl3r.short[ot] zuzugreifen. Es existieren noch zusätzliche Einschränkungen, welche nur OpenVPN-Zugriffe auf die Jump-Server erlauben und nur #htl3r.short[rdp] auf die #htl3r.short[ot]-Workstations. Das #htl3r.short[scada] und die #htl3r.short[ot]-Workstations haben uneingeschränkten Zugriff auf die #htl3r.shortpl[sps], welche an die Zellen-Firewall angeschlossen sind. Die Begründung dafür ist, dass die diversen Programme, welche für die Programmierung der #htl3r.shortpl[sps] verwendet werden, proprietäre Protokolle sowie Protokolle auf der 2ten Schicht des #htl3r.short[osi]-Modells -- wie z.B. Profinet DCP -- verwenden, welche schwer bis gar nicht mittels FortiGate regulierbar sind.
 
 === Grundkonfiguration
 

@@ -229,7 +229,7 @@ Die Konfiguration des OpenVPN-Servers selbst wird mittels automatischer Provisio
 
 Diese OpenVPN-Server-Konfiguration ist bis auf folgende zwei Ausnahmen sehr einfach gehalten:
 - `duplicate-cn`: Gibt an, dass sich mehrere Clients mit dem gleichen Zertifikat, zur selben Zeit, verbinden können.
-- `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den VPN-Tunnel erreichbar ist.
+- `push "route 10.34.0.0 255.255.0.0"`: Übermittelt den verbundenen Clients, dass das Netzwerk 10.34.0.0/16 über den #htl3r.short[vpn]-Tunnel erreichbar ist.
 
 OpenVPN leitet standardmäßig die Client-Tunnel-Adressen stumpf weiter. Somit müssten alle erreichbaren Geräte einen Routing-Eintrag für die Tunnel-Adressen besitzen. Um dies zu vermeiden, werden zusätzlich mittels #htl3r.short[nat] die Adressen innerhalb des Tunnels auf die Adresse des Interfaces, welches von dem Jump-Server aus in die #htl3r.short[ot]-#htl3r.short[dmz] führt, übersetzt. In diesem Falle wird die #htl3r.short[nat]-Konfiguration mit Linux #htl3r.short[ip]-Tables realisiert, siehe @ovpn_iptables.
 
