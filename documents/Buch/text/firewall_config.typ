@@ -333,7 +333,7 @@ Einer der Nachteile bei der Verwendung von #htl3r.shortpl[vdom] in diesem Kontex
   total-width: 100%,
   figure(
     image("../assets/VDOM_Links.png"),
-    caption: [Graphische Darstellung der #htl3r.shortpl[vdom] und deren Links untereinander]
+    caption: [Graphische Darstellung der VDOMs und deren Links untereinander]
   )
 )
 
