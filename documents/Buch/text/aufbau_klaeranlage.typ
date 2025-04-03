@@ -496,8 +496,6 @@ Weil das Webdashboard als einziges Tool in der OpenPLC-Suite diese Funktionen bi
 
 Im Vergleich zu einer Siemens SIMATIC-#htl3r.short[sps] kann eine Siemens LOGO!-#htl3r.short[sps] nicht mittels STEP-7 programmiert werden. Für die LOGO!-Reihe bietet Siemens eine vom TIA Portal unabhängige Entwicklungsumgebung an, die "Siemens LOGO! Soft Comfort".
 
-#htl3r.todo("vllt hier oben etwas mehr schreiben")
-
 #htl3r.author("David Koch")
 === OpenPLC Python Submodule <openplc-psm>
 

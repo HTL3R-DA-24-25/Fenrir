@@ -16,13 +16,13 @@ Im Vergleich zu anderen digitalen Netzwerksystemen der heutigen Zeit sind Bussys
   [
     #figure(
       image("../assets/Bus_Insecurity.png"),
-      caption: [Übersicht eines Coil-Werte-Spoofings auf einem Modbus-RTU-Bus]
+      caption: [Übersicht eines Coil-Werte-Fuzzingss auf einem Modbus-RTU-Bus]
     )
-    <coil-spoofing>
+    <coil-fuzzing>
   ]
 )
 
-Im Falle eines Angriffs auf ein Bussystem und somit auf das gesamte #htl3r.short[ot]-Netzwerk liegen dem Angreifer viele Möglichkeiten vor, große Schäden anzurichten. Ob nun lediglich alle Informationen mitgehört werden, Werte gefälscht beziehungsweise gespoofed werden wie in @coil-spoofing oder doch eine #htl3r.short[dos]-Attacke auf eine #htl3r.short[sps] innerhalb des Bussystems stattfindet, um den gesamten Betrieb lahmzulegen, ist offen. Eines ist jedoch klar: Durch eine ausreichende Absicherung des Übergangs zwischen #htl3r.short[it] und #htl3r.short[ot], das heißt der Firewall auf Ebene 2.5 des Purdue-Modells (siehe @purdue), sind Angriffe auf das #htl3r.short[ot]-Netzwerk leicht vermeidbar. Beispielsweise sollte bei der Ausbreitung eines Netzwerkwurms innerhalb des #htl3r.short[it]-Netzwerks dieser keinesfalls auch in das #htl3r.short[ot]-Netzwerk gelangen können.
+Im Falle eines Angriffs auf ein Bussystem und somit auf das gesamte #htl3r.short[ot]-Netzwerk liegen dem Angreifer viele Möglichkeiten vor, große Schäden anzurichten. Ob nun lediglich alle Informationen mitgehört werden, Werte gefälscht beziehungsweise gefuzzed werden wie in @coil-fuzzing oder doch eine #htl3r.short[dos]-Attacke auf eine #htl3r.short[sps] innerhalb des Bussystems stattfindet, um den gesamten Betrieb lahmzulegen, ist offen. Eines ist jedoch klar: Durch eine ausreichende Absicherung des Übergangs zwischen #htl3r.short[it] und #htl3r.short[ot], das heißt der Firewall auf Ebene 2.5 des Purdue-Modells (siehe @purdue), sind Angriffe auf das #htl3r.short[ot]-Netzwerk leicht vermeidbar. Beispielsweise sollte bei der Ausbreitung eines Netzwerkwurms innerhalb des #htl3r.short[it]-Netzwerks dieser keinesfalls auch in das #htl3r.short[ot]-Netzwerk gelangen können.
 
 === Stuxnet <stuxnet>
 Der 2010 entdeckte Stuxnet-Computerwurm ist ein Schadprogramm, dass speziell entwickelt wurde zum Angriff auf ein #htl3r.short[scada]-System, das #htl3r.shortpl[sps] des Herstellers Siemens vom Typ Simatic S7 verwendet @stuxnet-1[comp]. Da bis Ende September 2010 der Iran den größten Anteil der infizierten Computer besaß und es zu außergewöhnlichen Störungen im iranischen Atomprogramm kam, lag es nah, dass Stuxnet hauptsächlich entstand, um als Schadsoftware die Leittechnik (Zentrifugen) der Urananreicherungsanlage in Natanz oder des Kernkraftwerks Buschehr zu stören @ndu-stuxnet.
@@ -210,21 +210,33 @@ Bevor ein Angriff stattfinden kann, muss der Angreifer wissen, was es überhaupt
 )
 
 Bereits durch einen Port-Scan der #htl3r.short[sps] kann der Angreifer Informationen über mögliche Schwachstellen ergattern. Es sind derzeit folgende Ports offen, die eine Gefahr darstellen können:
-- *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-SPS-Administrationssoftware STEP 7 per Fernwartung mit der #htl3r.short[sps] kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
+- *TCP-Port 102:* Hostet den ISO-TSAP-Dienst, welcher dazu dient, um über die Siemens-#htl3r.short[sps]-Administrationssoftware STEP 7 per Fernwartung mit der #htl3r.short[sps] kommunizieren zu können und Einstellungen vorzunehmen. Dieser Port kann *nicht* deaktiviert werden.
 - *UDP-Port 161:* Hostet den #htl3r.short[snmp]-Dienst. Dieser dient der Übermittlung von Logdaten an externe Log-Server und der Konfiguration des Gerät per Fernwartung. Ist standardmäßig aktiviert, kann und sollte aber für erhöhte Sicherheit deaktiviert werden.
 
-...
+Nachdem der Port-Scan fertig ist, weiß der Angreifer nun, welche Schnittstellen er über das Netzwerk nutzen kann, um die #htl3r.short[sps] anzugreifen. #htl3r.short[snmp] kann besonders bei Fehlkonfiguration der Zugriffsberechtigung zum Verhängnis werden. Da aber jedoch der ISO-TSAP-Dienst zur Fenrwartung nicht deaktiviert werden kann, ist dieser immer von Interesse für Angreifer. Aber: durch diesen Port-Scan wurden nur die #htl3r.short[udp]- und #htl3r.short[tcp]-Schnittstellen identifiziert. Diese liegen auf der vierten Schicht im OSI-Schichtenmodell, wobei meistens #htl3r.shortpl[sps] mittels Netzwerkkommunikation auf der zweiten Schicht konfiguriert werden. 
+
+Eines der L2-Protokolle zur #htl3r.short[sps]-Konfiguration ist Profinet DCP. Das DCP steht für "Discovery and basic Configuration Protocol" und einige Funktionen des Protokolls inkludieren die Identifizierung von Profinet-Geräten im Netzwerk (Identify), die Abfrage von Informationen (Get), das Setzen der #htl3r.short[ip]-Adresse sowie des Hostnamens (Set) und das Zurücksetzen auf Werkseinstellungen (Reset). Die S7-1200 antwortet standardmäßig auf Profinet DCP Anfragen. Somit wird nun versucht, über das Protokoll Profinet DCP die Informationen -- z.B. der Firmware-Version -- der #htl3r.short[sps] abzufragen. @profinet-dcp-doc
+
+Um ein Protokoll wie Profinet DCP gezielt einzusetzen, können die nötigen Frames für den Angriff gezielt erstellt und der #htl3r.short[sps] geschickt werden. Dies kann von Grund auf neu gemacht werden, im Rahmen dieser Diplomarbeit hatten wir jedoch den Vorteil, ein Metasploit-Modul zur DCP-Ausnutzung von der Limes Security GmbH zur Verfügung gestellt zu bekommen. Mit diesem lassen sich die zuvor erwähnten Funktionen wie Get und Set "out of the box" verwenden. Es bietet einige Parameter, mit welchem die DCP-Funktionen wie Discover, Get und Reset genutzt werden können:
 
 #htl3r.fspace(
+  total-width: 95%,
   figure(
     image("../assets/dcp/dcp_1.png"),
-    caption: [TODO]
+    caption: [Die Einstellungen des Profinet DCP Metaploit-Moduls]
   )
 )
 
-METASPLOIT NIX GEHEN
+Um nun das Modul für die Netzwerkaufklärung zu nutzen, muss der Python-Binary zuerst erlaubt werden, Packets bzw. Frames zu fälschen und diese auf einem beliebigen Interface auszuschicken. Anschließend kann das Python-Skript hinter dem Metasploit-Modul mit der `--interface` Option aufgerufen werden, um den DCP-Identify-Scan zu starten.
 
-Der #htl3r.short[cve]-2019-10936
+#htl3r.code(caption: "Profinet DCP Identify mittels Metasploit-Modul", description: none)[
+```bash
+setcap cap_net_raw=+ep /usr/bin/python3
+python3 modules/auxiliary/scanner/scada/dcp.py --interface eth1
+```
+]
+
+Nach wenigen Sekunden ist der Identify-Scan fertig und liefert dem Angreifer die nächsten Informationen: Im Netzwerk ist eine S7-1200 mit der MAC-Adresse `8c:f3:19:0b:ec:c3` vorhanden, auf welcher die Firmware-Version v4.3.1 installiert ist. Der Angreifer hat nun genug Informationen, um einen DoS-Angriff gegen die S7-1200 zu starten, denn der #htl3r.short[cve]-2019-10936 beschreibt eine Schwachstelle in den Firmware-Versionen vor v4.4.0 auf der ISO-TSAP-Schnittstelle der S7-1200 #htl3r.short[sps] @siemens-sps-dos-cve. Die Schwachstelle wird in @dos-sps ausgenutzt. 
 
 #htl3r.author("David Koch")
 === DoS einer SPS <dos-sps>
@@ -248,21 +260,49 @@ while True:
 ```
 ]
 
-In Quellcode 7.1 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte #htl3r.short[udp]-Packet zu erstellen und anschließend an die #htl3r.short[sps] zu schicken.
+In Quellcode 7.7 wird die Python-Bibliothek Scapy verwendet, um das für den Buffer-Overflow benötigte #htl3r.short[udp]-Packet zu erstellen und anschließend an die #htl3r.short[sps] zu schicken.
 
 #htl3r.author("David Koch")
 === Manipulation einer SPS
 
 Ein Angreifer sollte unter keinen Umständen die Programmierlogik einer #htl3r.short[sps] manipulieren können. Im Vergleich zu einem #htl3r.short[dos]-Angriff auf eine #htl3r.short[sps] oder andere Geräte im #htl3r.short[ot]-Netzwerk kann durch die gezielte Umprogrammierung einer #htl3r.short[sps] ein viel größerer Schaden in einem Bruchteil der Zeit angerichtet werden.
 
-Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-#htl3r.shortpl[sps] manipuliert. Der Angriff hat auf einem sogenannten "Zero-Day-Exploit" beruht, einer Schwachstelle, die dem Hersteller -- in diesem Fall Siemens -- noch nicht bekannt war. Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. Dieses besteht aus einer von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat.
+Beim in @stuxnet beschriebenen Stuxnet-Angriff wurden bestimmte Register der S7-#htl3r.shortpl[sps] manipuliert. Der Angriff hat auf einem sogenannten "Zero-Day-Exploit" beruht, einer Schwachstelle, die dem Hersteller -- in diesem Fall Siemens -- noch nicht bekannt war. Da die Entdeckung eines Zero-Day-Exploits in einer Siemens #htl3r.short[sps] oder der OpenPLC-Codebasis den Rahmen dieser Diplomarbeit sprengen würde, wird ein vereinfachtes aber trotzdem realistisches Angriffsszenario zur Manipulation einer #htl3r.short[sps] durchgeführt. 
 
-... TODO
+Das Metasploit-Modul, welches bereits in @recon verwendet wurde, um die Firmware-Version zu ermitteln, kann auch zur Setzung der #htl3r.short[sps]-#htl3r.short[ip]-Adresse und der Zurücksetzung auf Werkseinstellungen verwendet werden. Da aber die Firmware-Versionen ab v4.0.0 die Kommunikation mit der S7-1200 über Profinet DCP einschränken, funktionieren die meisten Features des Metasploit-Modul -- zumindest im laufenden Betriebs -- nicht mehr. 
+
+#htl3r.fspace(
+  total-width: 95%,
+  figure(
+    image("../assets/dcp/dcp_4.png"),
+    caption: [Der gescheiterte Versuch, die S7-1200 im laufenden Betrieb mittels Profinet DCP zurückzusetzen]
+  )
+)
+
+Nur wenn die #htl3r.short[sps] sowieso schon im Wartungsmodus ist, funktionieren die DCP-Funktionen wie z.B. die Setzung einer neuen #htl3r.short[ip]-Adresse.
+
+#htl3r.fspace(
+  total-width: 95%,
+  figure(
+    image("../assets/dcp/dcp_5.png"),
+    caption: [Der erfolgreiche Versuch, die IP-Adresse der S7-1200 im Wartungsmodus mittels Profinet DCP zu ändern]
+  )
+)
+
+Als alternatives Szenario wird eine von einem Angreifer per #htl3r.short[rdp]-Verbindung übernommenen Engineer-Workstation, welche Zugriff auf die Umprogrammierung von #htl3r.shortpl[sps] im #htl3r.short[ot]-Netzwerk hat. Er erstellt lokal ein maliziöses OpenPLC-Programm, welches in der zweiten Betriebszelle die Filter-Pumpe permanent einschaltet und die Übergangs-Pumpe permanent ausschaltet, um den zweiten Tank überfließen zu lassen. Anschließend lädt er dieses im OpenPLC-Webdashboard hoch und führt es aus, um die gewünschte Wirkung zu erreichen.
+
+#htl3r.fspace(
+  figure(
+    image("../assets/openplc/malicious_program.png"),
+    caption: [Das maliziöse OpenPLC-Programm]
+  )
+)
 
 === Unbefugter Zugriff auf das SCADA
 
-TODO
+Das #htl3r.short[scada]-System der Modell-Kläranlage bietet die Möglichkeit, alle Aktoren bis auf das Magnetventil des Staudamms in Betriebszelle ferngesteuert ein- und auszuschalten. Was für die Wartung der Anlage äußerst nützlich sein kann, ist für mögliche Angreifer ein Traum. Somit ist es wichtig, nur autorisierten Mitarbeitern Zugriff auf das #htl3r.short[scada] zu gewähren, denn wenn dies nicht passiert, kann ein Angreifer ohne jegliche Manipulation der #htl3r.shortpl[sps] die Anlage zum stehen bringen oder auch einen verheerenden Schaden anrichten.
 
+#pagebreak(weak: true)
 #htl3r.author("David Koch")
 == Konkretes Angriffsszenario <angriffsszenario>
 
@@ -278,7 +318,7 @@ Durch die Kombination der oben angeführten möglichen Angriffe lässt sich ein 
 
 === Phishing-Mail
 
-Der Angriff beginnt -- wie viele andere Angriffe in der Realität auch -- mit einer Phishing-Mail. Zuerst wird eine E-Mail an eine Person geschickt, die regelmäßig mit externen Personen kontakt hat und es somit nicht unbedingt auffällt, wenn mit einer gefälschten Identität eine Phishing-Mail empfagen wird.
+Der Angriff beginnt -- wie viele andere Angriffe in der Realität auch -- mit einer Phishing-Mail. Zuerst wird eine E-Mail an eine Person geschickt, die regelmäßig mit externen Personen kontakt hat und es somit nicht unbedingt auffällt, wenn mit einer gefälschten Identität eine Phishing-Mail empfangen wird.
 
 #htl3r.fspace(
   [
@@ -334,7 +374,26 @@ Der Angreifer nutzt nun die vom #htl3r.short[ot]-Administrator erhaltenen Zugang
 
 === Living of the Land
 
-TODO
+Mit dem erfolgreichen Aufbau einer #htl3r.short[rdp]-Verbindung zu einer #htl3r.short[ot]-Workstation kann der Angreifer nun genauere Informationen über das #htl3r.short[ot]-Netzwerk sammeln. Durch einen Range-Ping mit einem Tool wie `nmap` kann ein Teil vom #htl3r.short[ot]-Netzwerk gescannt werden, und anschließend können die gefundenen Geräte auf offene Ports -- ebenfalls mittels `nmap` -- gescannt werden.
+
+#htl3r.code(caption: "Netzwerkaufklärung von der OT-Workstation aus", description: none)[
+```bash
+nmap -sP 10.34.0.0-254
+nmap 10.34.0.50
+```
+]
+
+Nach dem Ausführen von den Befehlen in Quellcode 7.8 weiß der Angreifer, dass auf der IP-Adresse `10.34.0.50` der #htl3r.short[tcp]-Port 80 offen ist, was auf ein Web-Interface hindeutet.
+
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/scada_attack_rdp.png"),
+    caption: [Das SCADA-Webinterface über die Angreifer-RDP-Session]
+  )
+)
+
+Über das #htl3r.short[scada]-Dashboard kann der Angreifer nun die gesamte OT-Gerätschaft auskundschaften und mit dem besseren Überblick diese gezielt angreifen.
 
 === Default Credentials auf der SPS
 
@@ -366,7 +425,7 @@ Nach dem erfolgreichen Hochladen des bösartigen Programms ändert der Angreifer
 #htl3r.fspace(
   figure(
     image("../assets/openplc/openplc_change_user.png"),
-    caption: [OpenPLC-Webdashboard-Login mit den Default-Admin-Credentials]
+    caption: [Der Admin-Benutzer für das OpenPLC-Webdashboard wird unbrauchbar gemacht]
   )
 )
 

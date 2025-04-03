@@ -328,11 +328,20 @@ Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit
 )
 
 === Funktionsweise für Enduser
-Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit im #htl3r.short[scada] überschrieben werden können. Das #htl3r.short[mes] ruft automatisch alle vorhandenen Datenpunkte vom #htl3r.short[scada] ab und stellt alle binären -- also alle, welche nur ein- und ausschalten sind -- auf dem Dashboard dar. Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
-#htl3r.todo[Gedruckt lesbar machen]
+Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit im #htl3r.short[scada] überschrieben werden können. Das #htl3r.short[mes] ruft automatisch alle vorhandenen Datenpunkte vom #htl3r.short[scada] ab und stellt alle binären -- also alle, welche nur ein- und ausschalten sind -- auf dem Dashboard dar. \
+
 #htl3r.fspace(
   figure(
-    image("../assets/MES-Dashboard.png", width: 100%),
+    image("../assets/MES-Dashboard-Datapoints.png", width: 100%),
+    caption: [Das Dashboard des MES]
+  )
+)
+
+Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
+
+#htl3r.fspace(
+  figure(
+    image("../assets/MES-Dashboard-Jobs.png", width: 100%),
     caption: [Das Dashboard des MES]
   )
 )

@@ -494,4 +494,12 @@ msrc-wannacrypt:
     value: https://msrc.microsoft.com/blog/2017/05/customer-guidance-for-wannacrypt-attacks/
     date: 2025-03-28
   date: 2017-05-13
-  
+
+profinet-dcp-doc:
+  type: misc
+  title: DCP – Discovery and Configuration Protocol
+  author: Profinet University
+  url:
+    value: https://profinetuniversity.com/naming-addressing/profinet-dcp/
+    date: 2025-04-02
+  date: 2025

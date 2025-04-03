@@ -136,11 +136,25 @@ In der Projekttopologie erhalten #htl3r.short[it]-Endgeräte, auf denen als Betr
 
 === Firmware-Update einer S7-1200
 
-Um den in @dos-sps beschriebenen #htl3r.short[dos]-Angriff gegenüber der S7-1200 #htl3r.short[sps] zu vermeiden, muss die neuste Firmware auf das Gerät eingespielt werden. Der #htl3r.short[cve]-2019-10936 beschreibt, dass alle Firmware-Versionen unter V4.4.0 von der Schwachstelle betroffen sind. Wenn nun auf eine neuere beziehungsweise die neuste Firmware-Version geupdatet wird, ist die #htl3r.short[sps] vor diesem Angriff geschützt.
+Um den in @dos-sps beschriebenen #htl3r.short[dos]-Angriff gegenüber der S7-1200 #htl3r.short[sps] zu vermeiden, muss die neuste Firmware auf das Gerät eingespielt werden. Der #htl3r.short[cve]-2019-10936 beschreibt, dass alle Firmware-Versionen unter v4.4.0 von der Schwachstelle betroffen sind. Wenn nun auf eine neuere beziehungsweise die neuste Firmware-Version geupdatet wird, ist die #htl3r.short[sps] vor diesem Angriff geschützt.
 
 TODO
 
 Das Update muss aufgrund der benötigten Neustarts zu einer Zeit durchgeführt werden, wo die #htl3r.short[sps] nicht aktiv in der Betriebsumgebung gebraucht wird. Bei vielen Betrieben sind diese Geräte aber 24/7 im Einsatz, somit muss entweder ein kurzes Zeitfenster für diese wichtigen Updates eingeplant werden oder alternativ die Absicherung vom Netzwerk bis hin zur betroffenen #htl3r.short[sps] so stattfinden, dass die Netzwerk-Schwachstelle überhaupt nicht ausgenutzt werden kann.
+
+== Passwörter für SPS-Zugriff konfigurieren
+
+Der administrative Zugriff auf die Siemens #htl3r.shortpl[sps] ist standardmäßig nicht passwortgeschützt.
+
+
+, wobei LSC für "LOGO! Soft Comfort" und LWE für "LOGO! Web Editor" steht. Das heißt, dass
+
+#htl3r.fspace(
+  figure(
+    image("../assets/LAPS_Get_Password.png"),
+    caption: [Abrufen des LAPS-Passworts für den Exchange Server],
+  )
+)
 
 == Mikrosegmentierung der Betriebszellen <mikrosegmentierung>
 
@@ -148,7 +162,7 @@ Wenn durch die in beschriebene Netzwerksegmentierung mittels Firewalls im #htl3r
 
 Die #htl3r.shortpl[sps] der Modell-Kläranlage können somit zwischen Betriebszellen nicht direkt miteinander kommunizieren und müssen über das #htl3r.short[scada] gehen, wenn Inter-Zellen-Kommunikation notwendig ist.
 
-Die Zellen-Firewall ist "stateful", das heißt, dass keine Policies für Rückantworten manuell erstellt werden müssen. Es wird somit per Policy nur Kommunikation vom #htl3r.short[scada]-System zu den einzelnen #htl3r.shortpl[sps] erlaubt, die Rückantworten werden automatisch erlaubt und der restliche Verkehr wird blockiert. In diesem restlichen Verkehr ist die Kommunikation zwischen #htl3r.shortpl[sps] inkludiert, somit ist eine erfolgreiche Mikrosegmentierung der Betriebszellen umgesetzt worden.
+Die Zellen-Firewall ist "stateful", das heißt, dass keine Policies für Rückantworten erstellt werden müssen. Es wird somit per Policy nur Kommunikation vom #htl3r.short[scada]-System zu den einzelnen #htl3r.shortpl[sps] erlaubt, die Rückantworten werden automatisch erlaubt und der restliche Verkehr wird blockiert. In diesem restlichen Verkehr ist die Kommunikation zwischen #htl3r.shortpl[sps] inkludiert, somit ist eine erfolgreiche Mikrosegmentierung der Betriebszellen umgesetzt worden.
 
 #htl3r.code(caption: "Die Policy für die Kommunikation vom SCADA zur SPS der zweiten Betriebszelle", description: none)[
 ```fortios
