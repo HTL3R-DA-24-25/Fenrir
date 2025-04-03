@@ -162,12 +162,12 @@ Im Gegenteil zur LOGO! und OpenPLC ist die nötige Konfiguration für eine Modbu
 
 #htl3r.fspace(
   figure(
-    image("../assets/ot-work/modbus_fup.png"),
+    image("../assets/ot-work/modbus_fup.png", width: 90%),
     caption: [Der `MB_SERVER` Funktionsbaustein]
   )
 )
 
-Der Funktionsbaustein bietet drei Eingabe- und vier Ausgabe-Variablen, wobei auf beiden Seiten jeweils nur zwei verwendet werden. Die Eingabe-Variable `MB_HOLD_REG` ist der Speicherbereich für die "Holding Register" des Modbus-Servers. Der Modbus-Client kann auf diese Register lesend und schreibend zugreifen. Die Größe des Arrays bestimmt, wie viele Register zur Verfügung stehen. Die Variable `CONNECT` dient zur Angabe der Verbindungseinstellungen. Zu den Verbindungseinstellungen gehören, unter anderem, TODO
+Der Funktionsbaustein bietet drei Eingabe- und vier Ausgabe-Variablen, wobei auf beiden Seiten jeweils nur zwei verwendet werden. Die Eingabe-Variable `MB_HOLD_REG` ist der Speicherbereich für die "Holding Register" des Modbus-Servers. Der Modbus-Client kann auf diese Register lesend und schreibend zugreifen. Die Größe des Arrays bestimmt, wie viele Register zur Verfügung stehen. Die Variable `CONNECT` dient zur Angabe der Verbindungseinstellungen. Zu den Verbindungseinstellungen gehören, unter anderem, die #htl3r.short[ip]-Adresse des Remote-Hosts, der Modbus-Port, die Connection-ID und der Connection-Type.
 
 #htl3r.fspace(
   figure(
@@ -306,7 +306,7 @@ Soll nun ein Datenpunkt gelöscht werden, so wird mittels eines #htl3r.short[api
 
 ==== Funktionsweise im Backend
 Userinputs auf der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, sind also für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
-Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode 5.7 zu sehenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
+Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode 5.7 zu sehenden Funktionen, welche je über einen #htl3r.short[api]-Call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
 
 #htl3r.code-file(
   caption: "Funktionen, zur Erstellung und Löschung von Jobs",
