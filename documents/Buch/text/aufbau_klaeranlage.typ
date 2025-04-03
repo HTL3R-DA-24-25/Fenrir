@@ -210,7 +210,7 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
 
-#htl3r.todo("hier kurze einführung")
+Die dritte Betriebszelle besteht aus einem Wasserspeicherbecken und einem Überschwemmungsgebiet. Sie dient einerseits der Speicherung des in Zelle Zwei gefilterten Wassers und andererseits der Simulation eines ländlichen Wohngebiets, welches durch einen Fluss gespalten wird. Das Wasser kann bei Bedarf in den Fluss abgelassen werden. Anhand dieser Zelle kann die Gefahr einer Fehlfunktion der Steuerung anhand einer Überschwemmung des Wohngebiets dargestellt werden.
 
 #htl3r.fspace(
   figure(
