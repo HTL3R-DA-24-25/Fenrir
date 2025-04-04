@@ -47,7 +47,7 @@ Mit einem Doppelklick können über jedes Paket genauere Informationen angezeigt
   )
 )
 
-In großen Systemen wird eine Überwachung mittels Wireshark schnell unübersichtlich. Zwar kann der Anzeigebereich mit Filtern eingeschränkt werden, jedoch ist es schwer, unerwünschten Datenverkehr zu erkennen, weshalb Wireshark nur als stichprobenartiges Überwachungssystem verwendet werden sollte. Beispielsweise können Netzwerkadministratoren mittels Wireshark Netzwerktraffic auf einem Gerät aufzeichnen, auf welchem eine Kompromittierung vermutet wird. Diese Aufzeichnung kann dann analysiert werden, um die Ursache der Kompromittierung zu finden und dagegen vorzugehen.
+In großen Systemen wird eine Überwachung mittels Wireshark schnell unübersichtlich. Zwar kann der Anzeigebereich mit Filtern eingeschränkt werden, jedoch ist es schwer, unerwünschten Datenverkehr zu erkennen, weshalb Wireshark nur als stichprobenartiges Überwachungssystem verwendet werden sollte. Beispielsweise können Netzwerkadministratoren und Netzwerkadministratorinnen mittels Wireshark Netzwerktraffic auf einem Gerät aufzeichnen, auf welchem eine Kompromittierung vermutet wird. Diese Aufzeichnung kann dann analysiert werden, um die Ursache der Kompromittierung zu finden und dagegen vorzugehen.
 
 In Live-Systemen ist die Verwendung von Wireshark als Überwachungssystem somit nur sinnvoll, um stichprobenartig Pakete zu untersuchen und diese zu überprüfen. Es kann beispielsweise ein Hardware-Network-Tap eingesetzt werden, um den Datenfluss zwischen zwei Geräten an eine neue Schnittstelle zu spiegeln und anschließend diese mittels Wireshark auszuwerten.
 
@@ -60,13 +60,13 @@ In Live-Systemen ist die Verwendung von Wireshark als Überwachungssystem somit 
 
 #htl3r.author("Gabriel Vogler")
 === Grafana Monitoring
-Grafana ist ein mächtiges Open-Source-Tool zur Visualisierung von Daten. Es kann Daten aus verschiedensten Quellen, wie beispielsweise Prometheus, InfluxDB oder MySQL, visualisieren. Es wurde in Verbindung mit Prometheus eingesetzt, um die Domain Controller zu überwachen.
+Grafana ist ein mächtiges Open-Source-Tool zur Visualisierung von Daten. Es kann Daten aus verschiedensten Quellen, wie beispielsweise Prometheus, InfluxDB oder MySQL, visualisieren. Es wurde in Verbindung mit Prometheus eingesetzt, um die #htl3r.longpl[dc] zu überwachen.
 
 ==== Installation des Prometheus & Grafana Monitoring-Systems
 Die Installation von Prometheus und Grafana erfolgt auf einem Ubuntu-22.04-Server mittels Docker.
 Da Docker bereits in @provisionierung installiert wurde, kann die Installation von Prometheus und Grafana direkt erfolgen. Die ganze Installation erfolgt mittels einem Shell-Skript, damit das in @provisionierung umgesetzte Automatisierungskonzept weitergeführt wird.
 
-Im ersten Schritt werden Netzwerk und Hostname für den Server konfiguriert. Für die Netzwerkkonfiguration wird Netplan verwendet, um die IP-Adresse des Servers zu setzen. Es gibt dabei zwei Netzwerkadapter, wobei der erste für das Management-Netzwerk und der zweite für das SEC Netzwerk verwendet wird. Wichtig zu beachten sind die Einstellungen die auf dem Netzwerkinterface des Managementnetzwerks getroffen werden. Diese werden benötigt um die in @provisionierung beschriebene Durchführung zu ermöglichen.
+Im ersten Schritt werden Netzwerk und Hostname für den Server konfiguriert. Für die Netzwerkkonfiguration wird Netplan verwendet, um die #htl3r.short[ip]-Adresse des Servers zu setzen. Es gibt dabei zwei Netzwerkadapter, wobei der erste für das Management-Netzwerk und der zweite für das SEC Netzwerk verwendet wird. Wichtig zu beachten sind die Einstellungen die auf dem Netzwerkinterface des Managementnetzwerks getroffen werden. Diese werden benötigt um die in @provisionierung beschriebene Provisionierung zu ermöglichen.
 #htl3r.code-file(
   caption: "Netwerk- und Hostname-Konfiguration von Grafana",
   filename: [/terraform/stage_06/scripts/grafana.sh],
@@ -85,8 +85,8 @@ Im Anschluss wird das notwendige docker-compose File erstellt, welches die Konfi
   text: read("../assets/scripts/grafana.sh")
 )
 
-==== Automatisches einspielen von Dashboards in Grafana
-Damit die Aufsetzung voll automatisiert erfolgen kann, werden die Dashboards in Grafana automatisch importiert. Dafür wird eine Konfigurationsdatei erstellt, welche die Dashboards in Grafana importiert. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus/provisioning/dashboards` abgelegt.
+==== Automatisches Einspielen von Dashboards in Grafana
+Damit die Installation voll automatisiert erfolgen kann, werden die Dashboards in Grafana automatisch importiert. Dafür wird eine Konfigurationsdatei erstellt, welche die Dashboards in Grafana importiert. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus/provisioning/dashboards` abgelegt.
 Damit das Dashboard vollständig importiert werden kann, muss außerdem eine Datenquelle für das Dashboard definiert werden. Diese wird in das Verzeichnis `/grafana-prometheus/provisioning/datasources` abgelegt.
 
 #htl3r.code-file(
@@ -100,7 +100,7 @@ Damit das Dashboard vollständig importiert werden kann, muss außerdem eine Dat
 Jetzt werden alle Dashboards, die in das Verzeichnis `/grafana-prometheus/dashboards` abgelegt wurden, automatisch in Grafana importiert. Die Datenquelle für die Dashboards wird ebenfalls automatisch erstellt.
 
 ==== Konfiguration von Prometheus
-Die `prometheus.yml` Konfigurationsdatei wird erstellt, um Prometheus zu konfigurieren, damit es die Daten von den Domain Controllern sammeln kann. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus` abgelegt und über das Docker-Compose-File eingebunden.
+Die `prometheus.yml` Konfigurationsdatei wird in `/grafana-prometheus` erstellt, um Prometheus zu konfigurieren, damit es die Daten von den #htl3r.long[dc]n sammeln kann. Diese Konfigurationsdatei wird in das Verzeichnis `/grafana-prometheus` abgelegt und über das Docker-Compose-File eingebunden.
 
 #htl3r.code-file(
   caption: "Konfigurationsdatei für Prometheus",
@@ -111,7 +111,7 @@ Die `prometheus.yml` Konfigurationsdatei wird erstellt, um Prometheus zu konfigu
 )
 
 ==== Installieren des Node Exporters auf den Domain Controllern
-Der Node Exporter wird auf den Domain Controllern installiert, um die Metriken der Domain Controller an Prometheus zu senden. Dafür wird mit einem Powershell-Skript zunächst der Node Exporter heruntergeladen und anschließend installiert. Zusätzlich muss eine Firewall-Regel erstellt werden, um den Zugriff auf den Node Exporter zu ermöglichen.
+Der Node Exporter wird auf den #htl3r.longpl[dc]n installiert, um die Metriken der #htl3r.longpl[dc] an Prometheus zu senden. Dafür wird mit einem Powershell-Skript zunächst der Node Exporter heruntergeladen und anschließend installiert. Zusätzlich muss eine Firewall-Regel erstellt werden, um den Zugriff auf den Node Exporter zu ermöglichen.
 
 #htl3r.code-file(
   caption: "Powershell-Skript zum Installieren des Node Exporters auf den Domain Controllern",
@@ -122,7 +122,7 @@ Der Node Exporter wird auf den Domain Controllern installiert, um die Metriken d
 )
 
 ==== Dashboard für die Überwachung der Domain Controller
-Das Dashboard für die Überwachung der Domain Controller wird in Grafana importiert. Es zeigt die wichtigsten Metriken der Domain Controller an, wie beispielsweise die CPU-Auslastung, den Arbeitsspeicher und die Netzwerkauslastung. Das Dashboard basiert auf dem "Windows Exporter Dashboard"#footnote[#link("https://grafana.com/grafana/dashboards/14694-windows-exporter-dashboard/")], welches von Grafana Labs installiert werden kann. Es wurden jedoch einige Anpassungen vorgenommen, um eine bessere Übersicht über die wichtigsten Werte zu erhalten. Da Zeit im Active Directory eine wichtige Rolle spielt, vorallem bei der Replikation der Domain-Controller, wurde auch eine Anzeige für die aktuelle Zeit, sowie die Zeitzone auf den Domain-Controllern hinzugefügt. In der linken oberen Ecke des Dashboards, kann man zwischen den einzelnen Domain Controllern wechseln, um die Werte der einzelnen Server anzuzeigen.
+Das Dashboard für die Überwachung der #htl3r.longpl[dc] wird in Grafana importiert. Es zeigt die wichtigsten Metriken der #htl3r.longpl[dc] an, wie beispielsweise die CPU-Auslastung, den Arbeitsspeicher und die Netzwerkauslastung. Das Dashboard basiert auf dem "Windows Exporter Dashboard"#footnote[#link("https://grafana.com/grafana/dashboards/14694-windows-exporter-dashboard/")], welches von Grafana Labs installiert werden kann. Es wurden jedoch einige Anpassungen vorgenommen, um eine bessere Übersicht über die wichtigsten Werte zu erhalten. Da Zeit im Active Directory eine wichtige Rolle spielt, vorallem bei der Replikation der #htl3r.longpl[dc], wurde auch eine Anzeige für die aktuelle Zeit, sowie die Zeitzone auf den #htl3r.longpl[dc]n hinzugefügt. In der linken oberen Ecke des Dashboards kann man zwischen den einzelnen #htl3r.longpl[dc]n wechseln, um die Werte der einzelnen Server anzuzeigen.
 
 #htl3r.fspace(
   total-width: 95%,

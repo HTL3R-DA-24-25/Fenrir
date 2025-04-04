@@ -3164,10 +3164,22 @@
 		(uuid "3b16fc2b-6351-41cf-8028-5b1ba87a559a")
 	)
 	(junction
+		(at 120.65 130.81)
+		(diameter 0)
+		(color 46 34 255 1)
+		(uuid "529e550a-103e-4f44-ba7c-fb02271a469e")
+	)
+	(junction
 		(at 143.51 38.1)
 		(diameter 0)
 		(color 255 142 33 1)
 		(uuid "78e79ac6-aab7-42c9-99f9-af54a7b6b4c9")
+	)
+	(junction
+		(at 127 146.05)
+		(diameter 0)
+		(color 255 22 22 1)
+		(uuid "8a89a2aa-01ff-4b6d-967a-a5c83718af09")
 	)
 	(junction
 		(at 63.5 97.79)
@@ -3210,6 +3222,12 @@
 		(diameter 0)
 		(color 127 81 255 1)
 		(uuid "ef137dbe-df81-4907-bb3c-a989ace5bf61")
+	)
+	(junction
+		(at 20.32 146.05)
+		(diameter 0)
+		(color 255 22 22 1)
+		(uuid "fbc00974-ee9e-4c2c-b7ba-5abaa96e5ebd")
 	)
 	(wire
 		(pts
@@ -3322,17 +3340,6 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 146.05) (xy 133.35 146.05)
-		)
-		(stroke
-			(width 0.5)
-			(type default)
-			(color 255 22 22 1)
-		)
-		(uuid "2a3c1071-c970-4c2a-86eb-5739626a85e2")
-	)
-	(wire
-		(pts
 			(xy 52.07 97.79) (xy 63.5 97.79)
 		)
 		(stroke
@@ -3388,6 +3395,17 @@
 	)
 	(wire
 		(pts
+			(xy 20.32 21.59) (xy 20.32 146.05)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 28 24 1)
+		)
+		(uuid "33b2322e-54cb-4b6c-b6cc-f7b45be198b3")
+	)
+	(wire
+		(pts
 			(xy 156.21 21.59) (xy 156.21 24.13)
 		)
 		(stroke
@@ -3399,6 +3417,17 @@
 	)
 	(wire
 		(pts
+			(xy 73.66 168.91) (xy 127 168.91)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 28 24 1)
+		)
+		(uuid "3ce89a9c-00ec-48cc-8df0-6587041f06ba")
+	)
+	(wire
+		(pts
 			(xy 20.32 21.59) (xy 99.06 21.59)
 		)
 		(stroke
@@ -3407,6 +3436,17 @@
 			(color 255 28 24 1)
 		)
 		(uuid "3d9840c2-5e13-49d2-ac45-38854c649549")
+	)
+	(wire
+		(pts
+			(xy 127 146.05) (xy 133.35 146.05)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 22 22 1)
+		)
+		(uuid "3e70992a-ddc4-47ed-a6b8-641604e06152")
 	)
 	(wire
 		(pts
@@ -3527,6 +3567,17 @@
 			(color 0 0 0 1)
 		)
 		(uuid "5d0aeff8-8be4-4559-843d-5c4fb9030bf6")
+	)
+	(wire
+		(pts
+			(xy 76.2 153.67) (xy 105.41 153.67)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 28 24 1)
+		)
+		(uuid "5e00dc90-fb4e-48f5-8c83-b3b8f1d5849a")
 	)
 	(wire
 		(pts
@@ -3694,6 +3745,17 @@
 	)
 	(wire
 		(pts
+			(xy 120.65 130.81) (xy 120.65 153.67)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 46 34 255 1)
+		)
+		(uuid "96189e62-338b-482d-bc30-b8b4d47e559c")
+	)
+	(wire
+		(pts
 			(xy 46.99 121.92) (xy 80.01 121.92)
 		)
 		(stroke
@@ -3756,6 +3818,17 @@
 			(type default)
 		)
 		(uuid "ac6a5623-209b-4205-aea8-c179f7d45084")
+	)
+	(wire
+		(pts
+			(xy 73.66 146.05) (xy 127 146.05)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 22 22 1)
+		)
+		(uuid "aedfd600-f32a-479b-b24f-df434802adfc")
 	)
 	(wire
 		(pts
@@ -3953,6 +4026,28 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 168.91) (xy 20.32 168.91)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 28 24 1)
+		)
+		(uuid "d88b26f8-8c49-42c0-9f30-6f9395b779a1")
+	)
+	(wire
+		(pts
+			(xy 127 146.05) (xy 127 168.91)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 28 24 1)
+		)
+		(uuid "d98df925-a7e8-4737-ba41-8e2a5cf07c78")
+	)
+	(wire
+		(pts
 			(xy 105.41 60.96) (xy 161.29 60.96)
 		)
 		(stroke
@@ -4041,17 +4136,6 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 146.05) (xy 20.32 21.59)
-		)
-		(stroke
-			(width 0.5)
-			(type default)
-			(color 255 28 24 1)
-		)
-		(uuid "e938c176-3a52-43fa-b79b-63511ad7a873")
-	)
-	(wire
-		(pts
 			(xy 142.24 35.56) (xy 161.29 35.56)
 		)
 		(stroke
@@ -4071,6 +4155,17 @@
 			(color 0 0 0 1)
 		)
 		(uuid "f22e3042-83b1-43bb-b609-c39ec5e52b7b")
+	)
+	(wire
+		(pts
+			(xy 20.32 146.05) (xy 20.32 168.91)
+		)
+		(stroke
+			(width 0.5)
+			(type default)
+			(color 255 28 24 1)
+		)
+		(uuid "f69f4dda-71ea-4c52-bf19-9b156407c231")
 	)
 	(wire
 		(pts
@@ -4191,6 +4286,92 @@
 			(project "Zelle_2_Schaltplan"
 				(path "/c54abc80-108a-4187-8440-3873a97af90c"
 					(reference "RN2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Relay:Fujitsu_FTR-LYCA005x")
+		(at 68.58 161.29 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "09c3c02d-4009-4848-85f6-d06cd804c0ef")
+		(property "Reference" "K2"
+			(at 80.01 160.0199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5V Relais"
+			(at 80.01 162.5599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Relay_THT:Relay_SPDT_Fujitsu_FTR-LYCA005x_FormC_Vertical"
+			(at 80.01 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.fujitsu.com/sg/imagesgig5/ftr-ly.pdf"
+			(at 85.09 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Relay, SPDT Form C, vertical mount, 5-60V coil, 6A, 250VAC, 28 x 5 x 15mm"
+			(at 68.58 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(hide yes)
+			)
+		)
+		(pin "12"
+			(uuid "ca8af227-9737-4ef3-96bd-2e1f3629d6a2")
+		)
+		(pin "A1"
+			(uuid "4db60adf-db6c-4bfb-8c73-969590015855")
+		)
+		(pin "14"
+			(uuid "81aa46ea-bec9-470c-ac81-6c295690b5df")
+		)
+		(pin "A2"
+			(uuid "2a7028c4-c7cb-4c25-b968-06aa3d912d87")
+		)
+		(pin "11"
+			(uuid "a6530b76-1b67-436e-926a-c0e68b211aea")
+		)
+		(instances
+			(project "Zelle_2_Schaltplan"
+				(path "/c54abc80-108a-4187-8440-3873a97af90c"
+					(reference "K2")
 					(unit 1)
 				)
 			)
@@ -4706,7 +4887,7 @@
 				)
 			)
 		)
-		(property "Value" "Pumpe"
+		(property "Value" "Filterpumpe"
 			(at 113.03 140.208 90)
 			(effects
 				(font
@@ -4907,6 +5088,78 @@
 		)
 	)
 	(symbol
+		(lib_id "Motor:Fan_ALT")
+		(at 113.03 153.67 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a69c101c-663a-4416-8e26-1b7164185d0b")
+		(property "Reference" "M2"
+			(at 113.03 160.528 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+			)
+		)
+		(property "Value" "Übergangspumpe"
+			(at 113.03 163.068 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 114.3 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 114.3 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Fan without PWM or tach, alternative symbol"
+			(at 113.03 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(color 0 0 0 1)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d8ba99f5-a649-4a4f-8f24-eec8b7b118b0")
+		)
+		(pin "2"
+			(uuid "576a5388-e6ce-4a72-8f71-cbfb01bd2643")
+		)
+		(instances
+			(project "Zelle_2_Schaltplan"
+				(path "/c54abc80-108a-4187-8440-3873a97af90c"
+					(reference "M2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Relay:Fujitsu_FTR-LYCA005x")
 		(at 68.58 138.43 0)
 		(unit 1)
@@ -4926,7 +5179,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12V Relais"
+		(property "Value" "5V Relais"
 			(at 80.01 139.6999 0)
 			(effects
 				(font

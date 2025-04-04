@@ -45,7 +45,7 @@ Die erste Betriebszelle dient der Grobfiltration des schmutzigen Wassers. Falls 
 
 Als erster Schritt zur erfolgreichen Abwasserfiltration braucht es einen Weg, grobe Schmutzpartikel wie zum Beispiel Kieselsteine filtrieren zu können. Einen feinen Wasserfilter würden solche großen Partikel verstopfen oder sogar zerstören. Somit erfolgt die erste Filtration mit einem gröberen Metallgitter als Rechen.
 
-Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter befördert, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochbeförderte Wasser durch das Rechengitter fallen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher eine Öffnung für die Leitung in die zweite Zelle birgt.
+Um das Abwasser zu sieben, wird es zuerst mit einer archimedischen Schraube in einen höhergelegenen Behälter befördert, welcher angewinkelt ist und am unteren Ende eine Öffnung hat. Diese Öffnung lässt das hochbeförderte Wasser durch das Rechengitter fließen, was die groben Partikel wie zum Beispiel Kieselsteine aus dem Abwasser entfernt. Das restliche Abwasser fließt durch das Gitter durch und landet in einem Auffangbehälter, welcher eine Öffnung für die Leitung in die zweite Zelle birgt.
 
 Für Details zur Modellierung der archimedischen Schraube und der Halterung des Schneckenmotors siehe @schnegge und @motor-halterung.
 
@@ -101,7 +101,7 @@ Das in @zelle-1-programm abgebildete Programm -- welches in der Kontaktplan-Prog
 #pagebreak(weak: true)
 == Zelle Zwei (Feinfiltration)
 
-Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
+Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Abwassers aus der ersten Zelle. Die feinen, im Abwasser aufgelösten Schmutzpartikel, die in der ersten Zelle nicht durch den Rechen entfernt worden konnten, werden hier endgültig aus dem Abwassser entfernt. Nach der zweiten Zelle ist das Abwasser klar und ohne jeglich Verfärbungen und kann sicher in die Natur (Zelle Drei) abgepumpt werden.
 
 #htl3r.fspace(
   figure(
@@ -115,7 +115,7 @@ Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Ab
 Sie besteht aus zwei durchsichtigen Acryl-Wassertanks welche jeweils ca. 3L an Volumen aufweisen. Diese sind oben offen, werden jedoch von Deckeln abgedeckt. Diese Deckel wurden mittels 3D-Modellierung speziell angefertigt und zweimal gedruckt. In diesen Deckeln ist die für den Wassertank jeweils notwendige Sensorik verbaut. Diese besteht aus einem Füllstandssensor mit Schwimmer -- welcher als Widerstand agiert -- sowie einem DS18B20-Temperatursensor.
 Außerdem hat jeder Tankdeckel auch noch eine Öffnung für einen Schlauch, welcher als Zufluss dient. Als Gegenstück besitzt jeder Tank an der Unterseite einen Messing Auslass mit Gewinde, an welchem dann ein Harnverbinder angeschraubt um eine Steckverbindung für die weiteren Schläuche zu ermöglichen.
 
-Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filterball und eine Pumpe, welche Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transportiert. Die Pumpe wurde hinter dem Filter platziert, um dieser vor Verstopfungen durch Schmutzpartikel zu schützen. Der Filterball wurde dem Filter hinzugefügt, da dieser die Schmutzpartikel sehr gut aufnimmt und die Belastung des Filters verringert und somit die Effizienz der Filration erhöht und die Lebensdauer des Filters verlängert.
+Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filterball und eine Pumpe, welche Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transportiert. Die Pumpe wurde hinter dem Filter platziert, um dieser vor Verstopfungen durch Schmutzpartikel zu schützen. Ein Filterball wurde innerhalb des Filters hinzugefügt, da dieser die Schmutzpartikel sehr gut aufnimmt und die Belastung des Filters verringert und somit die Effizienz der Filration erhöht und die Lebensdauer des Filters verlängert.
 
 #htl3r.fspace(
   figure(
@@ -169,8 +169,10 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
       [TANK_2_TEMP], [INT], [%IW1], [-], [Nein],
       [TANK_1_LEVEL], [INT], [%IW2], [-], [Nein],
       [TANK_2_LEVEL], [INT], [%IW3], [-], [Nein],
-      [FILTER_PUMP_OVERRIDE], [BOOL], [%IW4], [-], [Nein],
-      [PROGRESSION_PUMP_OVERRIDE], [BOOL], [%IW5], [-], [Nein],      [FILTER_PUMP_ACTIVE], [BOOL], [%QX0], [-], [Nein],[PROGRESSION_PUMP_ACTIVE], [BOOL], [%QX1], [-], [Nein],
+      [FILTER_PUMP_OVERRIDE], [BOOL], [%QX1.0], [-], [Nein],
+      [PROGRESSION_PUMP_OVERRIDE], [BOOL], [%QX1.1], [-], [Nein],
+      [FILTER_PUMP_ACTIVE], [BOOL], [%QX0.0], [-], [Nein],
+      [PROGRESSION_PUMP_ACTIVE], [BOOL], [%QX0.1], [-], [Nein],
       [TANK_FULL], [INT], [-], [100], [Ja],
       [PUMP_DELAY], [TIME], [-], [T\#2000ms], [Ja],
     ),
@@ -189,9 +191,9 @@ Für die Steuerung der Betriebszelle "Feinfiltration" ist ein Programm zuständi
   ]
 )
 
-Das in @zelle-2-programm sichtbare Programm ist zwar offiziell ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche charakteristisch für ein #htl3r.long[fup]-Programm sind. Mehr Informationen zu dieser Überschneidung sind in @sps-programmierung zu finden.
+Das Ziel des Programms ist es, je nach Füllstand der Tanks die jeweiligen Pumpen einzuschalten. Einmal um das schmutzige Wasser aus dem ersten Tank durch den Filter in den zweiten Tank zu befördern und einmal, um aus dem zweiten Tank das saubere Wasser in den Staudamm zu befördern. Hierfür wird zuerst ein Vergleich mittels eines "Greater Than"-Funktionsbausteins getätigt, ob der Füllstand des Tanks (`TANK_1_LEVEL` bzw. `TANK_2_LEVEL`) den für das Umpumpen festgelegten konstanten Füllstandswert `TANK_FULL` überschreitet. Falls dies der Fall ist, wird das Signal zum Einschalten der jeweiligen Pumpe an einen "Off Delay Timer"-Funktionsbaustein weitergeleitet. Dieser versichert, dass durch die Unterschreitung des zum Umpumpen nötigen Füllstandswerts während des Pumpvorgangs dieser nicht mittendrin abbricht. Die von diesem Funktionsbaustein getätigte Zeitverzögerung wird durch die konstante Variable `PUMP_DELAY` -- die 2000 Millisekunden entspricht -- gesteuert. Das vom "Off Delay Timer"-Funktionsbaustein manipulierte Signal wird final noch an ein "Or"-Funktionsbaustein weitergegeben, welcher dazu dient, dem #htl3r.short[scada] einen Override der Pumpenaktivierung über die Variablen `FILTER_PUMP_OVERRIDE` bzw. `PROGRESSION_PUMP_OVERRIDE` zu gewähren.
 
-Das Ziel des Programms ist es, je nach Füllstand der Tanks die jeweiligen Pumpen einzuschalten. Einmal um das schmutzige Wasser aus dem ersten Tank durch den Filter in den zweiten Tank zu befördern und einmal um aus dem zweiten Tank das saubere Wasser in den Staudamm zu befördern. Hierfür wird zuerst ein Vergleich mittels eines "Greater Than"-Funktionsbausteins getätigt, ob der Füllstand des Tanks (`TANK_1_LEVEL` bzw. `TANK_2_LEVEL`) den für das Umpumpen festgelegten konstanten Füllstandswert `TANK_FULL` überschreitet. Falls dies der Fall ist, wird das Signal zum Einschalten der jeweiligen Pumpe an einen "Off Delay Timer"-Funktionsbaustein weitergeleitet. Dieser versichert, dass durch die Unterschreitung des zum Umpumpen nötigen Füllstandswerts während des Pumpvorgangs dieser nicht mittendrin abbricht. Die von diesem Funktionsbaustein getätigte Zeitverzögerung wird durch die konstante Variable `PUMP_DELAY` -- die 2000 Millisekunden entspricht -- gesteuert. Das vom "Off Delay Timer"-Funktionsbaustein manipulierte Signal wird final noch an ein "Or"-Funktionsbaustein weitergegeben, welcher dazu dient, dem SCADA einen Override der Pumpenaktivierung über die Variablen `FILTER_PUMP_OVERRIDE` bzw. `PROGRESSION_PUMP_OVERRIDE` zu gewähren.
+Das in @zelle-2-programm sichtbare Programm ist ein Kontaktplan-Programm -- erkennbar an den vertikalen Stromleitung links und rechts als auch den zwei Spulen zum Setzen der Output-Werte -- nutzt aber einige Funktionsbausteine, welche charakteristisch für ein #htl3r.long[fup]-Programm sind. Mehr Informationen zu dieser Überschneidung sind in @sps-programmierung zu finden.
 
 Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen den Wert der ihnen zugehörigen Adresse auf "hoch". In @i2c-integration wird genauer erläutert, wie die Modbus-Output-Adresse mit den #htl3r.short[gpio]-Pins des Raspberry Pi verknüpft ist.
 
@@ -205,12 +207,10 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
   )
 )
 
-#htl3r.todo("im schaltplan die übergangspumpe ergänzen")
-
 #htl3r.author("Gabriel Vogler")
 == Zelle Drei (Staudamm)
 
-#htl3r.todo("hier kurze einführung")
+Die dritte Betriebszelle besteht aus einem Wasserspeicherbecken und einem Überschwemmungsgebiet. Sie dient einerseits der Speicherung des in Zelle Zwei gefilterten Wassers und andererseits der Simulation eines ländlichen Wohngebiets, welches durch einen Fluss gespalten wird. Das Wasser kann bei Bedarf in den Fluss abgelassen werden. Anhand dieser Zelle kann die Gefahr einer Fehlfunktion der Steuerung anhand einer Überschwemmung des Wohngebiets dargestellt werden.
 
 #htl3r.fspace(
   figure(
@@ -223,7 +223,7 @@ Nachdem das Signal an den Output-Spulen ankommt, werden diese aktiv und setzen d
 
 Nach der erfolgreichen Filtration des Abwassers wird dies von der zweiten Zelle in ein Wasserspeicherbecken umgepumpt. Es handelt sich bei dem Becken um eine Eurobox mit den Maßen 30cm x 20cm x 7cm und hat an der Vorderseite ein Loch woran das Magnetventil befestigt ist. Mit dem Zusammenspiel dieser beiden Komponenten wird der Staudamm realisiert. Das Becken wird mit Wasser gefüllt und das Magnetventil kann geöffnet und geschlossen werden.
 
-Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtungen wasserdicht gemacht und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Schwerkraft in das Wassereinlaufbecken fließen kann.
+Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox gebohrt. Dabei musste aufgepasst werden, dass man nicht zu schnell bohrt, weil sonst das Plastik entweder ausreißen oder wegschmelzen könnte. Anschließend wurde ein Wasserauslass durch das Loch gesteckt, mit Dichtunsringen abgedichtet und mit dem beigelegten Gegenstück verschraubt. An den Messingauslass wurden dann zwei 3D-gedruckte Adapterstücke geschraubt, um daran das Magnetventil zu befestigen, da das Magnetventil eine 1/2 Zoll Schraubverbindung und der Messingauslass ein 3/4 Zoll Gewinde hat. Das Wasser vom Wasserspeicherbecken soll durch das Magnetventil in das Wassereinlaufbecken fließen. Aufgrunddessen wurde das Wasserspeicherbecken mit sechs Holzstücken erhöht, damit das Wasser mittels Schwerkraft in das Wassereinlaufbecken fließen kann.
 
 #htl3r.fspace(
   figure(
@@ -232,7 +232,7 @@ Für die Montage des Magnetventils wurde zunächst ein Loch in die Eurobox geboh
   )
 )
 
-Für das Wassereinlaufbecken bzw. das Überschwemmungebiet wurde als Basis eine weitere 30cm x 20cm x 7cm Eurobox verwendet. Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten roten Häusern unterschiedlicher Größe bestückt. Unter anderem sind mehrere Wasserstandsensoren an der Seite des Behälters befestigt, um im Falle eines Hochwasser bzw. einer Überschwemmung einen Alarm auszulösen (Leuchte mit Alarmton neben dem Behälter).
+Für das Wassereinlaufbecken bzw. das Überschwemmungebiet wurde als Basis eine weitere 30 cm x 20 cm x 7 cm Eurobox verwendet. Das Überschwemmungsgebiet ist mit kleinen Modell-Bäumen und 3D-gedruckten roten Häusern unterschiedlicher Größe bestückt. Unter anderem sind mehrere Wasserstandsensoren an der Seite des Behälters befestigt, um im Falle eines "Hochwasser" bzw. einer Überschwemmung einen Alarm auszulösen (Leuchte mit Alarmton neben dem Behälter).
 
 #htl3r.fspace(
   figure(
@@ -293,7 +293,7 @@ Das Programm ist auf zwei wesentliche Bestandteile aufgeteilt:
   - Die Messung der Überschwemmungsgebiet-Füllstandssensoren und die Auslösung des Alarms. Dieser Teil ist in der oberen Hälfte von @zelle-3-programm zu sehen.
   - Die Messung der Damm-Füllstandssensoren und die Ansteuerung des Magnetventils. Dieser Teil ist in der unteren Hälfte zu sehen.
 
-Bei der Messung der Flut-Sensoren Eins bis Drei wird darauf geschaut, ob diese eine Spannung von ca. 24V aufweisen. Diese Spannung wird durch ein eigenes Kabel in das Wasser vom Überschwemmungsgebiet übertragen. Da das innerhalb der Kläranlage verwendete Wasser nicht destilliert ist, leitet dieses Strom recht gut. Wenn nun das Spannungskabel und die offenen Kontakte der Flut-Sensoren (weitere Kabel, die in den Behälter ragen) per gemeinsamen Wasserkörper miteinander verbunden sind, fließt durch das Wasser Strom und aktiviert somit die Flut-Sensoren. Wenn alle drei Flut-Sensoren Spannung aufweisen -- was per "AND"-Funktionsbaustein überprüft wird -- das Signal an die Alarm-Outputs `Alarmsound_AN` und `Alarmlicht_AN` weitergeleitet. Da wie bei OpenPLC die LOGO! #htl3r.short[sps] keine direkte Setzung der Output-Variablen-Wert per #htl3r.short[scada] erlaubt, muss ein eigener Override-Wert `SCADA_Sound_Override` für das Ausschalten des Alarmsounds im Programm integriert sein. Dieser wird mit einem "NOT"-Funktionsbaustein invertiert, da hier eine Deaktivierung bei eingeschaltetem Wert erwünscht ist, darauf mit dem gemeinsamen Output der Flut-Sensoren per weiterem "AND"-Funktionsbaustein kombiniert und anschließlend in die Output-Variable `Alarmsound_AN` gespeichert. Für das Alarmlicht ist kein Override implementiert, sondern ein Impulsblock, welcher jede Sekunde das eingehende Signal aus- bzw. wieder einschaltet, um ein blinkendes Alarmlicht zu bewirken.
+Bei der Messung der Flut-Sensoren Eins bis Drei wird darauf geachtet, ob diese eine Spannung von ca. 24V aufweisen. Diese Spannung wird durch ein eigenes Kabel in das Wasser vom Überschwemmungsgebiet übertragen. Da das innerhalb der Kläranlage verwendete Wasser nicht destilliert ist, leitet dieses Strom recht gut. Wenn nun das Spannungskabel und die offenen Kontakte der Flut-Sensoren (weitere Kabel, die in den Behälter ragen) per gemeinsamen Wasserkörper miteinander verbunden sind, fließt durch das Wasser Strom und aktiviert somit die Flut-Sensoren. Wenn alle drei Flut-Sensoren Spannung aufweisen -- was per "AND"-Funktionsbaustein überprüft wird -- das Signal an die Alarm-Outputs `Alarmsound_AN` und `Alarmlicht_AN` weitergeleitet. Da wie bei OpenPLC die LOGO! #htl3r.short[sps] keine direkte Setzung der Output-Variablen-Wert per #htl3r.short[scada] erlaubt, muss ein eigener Override-Wert `SCADA_Sound_Override` für das Ausschalten des Alarmsounds im Programm integriert sein. Dieser wird mit einem "NOT"-Funktionsbaustein invertiert, da hier eine Deaktivierung bei eingeschaltetem Wert erwünscht ist, darauf mit dem gemeinsamen Output der Flut-Sensoren per weiterem "AND"-Funktionsbaustein kombiniert und anschließlend in die Output-Variable `Alarmsound_AN` gespeichert. Für das Alarmlicht ist kein Override implementiert, sondern ein Impulsblock, welcher jede Sekunde das eingehende Signal aus- bzw. wieder einschaltet, um ein blinkendes Alarmlicht zu bewirken.
 
 === Schaltplan der dritten Betriebszelle
 
@@ -310,7 +310,7 @@ Bei der Messung der Flut-Sensoren Eins bis Drei wird darauf geschaut, ob diese e
 
 Für einige Komponenten gab es keine passenden Teile, oder übermäßige Kosten für die Anschaffung.
 Deshalb wurde die Entscheidung getroffen, diese Teile und ihre angepassten Varianten, die für die Anlage sogar noch besser passen, selbst zu designen und zu drucken.
-Die Anschaffung des 3D-Druckers wurde privat getätigt und die Filamentkosten wurden von unserem Sponsor -- der Ikarus -- übernommen.
+Die Anschaffung des 3D-Druckers wurde privat getätigt und die Filamentkosten wurden von unserem Sponsor -- Ikarus -- übernommen.
 
 #htl3r.author("Gabriel Vogler")
 === Modellierung der Teile
@@ -329,7 +329,7 @@ Außerdem sind diese Materialien in der Anschaffung günstiger als andere und bi
 Die Wahl des Filamentherstellers fiel auf das Filament von BambuLab, da diese das Filament und der Drucker aus dem selben Hause stammen und so perfekt aufeinander abgestimmt sind.
 Außerdem ist das #htl3r.short[pla] Filament von BambuLab biologisch abbaubar und ist somit umweltfreundlicher und nachhaltiger als andere Filamente.
 
-Für den Druck wurden die Standard Druckprofile von BambuLab verwendet, mit kleinen Anpassungen an die Druckgeschwindigkeit und die Temperatur, damit das für uns gewünschte Ergebnis erzielt werden konnte.
+Für den Druck wurden die Standard Druckprofile von BambuLab verwendet, mit kleinen Anpassungen an die Druckgeschwindigkeit und die Temperatur, damit das für uns gewünschte Ergebnis erzielt werden konnte. Beim Druck von #htl3r.short[pva] wurde die Geschwindigkeit auf 50% reduziert, da das Filament sehr schlecht auf der Druckplatte haftet. Außerdem wurde die Temperatur um 10° verringert, da das #htl3r.short[pva] Filament bei zu hohen Temperaturen Feden zieht. 
 Diese Profile werden automatisch erfasst sobald eine originale BambuLab Spule Filament in das #htl3r.short[ams] eingelegt wird.
 Das Ganze funktioniert mithilfe eines #htl3r.short[rfid]-Chips, der auf der Spule angebracht ist und mit einem #htl3r.short[rfid]-Lesegerät im #htl3r.short[ams] kommuniziert.
 Die Druckprofile sind außerdem auch noch von dem Druckermodell, der verwendeten Spitze und dem zu druckenden Modell abhängig.
@@ -339,10 +339,10 @@ Für das reibungslose Drucken wurde außerdem #htl3r.short[pva]-Filament verwend
 
 #pagebreak(weak: true)
 == 3D-Modelle
-Damit einige Dinge in der Anlage so umgesetzt werden konnten, wie sie geplant waren, mussten einige Teile selbst modelliert und gedruckt werden, da es keine passenden Teile auf dem Markt gab. Im Folgenden werden die 3D-Modelle der Teile vorgestellt, die für die Anlage gedruckt wurden. Gerade die Förderschnecke und die Halterung des Schneckenmotors sind essentiell für die Funktionsweise der Anlage.
+Damit sowohl die Förderschnecke als auch die Tankeinlässe in der Anlage so umgesetzt werden konnten, wie sie geplant waren, mussten einige Teile selbst modelliert und gedruckt werden, da es keine passenden Teile auf dem Markt gab. Im Folgenden werden die 3D-Modelle der Teile vorgestellt, die für die Anlage gedruckt wurden. Gerade die Förderschnecke und die Halterung des Schneckenmotors sind essentiell für die Funktionsweise der Anlage.
 
 === Förderschnecke <schnegge>
-Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprzesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
+Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstellen des Stabs in der Mitte, um welchen die Schraube sich dann wickelt. Außerdem befindet sich am Ende des Stabs eine Ausparung, welche zur Befestigung eines 50rpm Schneckenmotors dient. Dieser Motor treibt die Schraube an und sorgt somit für den Transport des Wassers und dessen Inhaltsstoffen. Im nächsten Schritt wurde um den Stab eine Spirale gezeichnet, diese hat eine Querschnittsfläche eines Dreiecks, mit zwei Ecken nach außen und die dritte Ecke in die Mitte zeigend. Damit konnte anschließend von der Ecke auf den Stab eine Linie projeziert werden, worum sich dann die Förderschnecke wickelt. Es wurde eine Skizze erstellt, was die Schraube für eine Querschnittsfläche haben soll und anhand davon dann die Schraube entlang des Stabs nach oben extrudiert. Der Vorteil eines solchen Modellierungsprozesses, ist die Möglichkeit die Schraube im Nachhinein noch beliebig zu verändern, da alle Skizzen und Aktionen von einander abhängen. Sobald eine Skizze verändert wird, wird das Modell automatisch angepasst. Dies war hilfreich, da die Schraube anfangs nicht genug Wasser transportierte, da dieses an den Seiten herauslief. Durch das Schließen der Spirale konnte das Problem behoben werden.
 
 #htl3r.fspace(
   figure(
@@ -352,7 +352,7 @@ Die archimedische Schraube wurde 3D-modelliert. Gestartet wurde mit dem Erstelle
 )
 
 === Schneckenmotor-Halterung <motor-halterung>
-Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen versetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt, wurde außerdem eine Abdeckung gedruckt. Diese wird einfach auf den Motor gesetzt und anschließend an die Halterung mit 4 M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
+Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Halterung wurde genau an die Maße des Motors angepasst und schließt diesen somit fest ein. Die Halterung hat auf jeder Seite zwei 1 cm große Löcher, welche zur Begestigung dienen, da der Motor über einem offen Behälter hängt. In diese Löcher werden jeweils ein etwas längerer und ein etwas kürzerer Bolzen gesteckt, um den Motor zu befestigen. Der kürzere Bolzen liegt dann auf dem Behälter auf und der längere wird auf den jeweils links und rechts vom Behälter platzierten Stützen befestigt. Die Bolzen und Stützen sind ebenfalls 3D-gedruckt und sind mit der Halterung ausschließlich durch Steckverbindungen verbunden. Durch eine genaue Anpassung der Maße, konnte die Halterung ohne Schrauben oder Kleber befestigt werden und dennoch fest sitzen. Dabei wurden die Innenwände um 0,1 mm nach außen versetzt. Um zu garantieren, dass der Motor nicht frontal herausfällt, wurde außerdem eine Abdeckung gedruckt. Diese wird einfach auf den Motor gesetzt und anschließend an die Halterung mit vier M3 Schrauben befestigt. Das Gewinde ist in die Halterung gedruckt und die Löcher in der Abdeckung sind abgesenkt, damit der Senkkopf der Schraube nicht übersteht.
 
 #htl3r.fspace(
   figure(
@@ -363,8 +363,8 @@ Der Schneckenmotor ist mittels einer 3D-gedruckten Halterung befestigt. Diese Ha
 
 #pagebreak(weak: true)
 
-=== Zelle Zwei Tankabdeckungen
-Für beide Tanks der Zelle Zwei wurden idente Deckel entworfen und gedruckt. Diese Deckel haben eine Öffnung für einen Schlauch, welcher als Zufluss dient. Außerdem sind im Deckel die notwendigen Sensoren befestigt. Der Füllstandssensor wird durch die Öffnung von oben in den Tank gesteckt und liegt auf dem Deckel auf. Der Temparatursensor hat eine eigene Öffnung, in welche dieser dann ebenfalls von oben in den Tankgesteckt werden kann. Die Deckel sind so konzipiert, dass die 3 Löcher nur so groß wie nötig sind, damit keine Verunreinigungen ins Wasser kommen können. Die Löcher wurden mit kreisförmigen Skizzen erstellt und anschließend Extrudiert und damit Deckel ausgeschnitten. damit diese nicht verrutschen gibt es an der Unerseite des Deckels eine erhöhung die in den tank hineinragt. Damit ist der Deckel befestigt ohne jeglichen Einsatz von Schrauben oder Kleber.
+=== Tankabdeckungen für Zelle Zwei
+Für beide Tanks der Zelle Zwei wurden idente Deckel entworfen und gedruckt. Diese Deckel haben eine Öffnung für einen Schlauch, welcher als Zufluss dient. Außerdem sind im Deckel die notwendigen Sensoren befestigt. Der Füllstandssensor wird durch die Öffnung von oben in den Tank gesteckt und liegt auf dem Deckel auf. Der Temparatursensor hat eine eigene Öffnung, in welche dieser dann ebenfalls von oben in den Tankgesteckt werden kann. Die Deckel sind so konzipiert, dass die 3 Löcher nur so groß wie nötig sind, damit keine Verunreinigungen ins Wasser kommen können. Die Löcher wurden mit kreisförmigen Skizzen erstellt und anschließend Extrudiert und damit Deckel ausgeschnitten. damit diese nicht verrutschen gibt es an der Unerseite des Deckels eine Erhöhung, die in den Tank hineinragt. Damit ist der Deckel ohne jeglichen Einsatz von Schrauben oder Kleber befestigt.
 
 #htl3r.fspace(
   figure(
@@ -386,8 +386,8 @@ Die Elektronikbox, die den Raspberry Pi 4 und den ESP32, sowie die notwendige Ve
 
 #pagebreak(weak: true)
 
-=== Zelle Drei Einlasshalterung
-Für das Wassereinlaufbecken in der Zelle Drei gibt wurde eine Halterung für den Wasserschlauch modelliert und gedruckt. Diese ist im Becken an links und rechts montiert. Dies wurde mithilfe von zwei Steckverbindungen erreicht. Das Becken hat etwa 2 cm x 0,5 cm große Löcher in die die Halterung gesteckt wird. Modelliert wurden die beiden Einschübe mit einer Skizze die anschließend 1 cm lang extrudiert wurde. Die Öffnung für den Schlauch wurde mit einer Kreisförmigen Skizze erstellt und anschließend extrudiert. Die Öffnung für den Schlauch wurde so angepasst, dass bei Bedarf der Schlauch einfach entfernt werden kann und dennoch bei Benutzung fest sitzt.
+=== Zelle Drei "Einlasshalterung"
+Für das Wassereinlaufbecken in der Zelle Drei wurde eine Halterung für den Wasserschlauch modelliert und gedruckt. Diese ist an den Beckenrändern links und rechts montiert. Dies wurde mithilfe von zwei Steckverbindungen erreicht. Das Becken hat etwa 2 cm x 0,5 cm große Löcher in die die Halterung gesteckt wird. Modelliert wurden die beiden Einschübe mit einer Skizze die anschließend 1 cm lang extrudiert wurde. Die Öffnung für den Schlauch wurde mit einer runden Skizze erstellt und anschließend extrudiert. Die Öffnung für den Schlauch wurde so angepasst, dass bei Bedarf der Schlauch einfach entfernt werden kann und dennoch bei Benutzung fest sitzt.
 
 #htl3r.fspace(
   figure(
@@ -399,7 +399,7 @@ Für das Wassereinlaufbecken in der Zelle Drei gibt wurde eine Halterung für de
 #pagebreak(weak: true)
 
 === Zelle Drei Überschwemmungsgebiet Häuser
-Für die Zelle Drei wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell erstellt und anschließend im Slicer nach Belieben skaliert. Dabei wurde die volle Größe und die Hälfte genommen. Der Modellierungsprozess begann mit der Grundform des Hauses, einem Quader, auf dem dann ein Dreieck, was anschließend extrudiert wurde, platziert wurde. Der Reichfang ist durch einen Zylinder dargestellt. Dabei wurde eine Kreisförmige Skizze durch das Dach des Hauses hindurch extrudiert. Das Haus ist innen hohl, damit weniger Material verbraucht wird und es für nicht notwendig ist, das Haus zu füllen.
+Für die Zelle Drei wurden mehrere kleine Häuser gedruckt. Es wurde ein Modell erstellt und anschließend im Slicer nach Belieben skaliert. Dabei enstanden drei Häuser in Originalgröße (4 cm Länge) und drei weitere halb so groß. Der Modellierungsprozess begann mit der Grundform des Hauses, einem Quader, auf dem dann ein Dreieck, was anschließend extrudiert wurde, platziert wurde. Der Reichfang ist durch einen Zylinder dargestellt. Dabei wurde eine Kreisförmige Skizze durch das Dach des Hauses hindurch extrudiert. Das Haus ist innen hohl, damit weniger Material verbraucht wird und es nicht notwendig ist, das Haus zu füllen.
 
 #htl3r.fspace(
   figure(
@@ -464,9 +464,14 @@ Das Siemens TIA ("Totally Integrated Automation") Portal ist eine Kombination au
 
 Aus dieser Suite wird für die Programmierung der Siemens SIMATIC-#htl3r.short[sps] das Tool "STEP 7" verwendet. Die verwendeten Versionen sind hierbei V16 des TIA Portals und ebenfalls V16 von STEP 7.
 
-Wichtig zu beachten ist, dass STEP 7 als einzige im Rahmen dieser Diplomarbeit verwendete #htl3r.short[sps]-Programmierungssoftware die Konfiguration von einem #htl3r.short[scada]-Override zulässt @s7-put-get[comp]. Bei der Konfiguration einer Variable in STEP 7 kann eine TODOOOO
+Wichtig zu beachten ist, dass STEP 7 als einzige im Rahmen dieser Diplomarbeit verwendete #htl3r.short[sps]-Programmierungssoftware die Konfiguration von einem #htl3r.short[scada]-Override zulässt @s7-put-get[comp]. Bei der Konfiguration einer Variable in STEP 7 können Optionen aktiviert werden, die diese Variable sichtbar oder bearbeitbar von einem #htl3r.short[hmi] oder einem #htl3r.short[scada]-System aus machen. Bei den Programmierungsumgebungen von der OpenPLC- und der LOGO!-#htl3r.short[sps] sind alle Output-Variablen standardmäßig von äußeren Quellen aus sichtbar sowie bearbeitbar.
 
-* BILD *
+#htl3r.fspace(
+  figure(
+    image("../assets/ot-work/simatic_vars.png"),
+    caption: [Der Laptop zur OT-Administration]
+  )
+)
 
 ==== OpenPLC-Editor
 
@@ -476,6 +481,14 @@ Die Bereits im @steuerung-zwei erwähnte Software-#htl3r.short[sps]-Runtime -- d
 
 Der OpenPLC-Editor kann nicht direkt ein Programm auf die Runtime hochladen. Um dies zu tun, muss das OpenPLC-Webdashboard (der Runtime) geöffnet werden, wo, unter anderem, Programme hochgeladen und gestartet werden können, das #htl3r.short[psm] programmiert und Monitoring durchgeführt werden kann.
 
+#htl3r.fspace(
+  total-width: 100%,
+  figure(
+    image("../assets/ot-work/openplc_compile.png"),
+    caption: [Kompilieren des OpenPLC-Programms im Webdashboard]
+  )
+)
+
 Weil das Webdashboard als einziges Tool in der OpenPLC-Suite diese Funktionen bietet, kann es nicht gestoppt bzw. deaktiviert werden, ohne dabei die gesamte Runtime zu stoppen. Dies bietet im Vergleich zu anderen #htl3r.shortpl[sps] eine große Angriffsfläche. Es somit auch besonders wichtig, das Passwort vom Default-Admin "openplc" zu ändern (siehe @openplc-manipulation).
 
 #htl3r.author("Gabriel Vogler")
@@ -483,12 +496,24 @@ Weil das Webdashboard als einziges Tool in der OpenPLC-Suite diese Funktionen bi
 
 Im Vergleich zu einer Siemens SIMATIC-#htl3r.short[sps] kann eine Siemens LOGO!-#htl3r.short[sps] nicht mittels STEP-7 programmiert werden. Für die LOGO!-Reihe bietet Siemens eine vom TIA Portal unabhängige Entwicklungsumgebung an, die "Siemens LOGO! Soft Comfort".
 
-#htl3r.todo("vllt hier oben etwas mehr schreiben")
-
 #htl3r.author("David Koch")
 === OpenPLC Python Submodule <openplc-psm>
 
 Um die aus der #htl3r.short[sps]-Programmierung bekannten Hardwareadressen auf einem Raspberry Pi sinnvoll umzusetzen, hat das OpenPLC-Team eine neue Hardwareebene -- das "Python Submodule" (kurz #htl3r.short[psm]) eingeführt. In der Weboberfläche der OpenPLC-Runtime können somit durch ein Python-Skript die #htl3r.short[gpio]-Pins des Raspberry Pi und die "software-defined" #htl3r.short[sps]-Hardwareadressen verknüpft bzw. gemeinsam verwendet werden @openplc-psm-guide[comp].
+
+#htl3r.fspace(
+  total-width: 40%,
+  figure(
+    table(
+      columns: (auto, auto),
+      align: (left, left),
+      table.header[*#htl3r.short[gpio]-Pin*][*SPS-Adresse*],
+      [GPIO 13], [`%QX0.0`],
+      [GPIO 15], [`%QX0.1`],
+    ),
+    caption: [Mapping der GPIO-Pins zu den SPS-Output-Adressen]
+  )
+)
 
 Die für das #htl3r.short[psm] notwendigen Funktionen sind:
 - `hardware_init()` initialisiert die nötigen Hardware-Komponenten.
@@ -496,7 +521,7 @@ Die für das #htl3r.short[psm] notwendigen Funktionen sind:
 - `update_outputs()` setzt die #htl3r.short[gpio]-Pins laut Output-Hardwareadressen.
 - Die Main-Funktion für die Initialisierung der Hardware per `hardware_init()` und die periodische Ausführung von `update_inputs()` und `update_outputs()` (mit einem Intervall von 100ms).
 
-Bei der Initiliasierung wird das PSM gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen GPIO-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
+Bei der Initiliasierung wird das #htl3r.short[psm] gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen #htl3r.short[gpio]-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
 
 #htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
 ```python
@@ -528,18 +553,19 @@ def update_inputs():
 ```
 ]
 
-In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0` und `%QX1` ausgelesen und jeweils auf die GPIO-Pins 13 und 15 gemappt. Erst bei der Setzung der GPIO-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
+In der `update_outputs()` Funktion werden die vom OpenPLC-Programm gesetzten Output-Variablen `%QX0.0` und `%QX0.1` ausgelesen und jeweils auf die #htl3r.short[gpio]-Pins 13 und 15 gemappt. Erst bei der Setzung der #htl3r.short[gpio]-Pins auf "Hoch" wird das jeweilige Pumpen-Relay aktiviert.
 
+#pagebreak(weak: true)
 #htl3r.code(caption: "Setzung der GPIO-Pins anhand der Output-Werte im PSM", description: none)[
 ```python
 def update_outputs():
-    filter_pump_active = psm.get_var("QX0")
+    filter_pump_active = psm.get_var("QX0.0")
     if filter_pump_active == 1:
         GPIO.output(13, GPIO.HIGH)
     else:
         GPIO.output(13, GPIO.LOW)
 
-    prog_pump_active = psm.get_var("QX1")
+    prog_pump_active = psm.get_var("QX0.1")
     if prog_pump_active == 1:
         GPIO.output(15, GPIO.HIGH)
     else:
@@ -561,6 +587,7 @@ if __name__ == "__main__":
 ```
 ]
 
+#pagebreak(weak: true)
 #htl3r.author("David Koch")
 == Programmierung eines I²C-Kommunikationsbusses <diy-i2c>
 
@@ -615,7 +642,7 @@ Um dieses Problem zu lösen wird über die #htl3r.short[i2c]-Kommunikation zwisc
 Die Länge des "Fenrir"-Frames wurde trotz lediglich 2 Bytes an benötigten Nutzdaten bewusst auf 16 Bytes gesetzt (somit max. 12 Bytes an Nutzdaten), da die AdaFruit-SMBus-Library immer auf eine Datenmenge von 128 Bits (= 16 Bytes) wartet, bevor sie diese weiterverarbeitet. @esp32-meets-rpi[comp]
 // ggf auch folgendes zitieren: https://adafruit-pureio.readthedocs.io/en/latest/api.html#Adafruit_PureIO.smbus.SMBus
 
-Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von `0x02`, eine Angabe der Frame-Länge in Bytes TODO, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von `0x04`.
+Wie in @fenrir-frame zu erkennen ist, besitzt der Frame abgesehen von Nutzdaten auch einen Frame-Start-Fixwert von `0x02`, eine Angabe der Frame-Länge in Bytes, eine #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits und einen Frame-End-Fixwert von `0x04`.
 
 Die #htl3r.short[crc]8-Prüfsumme der Nutzdaten-Bits wird auf dem Raspberry Pi mittels Python folgend berechnet:
 
@@ -641,7 +668,7 @@ Das ganze findet klarerweise auch auf der Slave-Seite statt, dort ist der #htl3r
 
 === Integration der I²C-Daten in OpenPLC <i2c-integration>
 
-OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-#htl3r.short[i2c]. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten. Mehr Informationen zum PSM sind in @openplc-psm zu finden.
+OpenPLC Version drei basiert auf dem Busprotokoll Modbus bzw. Modbus-#htl3r.short[tcp]. Somit kann nicht ohne weitere Konfiguration ein Gerät mittels #htl3r.short[i2c] oder einem anderen Busprotokoll mit OpenPLC verbunden und automatisch erkannt werden. Mit dem #htl3r.short[psm] von OpenPLC lassen sich software-defined Modbus-Register erstellen, welchen die über den #htl3r.short[i2c]-Bus erhaltenen Daten des ESP32 enthalten. Mehr Informationen zum #htl3r.short[psm] sind in @openplc-psm zu finden.
 
 Bevor die Daten per #htl3r.short[psm] gemappt werden können, müssen sie zuerst empfangen und dekodiert werden. Dazu wird folgende Python-Funktion verwendet:
 
@@ -702,7 +729,7 @@ Nun kann die #htl3r.short[sps]-Hardwareadresse `%IW2` in einem #htl3r.short[sps]
 #htl3r.fspace(
   [
     #figure(
-      image("../assets/openplc/openplc_vars.png", width: 115%),
+      image("../assets/ot-work/openplc_vars.png", width: 115%),
       caption: [Alle Variablen der OpenPLC-SPS]
     )
     <openplc-vars>
@@ -729,7 +756,7 @@ An der unteren Hutschiene hängt die gesamte Steuerungstechnik aller Betriebszel
 
 #htl3r.fspace(
   figure(
-    image("../assets/schrank.png"),
+    image("../assets/schrank.jpg", width: 92%),
     caption: [Der Schaltschrank der Modell-Kläranlage]
   )
 )

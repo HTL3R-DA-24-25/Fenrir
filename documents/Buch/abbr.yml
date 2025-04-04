@@ -90,15 +90,6 @@ wan:
     plural: Wide Area Networks
   description: Ein Netzwerk, das sich über große geografische Entfernungen erstreckt und mehrere lokale Netzwerke (LANs) miteinander verbindet.
 
-lan:
-  short:
-    singular: LAN
-    plural: LANs
-  long:
-    singular: Local Area Network
-    plural: Local Area Networks
-  description: Ein Netzwerk, das auf ein begrenztes geografisches Gebiet wie ein Gebäude beschränkt ist und Geräte wie Computer und Server miteinander verbindet.
-
 vlan:
   short:
     singular: VLAN
@@ -120,12 +111,14 @@ adds:
   long:
     singular: Active Directory Domain Services
 
-addc:
+dc:
   short:
-    singular: ADDC
-    plural: ADDCs
+    singular: DC
+    plural: DCs
   long:
-    singular: Active Directory Domain Controller
+    singular: Domain Controller
+    plural: Domain Controller
+  description: Ein Server, der die Authentifizierung und Autorisierung von Benutzern und Computern in einem Windows-Domänennetzwerk verwaltet und die Active-Directory-Umgebung bereitstellt.
 
 i2c:
   short:
@@ -342,13 +335,6 @@ dpi:
     singular: Deep Packet Inspection
   description: Die detaillierte Analyse von Datenverkehr in einem Netzwerk, bei der nicht nur der Header, sondern auch die Inhalte der Datenpakete untersucht werden.
 
-http:
-  short:
-    singular: HTTP
-  long:
-    singular: Hypertext Transfer Protocol
-  description: Ein Netzwerkprotokoll zum Austausch von Daten, insbesondere von Webseiten.
-
 nis:
   short:
     singular: NIS
@@ -426,13 +412,6 @@ rtu:
   long:
     singular: Remote Terminal Unit
     plural: Remote Terminal Units
-
-sql:
-  short:
-    singular: SQL
-  long:
-    singular: Structured Query Language
-  description: Eine standardisierte Datenbanksprache zur Verwaltung von Daten in relationalen Datenbanken.
 
 awl:
   short:
@@ -562,13 +541,6 @@ ipsec:
     singular: Internet Protocol Security
   description: Ein Protokoll, welches es ermöglicht, Datenpakete zu verschlüsseln und zu authentifizieren.
 
-ntp:
-  short:
-    singular: NTP
-  long:
-    singular: Network Time Protocol
-  description: Ein Protokoll zur Synchronisation von Uhren in Computernetzwerken.
-
 svi:
   short:
     singular: SVI
@@ -593,13 +565,6 @@ icmp:
   long:
     singular: Internet Control Message Protocol
   description: Ein Netzwerkprotokoll, was primär zur Diagnose von Problemen in der Netzwerkkommunikation verwendet wird. Es wird vor allem verwendet, um festzustellen, ob Daten ihr Ziel erreichen können oder nicht.
-
-vlsm:
-  short:
-    singular: VLSM
-  long:
-    singular: Variable Length Subnet Masking
-  description: Eine Methodik, um Subnetze in mehrere kleinere Subnetze zu unterteilen, oder aber auch mehrere kleinere Subnetze in ein größeres zu gruppieren.
 
 pdu:
   short:
@@ -650,4 +615,55 @@ sid:
     singular: SID
   long:
     singular: Security Identifier
-  description: Eine eindeutige Kennung, welche einem Benutzer oder einer Gruppe in einem Windows-System zugeordnet wird.
+  description: Eine eindeutige Kennung, welche einem Benutzer oder einer Gruppe in einem Windows-System/-Domain zugeordnet wird.
+
+csv:
+  short:
+    singular: CSV
+  long:
+    singular: Comma-Separated Values
+  description: Ein einfaches, textbasiertes Datenformat, bei dem Werte durch Trennzeichen getrennt sind, um strukturierte Daten tabellarisch darzustellen.
+
+nat:
+  short:
+    singular: NAT
+  long:
+    singular: Network Address Translation
+  description: Eine methodik einen IP-Adressbereich auf einen anderen zu übersetzen.
+
+lsass:
+  short:
+    singular: LSASS
+  long:
+    singular: Local Security Authority Subsystem Service
+  description: Ein Windows-Dienst, der für die Authentifizierung von Benutzern und die Durchsetzung von Sicherheitsrichtlinien verantwortlich ist.
+
+lsa :
+  short:
+    singular: LSA
+  long:
+    singular: Local Security Authority
+  description: Eine Windowskomponente, die für die Verwaltung von Sicherheitsrichtlinien und Authentifizierungsprozessen verantwortlich ist.
+
+laps:
+  short:
+    singular: LAPS
+  long:
+    singular: Local Administrator Password Solution
+  description: Eine Microsoft-Lösung zur Zentralen Verwaltung von lokalen Administratorpasswörtern auf Windows-Systemen.
+
+ntlm:
+  short:
+    singular: NTLM
+  long:
+    singular: NT LAN Manager
+  description: Ein legacy Authentifizierungsprotokoll von Microsoft.
+
+tgt:
+  short:
+    singular: TGT
+    plural: TGTs
+  long:
+    singular: Ticket Granting Ticket
+    plural: Ticket Granting Tickets
+  description: Ein Ticket, welches vom Kerberos-Authentifizierungsdienst ausgestellt wird und es einem Benutzer ermöglicht, auf verschiedene Dienste innerhalb einer Kerberos-geschützten Umgebung zuzugreifen, ohne sich erneut authentifizieren zu müssen.

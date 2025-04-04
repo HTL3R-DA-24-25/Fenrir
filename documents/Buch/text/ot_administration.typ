@@ -20,7 +20,7 @@ Als ein Fork von der Open-Source Software Scada-BR ist Scada-LTS der Nachfolger 
 ==== Aufsetzen von SCADA-LTS
 Das Aufsetzen von Scada-LTS ist relativ simpel gestaltet, da nur die Docker-Images zu laden und zu starten sind. Auf dem öffentlichen Repository #footnote[https://github.com/SCADA-LTS/Scada-LTS] von Scada-LTS ist eine Docker-Compose Datei zu finden, mit welcher das ganze System gestartet werden kann. Es ist jedoch sinnvoll, diese Datei anzupassen, um einen reibungslosen Start zu gewährleisten.
 
-Vor allem ist dabei zu beachten, dass der Scada-LTS Docker abstürzt, sollte keine Verbindung zur Datenbank hergestellt werden können. Deshalb sollte Scada-LTS in der Docker-Compose Datei eine Abhängigkeit von der Datenbank bekommen, damit es erst startet, wenn die Datenbank bereit ist.
+Vor allem ist dabei zu beachten, dass der Scada-LTS Docker abstürzt, sollte keine Verbindung zur Datenbank hergestellt werden können. Deshalb muss Scada-LTS in der Docker-Compose Datei eine Abhängigkeit von der Datenbank bekommen, damit es erst startet, wenn die Datenbank bereit ist.
 ```yaml
 depends_on:
     database:
@@ -38,17 +38,32 @@ Jegliche Konfiguration von Scada-LTS erfolgt über das Webdashbord, welches unte
 
 Die mit Abstand wichtigste Konfiguration in einem #htl3r.short[scada] sind die Datasources, da diese jegliche Datenquellen darstellen. In Scada-LTS konfiguriert man diese unter dem gleichnamigen Punkt, wobei zu Testzwecken es auch möglich ist, virtuelle Datenquellen anzulegen. Dies ist im Echtbetrieb jedoch kaum sinnvoll.
 
-Stattdessen werden reale Datenquellen angegeben, welche typischerweise Modbus-IP Quellen sind. Bei der Konfiguration sind einige Daten anzugeben, die wichtigsten hierbei sind der Transport-Type, Host und Port.
+Stattdessen werden reale Datenquellen angegeben, welche typischerweise Modbus-#htl3r.short[ip] Quellen sind. Bei der Konfiguration sind einige Daten anzugeben, die wichtigsten hierbei sind der Transport-Type, Host und Port.
 
 Eine Datasource kann mehrere Datenpunkte haben, womit verschiedene Werte gemeint sind, die von der #htl3r.short[sps] ausgegeben werden. Datenpunkte beziehen sich immer auf eine Register range, Datentyp und einem Offset. Es können pro Datenquelle beliebig viele Datenpunkte konfiguriert werden, diese müssen jedoch mit der Konfiguration der Register auf der gegenüberliegenden #htl3r.short[sps] übereinstimmen, um die Binärwerte richtig auslesen zu können.
 
 #htl3r.fspace(
-  figure(
+  [
+    #figure(
     image("../assets/scada_datasource.png", width: 100%),
     caption: [Anlegen einer Datasource in Scada-LTS]
   )
+  <scada-datasource>
+  ]
 )
-#htl3r.todo[Bild beschreiben]
+
+In @scada-datasource ist die Konfiguration einer Datasource zu sehen. Dabei ist der Transport-Type von #htl3r.short[tcp] zu beachten, sowie die verwendete Host-#htl3r.short[ip]. Scada-LTS stellt einen Modbus-Scan in der Konfiguration zur Verfügung, mit welchem nach verwendeten Coils gesucht werden kann. Wenn man nun den Offset der Register weiß, erstellt man im unteren Teil der Oberfläche neue Points, wobei man hier diese auch schon sehen kann.  
+
+Bei dem Hinzufügen eines neuen Datapoints unter einer Datasource ist darauf zu achten, dass der Datentyp mit dem auf der #htl3r.short[sps] konfigurierten Datentyp übereinstimmt, damit auch die richtige Anzahl an Bits gelesen wird. Weiters ist der Offset von großer Bedeutung, da dieser angibt, ab welchem Register der Datapoint gelesen werden soll. Meist findet man in der Dokumentation der #htl3r.short[sps] den benötigten Offset, falls nicht, muss dieser gescannt werden. Auch die Register range ist wichtig, da diese verschiedene Typen von Registern repräsentiert. Nur Input- oder Holding-Register können Datentypen annehmen, die nicht binär sind. Coil status sowie Input status sind dagegen immer binär. Außerdem kann man nur Input-Register setzen, alle anderen sind read-only. \
+
+#htl3r.fspace(
+  [
+    #figure(
+    image("../assets/scada_datapoint.png", width: 100%),
+    caption: [Anlegen eines Datapoints in Scada-LTS]
+  )
+  ]
+)
 
 Es ist auch sinnvoll, ein grafisches Interface zu konfigurieren, da dies einen schnellen Überblick über ein System bringt. Vor allem, wenn dies mit interaktiven Bildern kombiniert wird, ist die Überwachung um einiges angenehmer. Hierbei sollte für jede Betriebszelle ein eigenes grafisches Interface erstellt werden, um eine optische Trennung zu ermöglichen.
 
@@ -77,7 +92,8 @@ Im Falle der Modell-Kläranlage ist es nicht der Fall. Hier wird jede Betriebsze
 ==== Betriebszelle Eins
 
 In der ersten Betriebszelle ist nur die Schraube, welche das Wasser in den obersten Wassertank befördert, mittels #htl3r.short[sps] gesteuert, wodurch auch das #htl3r.short[scada] nur diese Schraube steuern kann. Über das #htl3r.short[scada] kann die Schraube ein- bzw. ausgeschalten werden. \
-Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab, den Fluss des Wassers zu visualisieren. So sind die Tanks und die Schraube grafisch dargestellt, um Endnutzern eine einfache Übersicht zu geben.
+Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab, den Fluss des Wassers zu visualisieren. So sind die Tanks und die Schraube grafisch dargestellt, um Endnutzern eine einfache Übersicht zu geben. \
+Man erkennt hier auch den Fluss des Wassers, dieser ist zwar nicht live animiert, jedoch wird einem Benutzer so klar, dass das Wasser erst die Schnecke hinauf befördert werden muss, bevor es durch den Rechen in das Auffangbecken gelangt und von dort weiter in die nächste Zelle befördert wird. Steine werden hierbei ausgefiltert. 
 
 #htl3r.fspace(
   figure(
@@ -85,7 +101,6 @@ Das grafische Interface der ersten Betriebszelle zielt vor allem stark darauf ab
     caption: [Das SCADA-Dashboard der ersten Betriebszelle]
   )
 )
-#htl3r.todo[Bild beschreiben (Abfluss ist nicht erkennbar)]
 
 
 ==== Betriebszelle Zwei
@@ -125,7 +140,7 @@ Wenn es in der Betriebszelle zu einer Überflutung kommt, so wird dies im #htl3r
 
 Damit das #htl3r.short[scada]-System auf die #htl3r.shortpl[sps] zugreifen und deren Werte auslesen kann, müssen die #htl3r.shortpl[sps] Kommunikation über Modbus #htl3r.short[tcp] zulassen. Bei der OpenPLC-#htl3r.short[sps] zum Beispiel ist diese Kommunikationsschnittstelle standardmäßig aktiviert, bei der Siemens LOGO! und der S7-1200 nicht.
 
-Um auf der LOGO! die Modbus TCP Kommunikation zu aktivieren, muss in den Einstellungen unter #htl3r.breadcrumbs(("Offline Settings", "General", "Ethernet connections")) die Checkbox für "Allow Modbus access" aktiviert werden. Danach muss noch unterhalb dieser Checkbox der konkrete Modbus-Server, also das #htl3r.short[scada]-System, konfiguriert werden.
+Um auf der LOGO! die Modbus #htl3r.short[tcp] Kommunikation zu aktivieren, muss in den Einstellungen unter #htl3r.breadcrumbs(("Offline Settings", "General", "Ethernet connections")) die Checkbox für "Allow Modbus access" aktiviert werden. Danach muss noch unterhalb dieser Checkbox der konkrete Modbus-Server, also das #htl3r.short[scada]-System, konfiguriert werden.
 
 #htl3r.fspace(
   figure(
@@ -134,7 +149,7 @@ Um auf der LOGO! die Modbus TCP Kommunikation zu aktivieren, muss in den Einstel
   )
 )
 
-Bei der Konfiguration des Modbus-Servers muss lediglich der Port und die IP-Adresse eingetragen werden. Es kann auch ausgewählt werden, dass unabhängig von der IP-Adresse alle Anfragen akzeptiert werden, dies sollte jedoch sicherheitstechnisch nicht verwendet werden.
+Bei der Konfiguration des Modbus-Servers muss lediglich der Port und die #htl3r.short[ip]-Adresse eingetragen werden. Es kann auch ausgewählt werden, dass unabhängig von der #htl3r.short[ip]-Adresse alle Anfragen akzeptiert werden, dies sollte jedoch sicherheitstechnisch nicht verwendet werden.
 
 #htl3r.fspace(
   figure(
@@ -147,12 +162,12 @@ Im Gegenteil zur LOGO! und OpenPLC ist die nötige Konfiguration für eine Modbu
 
 #htl3r.fspace(
   figure(
-    image("../assets/ot-work/modbus_fup.png"),
+    image("../assets/ot-work/modbus_fup.png", width: 90%),
     caption: [Der `MB_SERVER` Funktionsbaustein]
   )
 )
 
-Der Funktionsbaustein bietet drei Eingabe- und vier Ausgabe-Variablen, wobei auf beiden Seiten jeweils nur zwei verwendet werden. Die Eingabe-Variable `MB_HOLD_REG` ist der Speicherbereich für die "Holding Register" des Modbus-Servers. Der Modbus-Client kann auf diese Register lesend und schreibend zugreifen. Die Größe des Arrays bestimmt, wie viele Register zur Verfügung stehen. Die Variable `CONNECT` dient zur Angabe der Verbindungseinstellungen. Zu den Verbindungseinstellungen gehören, unter anderem, TODO
+Der Funktionsbaustein bietet drei Eingabe- und vier Ausgabe-Variablen, wobei auf beiden Seiten jeweils nur zwei verwendet werden. Die Eingabe-Variable `MB_HOLD_REG` ist der Speicherbereich für die "Holding Register" des Modbus-Servers. Der Modbus-Client kann auf diese Register lesend und schreibend zugreifen. Die Größe des Arrays bestimmt, wie viele Register zur Verfügung stehen. Die Variable `CONNECT` dient zur Angabe der Verbindungseinstellungen. Zu den Verbindungseinstellungen gehören, unter anderem, die #htl3r.short[ip]-Adresse des Remote-Hosts, der Modbus-Port, die Connection-ID und der Connection-Type.
 
 #htl3r.fspace(
   figure(
@@ -168,11 +183,17 @@ Ein #htl3r.short[mes] ist ein System, mit welchem Prozesse etwas "grober" als mi
 
 === Entwicklung des MES
 Da Lizenzkosten und Anschaffung eines industriereifen #htl3r.short[mes] für das Projekt nicht möglich waren, ist das verwendete #htl3r.short[mes] selbst geschrieben. Hierbei ist eine Web-App im Einsatz, welche mit dem #htl3r.short[scada] kommuniziert. Diese Web-App ist mit Next.js geschrieben, wobei Komponenten von shadcn verwendet werden, um sie leichter bedienbar und visuell ansprechbarer zu machen.
-#htl3r.todo[Funktionsgrafik (? SDO)]
+
+#htl3r.fspace(
+  figure(
+    image("../assets/mes-ablaufdiagram.png"),
+    caption: [Ablauf von Userinteraktionen im MES]
+  )
+)
 
 ==== Authentifizierung
-Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, damit ein eingeloggter Benutzer nach dieser Zeit das Passwort neu eingeben muss, um die Sicherheit zu gewährleisten. Dies bewirkt auch, dass ein gehijackter Token nicht unendlich lange ausgenutzt werden kann. \
-#htl3r.todo[letze Sätze nochmal anschauen]
+Zur Authentifizierung bei der Anmeldung an das #htl3r.short[mes] ist ein Benutzer in den Umgebungsvariablen festgelegt. Nur bei der Neuanmeldung eines Benutzers wird der Benutzername kontrolliert. Danach wird mittels #htl3r.short[jwt] ein Token generiert, welcher als Authentifizierung dient. Dieser Token ist nur für eine bestimmte Zeit (4h) gültig, damit ein eingeloggter Benutzer nach dieser Zeit das Passwort neu eingeben muss, um die Sicherheit zu gewährleisten. Dies bewirkt auch, dass ein gehijackter Token nicht unendlich lange ausgenutzt werden kann, da solch ein Angriff im Falle von #htl3r.short[jwt]-Tokens relativ häufig ist. \
+
 #htl3r.code(caption: "Funktion zum Anmelden am MES", description: none)[
 ```ts
 export default async function handler(
@@ -290,9 +311,8 @@ Soll nun ein Datenpunkt gelöscht werden, so wird mittels eines #htl3r.short[api
 
 
 ==== Funktionsweise im Backend
-Userinputs auf der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, sind also für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
-Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode zu sehenden Funktionen, welche je über einen #htl3r.short[api]-call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
-#htl3r.todo[Auf Quellcode linken? Möglich?]
+User-Inputs in der Web-App werden mittels #htl3r.short[api]-calls an das Backend geleitet, welches diese verarbeitet und dann erneut via #htl3r.short[api]-calls an das #htl3r.short[scada] weiterleitet. Im Backend findet die Verarbeitung von Anfragen statt, sowie auch das ausführen, hinzufügen und löschen von Jobs. Jobs sind in diesem Fall Zeitintervalle, in welchen ein Aktor ein- oder ausgeschalten werden soll. Diese Jobs sind unabhängig vom Client, also sind sie für jeden User gleich. Außerdem kann die Webpage geschlossen werden, ohne dass Jobs terminiert werden. \
+Alle Jobs werden mittels Node-Cron verwaltet, um sie zur gewünschten Uhrzeit auszuführen. Das Hinzufügen und Löschen von Jobs erfolgt über die im folgenden Quellcode 5.7 zu sehenden Funktionen, welche je über einen #htl3r.short[api]-Call aufgerufen werden. Mehr zu den Jobs ist im Abschnitt @cron-jobs zu finden.
 
 #htl3r.code-file(
   caption: "Funktionen, zur Erstellung und Löschung von Jobs",
@@ -314,7 +334,7 @@ Die Kommunikation zwischen #htl3r.short[mes] und #htl3r.short[scada] erfolgt via
 
 
 ==== Cron Jobs <cron-jobs>
-Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden bei Hinzufügung von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus zwei Teilen: Der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das Ein- oder Ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
+Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit ausgeführt werden. Diese Jobs werden mittels Node-Cron verwaltet und sind unabhängig von der Web-App. Sie werden beim Hinzufügen von neuen Jobs erstellt und laufen auch weiter, wenn die Web-App geschlossen wird. Ein Job besteht immer aus zwei Teilen: der Aktivierung sowie der Deaktivierung. Dabei geht es nicht strikt um das Ein- oder Ausschalten von einem Datenpunkt, sondern um das setzen und zurücksetzen des gewünschten Wertes. \
 
 #htl3r.code-file(
   caption: "In einen Cron-Job ausgeführter Job",
@@ -325,18 +345,26 @@ Cron Jobs sind in der Web-App dafür zuständig, dass Jobs zur gewünschten Zeit
 )
 
 === Funktionsweise für Enduser
-Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit im #htl3r.short[scada] überschrieben werden können. Das #htl3r.short[mes] ruft automatisch alle vorhandenen Datenpunkte vom #htl3r.short[scada] ab und stellt alle binären -- also alle, welche nur ein- und ausschalten sind -- auf dem Dashboard dar. Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
-#htl3r.todo[Gedruckt lesbar machen]
+Im Falle, dass der Client einen gültigen #htl3r.short[jwt] Token vorweisen kann, besitzt dieser die Berechtigung, auf das Dashboard des #htl3r.short[mes] zuzugreifen. Über diese kann nun das #htl3r.short[scada] gesteuert werden, jedoch sind im Vergleich zum #htl3r.short[scada] nur gröbere Einstellungen möglich, welche jederzeit im #htl3r.short[scada] überschrieben werden können. Das #htl3r.short[mes] ruft automatisch alle vorhandenen Datenpunkte vom #htl3r.short[scada] ab und stellt alle binären -- also alle, welche nur ein- und ausschalten sind -- auf dem Dashboard dar. \
+
 #htl3r.fspace(
   figure(
-    image("../assets/MES-Dashboard.png", width: 100%),
-    caption: [Das Dashboard des MES]
+    image("../assets/MES-Dashboard-Datapoints.png", width: 100%),
+    caption: [Alle Datenpunkte des SCADA-Systems auf dem Dashboard des MES]
   )
 )
 
-Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für 4 Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. Weiters erhält der Client auch den Token zur Anmeldung am #htl3r.short[scada], damit dieser nicht im Backend verwaltet werden muss. \
+Weiters sind auf dem Dashboard alle geplanten Jobs zu sehen, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
 
-#htl3r.todo[Loginfeld ausschneiden]
+#htl3r.fspace(
+  figure(
+    image("../assets/MES-Dashboard-Jobs.png", width: 100%),
+    caption: [Alle upcoming Jobs auf dem Dashboard des MES]
+  )
+)
+
+Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die Anmeldeseite weitergeleitet. Hierbei wird der Benutzername und das Passwort abgefragt, wobei der Benutzername in den Umgebungsvariablen festgelegt ist. Nach der Anmeldung wird ein #htl3r.short[jwt] Token generiert, welcher für vier Stunden gültig ist. Dieser Token wird in einem Cookie gespeichert, um den Benutzer automatisch anzumelden, sollte dieser die Seite neu laden. Weiters erhält der Client auch den Token zur Anmeldung am #htl3r.short[scada], damit dieser nicht im Backend verwaltet werden muss. \
+
 #htl3r.fspace(
   figure(
     image("../assets/MES-Login.png", width: 100%),

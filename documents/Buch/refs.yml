@@ -458,3 +458,93 @@ nis-2-wko:
     value: https://www.wko.at/it-sicherheit/nis2-uebersicht
     date: 2025-03-16
   date: 2025-03-11
+
+ms-security-pdf-phish:
+  type: misc
+  title: Trojan:PDF/Phish
+  author: Microsoft Security Intelligence
+  url:
+    value: https://www.microsoft.com/en-us/wdsi/threats/threat-search?query=trojan:pdf/phish
+    date: 2025-03-28
+  date: 2025
+
+tsystems-ot-ransomware:
+  type: blog
+  title: Warum OT-Security jeden betrifft
+  author: Dheeraj Rawal
+  url:
+    value: https://www.t-systems.com/at/de/insights/newsroom/blog/ot-sicherheit-fuer-kritische-infrastrukturen-1009144
+    date: 2025-03-28
+  date: 2024-07-26
+
+cloudflare-wannacry:
+  type: article
+  title: What was the WannaCry ransomware attack?
+  author: Cloudflare
+  url:
+    value: https://www.cloudflare.com/learning/security/ransomware/wannacry-ransomware/
+    date: 2025-03-28
+  date: 2017
+
+msrc-wannacrypt:
+  type: misc
+  title: Customer Guidance for WannaCrypt attacks
+  author: Microsoft Security Response Center
+  url:
+    value: https://msrc.microsoft.com/blog/2017/05/customer-guidance-for-wannacrypt-attacks/
+    date: 2025-03-28
+  date: 2017-05-13
+
+profinet-dcp-doc:
+  type: misc
+  title: DCP – Discovery and Configuration Protocol
+  author: Profinet University
+  url:
+    value: https://profinetuniversity.com/naming-addressing/profinet-dcp/
+    date: 2025-04-02
+  date: 2025
+
+credential-guard:
+  type: misc
+  title: How Credential Guard works
+  author: Microsoft
+  url:
+    value: https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/how-it-works
+    date: 2025-04-03
+  date: 2025
+
+laps-overview:
+  type: misc
+  title: Was ist das Windows LAPS?
+  author: Microsoft
+  url:
+    value: https://learn.microsoft.com/de-de/windows-server/identity/laps/laps-overview
+    date: 2025-04-03
+  date: 2025
+
+protected-users-doc:
+  type: misc
+  title: Protected Users Security group
+  author: Microsoft
+  url:
+    value: https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group
+    date: 2025-04-03
+  date: 2025
+
+golden-ticket-doc:
+  type: misc
+  title: Vom Support Benutzer zum „Golden Ticket“
+  author: GoSecurity
+  url:
+    value: https://www.gosecurity.ch/vom-support-benutzer-zum-golden-ticket/
+    date: 2025-04-03
+  date: 2025
+
+phishing-mail-doc:
+  type: misc
+  title: Initial Access
+  author: MITRE ATT&CK
+  url:
+    value: https://attack.mitre.org/tactics/TA0001/
+    date: 2025-04-04
+  date: 2025

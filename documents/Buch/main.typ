@@ -29,7 +29,7 @@
   print-ref: false,
   generative-ai-clause: none,
   abbreviation: yaml("abbr.yml"),
-  bibliography-content: bibliography("refs.yml", full: true, title: [Literaturverzeichnis]),
+  bibliography-content: bibliography("refs.yml", full: false, title: [Literaturverzeichnis]),
 )
 
 #include "text/vorwort.typ"

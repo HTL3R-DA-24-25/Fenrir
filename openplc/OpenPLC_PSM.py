@@ -221,13 +221,13 @@ def update_inputs():
 
 
 def update_outputs():
-    filter_pump_active = psm.get_var("QX0")
+    filter_pump_active = psm.get_var("QX0.0")
     if filter_pump_active == 1:
         GPIO.output(13, GPIO.HIGH)
     else:
         GPIO.output(13, GPIO.LOW)
 
-    prog_pump_active = psm.get_var("QX1")
+    prog_pump_active = psm.get_var("QX0.1")
     if prog_pump_active == 1:
         GPIO.output(15, GPIO.HIGH)
     else:
