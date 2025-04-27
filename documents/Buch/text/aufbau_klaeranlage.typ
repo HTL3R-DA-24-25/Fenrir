@@ -115,7 +115,7 @@ Die zweite Betriebszelle dient der Feinfiltration des bereits grobfiltrierten Ab
 Sie besteht aus zwei durchsichtigen Acryl-Wassertanks welche jeweils ca. 3L an Volumen aufweisen. Diese sind oben offen, werden jedoch von Deckeln abgedeckt. Diese Deckel wurden mittels 3D-Modellierung speziell angefertigt und zweimal gedruckt. In diesen Deckeln ist die für den Wassertank jeweils notwendige Sensorik verbaut. Diese besteht aus einem Füllstandssensor mit Schwimmer -- welcher als Widerstand agiert -- sowie einem DS18B20-Temperatursensor.
 Außerdem hat jeder Tankdeckel auch noch eine Öffnung für einen Schlauch, welcher als Zufluss dient. Als Gegenstück besitzt jeder Tank an der Unterseite einen Messing Auslass mit Gewinde, an welchem dann ein Harnverbinder angeschraubt um eine Steckverbindung für die weiteren Schläuche zu ermöglichen.
 
-Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filterball und eine Pumpe, welche Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transportiert. Die Pumpe wurde hinter dem Filter platziert, um dieser vor Verstopfungen durch Schmutzpartikel zu schützen. Ein Filterball wurde innerhalb des Filters hinzugefügt, da dieser die Schmutzpartikel sehr gut aufnimmt und die Belastung des Filters verringert und somit die Effizienz der Filration erhöht und die Lebensdauer des Filters verlängert.
+Zwischen den Tanks befindet sich ein herkömmlicher Gartenpumpenfilter mit Filterball und eine Pumpe, welche Flüssigkeiten von einem Tank in den Nächsten durch den Filter hindurch transportiert. Die Pumpe wurde hinter dem Filter platziert, um dieser vor Verstopfungen durch Schmutzpartikel zu schützen. Ein Filterball wurde innerhalb des Filters hinzugefügt, da dieser die Schmutzpartikel sehr gut aufnimmt und die Belastung des Filters verringert. Somit ist die Effizienz der Filtration erhöht und die Lebensdauer des Filters verlängert.
 
 #htl3r.fspace(
   figure(
@@ -499,7 +499,7 @@ Im Vergleich zu einer Siemens SIMATIC-#htl3r.short[sps] kann eine Siemens LOGO!-
 #htl3r.author("David Koch")
 === OpenPLC Python Submodule <openplc-psm>
 
-Um die aus der #htl3r.short[sps]-Programmierung bekannten Hardwareadressen auf einem Raspberry Pi sinnvoll umzusetzen, hat das OpenPLC-Team eine neue Hardwareebene -- das "Python Submodule" (kurz #htl3r.short[psm]) eingeführt. In der Weboberfläche der OpenPLC-Runtime können somit durch ein Python-Skript die #htl3r.short[gpio]-Pins des Raspberry Pi und die "software-defined" #htl3r.short[sps]-Hardwareadressen verknüpft bzw. gemeinsam verwendet werden @openplc-psm-guide[comp].
+Um die aus der #htl3r.short[sps]-Programmierung bekannten Hardwareadressen auf einem Raspberry Pi sinnvoll umzusetzen, hat das OpenPLC-Team eine neue Hardwareebene -- das "Python Submodule" (kurz #htl3r.short[psm]) -- eingeführt. In der Weboberfläche der OpenPLC-Runtime können somit durch ein Python-Skript die #htl3r.short[gpio]-Pins des Raspberry Pi und die "software-defined" #htl3r.short[sps]-Hardwareadressen verknüpft bzw. gemeinsam verwendet werden @openplc-psm-guide[comp].
 
 #htl3r.fspace(
   total-width: 40%,
@@ -521,7 +521,7 @@ Die für das #htl3r.short[psm] notwendigen Funktionen sind:
 - `update_outputs()` setzt die #htl3r.short[gpio]-Pins laut Output-Hardwareadressen.
 - Die Main-Funktion für die Initialisierung der Hardware per `hardware_init()` und die periodische Ausführung von `update_inputs()` und `update_outputs()` (mit einem Intervall von 100ms).
 
-Bei der Initiliasierung wird das #htl3r.short[psm] gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen #htl3r.short[gpio]-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
+Bei der Initialisierung wird das #htl3r.short[psm] gestartet, die Temperatursensoren per "W1ThermSensor"-Python-Library geladen und die für die Pumpen-Relays zuständigen #htl3r.short[gpio]-Pins werden als Output-Pins konfiguriert. Es ist hierbei wichtig zu beachten, dass die Variable `sensors`, die die Temperatursensoren beinhaltet, am Anfang der Funktion als globale Variable gekennzeichnet wird. Dies muss gemacht werden, da sie von dieser Funktion als auch der Funktion `update_inputs()` benötigt wird, aber keine direkte Referenz-Übergabe per Funktionsparameter möglich ist.
 
 #htl3r.code(caption: "Die Initialisierung der Hardware-Komponenten im PSM", description: none)[
 ```python
@@ -535,7 +535,7 @@ def hardware_init():
 ```
 ]
 
-In der `update_inputs()` Funktion werden sie Messwerte der Temperatursensoren und der Füllstandssensoren ausgelesen und in den Input-Variablen `%IW0` bis `%IW4` gespeichert. Die Werte des DS18B20-Temperatursensors lassen sich durch die Python-Bibliothek `w1thermsensor` ganz einfach mittels `.get_temperature()` auslesen. Da die Werte der Füllstandssensoren zuerst vom ESP32 verarbeitet werden müssen und erst danach per #htl3r.short[i2c] an OpenPLC geschickt werden fällt das Auslesen dieser etwas komplexer aus. Es wird zuerst eine Hello-Nachricht an den ESP32 geschickt, welcher auf diese mit den derzeitigen Messwerten antwortet. Da die Antwort nicht sofort stattfindet, ist eine 50ms Verzögerung zwischen der Hello-Nachricht und dem Auslesen der #htl3r.short[i2c]-Werte nötig. In @diy-i2c wird der nötige Programmcode für die #htl3r.short[i2c]-Kommunikation genauer erklärt.
+In der `update_inputs()` Funktion werden sie Messwerte der Temperatursensoren und der Füllstandssensoren ausgelesen und in den Input-Variablen `%IW0` bis `%IW4` gespeichert. Die Werte des DS18B20-Temperatursensors lassen sich durch die Python-Bibliothek `w1thermsensor` ganz einfach mittels `.get_temperature()` auslesen. Da die Werte der Füllstandssensoren zuerst vom ESP32 verarbeitet werden müssen und erst danach per #htl3r.short[i2c] an OpenPLC geschickt werden, fällt das Auslesen dieser etwas komplexer aus. Es wird zuerst eine Hello-Nachricht an den ESP32 geschickt, welcher auf diese mit den derzeitigen Messwerten antwortet. Da die Antwort nicht sofort stattfindet, ist eine 50ms Verzögerung zwischen der Hello-Nachricht und dem Auslesen der #htl3r.short[i2c]-Werte nötig. In @diy-i2c wird der nötige Programmcode für die #htl3r.short[i2c]-Kommunikation genauer erklärt.
 
 #htl3r.code(caption: "Erfassung und Setzung der Input-Werte im PSM", description: none)[
 ```python

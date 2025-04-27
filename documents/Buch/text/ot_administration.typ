@@ -280,7 +280,7 @@ export type Datapoint = {
 };
 ```
 ]
-Die #htl3r.short[mes] spezifischen Variablen dürfen dabei nicht überschrieben werden, sollten die vom #htl3r.short[scada] stammendenden Daten aktualisiert werden.
+Die #htl3r.short[mes]-spezifischen Variablen dürfen dabei nicht überschrieben werden, sollten die vom #htl3r.short[scada] stammenden Daten aktualisiert werden.
 #htl3r.code(caption: "Codeabschnitt zum Aktualisieren der Datenpunkte", description: none)[
 ```ts
 const updatedData = data.map((datapoint: Datapoint) => {
@@ -295,7 +295,7 @@ const updatedData = data.map((datapoint: Datapoint) => {
         });
 ```
 ]
-All die Datenpunkte werden schlussendlich in einer Tabelle dargestellt, in welche Benutzer Daten sowie Uhrzeiten auswählen können, um Jobs zu erstellen. \
+Alle Datenpunkte werden schlussendlich in einer Tabelle dargestellt, in welche Benutzer Daten sowie Uhrzeiten auswählen können, um Jobs zu erstellen. \
 
 Die zweite Tabelle zeigt alle derzeitig geplanten Jobs an, welche in der Zukunft ausgeführt werden sollen. Diese Jobs können nicht bearbeitet werden, sondern nur gelöscht, womit die Tabelle fast ausschließlich zum Einsehen gemacht ist. Falls ein Job abgeschlossen ist, wird dieser automatisch gelöscht. \
 Um auch die Namen der Datenpunkte anzeigen zu können, werden diese mit den Datenpunkten vom #htl3r.short[scada] abgeglichen, da im #htl3r.short[mes] nur die xid gespeichert wird.
@@ -373,5 +373,5 @@ Falls kein gültiger #htl3r.short[jwt] Token vorliegt, wird der Client auf die A
 )
 
 === Aufsetzen
-Da das #htl3r.short[mes] mittels Next.js geschrieben ist, kann das fertige System in einen Docker-Image gepackt werden. Dieses Image ist dann auf den Server zu kopieren und mit Einbindung der .env Datei zu starten. Diese .env Datei enthält die Konfiguration des #htl3r.short[mes], wie beispielsweise die Anmeldedaten für die #htl3r.short[api] des #htl3r.short[scada] oder die Adresse des #htl3r.short[scada]-Servers.
+Da das #htl3r.short[mes] mittels Next.js geschrieben ist, kann das fertige System in ein Docker-Image gepackt werden. Dieses Image ist dann auf den Server zu kopieren und mit Einbindung der .env Datei zu starten. Diese .env Datei enthält die Konfiguration des #htl3r.short[mes], wie beispielsweise die Anmeldedaten für die #htl3r.short[api] des #htl3r.short[scada] oder die Adresse des #htl3r.short[scada]-Servers.
 

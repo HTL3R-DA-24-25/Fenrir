@@ -3,7 +3,7 @@
 #htl3r.author("Julian Burger")
 = Firewall-Konfiguration <firewall-config>
 
-Als Firewalls wurden exclusiv FortiGates, Produkte der Firma Fortinet, verwendet. Diese sind mittels Kommandozeile, oder aber auch Web-Oberfläche, konfigurierbar. Die Konfiguration auf der Kommandozeile erfolgt über eine Fortinet eigene Konfigurationsspprache. Diese ist in diverse Sub-Konfigurations-Menüs unterteilt, welche es jeweils erlauben die, für das ausgewählte Sub-Konfigurations-Menü, eigenen Objekte zu erstellen, bearbeiten, oder zu entfernen.
+Als Firewalls wurden exklusiv FortiGates, Produkte der Firma Fortinet, verwendet. Diese sind mittels Kommandozeile, oder aber auch Web-Oberfläche, konfigurierbar. Die Konfiguration auf der Kommandozeile erfolgt über eine Fortinet eigene Konfigurationsspprache. Diese ist in diverse Sub-Konfigurations-Menüs unterteilt, welche es jeweils erlauben die, für das ausgewählte Sub-Konfigurations-Menü, eigenen Objekte zu erstellen, bearbeiten, oder zu entfernen.
 
 Insgesammt existieren innerhalb der Kläranlagen-Infrastruktur drei physische FortiGate-Firewalls. Diese unterteilen jeweils die verschiedenen Ebenen nach dem Purdue-Modell.
 
@@ -104,7 +104,7 @@ Im Falle der Uplink-Firewall sind die Policies so konfiguriert, dass nur der nö
 #pagebreak(weak: true)
 In die #htl3r.short[it]-SEC-Zone wird nur Datenverkehr zugelassen, der auch notwendig ist. Dies bedeutet alle für #htl3r.short[adds] notwendigen Ports und Protokolle, sowie Web-Access auf die Nozomi Guardian.
 
-Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic in Richtung Jumphost erlaubt.
+Richtung Downlink wird nur der #htl3r.short[vpn]-Traffic zum Jump-Server erlaubt.
 
 #htl3r.author("Julian Burger")
 == Übergangs-Firewall Konfiguration <separation_firewall>
